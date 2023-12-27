@@ -31,7 +31,7 @@ export default function Comp({href}:compProps) {
       )
     const liked=true;
     return (
-        <Card className={"bg-background h-[400px] w-[450px] md:h-[450px] md:w-[512px]  rounded-[40px]  dark:hover:shadow-lg dark:hover:shadow-violet-700/50"}>
+        <Card className={"bg-background h-[400px] w-[425px] md:h-[450px] md:w-[512px]  rounded-[40px]  dark:hover:shadow-lg dark:hover:shadow-violet-700/50"}>
             <CardHeader className="absolute z-10 top-1 grid grid-cols-3">
                     <Button
                         // onPress={()=> {

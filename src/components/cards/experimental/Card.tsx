@@ -33,7 +33,7 @@ export default function Comp({href}:compProps) {
     return (
         <Link href={href}>
         
-        <Card className={"bg-background h-[400px] w-[400px] rounded-[40px]  dark:hover:shadow-lg dark:hover:shadow-violet-700/50"}>
+        <Card className={"bg-background h-[380px] w-[350px] md:w-[400px] rounded-[40px]  dark:hover:shadow-lg dark:hover:shadow-violet-700/50"}>
             <CardHeader className="absolute z-10 top-1 grid grid-cols-3">
                     <Button
                         // onPress={()=> {
