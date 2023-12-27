@@ -1,20 +1,15 @@
 
-// import { button as Button } from "@/../components/ui/button";
+import { button as Button } from "@/components/ui/button";
 // import { getAllEvents } from '@/lib/actions/event.actions';
 // import { SearchParamProps } from '@/types';
 import Image from "next/image";
-import NavLink from "@/../components/ui/NavLink";
+import NavLink from "@/components/ui/NavLink";
 import Link from "next/link";
 import { title as heading, subtitle } from "@/components/Primatives/Typography";
 import Carosel from "./components/CaroselSample";
 import { title } from "process";
-import Card from "@/components/cards/experimental/Card";
-import CardSponser from "@/components/cards/experimental/CardSponser";
-import { Divider, Button } from "@nextui-org/react";
-import {
-  DoubleArrowRightIcon,
-  DoubleArrowDownIcon,
-} from "@radix-ui/react-icons";
+import Card from "@/components/cards/experimental/Card"
+
 export default async function Home() {
   //   const page = Number(searchParams?.page) || 1;
   //   const searchText = (searchParams?.query as string) || '';
@@ -22,10 +17,9 @@ export default async function Home() {
 
   return (
     <>
-      <section className="mx-auto flex max-w-7xl flex-col justify-center px-6 py-5">
-        <div className="wrapper items-between justify-items-between grid grid-cols-1 gap-5 lg:grid-cols-12 2xl:gap-0">
-          
-          <div className="mx-auto max-w-4xl space-y-5 text-center sm:text-left">
+      <section className="py-5">
+        <div className="wrapper grid grid-cols-1 items-center gap-5 md:grid-cols-2 2xl:gap-0">
+          <div className="mx-auto max-w-4xl space-y-5 text-left">
             <h1 className="text-sm font-medium text-indigo-600">
               Your Events, Your Way
             </h1>
@@ -40,50 +34,35 @@ export default async function Home() {
               Sed ut perspiciatis unde omnis iste natus voluptatem accusantium
               doloremque laudantium, totam rem aperiam, eaque ipsa quae.
             </p>
-            <div></div>
-            <div className="flex w-full flex-row  lg:space-x-4">
-              <Button
-                size="lg"
-                color={"primary"}
-                as={Link}
-                href={"#events"}
-                endContent={<DoubleArrowDownIcon />}
-                className="button w-full lg:w-fit"
-              >
-                See Events
-              </Button>
-              <Divider orientation="vertical" />
-              <Button
-                size="lg"
-                color={"primary"}
-                as={Link}
-                href={"#events"}
-                endContent={<DoubleArrowRightIcon />}
-                className="button hidden w-fit lg:flex "
-              >
-                Go To Featured
-              </Button>
-            </div>
+            {/* <div className={'relative group max-w-[150px]'}>
+
+                    <NavLink
+                        href="#events"
+                        className="flex items-center text-black bg-purple-600 hover:bg-purple-500 active:bg-purple-700 "
+                    >
+
+                        <p className={"text-slate-200/70 z-10"}>Get Started</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 z-10">
+                            <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
+                        </svg>
+                    </NavLink>
+                    <div className="absolute -inset-2 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                </div> */}
+            {/* <Button size="lg" asChild className="button w-full sm:w-fit">
+              <Link href="#events">Explore Now</Link>
+            </Button> */}
           </div>
 
-          <div className="flex flex-col items-center lg:items-end">
-            <CardSponser href="events/event" />
-          </div>
-
-          <Button
-            size="lg"
-            color={"primary"}
-            as={Link}
-            href={"#events"}
-            endContent={<DoubleArrowRightIcon />}
-            className="button w-full lg:hidden"
-          >
-            Go To Featured
-          </Button>
-
+          <Image
+            src="/assets/images/hero.png"
+            alt="hero"
+            width={1000}
+            height={1000}
+            className="max-h-[70vh] object-contain object-center md:object-right 2xl:max-h-[50vh]"
+          />
         </div>
       </section>
-      
+
       <div>
         <div className="custom-shape-divider-bottom-1703558846">
           <svg
@@ -104,7 +83,7 @@ export default async function Home() {
         <div className="mx-auto max-w-screen-xl px-4 md:px-8">
           <div className="mx-auto max-w-xl text-center">
             <h3 className="text-3xl font-semibold text-gray-800 sm:text-4xl">
-              Who's using Get Active?
+              Who's using Float UI?
             </h3>
             <p className="mt-3 text-gray-600">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
@@ -114,6 +93,7 @@ export default async function Home() {
           </div>
           <div className="mt-12 flex justify-center">
             <ul className="inline-grid grid-cols-2 gap-x-10 gap-y-6 md:grid-cols-3 md:gap-x-16 lg:grid-cols-4">
+
               <li>
                 <svg
                   className="my-auto w-28"
@@ -131,6 +111,7 @@ export default async function Home() {
                   />
                 </svg>
               </li>
+
 
               <li>
                 <svg
@@ -152,6 +133,7 @@ export default async function Home() {
                 </svg>
               </li>
 
+
               <li>
                 <svg
                   className="my-auto w-28"
@@ -172,6 +154,7 @@ export default async function Home() {
                 </svg>
               </li>
 
+      
               <li>
                 <svg
                   className="my-auto w-28"
@@ -311,41 +294,37 @@ export default async function Home() {
           </svg>
         </div>
       </div>
+      
 
-      <div className="my-16 grid grid-flow-row grid-cols-12 justify-items-center gap-y-5">
-        <div className="z-10 col-span-12 col-start-1 row-start-1 mt-16 flex flex-col ">
+      <div className="grid grid-cols-12 relative">
+        <div className="col-span-12 col-start-1 row-start-1 mt-16 flex flex-col z-10 md:col-span-6">
           <h2 className="prose mx-auto mb-8 text-4xl font-extrabold dark:prose-invert md:text-5xl">
             <span className="bg-gradient-to-r from-[#4F46E5] to-[#E114E5] bg-clip-text text-transparent">
-              All Events
+              Featured Events
             </span>
           </h2>
-        </div>
-
-        <div className="container col-span-10 col-start-2 px-4 sm:px-0">
           <Carosel />
         </div>
 
-        <div className="z-10 col-span-12  col-start-1 mt-8 flex flex-col ">
-          <h2 className="prose mx-auto text-4xl font-extrabold dark:prose-invert md:text-5xl">
-            <span className="bg-gradient-to-r from-[#4F46E5] to-[#E114E5] bg-clip-text text-transparent">
-              Philanthropy Events
-            </span>
-          </h2>
-        </div>
-        <div className="container col-span-10 col-start-2 px-4 sm:px-0">
-          <Carosel />
-        </div>
-        <div className="z-10 col-span-12 col-start-1 mt-8 flex flex-col ">
-          <h2 className="prose mx-auto text-4xl font-extrabold dark:prose-invert md:text-5xl">
-            <span className="bg-gradient-to-r from-[#4F46E5] to-[#E114E5] bg-clip-text text-transparent">
-              Open Events
-            </span>
-          </h2>
-        </div>
-        <div className="container col-span-10 col-start-2 px-4 sm:px-0">
-          <Carosel />
+        <div className="col-span-12 col-start-1 mt-16 md:col-span-6 md:col-start-7">
+          <div className="col-span-2">
+            <Card href="events/event"/>
+          </div>
+          <div className="col-span-2">
+            <Card href="events/event"/>
+          </div>
+          <div className="col-span-3">
+            <Card href="events/event"/>
+          </div>
+          <div className="col-span-3">
+            <Card href="events/event"/>
+          </div>
+          <div className="col-span-3">
+            <Card href={"events/featured"} />
+          </div>
         </div>
       </div>
+
     </>
   );
 }

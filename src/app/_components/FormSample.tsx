@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import { button as Button} from "@/../components/ui/button"
+import { button as Button} from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -13,7 +13,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/../components/ui/form"
+} from "@/components/ui/form"
 import { Input } from "@nextui-org/react"
 
 const formSchema = z.object({

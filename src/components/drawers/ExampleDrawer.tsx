@@ -3,7 +3,7 @@ import * as React from "react"
 import { MinusIcon, PlusIcon } from "@radix-ui/react-icons"
 import { Bar, BarChart, ResponsiveContainer } from "recharts"
 import { FingerprintIcon } from "lucide-react"
-import { button as Button} from "@/../components/ui/button"
+import { button as Button} from "@/components/ui/button"
 import {
   Drawer,
   DrawerClose,

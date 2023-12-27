@@ -6,7 +6,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/../components/ui/carousel"
+} from "@/components/ui/carousel"
 import Card from "@/components/cards/experimental/Card"
 
 
