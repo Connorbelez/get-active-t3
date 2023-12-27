@@ -12,7 +12,7 @@ export default async function Home() {
 
   // const session2 = await auth()
   const session = await getServerAuthSession();
-  redirect("/events/featured")
+  redirect("/events")
   // if (session?.user) {
   //   // const res = await api.post.getSecretMessage.query();
   //   // console.log("RES:")
