@@ -134,7 +134,7 @@ export default function comp() {
                     </div>
                 </div>
                 <div className="According Wrapper mt-2 px-4 w-full max-w-11/12 flex justify-center">
-                    <MapAccordian />
+                    <MapAccordian title="TEST"/>
                 </div>
             </div>
 
@@ -170,7 +170,7 @@ export default function comp() {
 
             <Card className="hidden w-full max-h-48  sticky top-20 md:flex items-center md:col-span-4 my-16 md:col-start-9">
                 <CardBody>
-                    <Accordian/>
+                    <Accordian title="test"/>
                 </CardBody>
             </Card>
 

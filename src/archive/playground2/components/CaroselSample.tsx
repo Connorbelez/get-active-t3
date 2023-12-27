@@ -22,11 +22,11 @@ export default function CarouselSize() {
         {Array.from({ length: 5 }).map((_, index) => (
           <CarouselItem key={index} className="" >
             <div className=" flex aspect-square items-center justify-center p-4">
-              <Card >
-                {/* <CardContent className="flex aspect-square items-center justify-center p-6">
+              {/* <Card >
+                <CardContent className="flex aspect-square items-center justify-center p-6">
                   <span className="text-3xl font-semibold">{index + 1}</span>
-                </CardContent> */}
-              </Card>
+                </CardContent>
+              </Card> */}
             </div>
           </CarouselItem>
         ))}

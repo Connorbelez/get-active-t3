@@ -8,13 +8,13 @@ import HeartIcon from "@/components/icons/HeartIcond"
 import CharityIcon from "@/components/icons/CharityIcon"
 import Link from "next/link"
 
-// interface compProps {
+interface compProps {
+    href:string
+}
 
-// }
 
 
-
-export default function Comp(href:string) {
+export default function Comp({href}:compProps) {
     const content = (
         <PopoverContent className="w-[240px]">
 

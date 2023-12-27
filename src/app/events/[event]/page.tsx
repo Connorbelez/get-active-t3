@@ -2,15 +2,13 @@ import {
   Image,
   Card,
   CardBody,
-  CardFooter,
-  CardHeader,
-  Button,
+
   Divider,
 } from "@nextui-org/react";
 import dynamic from 'next/dynamic'
 
 
-import BlurredEdgeHero from "@/components/Hero/BluredEdgeHero";
+// import BlurredEdgeHero from "@/components/Hero/BluredEdgeHero";
 
 
 export default function comp() {
@@ -24,7 +22,8 @@ export default function comp() {
   const EventCreatorCard = dynamic(() => import('./components/EventCreatorCard'));
   const Drawer = dynamic(() => import('@/components/drawers/ExampleDrawer'));
   const Accordian = dynamic(() => import('@/components/MapAccordian/MapAccordian'));
-
+  const TempCard = dynamic(() => import('./components/TempCard'));
+  const BlurredEdgeHero = dynamic(() => import('@/components/Hero/BluredEdgeHero'));
   const imageUrl = "/testHero.jpeg";
 
   const event_creator = {
@@ -65,11 +64,13 @@ export default function comp() {
                     <EventAboutSection heading="About Event"  length="4" ticketInfo="Pay at Door or Digital Ticket" />
                 </div>
 
-                <Card className="hidden w-full max-h-48  sticky top-20 md:flex items-center md:col-span-4 my-16 md:col-start-9">
+
+                <TempCard/>
+                {/* <Card className="hidden w-full max-h-48  sticky top-20 md:flex items-center md:col-span-4 my-16 md:col-start-9">
                     <CardBody>
                         <Accordian title="TICKET SELECTION"/>
                     </CardBody>
-                </Card>
+                </Card> */}
 
                 <div className="w-full my-12 md:col-span-8">
                     <Divider className="" />

@@ -308,19 +308,19 @@ export default async function Home() {
 
         <div className="col-span-12 col-start-1 mt-16 md:col-span-6 md:col-start-7">
           <div className="col-span-2">
-            <Card />
+            <Card href="events/event"/>
           </div>
           <div className="col-span-2">
-            <Card />
+            <Card href="events/event"/>
           </div>
           <div className="col-span-3">
-            <Card />
+            <Card href="events/event"/>
           </div>
           <div className="col-span-3">
-            <Card />
+            <Card href="events/event"/>
           </div>
           <div className="col-span-3">
-            <Card />
+            <Card href={"events/featured"} />
           </div>
         </div>
       </div>

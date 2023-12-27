@@ -67,7 +67,7 @@ export default async function Home() {
           </div>
 
           <div className="flex flex-col items-center lg:items-end">
-            <CardSponser  />
+            <CardSponser href="events/event" />
           </div>
 
           <Button
