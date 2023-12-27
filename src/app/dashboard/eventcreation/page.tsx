@@ -17,7 +17,7 @@ import { getPrevText } from "@/lib/editor";
 // import { useMemo } from "react";
 // import { DatePicker, DatePickerValue } from "@tremor/react";
 // import { NumberInput } from "@tremor/react";
-import ReactHtmlParser from "react-html-parser";
+import ReactHtmlParser from "html-react-parser";
 import {Tabs, Tab} from "@nextui-org/react";
 import axios from "axios";
 import { Input } from "@nextui-org/react";
