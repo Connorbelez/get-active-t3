@@ -36,7 +36,7 @@ export default function RootLayout({
             <div vaul-drawer-wrapper=""  className="relative bg-background flex flex-col items-center h-full w-full">
 
               <Nav />
-              <main className=" mx-auto w-full flex flex-col content-center flex-grow">
+              <main className=" mx-auto w-full flex flex-col items-center content-center flex-grow">
                   {children}
               </main>
             </div>

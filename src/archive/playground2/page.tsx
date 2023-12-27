@@ -50,9 +50,9 @@ export default async function Home() {
                     </NavLink>
                     <div className="absolute -inset-2 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
                 </div> */}
-            <Button size="lg" asChild className="button w-full sm:w-fit">
+            {/* <Button size="lg" asChild className="button w-full sm:w-fit">
               <Link href="#events">Explore Now</Link>
-            </Button>
+            </Button> */}
           </div>
 
           <Image
