@@ -27,10 +27,16 @@ export default function comp() {
           as={Link}
           href={"#events"}
           endContent={<DoubleArrowDownIcon />}
-          className="button w-full lg:w-fit"
+          className="button w-full hidden lg:flex lg:w-fit"
         >
-          See Events
+          See All Events
         </Button>
+        <h2 className="SUBHEADING lg:hidden text-primary prose mx-auto text-4xl font-extrabold dark:prose-invert md:text-5xl">
+        Featured Event
+          {/* <span className="bg-gradient-to-r from-[#4F46E5] to-[#E114E5] bg-clip-text text-transparent">
+            Featured Event
+          </span> */}
+        </h2>
         <Divider orientation="vertical" />
         <Button
           size="lg"

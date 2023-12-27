@@ -34,7 +34,7 @@ export default function App() {
             Get Active
           </span>
         </h2>
-        <p className="DESCRIPTION mx-auto max-w-2xl">
+        <p className="DESCRIPTION mx-auto hidden max-w-2xl">
           Sed ut perspiciatis unde omnis iste natus voluptatem accusantium
           doloremque laudantium, totam rem aperiam, eaque ipsa quae.
         </p>
@@ -45,8 +45,17 @@ export default function App() {
       <div className="FEATURED CARD flex flex-col items-center lg:col-span-6 lg:col-start-7 lg:items-end">
         <CardSponser href="events/featured"  />
       </div>
-
       <Button
+          size="lg"
+          color={"primary"}
+          as={Link}
+          href={"#events"}
+          endContent={<DoubleArrowDownIcon />}
+          className="button w-full lg:hidden lg:w-fit"
+        >
+          See All Events
+        </Button>
+      {/* <Button
         size="lg"
         color={"primary"}
         as={Link}
@@ -55,7 +64,7 @@ export default function App() {
         className="button w-full lg:hidden"
       >
         Go To Featured
-      </Button>
+      </Button> */}
     </div>
   );
 }
