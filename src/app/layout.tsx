@@ -31,7 +31,7 @@ export default function RootLayout({
       <body className={clsx(
 					"bg-background font-sans antialiased ",
 				)} >
-          {/* <TRPCReactProvider cookies={cookies().toString()}> */}
+          <TRPCReactProvider cookies={cookies().toString()}>
             <Providers>
             <div vaul-drawer-wrapper=""  className="relative bg-background flex flex-col items-center h-full w-full">
 
@@ -42,7 +42,7 @@ export default function RootLayout({
             </div>
 
             </Providers>
-        {/* </TRPCReactProvider> */}
+        </TRPCReactProvider>
       </body>
     </html>
   );

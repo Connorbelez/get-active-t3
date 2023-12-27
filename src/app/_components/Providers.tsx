@@ -6,7 +6,7 @@ import {ThemeProvider as NextThemesProvider} from "next-themes";
 import { Toaster } from "components/ui/toast";
 import { ThemeProviderProps } from "next-themes/dist/types";
 import { Dispatch, SetStateAction, createContext } from "react";
-
+import { SpeedInsights } from "@vercel/speed-insights/next"
 export interface ProvidersProps {
 	children: React.ReactNode;
 	themeProps?: ThemeProviderProps;
@@ -21,14 +21,18 @@ export const AppContext = createContext<{
 });
 function Wrapper({children}: {children: React.ReactNode}) {
     return (
+
+
         <SessionProvider>
             <NextUIProvider>
                 <NextThemesProvider attribute="class" defaultTheme={"dark"}>
-                <Toaster />
+                    <Toaster />
+                    <SpeedInsights/>
                     {children}
                 </NextThemesProvider>
             </NextUIProvider>
         </SessionProvider>
+
     );
 }   
 
