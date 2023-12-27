@@ -3,15 +3,17 @@ import React from "react";
 import {Tabs, Tab, Input, Link, Button, Card, CardBody, CardHeader} from "@nextui-org/react";
 import {NewTicket, SelectTicket} from "@/lib/planetscale";
 // import TicketCard from "@/app/events/[...event]/components/TicketCard";
-import ProfileTickets from "@/app/profile/[...profile]/components/ProfileTickets";
-import ProfileSavedEventCard from "@/app/profile/[...profile]/components/ProfileSavedEventCard";
-import EventDetailDrawer from "./EventDetailDrawer";
-export default function App({tickets,savedEvents}: {tickets: NewTicket[] | undefined, savedEvents:{}[] | undefined }){
+// import ProfileTickets from "@/app/profile/[...profile]/components/ProfileTickets";
+// import ProfileSavedEventCard from "@/app/profile/[...profile]/components/ProfileSavedEventCard";
+// import EventDetailDrawer from "./EventDetailDrawer";
+
+
+export default function App({tickets,savedEvents}: {tickets: NewTicket[] | undefined, savedEvents:NonNullable<unknown>[] | undefined }){
     //ToDo: login is not a tab change this
-    const [selected, setSelected] = React.useState("login");
+    // const [selected, setSelected] = React.useState("login");
     // console.log("TICKETS : ", tickets[0])
-    const [open, setOpen] = React.useState(false);
-    let [eventDetails, setEvents] = React.useState({});
+    // const [open, setOpen] = React.useState(false);
+    // let [eventDetails, setEvents] = React.useState({});
     return (
         <div className="flex flex-col w-full">
             <Card className="max-w-md m-4 p-4">

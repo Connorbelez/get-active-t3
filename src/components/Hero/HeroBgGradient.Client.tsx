@@ -2,7 +2,7 @@
 
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import HeroBgGradient from "components/HeroBgGradient";
+import HeroBgGradient from "@/components/HeroBgGradient";
 
 export default () => {
   const ref = useRef(null);

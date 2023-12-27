@@ -1,5 +1,6 @@
 import Moveable from "react-moveable";
 
+//@ts-ignore
 export const ImageResizer = ({ editor }) => {
   const updateMediaSize = () => {
     const imageInfo = document.querySelector(

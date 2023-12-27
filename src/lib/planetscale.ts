@@ -32,7 +32,7 @@ export interface EventInterface {
   event_start_time : string,
   event_end_time : Date,
   max_tickets : number,
-  drinks_included : Boolean,
+  drinks_included : boolean,
   event_location : string,
   ticket_price : number,
   hero_image : string,
@@ -308,7 +308,7 @@ export async function getUserRoleByEmail(email:string) {
 
 }
 
-function generateAlphanumericCode(email: string, secretKey: string, codeLength: number = 10): string {
+function generateAlphanumericCode(email: string, secretKey: string, codeLength = 10): string {
   // Concatenate email and secretKey
   const message = email + secretKey;
 

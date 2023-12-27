@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import Brand from "components/ui/Brand";
+import Brand from "@/components/Brand";
 import BorderGradient from "./BorderGradient";
 import BgGradient from "./BgGradient";
-import { IconGithub } from "components/icons";
+import { IconGithub } from "@/components/icons";
 
 const navigation = [
   { name: "Demo", href: "/demo" },

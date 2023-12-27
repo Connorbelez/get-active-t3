@@ -18,13 +18,11 @@ export const TiptapEditorProps: EditorProps = {
   },
   handlePaste: (view, event) => {
     if (
-      event.clipboardData &&
-      event.clipboardData.files &&
-      event.clipboardData.files[0]
+      event?.clipboardData?.files[0]
     ) {
-      event.preventDefault();
-      const file = event.clipboardData.files[0];
-      const pos = view.state.selection.from;
+      event?.preventDefault();
+      const file = event?.clipboardData?.files[0];
+      const pos = view?.state?.selection?.from;
 
       startImageUpload(file, view, pos);
       return true;
@@ -34,9 +32,7 @@ export const TiptapEditorProps: EditorProps = {
   handleDrop: (view, event, _slice, moved) => {
     if (
       !moved &&
-      event.dataTransfer &&
-      event.dataTransfer.files &&
-      event.dataTransfer.files[0]
+      event.dataTransfer?.files?.[0]
     ) {
       event.preventDefault();
       const file = event.dataTransfer.files[0];

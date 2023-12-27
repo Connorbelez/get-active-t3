@@ -1,4 +1,4 @@
-import { BlobResult } from "@vercel/blob";
+import { PutBlobResult } from "@vercel/blob";
 import { toast } from "sonner";
 import { EditorState, Plugin, PluginKey } from "@tiptap/pm/state";
 import { Decoration, DecorationSet, EditorView } from "@tiptap/pm/view";
@@ -15,7 +15,8 @@ const UploadImagesPlugin = () =>
       apply(tr, set) {
         set = set.map(tr.mapping, tr.doc);
         // See if the transaction adds or removes any placeholders
-        const action = tr.getMeta(this);
+        //@-ts-ignore
+        const action = tr.getMeta(uploadKey);
         if (action && action.add) {
           const { id, pos, src } = action.add;
 
@@ -56,10 +57,10 @@ const UploadImagesPlugin = () =>
 
 export default UploadImagesPlugin;
 
-function findPlaceholder(state: EditorState, id: {}) {
+function findPlaceholder(state: EditorState, id: NonNullable<unknown>) {
   console.log("STATEIMG: ",state)
   const decos = uploadKey.getState(state);
-  const found = decos.find(null, null, (spec) => spec.id == id);
+  const found = decos.find(null, null, (spec:any) => spec.id == id);
   return found.length ? found[0].from : null;
 }
 
@@ -95,10 +96,10 @@ export function startImageUpload(file: File, view: EditorView, pos: number) {
     view.dispatch(tr);
   };
 
-  handleImageUpload(file).then((src) => {
+  void handleImageUpload(file).then((src) => {
     const { schema } = view.state;
 
-    let pos = findPlaceholder(view.state, id);
+    const pos = findPlaceholder(view.state, id);
     // If the content around the placeholder has been deleted, drop
     // the image
     if (pos == null) return;
@@ -110,9 +111,9 @@ export function startImageUpload(file: File, view: EditorView, pos: number) {
     // the image locally
     const imageSrc = typeof src === "object" ? reader.result : src;
 
-    const node = schema.nodes.image.create({ src: imageSrc });
+    const node = schema?.nodes?.image?.create({ src: imageSrc });
     const transaction = view.state.tr
-      .replaceWith(pos, pos, node)
+      .replaceWith(pos, pos, node || [])
       .setMeta(uploadKey, { remove: { id } });
     view.dispatch(transaction);
   });
@@ -132,10 +133,10 @@ export const handleImageUpload = (file: File) => {
       }).then(async (res) => {
         // Successfully uploaded image
         if (res.status === 200) {
-          const { url } = (await res.json()) as BlobResult;
+          const { url } = (await res.json()) as PutBlobResult;
           console.log("IMAGE URL FROM UPLOAD-IMAGES PLUGIN: ", url);
           // preload the image
-          let image = new Image();
+          const image = new Image();
           image.src = url;
           image.onload = () => {
             resolve(url);

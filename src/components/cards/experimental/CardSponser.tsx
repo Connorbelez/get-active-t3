@@ -6,14 +6,15 @@ import {LightningBoltIcon,SewingPinIcon, Crosshair1Icon} from '@radix-ui/react-i
 import TicketIcon from "@/components/icons/TicketIcon"
 import HeartIcon from "@/components/icons/HeartIcond"
 import CharityIcon from "@/components/icons/CharityIcon"
+import Link from "next/link"
 
 interface compProps {
-
+    href:string
 }
 
 
 
-export default function comp({props}: {props: compProps}) {
+export default function Comp({href}:compProps) {
     const content = (
         <PopoverContent className="w-[240px]">
 
@@ -89,52 +90,56 @@ export default function comp({props}: {props: compProps}) {
                 <CardDescription>Card Description</CardDescription>
             </CardHeader> */}
 
-            <CardBody className={"grid grid-cols-12 gap-0 overflow-hidden"}>
-                    <div className={"flex col-start-1 col-span-4 flex-row items-center"}>
-                        <div className={"flex flex-col items-center mx-auto "}>
-                            <div className="flex flex-row align-middle mb-1">
-                                <Crosshair1Icon stroke={"#52525b"} className="w-4 mt-0.5 h-4 mr-2 fill-zinc-600" />
-                                <h4 className={"prose dark:prose-invert text-sm dark:text-zinc-400/60"}>Ottawa</h4>
+            <Link className="" href={href}>
+
+            
+                <CardBody className={"grid grid-cols-12 gap-0 overflow-hidden"}>
+                        <div className={"flex col-start-1 col-span-4 flex-row items-center"}>
+                            <div className={"flex flex-col items-center mx-auto "}>
+                                <div className="flex flex-row align-middle mb-1">
+                                    <Crosshair1Icon stroke={"#52525b"} className="w-4 mt-0.5 h-4 mr-2 fill-zinc-600" />
+                                    <h4 className={"prose dark:prose-invert text-sm dark:text-zinc-400/60"}>Ottawa</h4>
+                                </div>
+                                <h1 className={`-mb-2 dark:${title({size:"xsm",color:"pink"})}`}>DEC</h1>
+                                <h1 className="prose prose-2xl font-bold  dark:text-zinc-400">18</h1>
+                                <h4 className={"prose dark:prose-invert text-sm dark:text-zinc-400/60"}>8:30pm</h4>
                             </div>
-                            <h1 className={`-mb-2 dark:${title({size:"xsm",color:"pink"})}`}>DEC</h1>
-                            <h1 className="prose prose-2xl font-bold  dark:text-zinc-400">18</h1>
-                            <h4 className={"prose dark:prose-invert text-sm dark:text-zinc-400/60"}>8:30pm</h4>
+                            <Divider orientation="vertical" className=" bg-red h-5/6 slef w-[1px]  bg-zinc-700"/>
+
                         </div>
-                        <Divider orientation="vertical" className=" bg-red h-5/6 slef w-[1px]  bg-zinc-700"/>
+                        
+                        <div className={"col-start-5 col-span-4 flex flex-col items-left my-auto "}>
+                            <CardHeader className="grid grid-flow-row -my-3">
+                                
+                                <h1 className={`prose prose-xl prose-zinc dark:prose-invert font-bold ${title({size:"xxsm",color:"pink"})}`}>Canada Day</h1>
+                                {/* <p className={"prose text-xs dark:prose-invert"}>Join us for a Canada Day Party!</p> */}
+                            </CardHeader>
 
-                    </div>
-                    
-                    <div className={"col-start-5 col-span-4 flex flex-col items-left my-auto "}>
-                        <CardHeader className="grid grid-flow-row -my-3">
-                            
-                            <h1 className={`prose prose-xl prose-zinc dark:prose-invert font-bold ${title({size:"xxsm",color:"pink"})}`}>Canada Day</h1>
-                            {/* <p className={"prose text-xs dark:prose-invert"}>Join us for a Canada Day Party!</p> */}
-                        </CardHeader>
+                            <CardFooter className="flex flex-col items-start">
+                                <Chip className="" variant={"faded"} color={"warning"} startContent={
+                                        <CharityIcon height={"18"} width={"18"} fill={"currentColor"}/>
+                                    }>                           
+                                    <p className="text-warning text-nowrap">Philo</p>
+                                </Chip>
+                                <Chip className="" variant={"faded"} color={"warning"} startContent={
+                                        <TicketIcon height={"18"} width={"18"} fill={"currentColor"}/>
+                                    }>                           
+                                    <p className=" prose text-sm text-warning text-nowrap">From $0</p>
+                                </Chip>
 
-                        <CardFooter className="flex flex-col items-start">
-                            <Chip className="" variant={"faded"} color={"warning"} startContent={
-                                    <CharityIcon height={"18"} width={"18"} fill={"currentColor"}/>
-                                }>                           
-                                 <p className="text-warning text-nowrap">Philo</p>
-                            </Chip>
-                            <Chip className="" variant={"faded"} color={"warning"} startContent={
-                                    <TicketIcon height={"18"} width={"18"} fill={"currentColor"}/>
-                                }>                           
-                                 <p className=" prose text-sm text-warning text-nowrap">From $0</p>
-                            </Chip>
+                            </CardFooter>        
+            
+                        </div>
+                        <div className={"col-start-9 col-span-4 flex items-center"}>
+                            <Divider orientation="vertical" className=" bg-red h-5/6 slef w-[1px] mr-3 bg-zinc-700"/>
 
-                        </CardFooter>        
-         
-                    </div>
-                    <div className={"col-start-9 col-span-4 flex items-center"}>
-                        <Divider orientation="vertical" className=" bg-red h-5/6 slef w-[1px] mr-3 bg-zinc-700"/>
-
-                        <Image src={"/redbull.jpg"} alt="logo" className="rounded-[10px] z-0 h-[70px]"/>
-                    </div>
+                            <Image src={"/redbull.jpg"} alt="logo" className="rounded-[10px] z-0 h-[70px]"/>
+                        </div>
 
 
-   
-            </CardBody>
+    
+                </CardBody>
+            </Link>
             {/* <CardFooter>
                 Card Footer
             </CardFooter> */}

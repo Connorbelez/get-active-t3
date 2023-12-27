@@ -5,11 +5,11 @@ import ProfileAvatar from "@/app/profile/[...profile]/components/ProfileAvatar";
 import {Avatar} from "@nextui-org/avatar";
 import {useSession} from "next-auth/react";
 
-interface pageProps {
+// interface pageProps {
 
-}
+// }
 
-const App: FC<pageProps> = ({}) => {
+const App: FC = () => {
     const {data:session} = useSession();
     const image = session?.user?.image
     const name = session?.user?.name

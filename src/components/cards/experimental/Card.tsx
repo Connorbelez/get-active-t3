@@ -6,14 +6,15 @@ import {LightningBoltIcon,SewingPinIcon, Crosshair1Icon} from '@radix-ui/react-i
 import TicketIcon from "@/components/icons/TicketIcon"
 import HeartIcon from "@/components/icons/HeartIcond"
 import CharityIcon from "@/components/icons/CharityIcon"
+import Link from "next/link"
 
-interface compProps {
+// interface compProps {
 
-}
+// }
 
 
 
-export default function comp({props}: {props: compProps}) {
+export default function Comp(href:string) {
     const content = (
         <PopoverContent className="w-[240px]">
 
@@ -30,6 +31,8 @@ export default function comp({props}: {props: compProps}) {
       )
     const liked=true;
     return (
+        <Link href={href}>
+        
         <Card className={"bg-background h-[400px] w-[400px] rounded-[40px]  dark:hover:shadow-lg dark:hover:shadow-violet-700/50"}>
             <CardHeader className="absolute z-10 top-1 grid grid-cols-3">
                     <Button
@@ -51,7 +54,7 @@ export default function comp({props}: {props: compProps}) {
                         radius="full"
                         variant="light">
                         <HeartIcon
-                            className={liked ? "[&>path]:stroke-transparent" : ""}
+                            className={liked ? "[&>path]:strokeTransparent" : ""}
                             fill={liked ? "currentColor" : "none"}
                         />
                     </Button>
@@ -134,5 +137,6 @@ export default function comp({props}: {props: compProps}) {
                 Card Footer
             </CardFooter> */}
         </Card>
+        </Link>
     )
 }

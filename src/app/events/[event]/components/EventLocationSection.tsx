@@ -1,4 +1,4 @@
-import { MapPin, MapPinned, Clock1, TicketIcon } from "lucide-react";
+import { MapPinned } from "lucide-react";
 import MapAccordian from "@/components/MapAccordian/MapAccordian";
 interface compProps {
     heading: string,
@@ -13,7 +13,7 @@ export default function comp({heading,address,city,province,postalCode}: compPro
     return (
         <div className="Place mb-16 flex w-full flex-col text-left font-bold">
         <div className="prose mb-4 dark:prose-invert">
-            <h2>Place</h2>
+            <h2 className="text-primary">Place</h2>
         </div>
         <div className="flex w-full flex-col items-center">
             <div className="flex w-full flex-row items-center px-2">
@@ -31,7 +31,7 @@ export default function comp({heading,address,city,province,postalCode}: compPro
             </div>
         </div>
         <div className="According Wrapper mt-2 px-4 w-full max-w-11/12 flex justify-center">
-            <MapAccordian />
+            <MapAccordian title="VIEW MAP" />
         </div>
     </div>
 

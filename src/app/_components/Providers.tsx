@@ -4,6 +4,21 @@ import { SessionProvider } from "next-auth/react"
 import {NextUIProvider} from "@nextui-org/react";
 import {ThemeProvider as NextThemesProvider} from "next-themes";
 import { Toaster } from "components/ui/toast";
+import { ThemeProviderProps } from "next-themes/dist/types";
+import { Dispatch, SetStateAction, createContext } from "react";
+
+export interface ProvidersProps {
+	children: React.ReactNode;
+	themeProps?: ThemeProviderProps;
+}
+
+export const AppContext = createContext<{
+	font: string;
+	setFont: Dispatch<SetStateAction<string>>;
+}>({
+	font: "Default",
+	setFont: () => {},
+});
 function Wrapper({children}: {children: React.ReactNode}) {
     return (
         <SessionProvider>

@@ -100,7 +100,11 @@ const getSuggestionItems = ({ query }: { query: string }) => {
           if (input.files?.length) {
             const file = input.files[0];
             const pos = editor.view.state.selection.from;
-            startImageUpload(file, editor.view, pos);
+            if (file) {
+              startImageUpload(file, editor.view, pos);
+            }else{
+              throw new Error("FILE IS NULL")
+            }
           }
         };
         input.click();
@@ -121,7 +125,11 @@ const getSuggestionItems = ({ query }: { query: string }) => {
           if (input.files?.length) {
             const file = input.files[0];
             const pos = editor.view.state.selection.from;
-            startFileUpload(file, editor.view, pos);
+            if (file) {
+              startFileUpload(file, editor.view, pos);
+            }else{
+              throw new Error("FILE IS NULL")
+            }
           }
         };
         input.click();
@@ -307,12 +315,12 @@ const CommandList = ({
     (index: number) => {
       const item = items[index];
       va.track("Slash Command Used", {
-        command: item.title,
+        command: item?.title ?? "",
       });
       if (item) {
         if (item.title === "Continue writing") {
           if (isLoading) return;
-          complete(
+          void complete(
             getPrevText(editor, {
               chars: 5000,
               offset: 1,
@@ -401,7 +409,7 @@ const CommandList = ({
 
 const renderItems = () => {
   let component: ReactRenderer | null = null;
-  let popup: any | null = null;
+  let popup: any = null;
 
   return {
     onStart: (props: { editor: Editor; clientRect: DOMRect }) => {

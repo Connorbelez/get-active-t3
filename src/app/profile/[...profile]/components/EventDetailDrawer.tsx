@@ -3,8 +3,8 @@
 import { Drawer } from "vaul";
 import React from "react";
 import {usePress} from 'react-aria';
-import TicketTiers from "@/app/events/[...event]/components/TicketTiers";
-import {title} from "@/components/primitives";
+// import TicketTiers from "@/app/events/[...event]/components/TicketTiers";
+import {title} from "@/components/Primatives/Typography";
 //@ts-ignore
 interface drawerProps {
     open: boolean,
@@ -76,9 +76,9 @@ export default function MyDrawer({open, setOpen, eventDetails}: drawerProps) {
                                     fill="none"
                                     height="16"
                                     stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
                                     viewBox="0 0 24 24"
                                     width="16"
                                     aria-hidden="true"
@@ -99,9 +99,9 @@ export default function MyDrawer({open, setOpen, eventDetails}: drawerProps) {
                                     fill="none"
                                     height="16"
                                     stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
                                     viewBox="0 0 24 24"
                                     width="16"
                                     aria-hidden="true"

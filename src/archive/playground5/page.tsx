@@ -15,14 +15,14 @@ import {
   ChevronDownIcon,
   ClockIcon,
 } from "@radix-ui/react-icons";
-import Wrapper from "../_components/Providers";
+
 import BlurredEdgeHero from "@/components/Hero/BluredEdgeHero";
 import { getServerAuthSession } from "@/server/auth";
 import MapAccordian from "@/components/MapAccordian/MapAccordian";
 import Accordian from "@/components/MapAccordian/MapAccordian";
-interface compProps {}
+// interface compProps {}
 
-export default function comp({ props }: { props: compProps }) {
+export default function comp() {
   const imageUrl = "/testHero.jpeg";
   // const session = await getServerAuthSession();
   // const user = session?.user

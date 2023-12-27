@@ -29,16 +29,16 @@ export default async function Home() {
   return (
     <>
       <section className="flex flex-col justify-center px-6 py-5">
-        <EventHero props={""} />
+        <EventHero  />
       </section>
       
-      <HeroDivider1 props={""} />
+      <HeroDivider1 />
 
-      <LogoGrid props={""} />
+      <LogoGrid />
 
-      <HeroDivider2 props={""} />
+      <HeroDivider2  />
 
-      <AllEventsCarosel props={""} />
+      <AllEventsCarosel />
 
     </>
   );

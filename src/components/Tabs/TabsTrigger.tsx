@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import * as Tabs from "@radix-ui/react-tabs";
 import { motion } from "framer-motion";
-import LazyMotionWrapper from "components/LazyMotionWrapper";
+import LazyMotionWrapper from "@/components/LazyMotionWrapper";
 
 export default ({
   children,

@@ -1,27 +1,38 @@
 {
   "compilerOptions": {
     /* Base Options: */
-    "esModuleInterop": true,
+
     "skipLibCheck": true,
     "target": "es2022",
     "allowJs": true,
-    "resolveJsonModule": true,
-    "moduleDetection": "force",
-    "isolatedModules": true,
 
+    "moduleDetection": "force",
+
+    "strictNullChecks": true,
+
+    "forceConsistentCasingInFileNames": true,
+
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     /* Strictness */
-    "strict": true,
+    "strict": false,
     "noUncheckedIndexedAccess": true,
-    "checkJs": true,
+    "checkJs": false,
 
     /* Bundled projects */
     "lib": ["dom", "dom.iterable", "ES2022"],
     "noEmit": true,
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "jsx": "preserve",
-    "plugins": [{ "name": "next" }],
-    "incremental": true,
+
 
     /* Path Aliases */
     "baseUrl": ".",

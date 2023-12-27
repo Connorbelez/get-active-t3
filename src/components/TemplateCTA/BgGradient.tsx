@@ -1,4 +1,4 @@
-import mergeTW from "utils/mergeTW";
+import mergeTW from "@/utils/mergeTW";
 
 export default ({ className = "" }: { className?: string }) => (
   <svg

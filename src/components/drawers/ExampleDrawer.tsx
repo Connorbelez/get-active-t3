@@ -88,8 +88,8 @@ export default function DrawerDemo() {
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle>Move Goal</DrawerTitle>
-            <DrawerDescription>Set your daily activity goal.</DrawerDescription>
+            <DrawerTitle>Tickets</DrawerTitle>
+            <DrawerDescription>Ticket Section </DrawerDescription>
           </DrawerHeader>
           <div className="p-4 pb-0">
             <div className="flex items-center justify-center space-x-2">
@@ -108,7 +108,7 @@ export default function DrawerDemo() {
                   {goal}
                 </div>
                 <div className="text-[0.70rem] uppercase text-muted-foreground">
-                  Calories/day
+                  Tickets Here  
                 </div>
               </div>
               <Button
@@ -123,7 +123,7 @@ export default function DrawerDemo() {
               </Button>
             </div>
             <div className="mt-3 h-[120px]">
-              <ResponsiveContainer width="100%" height="100%">
+              {/* <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={data}>
                   <Bar
                     dataKey="goal"
@@ -135,7 +135,7 @@ export default function DrawerDemo() {
                     }
                   />
                 </BarChart>
-              </ResponsiveContainer>
+              </ResponsiveContainer> */}
             </div>
           </div>
           <DrawerFooter>

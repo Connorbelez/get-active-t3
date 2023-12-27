@@ -7,28 +7,24 @@ import {
   Button,
   Divider,
 } from "@nextui-org/react";
+import dynamic from 'next/dynamic'
 
-import EventHeading from "./components/EventHeadingSection";
-import EventAboutSection from "./components/EventAbout";
-import EventLocationSection from "./components/EventLocationSection";
-import EventDateSecion from "./components/EventDateSection";
-import EventCreatorCard from "./components/EventCreatorCard";
 
-import Drawer from "@/components/drawers/ExampleDrawer";
-import { MapPin, MapPinned, Clock1, TicketIcon } from "lucide-react";
-import {
-  CalendarIcon,
-  ChevronDownIcon,
-  ClockIcon,
-} from "@radix-ui/react-icons";
-import Wrapper from "@/app/_components/Providers";
 import BlurredEdgeHero from "@/components/Hero/BluredEdgeHero";
-import { getServerAuthSession } from "@/server/auth";
-import MapAccordian from "@/components/MapAccordian/MapAccordian";
-import Accordian from "@/components/MapAccordian/MapAccordian";
-interface compProps {}
 
-export default function comp({ props }: { props: compProps }) {
+
+export default function comp() {
+
+  //ToDo Add loading page shells for dynamic imports!
+
+  const EventHeading = dynamic(() => import('./components/EventHeadingSection'));
+  const EventAboutSection = dynamic(() => import('./components/EventAbout'));
+  const EventLocationSection = dynamic(() => import('./components/EventLocationSection'));
+  const EventDateSecion = dynamic(() => import('./components/EventDateSection'));
+  const EventCreatorCard = dynamic(() => import('./components/EventCreatorCard'));
+  const Drawer = dynamic(() => import('@/components/drawers/ExampleDrawer'));
+  const Accordian = dynamic(() => import('@/components/MapAccordian/MapAccordian'));
+
   const imageUrl = "/testHero.jpeg";
 
   const event_creator = {
@@ -36,7 +32,7 @@ export default function comp({ props }: { props: compProps }) {
       "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
     username: "CreatorUsername",
   };
-  const date = "Pay at Door or Digital Ticket"
+  const date = "Sat Jan 27 2023"
   return (
     <div className="EventWrapper bg-background w-full flex flex-col items-center ">
 
@@ -62,7 +58,7 @@ export default function comp({ props }: { props: compProps }) {
                         <p>{date}</p>
                     </div>
 
-                    <EventHeading heading='"AKIMBO MODE" boxing gala' content="boxing gala" />
+                    <EventHeading heading='"AKIMBO MODE" boxing gala' content="Come encourage the region's athletes during high-intensity fights on January 27!" />
                     <EventCreatorCard creatorImageSrc={event_creator.image} creatorUsername={event_creator.username} />
                     <EventDateSecion heading="Time and Date" content={"Sat Jan 27 2023: 7:00pm - 10:00pm EST"} />
                     <EventLocationSection heading="Place" address="480 Rue des Pins" city="Gatineau" province="QC" postalCode="J8L 2L3" />
@@ -71,7 +67,7 @@ export default function comp({ props }: { props: compProps }) {
 
                 <Card className="hidden w-full max-h-48  sticky top-20 md:flex items-center md:col-span-4 my-16 md:col-start-9">
                     <CardBody>
-                        <Accordian/>
+                        <Accordian title="TICKET SELECTION"/>
                     </CardBody>
                 </Card>
 

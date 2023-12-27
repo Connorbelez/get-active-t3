@@ -6,7 +6,7 @@ import {
   PopoverContent,
 } from "@/ui/primitives/popover";
 import { useContext } from "react";
-import { AppContext } from "@/app/providers";
+import { AppContext } from "@/app/_components/Providers";
 import { FontDefault, FontSerif, FontMono } from '@/ui/icons'
 import { Check, Menu as MenuIcon, Monitor, Moon, SunDim } from "lucide-react";
 import { useTheme } from "next-themes";

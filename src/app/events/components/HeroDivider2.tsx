@@ -1,9 +1,9 @@
 
-interface compProps {
+// interface compProps {
 
-}
+// }
 
-export default function comp({props}: {props: compProps}) {
+export default function comp() {
 
     return (
         <div className="relative">

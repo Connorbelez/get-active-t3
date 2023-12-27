@@ -1,13 +1,10 @@
 import {
-    Image,
+
     Card,
     CardBody,
-    CardFooter,
-    CardHeader,
-    Button,
-    Divider,
+
   } from "@nextui-org/react";
-  import { MapPin, MapPinned, Clock1, TicketIcon } from "lucide-react";
+  import { Clock1, TicketIcon } from "lucide-react";
 
 interface compProps {
     heading: string,
@@ -24,7 +21,7 @@ export default function comp({heading,length,start,end,ticketInfo}:  compProps) 
         className={"About Event flex w-full max-w-6xl flex-col space-y-4"}
     >
         <div className="prose w-full text-left tracking-tighter antialiased dark:prose-invert  ">
-            <h2>{heading}</h2>
+            <h2 className="text-primary">{heading}</h2>
         </div>
         <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:justify-between">
 

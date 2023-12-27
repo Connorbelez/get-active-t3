@@ -45,7 +45,7 @@ export default function comp({creatorImageSrc,creatorUsername,creatorEamil,creat
                     "justify-self-left col-start-1 ml-2 rounded-xl shadow-lg shadow-violet-700/50"
                 }
                 />
-            <p className={"justify-self-left ml-4"}>
+            <p className={"justify-self-left text-primary ml-4"}>
                 {creatorUsername}
             </p>
             </div>

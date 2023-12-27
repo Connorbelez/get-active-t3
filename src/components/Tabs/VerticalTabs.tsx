@@ -53,7 +53,7 @@ export default () => {
           onChange={(e) => setSelectedTab(e.target.value)}
         >
           {tabItems.map((item, idx) => (
-            <option key={idx} idx={idx}>
+            <option key={idx}>
               {item}
             </option>
           ))}

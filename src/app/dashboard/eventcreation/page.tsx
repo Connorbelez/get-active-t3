@@ -66,20 +66,8 @@ interface eventData {
 //   event: eventData
 // }
 
-export default function Page() {
-	//ToDo: unhardcode this, implement sessions
-	// const {data : Session} = useSession();
-	// const email = Session?.user?.email || "connor.belez@gmail.com"
+export default function App() {
 
-  // const output = useMemo(() => {
-  //   return generateHTML(json, [
-  //     Document,
-  //     Paragraph,
-  //     Text,
-  //     Bold,
-  //     // other extensions …
-  //   ])
-  // }, [json])
 
   const [content, setContent] = useLocalStorage(
     "content",
@@ -174,7 +162,7 @@ export default function Page() {
         const reader = new FileReader();
         reader.readAsDataURL(file);
 
-        handleImageUpload(file).then(
+        void handleImageUpload(file).then(
             (urlVal) => {
                 console.log("HERO URL: ",urlVal);
                 setEventData((prevData) => ({ ...prevData, ["heroImage"]: urlVal }));
@@ -242,7 +230,7 @@ export default function Page() {
           from: selection.from - 2,
           to: selection.from,
         });
-        complete(
+        void complete(
           getPrevText(e.editor, {
             chars: 5000,
           }),
@@ -250,7 +238,7 @@ export default function Page() {
 
         va.track("Autocomplete Shortcut Used");
       } else {
-        debouncedUpdates(e);
+        void debouncedUpdates(e);
       }
     },
     autofocus: "end",
@@ -303,7 +291,7 @@ export default function Page() {
       e.stopPropagation();
       stop();
       if (window.confirm("AI writing paused. Continue?")) {
-        complete(editor?.getText() || "");
+        void complete(editor?.getText() || "");
       }
     };
     if (isLoading) {
@@ -384,16 +372,16 @@ export default function Page() {
 		console.log(JSON.stringify(payload))
 
         //ToDO: change this to a real url
-        const prodUrl : string = "/api/newevent"
+        const prodUrl = "/api/newevent"
 
 		// const url = "http://localhost:3000/api/newevent";
 
         //ToDo: revalidate cacheq
 
 
-
+//ToDo check for response
 		//event type needs an update.
-        axios.post("api/revalidate/events",JSON.stringify({"secret":"sF0XA3UhthHBYxyv"}))
+        void axios.post("api/revalidate/events",JSON.stringify({"secret":"sF0XA3UhthHBYxyv"}))
         //ToDo: insert into database here
         //ToDo: this is in the browser, but we need to specify the endpoint on the server hardcoding is bad.
         //can't use env file.
@@ -525,7 +513,7 @@ export default function Page() {
                         <div className="max-w-sm h-40 rounded-lg border-2 border-dashed flex items-center justify-center relative">
                             <label htmlFor="file" className="cursor-pointer text-center p-4 mt-10 md:p-8 absolute inset-0 z-0 flex items-center justify-center">
                                 <svg className="w-10 h-10 mx-auto " viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12.1667 26.6667C8.48477 26.6667 5.5 23.6819 5.5 20C5.5 16.8216 7.72428 14.1627 10.7012 13.4949C10.5695 12.9066 10.5 12.2947 10.5 11.6667C10.5 7.0643 14.231 3.33334 18.8333 3.33334C22.8655 3.33334 26.2288 6.19709 27.0003 10.0016C27.0556 10.0006 27.1111 10 27.1667 10C31.769 10 35.5 13.731 35.5 18.3333C35.5 22.3649 32.6371 25.7279 28.8333 26.5M25.5 21.6667L20.5 16.6667M20.5 16.6667L15.5 21.6667M20.5 16.6667L20.5 36.6667" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M12.1667 26.6667C8.48477 26.6667 5.5 23.6819 5.5 20C5.5 16.8216 7.72428 14.1627 10.7012 13.4949C10.5695 12.9066 10.5 12.2947 10.5 11.6667C10.5 7.0643 14.231 3.33334 18.8333 3.33334C22.8655 3.33334 26.2288 6.19709 27.0003 10.0016C27.0556 10.0006 27.1111 10 27.1667 10C31.769 10 35.5 13.731 35.5 18.3333C35.5 22.3649 32.6371 25.7279 28.8333 26.5M25.5 21.6667L20.5 16.6667M20.5 16.6667L15.5 21.6667M20.5 16.6667L20.5 36.6667" stroke="#4F46E5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </label>
                             <p className="mt-3 text-gray-700 max-w-xs mx-auto absolute z-10">Click to <span className="font-medium text-indigo-600">Upload your file</span> or drag and drop your file here</p>

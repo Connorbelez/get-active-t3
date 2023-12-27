@@ -2,7 +2,7 @@ import {
   IconArrowsexpandLeft,
   IconBxCustomize,
   IconPennibLine,
-} from "components/icons";
+} from "@/components/icons";
 import { ReactNode } from "react";
 import featureCover from "public/feature-cover.svg";
 import Image from "next/image";

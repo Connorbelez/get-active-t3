@@ -13,11 +13,11 @@ import { getServerSession } from "next-auth/next"
 // import {authOptions} from "@/config/authOptions";
 import { redirect } from "next/navigation";
 import { getServerAuthSession } from '@/server/auth';
-interface pageProps {
+// interface pageProps {
 
-}
+// }
 
-const App: FC<pageProps> = async ({}) => {
+const App: FC = async () => {
     const session = await getServerAuthSession();
     const email = session?.user?.email
     console.log("EMAIL : ", email)

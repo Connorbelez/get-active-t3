@@ -1,28 +1,26 @@
 import HeadingButtonSection from "./HeadingButtonSection";
-import CategoryFilter from "@/../components/shared/CategoryFilter";
-import Collection from "@/../components/shared/Collection";
-import Search from "@/../components/shared/Search";
+
 // import { button as Button } from "@/../components/ui/button";
 // import { getAllEvents } from '@/lib/actions/event.actions';
 // import { SearchParamProps } from '@/types';
-import Image from "next/image";
-import NavLink from "@/../components/ui/NavLink";
+// import Image from "next/image";
+// import NavLink from "@/../components/ui/NavLink";
 import Link from "next/link";
-import { title as heading, subtitle } from "@/components/Primatives/Typography";
-import Carosel from "../components/CaroselSample";
-import { title } from "process";
-import Card from "@/components/cards/experimental/Card";
+// import { title as heading, subtitle } from "@/components/Primatives/Typography";
+// import Carosel from "../components/CaroselSample";
+// import { title } from "process";
+// import Card from "@/components/cards/experimental/Card";
 import CardSponser from "@/components/cards/experimental/CardSponser";
 import { Divider, Button } from "@nextui-org/react";
 import {
   DoubleArrowRightIcon,
   DoubleArrowDownIcon,
 } from "@radix-ui/react-icons";
-import EventHero from "../components/EventsHero";
+// import EventHero from "../components/EventsHero";
 
-interface compProps {}
 
-export default function comp({ props }: { props: compProps }) {
+
+export default function App() {
   return (
     <div className="wrapper items-between justify-items-between grid grid-cols-1 gap-5 lg:grid-cols-12 2xl:gap-0">
       <div className="mx-auto max-w-4xl space-y-5 text-center sm:text-left">
@@ -41,18 +39,18 @@ export default function comp({ props }: { props: compProps }) {
           doloremque laudantium, totam rem aperiam, eaque ipsa quae.
         </p>
         <div></div>
-        <HeadingButtonSection props={""} />
+        <HeadingButtonSection  />
       </div>
 
       <div className="FEATURED CARD flex flex-col items-center lg:col-span-6 lg:col-start-7 lg:items-end">
-        <CardSponser props={""} />
+        <CardSponser href="events/featured"  />
       </div>
 
       <Button
         size="lg"
         color={"primary"}
         as={Link}
-        href={"#events"}
+        href={"/events/featured"}
         endContent={<DoubleArrowRightIcon />}
         className="button w-full lg:hidden"
       >

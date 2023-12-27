@@ -1,7 +1,7 @@
-import mergeTW from "utils/mergeTW";
+import mergeTW from "@/utils/mergeTW";
 import Link from "next/link";
 import { AnchorHTMLAttributes, ReactNode } from "react";
-import { buttonVariants } from "components/variants";
+import { buttonVariants } from "@/components/variants";
 
 interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
   children: ReactNode;

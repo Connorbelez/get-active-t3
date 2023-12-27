@@ -34,8 +34,8 @@ export default () => {
       a 15.9155 15.9155 0 0 1 0 -31.831"
               fill="none"
               stroke="#047857"
-              stroke-width="2.5"
-              stroke-linecap="round"
+              strokeWidth="2.5"
+              strokeLinecap="round"
               stroke-dasharray="100, 100"
             />
           </svg>
@@ -46,8 +46,8 @@ export default () => {
       a 15.9155 15.9155 0 0 1 0 -31.831"
               fill="none"
               stroke="#FFF"
-              stroke-width="2.5"
-              stroke-linecap="round"
+              strokeWidth="2.5"
+              strokeLinecap="round"
               stroke-dasharray={`${progressCount}, 100`}
             />
           </svg>

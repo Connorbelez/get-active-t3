@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
-import {Navbar, NavbarBrand, NavbarContent,NavbarMenu,NavbarMenuItem, NavbarMenuToggle, NavbarItem, Link, Button} from "@nextui-org/react";
-import {AcmeLogo} from "./icons/AcmeLogo.jsx";
+import {Image, Navbar, NavbarBrand, NavbarContent,NavbarMenu,NavbarMenuItem, NavbarMenuToggle, NavbarItem, Link, Button} from "@nextui-org/react";
+import AcmeLogo from "/Logo.png";
 import { getSession, signIn, useSession } from "next-auth/react";
 import { NavAvatar } from "./NavAvater";
 import { ThemeSwitch } from "./ThemeSwitcher";
+
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -28,8 +29,8 @@ export default function App() {
         {/* @ts-ignore */}
         <Link href="/" >
             <NavbarBrand >
-            <AcmeLogo />
-            <p className="font-bold text-inherit">ACME</p>
+              <Image src={"/Logo.png"} width={40} height={40} alt="Acme Logo" />
+              <p className=" ml-2 font-bold text-inherit">GET ACTIVE</p>
             </NavbarBrand>
         </Link>
       </NavbarContent>
@@ -37,20 +38,20 @@ export default function App() {
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link color="foreground" href="#">
-            Features
+          <Link color="foreground" href="/events">
+            Events
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-            Customers
+          <Link href="/dashboard/eventcreation" aria-current="page">
+            DashBoard
           </Link>
         </NavbarItem>
-        <NavbarItem>
+        {/* <NavbarItem>
           <Link color="foreground" href="#">
             Integrations
           </Link>
-        </NavbarItem>
+        </NavbarItem> */}
       </NavbarContent>
       <NavbarContent justify="end">
       <ThemeSwitch />
@@ -59,7 +60,7 @@ export default function App() {
           {session ? 
                     <NavAvatar/>
           : 
-                      <Button  color="primary" onPress={()=>{signIn("discord")}} variant="flat">
+                      <Button  color="primary" onPress={()=>{void signIn("discord")}} variant="flat">
                       Login
                     </Button>
           }

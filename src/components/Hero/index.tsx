@@ -1,5 +1,5 @@
 import LinkItem from "../LinkItem";
-import { IconGithub } from "components/icons";
+import { IconGithub } from "@/components/icons";
 import HeroBgGradientClient from "./HeroBgGradient.Client";
 
 export default () => {

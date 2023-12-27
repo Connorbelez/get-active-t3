@@ -1,15 +1,15 @@
-import Drawer from "@/components/drawers/ExampleDrawer";
-import { MapPin, MapPinned, Clock1, TicketIcon } from "lucide-react";
+// import Drawer from "@/components/drawers/ExampleDrawer";
+// import { MapPin, MapPinned, Clock1, TicketIcon } from "lucide-react";
 import {
   CalendarIcon,
-  ChevronDownIcon,
-  ClockIcon,
+//   ChevronDownIcon,
+//   ClockIcon,
 } from "@radix-ui/react-icons";
-import Wrapper from "@/app/_components/Providers";
-import BlurredEdgeHero from "@/components/Hero/BluredEdgeHero";
-import { getServerAuthSession } from "@/server/auth";
-import MapAccordian from "@/components/MapAccordian/MapAccordian";
-import Accordian from "@/components/MapAccordian/MapAccordian";
+// import Wrapper from "@/app/_components/Providers";
+// import BlurredEdgeHero from "@/components/Hero/BluredEdgeHero";
+// import { getServerAuthSession } from "@/server/auth";
+// import MapAccordian from "@/components/MapAccordian/MapAccordian";
+// import Accordian from "@/components/MapAccordian/MapAccordian";
 
 interface compProps {
     heading: string,
@@ -21,7 +21,7 @@ export default function comp({heading,content}:  compProps) {
     return (
         <div className="DateNTime mb-16 flex w-full flex-col text-left font-bold">
         <div className="prose mb-4 dark:prose-invert">
-            <h2>Time and Date</h2>
+            <h2 className="text-primary">Time and Date</h2>
         </div>
         <div className="flex w-full px-2 flex-row items-center">
             <i className="mr-1 h-[24px] w-[24px]">

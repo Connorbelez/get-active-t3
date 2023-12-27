@@ -1,10 +1,10 @@
 import Carosel from "./CaroselSample";
 
-interface compProps {
+// interface compProps {
 
-}
+// }
 
-export default function comp({props}: {props: compProps}) {
+export default function comp() {
 
     return (
         <div className="my-16 grid grid-flow-row grid-cols-12 justify-items-center gap-y-5">
