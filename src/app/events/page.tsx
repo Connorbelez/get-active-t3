@@ -28,7 +28,7 @@ export default async function Home() {
 
   return (
     <>
-      <section className="flex flex-col justify-center px-6 py-5">
+      <section className="flex flex-col justify-center px-2 sm:px-6 py-5">
         <EventHero  />
       </section>
       

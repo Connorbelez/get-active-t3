@@ -16,7 +16,7 @@ export default function CarouselSize() {
       opts={{
         align: "center",
       }}
-      className="lg:max-w-11/12 md:max-w-10/12 flex ml-auto"
+      className="lg:max-w-11/12 md:max-w-10/12 flex overflow-visibh ml-auto"
     >
       <CarouselContent>
         {Array.from({ length: 5 }).map((_, index) => (
