@@ -1,5 +1,6 @@
 import { MapPinned } from "lucide-react";
 import MapAccordian from "@/components/MapAccordian/MapAccordian";
+import Map from "@/components/Map/MapBox";
 interface compProps {
     heading: string,
     address?: string,
@@ -12,6 +13,10 @@ export default function comp({heading,address,city,province,postalCode}: compPro
 
     return (
         <div className="Place mb-16 flex w-full flex-col text-left font-bold">
+                  <link
+        href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css"
+        rel="stylesheet"
+      />
         <div className="prose mb-4 dark:prose-invert">
             <h2 className="text-primary">Place</h2>
         </div>
@@ -30,8 +35,9 @@ export default function comp({heading,address,city,province,postalCode}: compPro
                 </div>
             </div>
         </div>
-        <div className="According Wrapper mt-2 px-4 w-full max-w-11/12 flex justify-center">
+        <div className="mt-2 w-full ">
             <MapAccordian title="VIEW MAP" />
+            {/* <Map wrapperClassName="h-[300px] w[300px]"/> */}
         </div>
     </div>
 

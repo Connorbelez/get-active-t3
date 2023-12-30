@@ -8,6 +8,7 @@ import FormSample from "@/app/_components/FormSample"
 import { Carousel } from "@/components/ui/carousel"
 import {Input} from "@nextui-org/react"
 import Toastdemo from "@/app/_components/toastdemo"
+import MapboxMap from "@/components/Map/MapBox"
 
 import {
   Drawer,
@@ -64,7 +65,7 @@ const data = [
 
 export default function DrawerDemo() {
   const [goal, setGoal] = React.useState(350)
-
+  const [showMap, setShowMap] = React.useState(false);
   function onClick(adjustment: number) {
     setGoal(Math.max(200, Math.min(400, goal + adjustment)))
   }
@@ -72,13 +73,22 @@ export default function DrawerDemo() {
   return ( 
 
     <div className="h-screen">
+            {/* <link
+        href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css"
+        rel="stylesheet"
+      /> */}
     <div className="pl-10 bg-card">
         <CaroselSample/>
     </div>
     <div>
         <Toastdemo/>
     </div>
-    <Input
+    <button className="bg-primary h-[100px] w-[100px]" onClick={() => setShowMap(true)}>Show Map</button>
+    <div className={`transition-all duration-2000 ease-in-out ${showMap ? 'opacity-100 h-auto' : 'opacity-0 h-0'}`}>
+        {showMap? <MapboxMap wrapperClassName="w-[300px] h-[300px]"/> : null}
+    </div>
+           
+      <Input
       type="email"
       label="Email"
     //   labelPlacement="outside-left"

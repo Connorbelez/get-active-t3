@@ -30,7 +30,7 @@ export default function App() {
           )}        
           title="Show Ticket Options:"
       >
-        {"MAP"}
+        {"Ticket Section under construction"}
       </AccordionItem>
 
     </Accordion>

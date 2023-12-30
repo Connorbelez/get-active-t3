@@ -34,7 +34,10 @@ export default function comp() {
   const date = "Sat Jan 27 2023"
   return (
     <div className="EventWrapper bg-background w-full flex flex-col items-center ">
-
+              <link
+        href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css"
+        rel="stylesheet"
+      />
         <div className="w-full max-w-6xl">
             <BlurredEdgeHero
             src={imageUrl}
