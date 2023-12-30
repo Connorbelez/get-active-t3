@@ -60,5 +60,7 @@ export type BlogPost = {
   metaDescription: string;
 };
 
+export type UserRole = "ADMIN" | "USER" | "CREATOR";
+
 export type Dir = "ltr" | "rtl";
 export type TechStack = "jsxTail" | "jsxCss";
