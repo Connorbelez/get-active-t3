@@ -30,6 +30,8 @@ export const env = createEnv({
     ),
     DISCORD_CLIENT_ID: z.string(),
     DISCORD_CLIENT_SECRET: z.string(),
+    STRIPE_WEBHOOK_SECRET: z.string(),
+    STRIPE_DEV_WEBHOOOK_SECRET: z.string(),
   },
 
   /**
@@ -52,6 +54,12 @@ export const env = createEnv({
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
     DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
+    CLOUD_FLARE_BUCKET_ACCESS_ID: process.env.CLOUD_FLARE_BUCKET_ACCESS_ID,
+    CLOUD_FLARE_BUCKET_SECRET_ID: process.env.CLOUD_FLARE_BUCKET_SECRET_ID,
+    CLOUD_FLARE_BUCKET_TOKEN: process.env.CLOUD_FLARE_BUCKET_TOKEN,
+    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+    STRIPE_DEV_WEBHOOOK_SECRET: process.env.STRIPE_DEV_WEBHOOOK_SECRET,
+
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

@@ -1,7 +1,7 @@
 import { FC } from 'react'
 // import TicketCard from "@/app/events/[...event]/components/TicketCard";
 import {Card} from "@nextui-org/react";
-import {NewTicket} from "@/lib/planetscale";
+// import {NewTicket} from "@/lib/planetscale";
 import ProfileTicket from "./ProfileTicket"
 interface pageProps {
     ticket: any

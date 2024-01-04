@@ -1,13 +1,15 @@
-"use client";
-import React from "react";
-import {Image, Navbar, NavbarBrand, NavbarContent,NavbarMenu,NavbarMenuItem, NavbarMenuToggle, NavbarItem, Link, Button} from "@nextui-org/react";
-import AcmeLogo from "/Logo.png";
-import { getSession, signIn, useSession } from "next-auth/react";
-import { NavAvatar } from "./NavAvater";
-import { ThemeSwitch } from "./ThemeSwitcher";
+// "use client"
 
-export default function App() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+import {Image, Navbar, NavbarBrand, NavbarContent,NavbarMenu,NavbarMenuItem, NavbarMenuToggle, NavbarItem, Link, } from "@nextui-org/react";
+
+// import { NavAvatar } from "./NavAvater";
+import { ThemeSwitch } from "./ThemeSwitcher";
+// import { getServerAuthSession } from "@/server/auth";
+// import { signIn } from "next-auth/react";
+import dynamic from "next/dynamic";
+
+const NavAvatar = dynamic(() => import("./NavAvater") )
+export default async function App() {
 
   const menuItems = [
     "Profile",
@@ -16,20 +18,25 @@ export default function App() {
     "Log Out",
   ];
 
-  const session = useSession();
+  // const session = await getServerAuthSession();
+  // const user = session?.user;
+  // const userObj = {
+  //   username : user?.name,
+  //   userImage : user?.image,
+  //   userEmail : user?.email,
+  // }
 
-  console.table(session)
   return (
-    <Navbar maxWidth="xl" className="" position="sticky"  onMenuOpenChange={setIsMenuOpen}>
+    <Navbar 
+    maxWidth="xl" className="" position="sticky" >
       <NavbarContent>
         <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+
           className="sm:hidden"
         />
-        {/* @ts-ignore */}
         <Link href="/" >
             <NavbarBrand >
-              <Image src={"/Logo.png"} width={40} height={40} alt="Acme Logo" />
+              <Image src={"/Logo.ico"} width={40} height={40} alt="Get Active Logo" />
               <p className=" ml-2 font-bold text-inherit">GET ACTIVE</p>
             </NavbarBrand>
         </Link>
@@ -42,8 +49,8 @@ export default function App() {
             Events
           </Link>
         </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="/dashboard/eventcreation" aria-current="page">
+        <NavbarItem >
+          <Link href="/dashboard/eventcreation" >
             DashBoard
           </Link>
         </NavbarItem>
@@ -57,13 +64,9 @@ export default function App() {
       <ThemeSwitch />
         <NavbarItem>
             
-          {session ? 
-                    <NavAvatar/>
-          : 
-                      <Button  color="primary" onPress={()=>{void signIn("discord")}} variant="flat">
-                      Login
-                    </Button>
-          }
+
+            <NavAvatar />
+
         </NavbarItem>
       </NavbarContent>
       

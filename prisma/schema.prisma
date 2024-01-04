@@ -78,8 +78,8 @@ model User {
   sessions      Session[]
   posts         Post[]
   createdEvents Event[]
-  adminFor      Org       @relation(fields: [adminForOrgId], references: [id])
-  adminForOrgId Int
+  adminFor      Org?       @relation(fields: [adminForOrgId], references: [id])
+  adminForOrgId String?
 
   @@index([email])
   @@index([name])
@@ -96,33 +96,35 @@ model VerificationToken {
 }
 
 model Event {
-  id                  Int      @id @default(autoincrement())
-  name                String
+  id                  String      @id @default(cuid())
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
   title               String
   headline            String?
   category            String?
   heroImage           String
-  startDateTime       DateTime
+  startDate       String
+  startTime       String
   private             Boolean  @default(false)
   active              Boolean  @default(true)
   ticketStartingPrice Int
   location            String
+  address             String
   adultOnly           Boolean  @default(false)
-
+  drinksIncluded      Boolean  @default(false)
+  foodIncluded        Boolean  @default(false)
   createdBy   User   @relation(fields: [createdById], references: [id])
   createdById String
 
   createdByEmail String
 
-  eventDescription String
+  eventDescription String @db.LongText
   length           Int
   capacity         Int?
 
   ticketTypes TicketType[]
   Org         Org?         @relation(fields: [orgId], references: [id])
-  orgId       Int?
+  orgId       String?
 
   @@index([createdById])
   @@index([id])
@@ -131,24 +133,24 @@ model Event {
 }
 
 model TicketType {
-  id            Int     @id @default(autoincrement())
-  name          String
+  id            String     @id @default(cuid())
+  name          String     @default("Ticket")
   price         Int
   paymentOweing Boolean @default(false)
   event         Event   @relation(fields: [eventId], references: [id])
-  eventId       Int
+  eventId       String
 
   ticketDescription Json
-
+  paymentTypes    String
   drinksIncluded Boolean @default(false)
   foodIncluded   Boolean @default(false)
-
+  logo           String
   @@index([eventId])
   @@index([id])
 }
 
 model Org {
-  id          Int     @id @unique @default(autoincrement())
+  id          String     @id @unique @default(cuid())
   name        String  @unique
   description String
   admins      User[]

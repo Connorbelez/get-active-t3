@@ -1,9 +1,12 @@
 "use client"
-import * as React from "react"
+import {useState }from "react"
 import { MinusIcon, PlusIcon } from "@radix-ui/react-icons"
 import { Bar, BarChart, ResponsiveContainer } from "recharts"
 import { FingerprintIcon } from "lucide-react"
 import { button as Button} from "@/components/ui/button"
+import VTicketCard from "@/components/cards/prod/VTicketCard"
+import SideScrollRoot from "@/components/SideScroll/SideScrollRoot"
+import SideScrollComponent from "@/components/SideScroll/SideScrollComponent"
 import {
   Drawer,
   DrawerClose,
@@ -14,59 +17,45 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
+import {api} from "@/trpc/react"
+import { set } from "zod"
+import { c } from "@vercel/blob/dist/put-FLtdezzu.cjs"
+import { TicketType } from "@prisma/client"
+import {Button as NButton} from "@nextui-org/react"
 
-const data = [
-  {
-    goal: 400,
-  },
-  {
-    goal: 300,
-  },
-  {
-    goal: 200,
-  },
-  {
-    goal: 300,
-  },
-  {
-    goal: 200,
-  },
-  {
-    goal: 278,
-  },
-  {
-    goal: 189,
-  },
-  {
-    goal: 239,
-  },
-  {
-    goal: 300,
-  },
-  {
-    goal: 200,
-  },
-  {
-    goal: 278,
-  },
-  {
-    goal: 189,
-  },
-  {
-    goal: 349,
-  },
-]
+interface TicketProps {
+  tickets : Array<TicketType>
+}
 
-export default function DrawerDemo() {
-  const [goal, setGoal] = React.useState(350)
 
-  function onClick(adjustment: number) {
-    setGoal(Math.max(200, Math.min(400, goal + adjustment)))
-  }
 
+export default function DrawerDemo({tickets}:TicketProps) {
+  const [selectedTicket, setSelectedTicket] = useState(0)
+  // console.table(tickets)
+  // console.log('tickets from drawer')
+  // console.log(tickets)
+  // console.log(typeof tickets)
+  // console.log('Is tickets an array:', Array.isArray(tickets));
+  
+  const ticketArr:Array<TicketType> = tickets as Array<TicketType>;
+  // console.log('Is ticketArr an array:', Array.isArray(ticketArr));
+  // const ticket:TicketType = tickets[0]!;
+  const sendFreeTicket = api.ticket.sendFreeTicket.useMutation({
+    onError: (error:any) => {
+      console.log("TICKET NOT SENT!");
+      console.log(error)
+      alert("You must login first")
+    },
+    onSuccess: () => {
+      console.log('ticket sent')
+    },
+    onSettled: () => {
+      console.log('ticket Settled')
+    }
+  });
+  
   return (
-    <Drawer
-        
+    <Drawer   
     >
       <DrawerTrigger asChild>
         <Button className="fixed prose-sm rounded-t-2xl bottom-0 w-full h-[75px] z-10" variant="outline">
@@ -79,56 +68,71 @@ export default function DrawerDemo() {
             </div>
             <h1 className="mt-3">
                 <span className="bg-gradient-to-r font-bold from-[#4F46E5] to-[#e114e5] bg-clip-text text-transparent">
-                    
                     Get Tickets
                 </span>        
             </h1>
         </Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent >
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
             <DrawerTitle>Tickets</DrawerTitle>
             <DrawerDescription>Ticket Section </DrawerDescription>
           </DrawerHeader>
-          <div className="p-4 pb-0">
-            <div className="flex items-center justify-center space-x-2">
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8 shrink-0 rounded-full"
-                onClick={() => onClick(-10)}
-                disabled={goal <= 200}
-              >
-                <MinusIcon className="h-4 w-4" />
-                <span className="sr-only">Decrease</span>
-              </Button>
-              <div className="flex-1 text-center">
-                <div className="text-7xl font-bold tracking-tighter">
-                  {goal}
-                </div>
-                <div className="text-[0.70rem] uppercase text-muted-foreground">
-                  Tickets Here  
-                </div>
+          {/* <div className="flex py-4 mx-2 space-x-4 overflow-x-scroll">
+            {ticketArr.map((ticket, index) => (
+              <div className={'flex'}>
+                <VTicketCard setSelectedTicket={setSelectedTicket} ticketData={ticket} _key={index} stateKey={selectedTicket} />
               </div>
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8 shrink-0 rounded-full"
-                onClick={() => onClick(10)}
-                disabled={goal >= 400}
-              >
-                <PlusIcon className="h-4 w-4" />
-                <span className="sr-only">Increase</span>
-              </Button>
-            </div>
-  
+            ))}
+            
+          </div> */}
+          <div className="w-full my-2">
+          <SideScrollRoot className="p-2">
+            {ticketArr.map((ticket, index) => (
+              <SideScrollComponent>
+                <VTicketCard setSelectedTicket={setSelectedTicket} ticketData={ticket} _key={index} stateKey={selectedTicket} />
+              </SideScrollComponent>
+              ))}
+          </SideScrollRoot>
           </div>
           <DrawerFooter>
-            <Button>Submit</Button>
+            <form onSubmit={(e)=>{
+              e.preventDefault();
+              
+              if (typeof selectedTicket === 'undefined' || !tickets[selectedTicket]?.id) throw new Error('No ticket selected');
+              
+              try{
+                  console.log("SENDING TICKET")
+                  sendFreeTicket.mutate({
+                    ticket:{
+                      name: tickets[selectedTicket]?.name as string,
+                      ticketDescription: tickets[selectedTicket]?.ticketDescription as {description:string},
+                      price: tickets[selectedTicket]?.price as number,
+                      drinksIncluded: tickets[selectedTicket]?.drinksIncluded as boolean,
+                      foodIncluded: tickets[selectedTicket]?.foodIncluded as boolean,
+                      paymentTypes: tickets[selectedTicket]?.paymentTypes as string,
+                      logo:"",
+                    },
+                    paymentOweing: false,
+                    eventName: "CHANGE THIS HARDCODED VALUE",
+                    recipientEmail: "connor.belez@gmail.com",
+                    eventLocation: "CHANGE THIS HARDCODED VALUE",
+                  })
+              }catch( e : any) {
+                console.log("CAUGHT ERROR: ")
+                console.log(e)
+              }
+              console.log("DONE")
+              
+            }}>
+
+            <NButton variant="faded" radius="sm" color="warning" className="" type={"submit"}>Submit</NButton>
+              
             <DrawerClose asChild>
               <Button variant="outline">Cancel</Button>
             </DrawerClose>
+           </form>
           </DrawerFooter>
         </div>
       </DrawerContent>

@@ -14,7 +14,7 @@ const App: FC = () => {
     const name = session?.user?.name
     const email = session?.user?.email
 
-    console.log("IMAGE: ", image)
+    // console.log("IMAGE: ", image)
     return (
         <div className={'relative group'}>
 

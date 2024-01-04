@@ -2,7 +2,7 @@
 // import Collection from '@/components/shared/Collection';
 // import { getEventById, getRelatedEventsByCategory } from '@/lib/actions/event.actions'
 import { formatDateTime } from '@/lib/utils';
-import { SearchParamProps } from '@/types'
+// import { SearchParamProps } from '@/types'
 import {Button} from "@nextui-org/react"
 import Image from 'next/image';
 

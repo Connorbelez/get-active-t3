@@ -36,7 +36,7 @@ export default function App({ title }: MapAccordianProps) {
                     closed: {rotate: -360},
                 }
             } >
-              {isOpen ? <MapPinnedIcon /> : <MapPin />}
+              {isOpen ? <MapPinnedIcon color={"#BEF264"} /> : <MapPin color={"#BEF264"} />}
             </motion.div>
           )}        
           title={title}

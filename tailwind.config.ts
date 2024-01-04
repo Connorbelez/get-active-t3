@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 import type { Config } from "tailwindcss"
 
-
-
+// const { tailwindcssNesting } = require("tailwindcss-nesting");
+// const {postcssNesting} = require("postcss-nesting");
 
 // import { type Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
@@ -77,7 +77,7 @@ export default {
     
   },
   darkMode: "class",
-  plugins: [require('@tailwindcss/typography'),require("tailwindcss-animate"),
+  plugins: [ require('@tailwindcss/typography'),require("tailwindcss-animate"),
   nextui(
     {prefix: "nextui", // prefix for themes variables
       addCommonColors: true, // override common colors (e.g. "blue", "green", "pink").
@@ -100,7 +100,8 @@ export default {
             coral: {
               500: '#15BF59',
             },
-  
+            secondary : "#006FEE",
+              
             grey: {
               600: '#545454', // Subdued - color name in figma
               500: '#757575',

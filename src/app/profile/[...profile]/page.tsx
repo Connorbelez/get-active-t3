@@ -1,14 +1,14 @@
 import { FC } from 'react'
-import ProfileAvatar from "@/app/profile/[...profile]/components/ProfileAvatar";
-import {CardBody, Card, CardHeader, CardFooter} from "@nextui-org/card";
+// import ProfileAvatar from "@/app/profile/[...profile]/components/ProfileAvatar";
+// import {CardBody, Card, CardHeader, CardFooter} from "@nextui-org/card";
 import ProfileCard from "@/app/profile/[...profile]/components/ProfileCard";
 import EventTabs from "./components/EventTabs"
-import {
-    getSavedEventDetailsFromUserEmail,
-    getSavedEventsFromUserEmail,
-    getTicketsAndMatchingEventForUserByEmail,
-    getTicketsForUserByEmail, NewTicket
-} from "@/lib/planetscale";
+// import {
+//     getSavedEventDetailsFromUserEmail,
+//     getSavedEventsFromUserEmail,
+//     getTicketsAndMatchingEventForUserByEmail,
+//     getTicketsForUserByEmail, NewTicket
+// } from "@/lib/planetscale";
 import { getServerSession } from "next-auth/next"
 // import {authOptions} from "@/config/authOptions";
 import { redirect } from "next/navigation";

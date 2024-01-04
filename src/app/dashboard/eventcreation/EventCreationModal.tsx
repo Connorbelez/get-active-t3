@@ -3,7 +3,7 @@ import React from "react";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
 import {title} from "@/ui/primitives/text";
 
-export default function App({onCreate, formData}:{onCreate:any,formData:any})  {
+export default function App({onCreate, formData}:{onCreate:()=>void ,formData:any})  {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
     if(formData.ticketDataCompleted === false || formData.ticketDataCompleted === false) {
@@ -47,7 +47,10 @@ export default function App({onCreate, formData}:{onCreate:any,formData:any})  {
                                 <Button color="primary" variant="light" onClick={onClose}>
                                     Close
                                 </Button>
-                                <Button type={"submit"} variant={"ghost"} className={"text-green-600"} onPress={onCreate}>
+                                <Button type={"submit"} variant={"ghost"} className={"text-green-600"} onPress={()=>{
+                                    console.log("onCreate")
+                                    onCreate();
+                                    }}>
                                     Create
                                 </Button>
                             </ModalFooter>

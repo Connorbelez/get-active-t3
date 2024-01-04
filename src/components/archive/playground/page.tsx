@@ -9,7 +9,7 @@ export default function comp() {
             <div className="h-[500px] bg-blue-500"></div>
 
             <div className="h-[500px] bg-green-500"></div>
-            <DrawerDemo/>
+            {/* <DrawerDemo/> */}
         </div>
     )
 }

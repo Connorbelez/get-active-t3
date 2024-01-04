@@ -192,7 +192,7 @@ export default function comp() {
         </section>
         </div>
         <div className="flex justify-center w-full ">
-            <Drawer />
+            {/* <Drawer /> */}
         </div>
         
     </div>

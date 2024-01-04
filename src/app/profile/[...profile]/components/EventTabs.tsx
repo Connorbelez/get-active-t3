@@ -1,14 +1,14 @@
 "use client"
 import React from "react";
 import {Tabs, Tab, Input, Link, Button, Card, CardBody, CardHeader} from "@nextui-org/react";
-import {NewTicket, SelectTicket} from "@/lib/planetscale";
+// import {NewTicket, SelectTicket} from "@/lib/planetscale";
 // import TicketCard from "@/app/events/[...event]/components/TicketCard";
 // import ProfileTickets from "@/app/profile/[...profile]/components/ProfileTickets";
 // import ProfileSavedEventCard from "@/app/profile/[...profile]/components/ProfileSavedEventCard";
 // import EventDetailDrawer from "./EventDetailDrawer";
 
 
-export default function App({tickets,savedEvents}: {tickets: NewTicket[] | undefined, savedEvents:NonNullable<unknown>[] | undefined }){
+export default function App({tickets,savedEvents}: {tickets:any, savedEvents:NonNullable<unknown>[] | undefined }){
     //ToDo: login is not a tab change this
     // const [selected, setSelected] = React.useState("login");
     // console.log("TICKETS : ", tickets[0])

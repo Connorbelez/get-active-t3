@@ -64,3 +64,8 @@ export type UserRole = "ADMIN" | "USER" | "CREATOR";
 
 export type Dir = "ltr" | "rtl";
 export type TechStack = "jsxTail" | "jsxCss";
+
+import {SVGProps} from "react";
+export type IconSvgProps = SVGProps<SVGSVGElement> & {
+  size?: number;
+};

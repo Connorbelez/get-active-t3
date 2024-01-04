@@ -5,20 +5,30 @@ import { getServerAuthSession } from "@/server/auth";
 // import { api } from "@/trpc/server";
 // import {auth} from "n"
 // import {signIn, signOut, useSession} from 'next-auth/react'
-import { redirect } from 'next/navigation'
+// import { redirect } from 'next/navigation'
+// import { getSession } from "next-auth/react";
 
 export default async function Home() {
   // const hello = await api.post.hello.query({ text: "from tRPC" });
-
-  // const session2 = await auth()
-  const session = await getServerAuthSession();
-  redirect("/events")
+  // const session = await getServerAuthSession();
+  // console.log("session From Page")
+  // console.table(session)
+  // const session = {
+  //   user: {
+  //     name: "cbizy",
+  //     image: "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
+  //     email: "zepplinf13@gmail.com"
+  //   }
+  // }
+  // if(session?.user.name !== "cbizy") redirect("/events")
   // if (session?.user) {
   //   // const res = await api.post.getSecretMessage.query();
   //   // console.log("RES:")
   //   // console.log("\n\nres from page: ",res)
 
   // }
+  // const session = await getServerAuthSession()
+
 
   return (
     <div className="flex min-h-screen flex-col items-center  justify-center">
@@ -55,7 +65,7 @@ export default async function Home() {
             {hello ? hello.greeting : "Loading tRPC query..."}
           </p> */}
 
-          <div className="flex flex-col items-center justify-center gap-4">
+          {/* <div className="flex flex-col items-center justify-center gap-4">
             <p className="text-center text-2xl text-white">
               {session && <span>Logged in as {session?.user?.name}</span>}
             </p>
@@ -65,7 +75,7 @@ export default async function Home() {
             >
               {session ? "Sign out" : "Sign in"}
             </Link>
-          </div>
+          </div> */}
         </div>
 
         {/* <CrudShowcase /> */}

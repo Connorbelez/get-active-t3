@@ -87,7 +87,7 @@ const flyToLocation = () => {
             map.touchZoomRotate.enable();
             map.touchPitch.enable();
           }
-          console.log("moveend");
+          // console.log("moveend");
         });
 
     setIsAtStart(!isAtStart);

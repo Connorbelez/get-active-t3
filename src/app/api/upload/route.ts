@@ -1,5 +1,5 @@
 
-import {NextResponse } from "next/server";
+import {NextRequest, NextResponse } from "next/server";
 
 import {
   S3Client,
@@ -55,18 +55,18 @@ async function streamToBuffer(readableStream: ReadableStream): Promise<Buffer> {
 }
 
 //@ts-ignore
-export async function POST(req: Request) {
-  console.log("POST UPLOAD IMAGE!!!!")
+export async function POST(req:NextRequest) {
+  // console.log("POST UPLOAD IMAGE!!!!")
 
 
   const file = req.body;
   // @ts-ignore
-  const filename = (req.headers['x-vercel-filename'] as string) || "file.txt";
+  const filename = (req.headers['x-vercel-filename'] as string) || "file";
   // @ts-ignore
   const contentType = (req.headers['content-type'] as string) || "image";
   
   const fileType = `.${contentType.split("/")[1]}`;
-  console.log("FILEasdf : ",file, typeof file);
+  // console.log("FILEasdf : ",file, typeof file);
   const id = uuidv4();
   // construct final filename based on content-type if not provided
   const finalName = filename.includes(fileType)
@@ -75,10 +75,10 @@ export async function POST(req: Request) {
 
   //@ts-ignore
   const buffer = await streamToBuffer(file);
-  console.log("FILE NAME : ",finalName);
-  console.log("FILE TYPE : ",fileType);
-  console.log("CONTENT TYPE : ",contentType);
-  console.log("FILE : ",buffer, typeof buffer);
+  // console.log("FILE NAME : ",finalName);
+  // console.log("FILE TYPE : ",fileType);
+  // console.log("CONTENT TYPE : ",contentType);
+  // console.log("FILE : ",buffer, typeof buffer);
 
   //read image from filesystem into buffer
   try{

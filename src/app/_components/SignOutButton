@@ -1,0 +1,16 @@
+"use client"
+import { signOut } from "next-auth/react";
+import {Button } from "@nextui-org/react";
+export default function comp() {
+
+    return (
+        <Button
+        aria-label="profile"
+        onPress={()=>{signOut("discord")}}
+        variant="flat"
+        color="primary"
+      >
+        Sign In
+      </Button>
+    )
+}
