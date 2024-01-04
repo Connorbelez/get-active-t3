@@ -1,4 +1,4 @@
-import { cn } from '@/app/dashboard/components/TipTap/lib/utils'
+import { cn } from '@/ui/editor/lib/utils'
 
 export const DropdownCategoryTitle = ({ children }: { children: React.ReactNode }) => {
   return (

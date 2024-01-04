@@ -1,7 +1,7 @@
-import { Icon } from '@/app/dashboard/components/TipTap/components/ui/Icon'
-import { Surface } from '@/app/dashboard/components/TipTap/components/ui/Surface'
-import { Toolbar } from '@/app/dashboard/components/TipTap/components/ui/Toolbar'
-import Tooltip from '@/app/dashboard/components/TipTap/components/ui/Tooltip'
+import { Icon } from '@/ui/editor/components/ui/Icon'
+import { Surface } from '@/ui/editor/components/ui/Surface'
+import { Toolbar } from '@/ui/editor/components/ui/Toolbar'
+import Tooltip from '@/ui/editor/components/ui/Tooltip'
 
 export type LinkPreviewPanelProps = {
   url: string

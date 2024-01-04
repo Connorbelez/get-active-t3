@@ -1,3 +1,3 @@
-import { Image } from './image.js';
-export * from './image.js';
-export default Image;
+import { PDFLink } from './PDFLink';
+export * from './PDFLink';
+export default PDFLink;

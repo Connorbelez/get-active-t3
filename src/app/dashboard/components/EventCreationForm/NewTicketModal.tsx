@@ -27,6 +27,7 @@ import * as z from "zod";
 import { TicketType } from "@prisma/client";
 import { ticketFormSchema } from "./EventForm";
 import PaymentSelect from "./PaymentSelect";
+import TicketInlcudedSelect from "./TicketIncludedSelect";
 // import { Input } from "@/components/ui/input";
 interface compProps {
   onOpen: () => void;
@@ -191,22 +192,41 @@ export default function comp({
                   />
 
                 </div>
-                <FormField
-                    control={form.control}
-                    name="paymentTypes"
-                    render={({ field }) => (
-                      <FormItem>
-                        {/* <FormLabel>Ticket Description</FormLabel> */}
-                        <FormControl>
-                            <PaymentSelect selectedPaymentMethods={field.value} handleSelectionChange={field.onChange}/>
-                        </FormControl>
-                        {/* <FormDescription>
-                          Displayed Ticket Information
-                        </FormDescription> */}
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                <div className="grid grid-cols-2 gap-4">
+
+                    <FormField
+                        control={form.control}
+                        name="paymentTypes"
+                        render={({ field }) => (
+                        <FormItem>
+                            {/* <FormLabel>Ticket Description</FormLabel> */}
+                            <FormControl>
+                                <PaymentSelect selectedPaymentMethods={field.value} handleSelectionChange={field.onChange}/>
+                            </FormControl>
+                            {/* <FormDescription>
+                            Displayed Ticket Information
+                            </FormDescription> */}
+                            <FormMessage />
+                        </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="itemsIncluded"
+                        render={({ field }) => (
+                        <FormItem>
+                            {/* <FormLabel>Ticket Description</FormLabel> */}
+                            <FormControl>
+                                <TicketInlcudedSelect selectedPaymentMethods={field.value} handleSelectionChange={field.onChange}/>
+                            </FormControl>
+                            {/* <FormDescription>
+                            Displayed Ticket Information
+                            </FormDescription> */}
+                            <FormMessage />
+                        </FormItem>
+                        )}
+                    />
+                </div>
 
                 <FormField
                     control={form.control}

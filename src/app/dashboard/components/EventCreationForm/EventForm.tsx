@@ -1,22 +1,17 @@
 "use client"
 
 import { useEffect, useRef, useState, useMemo } from "react";
-import { Calendar } from "@/components/ui/calendar"
 import { cn } from "@/lib/utils"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-import { button as Button } from "@/components/ui/button"
 import { AddressAutofill } from '@mapbox/search-js-react';
-import React from 'react';
 import { CreditCard, Banknote } from "lucide-react";
-import Editor from "@/ui/editor";
 import ReactDOM from 'react-dom';
-import { generateHTML } from '@tiptap/html'
-import {ExtensionKit} from "@/app/dashboard/components/TipTap/extensions/extension-kit"
-// import TimePicker from "@/components/TimePicker/TimePicker";
-import TicketForm  from "@/app/dashboard/components/EventCreationForm/TicketForm";
 
+// import TimePicker from "@/components/TimePicker/TimePicker";
+
+
+//FORM IMPORTS
+import TicketForm  from "@/app/dashboard/components/EventCreationForm/TicketForm";
+import useLocalStorage from "@/lib/hooks/use-local-storage";
 import {
   Form,
   FormControl,
@@ -26,22 +21,38 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+
+
+//UI IMPORTS
 import { CalendarIcon } from "@radix-ui/react-icons"
 import { format } from "date-fns"
-import { Input as NextInput } from "@nextui-org/react"
+import { button as Button } from "@/components/ui/button"
+import { Input as NextInput, Switch } from "@nextui-org/react"
 // import { useToast } from "@/components/ui/use-toast"
-import {Switch} from "@nextui-org/react";
 import { Input } from "@/components/ui/input"
-import { JSONContent } from "@tiptap/react";
+import { Calendar } from "@/components/ui/calendar"
+
+
+
 import { Event, TicketType } from "@prisma/client";
 import { start } from "repl"
+import React from 'react';
+
+//TIPTAP IMPORTS
 import HTMLReactParser from "html-react-parser";
+import Editor from "@/ui/editor";
+import { generateHTML } from '@tiptap/html'
+// import {ExtensionKit} from "@/ui/editor/extensions/extension-kit"
+import { JSONContent } from "@tiptap/react";
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
   } from "@/components/ui/popover"
-import { Edit } from "lucide-react";
+// import { Edit } from "lucide-react";
 export type PaymentMethod = {
     id:number;
     name: string;
@@ -55,12 +66,12 @@ export const ticketFormSchema = z.object({
         .max(50, "Too long"),
 
     ticketPrice: z.string(),
-    foodIncluded: z.boolean(),
-    drinkIncluded: z.boolean(),
+    itemsIncluded: z.string(),
     paymentTypes: z.string(), //ToDo: change this to enum with dropdown
     ticketDescription: z.string(),
     freeTicket: z.boolean(),
     payAtDoorTicket: z.boolean(),
+
 
 })
 
@@ -98,6 +109,7 @@ const formSchema = z.object({
     payAtDoorTicket: z.boolean(),
 
 
+
 })
 
 // const onSubmit = (values: z.infer<typeof formSchema>) =>{
@@ -111,27 +123,31 @@ const formSchema = z.object({
 export default function ProfileForm() {
     // ...
      
-    const [editorJson, setEditorJson] = useState<JSONContent>({ type: 'doc',
-    content: [
-      {
-        type: 'paragraph',
-        content: [
-          {
-            type: 'text',
-            text: 'Example ',
-          },
-          {
-            type: 'text',
-            marks: [
-              {
-                type: 'bold',
-              },
+    const [editorJson, setEditorJson] = useLocalStorage(
+        'editorJson',
+        { type: 'doc',
+            content: [
+            {
+                type: 'paragraph',
+                content: [
+                {
+                    type: 'text',
+                    text: 'Example ',
+                },
+                {
+                    type: 'text',
+                    marks: [
+                    {
+                        type: 'bold',
+                    },
+                    ],
+                    text: 'Text',
+                },
+                ],
+            },
             ],
-            text: 'Text',
-          },
-        ],
-      },
-    ],} as JSONContent);
+        } as JSONContent
+    );
 
     const onSubmit = (values: z.infer<typeof formSchema>) =>{
         // Do something with the form values.
@@ -190,7 +206,8 @@ export default function ProfileForm() {
         setPaymentTypes(new Set(e.target.value.split(",")));
       };
     
-    const [ticketData, setTicketData] = useState({
+    const [ticketData, setTicketData] = useLocalStorage(
+        'ticketData', {
         ticketTitle: "",
         ticketPrice: "0",
         foodIncluded: false,
@@ -444,7 +461,7 @@ export default function ProfileForm() {
             />
           </div> */}
           
-            {/* <Editor editorJson={editorJson} setEditorJson={setEditorJson} /> */}
+            <Editor editorJson={editorJson} setEditorJson={setEditorJson}  />
 
 
           <TicketForm tickets={tickets} selected={selectedTicket} setSelected={setSelectedTicket} ticketData={ticketData} setTicketData={setTicketData}/>

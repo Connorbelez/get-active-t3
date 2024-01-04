@@ -1,6 +1,7 @@
 import Moveable from "react-moveable";
 
 export const ImageResizer = ({ editor }) => {
+  console.log("RESIZOR!!!")
   const updateMediaSize = () => {
     const imageInfo = document.querySelector(
       ".ProseMirror-selectednode",

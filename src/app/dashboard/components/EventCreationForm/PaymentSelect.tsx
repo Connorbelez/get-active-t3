@@ -28,7 +28,7 @@ export default function App({selectedPaymentMethods, handleSelectionChange}: Pay
     ]
   return (
     <Select
-
+        
       items={paymentMethods}
       onChange={handleSelectionChange}
       label="Payment Types"

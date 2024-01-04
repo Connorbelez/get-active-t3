@@ -1,8 +1,8 @@
-import { DropdownButton } from '@/app/dashboard/components/TipTap/components/ui/Dropdown'
-import { Icon } from '@/app/dashboard/components/TipTap/components/ui/Icon'
-import { Surface } from '@/app/dashboard/components/TipTap/components/ui/Surface'
-import { Toolbar } from '@/app/dashboard/components/TipTap/components/ui/Toolbar'
-import { languages, tones } from '@/app/dashboard/components/TipTap/lib/constants'
+import { DropdownButton } from '@/ui/editor/components/ui/Dropdown'
+import { Icon } from '@/ui/editor/components/ui/Icon'
+import { Surface } from '@/ui/editor/components/ui/Surface'
+import { Toolbar } from '@/ui/editor/components/ui/Toolbar'
+import { languages, tones } from '@/ui/editor/lib/constants'
 import * as Dropdown from '@radix-ui/react-dropdown-menu'
 import { useCallback } from 'react'
 

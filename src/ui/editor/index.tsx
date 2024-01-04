@@ -22,11 +22,11 @@ import { TableRowMenu } from "./extensions/Table/menus";
 import { TableColumnMenu } from "./extensions/Table/menus";
 import { useEffect, useState } from "react";
 import { ImageResizer } from "./components/image-resizer";
-import { TiptapEditorProps } from "@/ui/editor/props";
-import { TiptapExtensions } from "@/ui/editor/extensions/exp";
-import useLocalStorage from "@/lib/hooks/use-local-storage";
-import { getPrevText } from "@/lib/editor";
-import { useBlockEditor } from "@/app/dashboard/components/TipTap/hooks/useBlockEditor";
+// import { TiptapEditorProps } from "@/ui/editor/props";
+// import { TiptapExtensions } from "@/ui/editor/extensions/exp";
+// import useLocalStorage from "@/lib/hooks/use-local-storage";
+// import { getPrevText } from "@/lib/editor";
+// import { useBlockEditor } from "@/ui/editor/hooks/useBlockEditor";
 import {ExtensionKit} from "@/app/dashboard/components/TipTap/extensions/extension-kit"
 import { generateHTML } from '@tiptap/html'
 import { Extensions } from "@tiptap/core";
@@ -45,10 +45,10 @@ interface pageprops {
 //ToDo: change to use local storage
 
 export default function Editor({editorJson, setEditorJson}: pageprops) {
-  const [content, setContent] = useLocalStorage(
-    "content",
-    "DEFAULT_EDITOR_CONTENT",
-  );
+  // const [content, setContent] = useLocalStorage(
+  //   "content",
+  //   "DEFAULT_EDITOR_CONTENT",
+  // );
   const [saveStatus, setSaveStatus] = useState("Saved");
   const [hydrated, setHydrated] = useState(false);
   const [htmlcontent, sethtmlcontent] = useState("");
@@ -75,21 +75,21 @@ export default function Editor({editorJson, setEditorJson}: pageprops) {
   //   },
   // ],} as JSONContent);
 
-  useEffect(() => {
-    console.log("JSON From Use Effect ", editorJson)
+  // useEffect(() => {
+  //   console.log("JSON From Use Effect ", editorJson)
 
-  },[editorJson]);
+  // },[editorJson]);
 
   const debouncedUpdates = useDebouncedCallback(async ({ editor }) => {
       const json = editor.getJSON();
       console.log("JSON contentff: ", json);
-      console.log("MYCONTENT: ", content);
+      // console.log("MYCONTENT: ", content);
       sethtmlcontent(editor.getHTML());
 
       console.log("HTML: ", editor.getHTML(), typeof editor.getHTML())
 
       setSaveStatus("Saving...");
-      setContent(json);
+      // setContent(json);
       // Simulate a delay in saving.
       setTimeout(() => {
         setSaveStatus("Saved");
@@ -100,14 +100,14 @@ export default function Editor({editorJson, setEditorJson}: pageprops) {
     const editor = useEditor(
       {
         autofocus: true,
-        onCreate: ({ editor }) => {
+        // onCreate: ({ editor }) => {
   
-          // provider?.on('synced', () => {
-            if (editor.isEmpty) {
-              editor.commands.setContent(editorJson)
-            }
-          // })
-        },
+        //   // provider?.on('synced', () => {
+        //     // if (editor.isEmpty) {
+        //     //   editor.commands.setContent(editorJson)
+        //     // }
+        //   // })
+        // },
         onUpdate: ({ editor }) => {
           const json = editor.getJSON()
           console.log("JSON content: from onUpdate ", json)
@@ -117,34 +117,6 @@ export default function Editor({editorJson, setEditorJson}: pageprops) {
         //@ts-expect-error
         extensions: [
           ...ExtensionKit({}),
-          // Collaboration.configure({
-          //   document: ydoc,
-          // }),
-          // CollaborationCursor.configure({
-          //   // provider,
-          //   user: {
-          //     name: randomElement(userNames),
-          //     color: randomElement(userColors),
-          //   },
-          // }),
-          // Ai.configure({
-          //   appId: TIPTAP_AI_APP_ID,
-          //   // token: aiToken,
-          //   baseUrl: TIPTAP_AI_BASE_URL,
-          //   autocompletion: true,
-          //   onLoading: () => {
-          //     setIsAiLoading(true)
-          //     setAiError(null)
-          //   },
-          //   onSuccess: () => {
-          //     setIsAiLoading(false)
-          //     setAiError(null)
-          //   },
-          //   onError: error => {
-          //     setIsAiLoading(false)
-          //     setAiError(error.message)
-          //   },
-          // }),
         ],
         editorProps: {
           attributes: {
@@ -158,75 +130,16 @@ export default function Editor({editorJson, setEditorJson}: pageprops) {
     )
   
 
-  // const { complete, completion, isLoading, stop } = useCompletion({
-  //   id: "novel",
-  //   api: "/api/generate",
-  //   onFinish: (_prompt, completion) => {
-  //     editor?.commands.setTextSelection({
-  //       from: editor.state.selection.from - completion.length,
-  //       to: editor.state.selection.from,
-  //     });
-  //   },
-  //   onError: (err) => {
-  //     toast.error(err.message);
-  //     if (err.message === "You have reached your request limit for the day.") {
-  //       // va.track("Rate Limit Reached");
-  //     }
-  //   },
-  // });
 
   const prev = useRef("");
 
-  // Insert chunks of the generated text
-  // useEffect(() => {
-  //   const diff = completion.slice(prev.current.length);
-  //   prev.current = completion;
-  //   editor?.commands.insertContent(diff);
-  // }, [isLoading, editor, completion]);
 
-  // useEffect(() => {
-  //   // if user presses escape or cmd + z and it's loading,
-  //   // stop the request, delete the completion, and insert back the "++"
-  //   const onKeyDown = (e: KeyboardEvent) => {
-  //     if (e.key === "Escape" || (e.metaKey && e.key === "z")) {
-  //       stop();
-  //       console.log(editor)
-  //       if (e.key === "Escape") {
-  //         editor?.commands.deleteRange({
-  //           from: editor.state.selection.from - completion.length,
-  //           to: editor.state.selection.from,
-  //         });
-  //       }
-  //       editor?.commands.insertContent("++");
-  //     }
-  //   };
-  //   const mousedownHandler = (e: MouseEvent) => {
-  //     e.preventDefault();
-  //     e.stopPropagation();
-  //     stop();
-  //     // if (window.confirm("AI writing paused. Continue?")) {
-  //     //   complete(editor?.getText() || "");
-  //     // }
-  //   };
-  //   if (isLoading) {
-  //     document.addEventListener("keydown", onKeyDown);
-  //     window.addEventListener("mousedown", mousedownHandler);
-  //   } else {
-  //     document.removeEventListener("keydown", onKeyDown);
-  //     window.removeEventListener("mousedown", mousedownHandler);
-  //   }
-  //   return () => {
-  //     document.removeEventListener("keydown", onKeyDown);
-  //     window.removeEventListener("mousedown", mousedownHandler);
-  //   };
-  // }, [stop, isLoading, editor, complete, completion.length]);
-
-  // useEffect(() => {
-  //   if (editor && content && !hydrated) {
-  //     editor.commands.setContent(content);
-  //     setHydrated(true);
-  //   }
-  // }, [editor, content, hydrated]);
+  useEffect(() => {
+    if (editor && editorJson && !hydrated) {
+      editor.commands.setContent(editorJson);
+      setHydrated(true);
+    }
+  }, [editor, editorJson, hydrated]);
 
   // if(!editor) return null;
   

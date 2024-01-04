@@ -3,7 +3,7 @@ import { HexColorPicker } from 'react-colorful'
 import { ColorButton } from './ColorButton'
 import { Toolbar } from '../../ui/Toolbar'
 import { Icon } from '../../ui/Icon'
-import { themeColors } from '@/app/dashboard/components/TipTap/lib/constants'
+import { themeColors } from '@/ui/editor/lib/constants'
 
 export type ColorPickerProps = {
   color?: string

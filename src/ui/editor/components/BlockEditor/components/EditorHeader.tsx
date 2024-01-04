@@ -1,8 +1,8 @@
-import { Icon } from '@/app/dashboard/components/TipTap/components/ui/Icon'
+import { Icon } from '@/ui/editor/components/ui/Icon'
 import { EditorInfo } from './EditorInfo'
 import { EditorUser } from '../types'
 // import { WebSocketStatus } from '@hocuspocus/provider'
-import { Toolbar } from '@/app/dashboard/components/TipTap/components/ui/Toolbar'
+import { Toolbar } from '@/ui/editor/components/ui/Toolbar'
 
 export type EditorHeaderProps = {
   isSidebarOpen?: boolean

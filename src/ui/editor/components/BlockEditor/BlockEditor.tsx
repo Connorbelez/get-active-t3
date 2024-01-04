@@ -9,7 +9,7 @@ import { LinkMenu } from '../menus'
 import { useBlockEditor } from '../../hooks/useBlockEditor'
 
 import '../../styles/index.css'
-import { ImageResizer } from "@/app/dashboard/components/TipTap/components/image-resizer";
+import { ImageResizer } from "@/ui/editor/components/image-resizer";
 // import { Sidebar } from '../components/Sidebar'
 import { Loader } from '../ui/Loader'
 
@@ -21,7 +21,6 @@ import { useDebouncedCallback } from "use-debounce";
 import { useCompletion } from "ai/react";
 import { TiptapEditorProps } from './editorProps'
 import { getPrevText } from "@/lib/editor";
-import { TiptapExtensions } from '../../extensions/tiptapExtensions'
 
 export const BlockEditor = () => {
   const extensions = ExtensionKit({})

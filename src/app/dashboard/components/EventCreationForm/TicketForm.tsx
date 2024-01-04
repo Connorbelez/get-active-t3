@@ -9,13 +9,13 @@ interface compProps {
     tickets: TicketType[];
     selected: number;
     setSelected: (index: number) => void;
-    onSubmit: any;
+    // onSubmit: any;
     ticketData: any;
     setTicketData: any;
 }
 
 
-export default function comp({tickets,selected,setSelected,onSubmit, ticketData, setTicketData}: compProps) {
+export default function comp({tickets,selected,setSelected, ticketData, setTicketData}: compProps) {
     const {isOpen, open, toggle} = useDisclosure();
     return (
         <div className="w-full">    

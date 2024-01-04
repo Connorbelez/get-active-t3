@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { cn } from '@/app/dashboard/components/TipTap/lib/utils'
+import { cn } from '@/ui/editor/lib/utils'
 import { Slot } from '@radix-ui/react-slot'
 import { Surface } from '../Surface'
 

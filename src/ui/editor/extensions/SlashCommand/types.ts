@@ -1,7 +1,7 @@
 import { Editor } from '@tiptap/core'
 
 import { icons } from 'lucide-react'
-
+import { Range } from '@tiptap/core'
 export interface Group {
   name: string
   title: string

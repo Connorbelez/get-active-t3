@@ -3,7 +3,7 @@ import Editor from "@/ui/editor";
 import React, { useEffect, useRef, useState } from "react";
 import { useEditor } from "@tiptap/react";
 import { TiptapEditorProps } from "@/ui/editor/props";
-import { TiptapExtensions } from "@/ui/editor/extensions";
+// import { TiptapExtensions } from "@/ui/editor/extensions";
 import useLocalStorage from "@/lib/hooks/use-local-storage";
 import { useDebouncedCallback } from "use-debounce";
 import { useCompletion } from "ai/react";
@@ -211,104 +211,104 @@ export default function App() {
     }, 500);
   }, 750);
 
-  const editor = useEditor({
-    extensions: TiptapExtensions,
-    editorProps: TiptapEditorProps,
-    onUpdate: (e) => {
-      setSaveStatus("Unsaved");
-      const selection = e.editor.state.selection;
-      const lastTwo = getPrevText(e.editor, {
-        chars: 2,
-      });
-      if (lastTwo === "++" && !isLoading) {
-        e.editor.commands.deleteRange({
-          from: selection.from - 2,
-          to: selection.from,
-        });
-        void complete(
-          getPrevText(e.editor, {
-            chars: 5000,
-          }),
-        );
+  // const editor = useEditor({
+  //   extensions: TiptapExtensions,
+  //   editorProps: TiptapEditorProps,
+  //   onUpdate: (e) => {
+  //     setSaveStatus("Unsaved");
+  //     const selection = e.editor.state.selection;
+  //     const lastTwo = getPrevText(e.editor, {
+  //       chars: 2,
+  //     });
+  //     if (lastTwo === "++" && !isLoading) {
+  //       e.editor.commands.deleteRange({
+  //         from: selection.from - 2,
+  //         to: selection.from,
+  //       });
+  //       void complete(
+  //         getPrevText(e.editor, {
+  //           chars: 5000,
+  //         }),
+  //       );
 
-        va.track("Autocomplete Shortcut Used");
-      } else {
-        void debouncedUpdates(e);
-      }
-    },
-    autofocus: "end",
-  });
+  //       va.track("Autocomplete Shortcut Used");
+  //     } else {
+  //       void debouncedUpdates(e);
+  //     }
+  //   },
+  //   autofocus: "end",
+  // });
 
-  const { complete, completion, isLoading, stop } = useCompletion({
-    id: "novel",
-    api: "/api/generate",
-    onFinish: (_prompt, completion) => {
-      editor?.commands.setTextSelection({
-        from: editor.state.selection.from - completion.length,
-        to: editor.state.selection.from,
-      });
-    },
-    onError: (err) => {
-      toast.error(err.message);
-      if (err.message === "You have reached your request limit for the day.") {
-        va.track("Rate Limit Reached");
-      }
-    },
-  });
+  // const { complete, completion, isLoading, stop } = useCompletion({
+  //   id: "novel",
+  //   api: "/api/generate",
+  //   onFinish: (_prompt, completion) => {
+  //     editor?.commands.setTextSelection({
+  //       from: editor.state.selection.from - completion.length,
+  //       to: editor.state.selection.from,
+  //     });
+  //   },
+  //   onError: (err) => {
+  //     toast.error(err.message);
+  //     if (err.message === "You have reached your request limit for the day.") {
+  //       va.track("Rate Limit Reached");
+  //     }
+  //   },
+  // });
 
   const prev = useRef("");
 
   // Insert chunks of the generated text
-  useEffect(() => {
-    const diff = completion.slice(prev.current.length);
-    prev.current = completion;
-    editor?.commands.insertContent(diff);
-  }, [isLoading, editor, completion]);
+  // useEffect(() => {
+  //   const diff = completion.slice(prev.current.length);
+  //   prev.current = completion;
+  //   editor?.commands.insertContent(diff);
+  // }, [isLoading, editor, completion]);
 
-  useEffect(() => {
-    // if user presses escape or cmd + z and it's loading,
-    // stop the request, delete the completion, and insert back the "++"
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" || (e.metaKey && e.key === "z")) {
-        stop();
-        console.log(editor);
-        if (e.key === "Escape") {
-          editor?.commands.deleteRange({
-            from: editor.state.selection.from - completion.length,
-            to: editor.state.selection.from,
-          });
-        }
-        editor?.commands.insertContent("++");
-      }
-    };
-    const mousedownHandler = (e: MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      stop();
-      if (window.confirm("AI writing paused. Continue?")) {
-        void complete(editor?.getText() || "");
-      }
-    };
-    if (isLoading) {
-      document.addEventListener("keydown", onKeyDown);
-      window.addEventListener("mousedown", mousedownHandler);
-    } else {
-      document.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("mousedown", mousedownHandler);
-    }
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("mousedown", mousedownHandler);
-    };
-  }, [stop, isLoading, editor, complete, completion.length]);
+  // useEffect(() => {
+  //   // if user presses escape or cmd + z and it's loading,
+  //   // stop the request, delete the completion, and insert back the "++"
+  //   const onKeyDown = (e: KeyboardEvent) => {
+  //     if (e.key === "Escape" || (e.metaKey && e.key === "z")) {
+  //       stop();
+  //       console.log(editor);
+  //       if (e.key === "Escape") {
+  //         editor?.commands.deleteRange({
+  //           from: editor.state.selection.from - completion.length,
+  //           to: editor.state.selection.from,
+  //         });
+  //       }
+  //       editor?.commands.insertContent("++");
+  //     }
+  //   };
+  //   const mousedownHandler = (e: MouseEvent) => {
+  //     e.preventDefault();
+  //     e.stopPropagation();
+  //     stop();
+  //     if (window.confirm("AI writing paused. Continue?")) {
+  //       void complete(editor?.getText() || "");
+  //     }
+  //   };
+  //   if (isLoading) {
+  //     document.addEventListener("keydown", onKeyDown);
+  //     window.addEventListener("mousedown", mousedownHandler);
+  //   } else {
+  //     document.removeEventListener("keydown", onKeyDown);
+  //     window.removeEventListener("mousedown", mousedownHandler);
+  //   }
+  //   return () => {
+  //     document.removeEventListener("keydown", onKeyDown);
+  //     window.removeEventListener("mousedown", mousedownHandler);
+  //   };
+  // }, [stop, isLoading, editor, complete, completion.length]);
 
   // Hydrate the editor with the content from localStorage.
-  useEffect(() => {
-    if (editor && content && !hydrated) {
-      editor.commands.setContent(content);
-      setHydrated(true);
-    }
-  }, [editor, content, hydrated]);
+  // useEffect(() => {
+  //   if (editor && content && !hydrated) {
+  //     editor.commands.setContent(content);
+  //     setHydrated(true);
+  //   }
+  // }, [editor, content, hydrated]);
 
 
 
@@ -667,9 +667,9 @@ export default function App() {
               Private
             </Switch>
           </div>
-          <div className={"col-span-3 row-span-3"}>
+          {/* <div className={"col-span-3 row-span-3"}>
             <Editor editor={editor} saveStatus={saveStatus} />
-          </div>
+          </div> */}
 
           <Button variant={"ghost"} className={"rounded-full"} type={"submit"}>
             Save Event

@@ -1,11 +1,11 @@
 import { BubbleMenu as BaseBubbleMenu } from '@tiptap/react'
 import React, { useCallback } from 'react'
-import * as PopoverMenu from '@/app/dashboard/components/TipTap/components/ui/PopoverMenu'
+import * as PopoverMenu from '@/ui/editor/components/ui/PopoverMenu'
 
-import { Toolbar } from '@/app/dashboard/components/TipTap/components/ui/Toolbar'
+import { Toolbar } from '@/ui/editor/components/ui/Toolbar'
 import { isRowGripSelected } from './utils'
-import { Icon } from '@/app/dashboard/components/TipTap/components/ui/Icon'
-import { MenuProps, ShouldShowProps } from '@/app/dashboard/components/TipTap/components/menus/types'
+import { Icon } from '@/ui/editor/components/ui/Icon'
+import { MenuProps, ShouldShowProps } from '@/ui/editor/components/menus/types'
 
 export const TableRowMenu = React.memo(({ editor, appendTo }: MenuProps): JSX.Element => {
   const shouldShow = useCallback(

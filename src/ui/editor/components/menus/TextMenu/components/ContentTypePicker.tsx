@@ -1,10 +1,10 @@
-import { Icon } from '@/app/dashboard/components/TipTap/components/ui/Icon'
+import { Icon } from '@/ui/editor/components/ui/Icon'
 import { icons } from 'lucide-react'
 import { useMemo } from 'react'
 import * as Dropdown from '@radix-ui/react-dropdown-menu'
-import { Toolbar } from '@/app/dashboard/components/TipTap/components/ui/Toolbar'
-import { Surface } from '@/app/dashboard/components/TipTap/components/ui/Surface'
-import { DropdownButton, DropdownCategoryTitle } from '@/app/dashboard/components/TipTap/components/ui/Dropdown'
+import { Toolbar } from '@/ui/editor/components/ui/Toolbar'
+import { Surface } from '@/ui/editor/components/ui/Surface'
+import { DropdownButton, DropdownCategoryTitle } from '@/ui/editor/components/ui/Dropdown'
 
 export type ContentTypePickerOption = {
   label: string

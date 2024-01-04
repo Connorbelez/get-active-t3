@@ -1,5 +1,5 @@
 import * as Popover from '@radix-ui/react-popover'
-import { cn } from '@/app/dashboard/components/TipTap/lib/utils'
+import { cn } from '@/ui/editor/lib/utils'
 import { icons } from 'lucide-react'
 import { forwardRef } from 'react'
 import { Surface } from './Surface'

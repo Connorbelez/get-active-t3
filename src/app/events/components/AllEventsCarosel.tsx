@@ -5,6 +5,7 @@ import {Event} from "@prisma/client"
 import EventCard from "@/components/cards/prod/EventCard";
 import EventsCarosel from "@/components/carosel/prod/EventsCarosel";
 import EventsSideScroll from "./EventsSideScroll";
+import SideScrollRoot from "@/components/SideScroll/SideScrollRoot";
 // import SideScrollComponent from "@/components/SideScroll/SideScrollComponent";
 // interface compProps {
 
@@ -32,7 +33,7 @@ export default async function comp() {
         </div>
 
         <div className="container col-span-12 sm:col-span-10 overflow-hidden sm:col-start-2 px-4 sm:px-0">
-          <div className="snap-mandatory rounded-xl pb-8 col-span-12 snap-x overflow-x-scroll space-x-8 flex flex-row flex-shrink-0">
+          {/* <div className="snap-mandatory rounded-xl pb-8 col-span-12 snap-x overflow-x-scroll space-x-8 flex flex-row flex-shrink-0">
             <div className="SPACER ELEMENT col-span-5 w-full flex-shrink-0"> </div>
             {
               events.map((event:Event) => {
@@ -43,7 +44,19 @@ export default async function comp() {
                 )
               })
             }
-          </div>
+          </div> */}
+          <SideScrollRoot spacing="space-x-8" >
+          <div className="SPACER ELEMENT col-span-5 w-full flex-shrink-0"> </div>
+            {
+                events.map((event:Event) => {
+                  return (
+                    <div className="snap-center touch-pan-x flex-shrink-0 col-span-5">
+                      <EventCard event={event} />
+                    </div>
+                  )
+                })
+              }
+          </SideScrollRoot>
         </div>
 
         <div className="z-10 col-span-12  col-start-1 mt-8 flex flex-col ">

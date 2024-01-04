@@ -13,7 +13,7 @@ import EventTable from "@/app/dashboard/components/EventTable/EventTable"
 import {api} from "@/trpc/server"
 import {Event as EventType} from "@prisma/client"
 import { title } from "@/components/Primatives/Typography";
-// import TipTapEditor from "@/app/dashboard/components/TipTap/Editor";
+// import TipTapEditor from "@/ui/editor/Editor";
 import Editor from "@/ui/editor/index";
 export interface EventTableData {
   id: number;

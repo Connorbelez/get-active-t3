@@ -94,8 +94,8 @@ export default function Comp({href}:compProps) {
 
             
                 <CardBody className={"grid grid-cols-12 gap-0 overflow-hidden"}>
-                        <div className={"flex col-start-1 col-span-4 flex-row items-center"}>
-                            <div className={"flex flex-col items-center mx-auto "}>
+                        <div className={"flex col-start-1 col-span-4 items-center justify-around space-x-2"}>
+                            <div className={"flex flex-col items-center  "}>
                                 <div className="flex flex-row align-middle mb-1">
                                     <Crosshair1Icon stroke={"#52525b"} className="w-4 mt-0.5 h-4 mr-2 fill-zinc-600" />
                                     <h4 className={"prose dark:prose-invert text-sm dark:text-zinc-400/60"}>Ottawa</h4>
@@ -130,8 +130,8 @@ export default function Comp({href}:compProps) {
                             </CardFooter>        
             
                         </div>
-                        <div className={"col-start-9 col-span-4 flex items-center"}>
-                            <Divider orientation="vertical" className=" bg-red h-5/6 slef w-[1px] mr-3 bg-zinc-700"/>
+                        <div className={"col-start-9 col-span-4 flex items-center justify-around"}>
+                            <Divider orientation="vertical" className=" bg-red h-5/6 slef w-[1px] bg-zinc-700"/>
 
                             <Image src={"/redbull.jpg"} alt="logo" className="rounded-[10px] z-0 h-[70px]"/>
                         </div>

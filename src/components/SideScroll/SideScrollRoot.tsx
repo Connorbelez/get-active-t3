@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-
+// import {ScrollShadow} from "@nextui-org/react";
 interface compProps {
     widthStyling?: string,
     spacing?: string,
@@ -14,8 +14,13 @@ export default function comp({spacing, children, className,vertical}: compProps)
     const direction = vertical ? "flex-col" : "flex-row";
 
     return (
-        <div  className={clsx(defaultStyling,direction,spacing,className)}>
-            {children}
-        </div>
+        // <ScrollShadow orientation="horizontal" className="SCROLLSHADOW z-10 w-full h-full "
+        //             size={40} offset={20}
+        // >
+
+            <div  className={clsx(defaultStyling,direction,spacing,className)}>
+                {children}
+            </div>
+
     )
 }

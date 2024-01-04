@@ -1,4 +1,4 @@
-import { cn } from '@/app/dashboard/components/TipTap/lib/utils'
+import { cn } from '@/ui/editor/lib/utils'
 import { icons } from 'lucide-react'
 import { memo } from 'react'
 

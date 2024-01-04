@@ -126,7 +126,6 @@
 // };
 
 
-import { BlobResult } from "@vercel/blob";
 import { toast } from "sonner";
 import { EditorState, Plugin, PluginKey } from "@tiptap/pm/state";
 import { Decoration, DecorationSet, EditorView } from "@tiptap/pm/view";
@@ -151,13 +150,13 @@ const UploadFilesPlugin = () =>
                     placeholder.setAttribute("class", "pdf-placeholder");
 
 
-                    const image = document.createElement("a");
-                    image.setAttribute(
+                    const f = document.createElement("a");
+                    f.setAttribute(
                         "class",
                         "opacity-40 rounded-lg border border-stone-200",
                     );
-                    image.href = src;
-                    placeholder.appendChild(image);
+                    f.href = src;
+                    placeholder.appendChild(f);
 
 
                     const deco = Decoration.widget(pos + 1, placeholder, {
@@ -194,7 +193,7 @@ function findPlaceholder(state: EditorState, id: {}) {
 }
 
 export function startFileUpload(file: File, view: EditorView, pos: number) {
-    // check if the file is an image
+    // check if the file is an file
     if (!file.type.includes("application/pdf")) {
         toast.error("File type not supported.");
         return;
@@ -230,15 +229,15 @@ export function startFileUpload(file: File, view: EditorView, pos: number) {
 
         let pos = findPlaceholder(view.state, id);
         // If the content around the placeholder has been deleted, drop
-        // the image
+        // the file
         if (pos == null) return;
 
         // Otherwise, insert it at the placeholder's position, and remove
         // the placeholder
 
         // When BLOB_READ_WRITE_TOKEN is not valid or unavailable, read
-        // the image locally
-        // const imageSrc = typeof src === "object" ? reader.result : src;
+        // the file locally
+        // const fileSrc = typeof src === "object" ? reader.result : src;
         console.log("HFU URL: ",url,'FILE NAMEL: ',file.name)
         const node = schema.nodes.pdflink.create({ href: url, text: file.name });
         const transaction = view.state.tr
@@ -260,27 +259,27 @@ export const handleFileUpload = (file: File) => {
                 },
                 body: file,
             }).then(async (res) => {
-                // Successfully uploaded image
+                // Successfully uploaded file
                 if (res.status === 200) {
-                    const { url } = (await res.json()) as BlobResult;
-                    console.log("IMAGE URL FROM UPLOAD-IMAGES PLUGIN: ", url);
-                    // preload the image
+                    const { url } = (await res.json()) ;
+                    console.log("File URL FROM UPLOAD-fileS PLUGIN: ", url);
+                    // preload the file
                     resolve(url)
                     // No blob store configured
                 } else if (res.status === 401) {
                     resolve(file);
 
                     throw new Error(
-                        "`BLOB_READ_WRITE_TOKEN` environment variable not found, reading image locally instead.",
+                        "`BLOB_READ_WRITE_TOKEN` environment variable not found, reading file locally instead.",
                     );
                     // Unknown error
                 } else {
-                    throw new Error(`Error uploading image. Please try again.`);
+                    throw new Error(`Error uploading file. Please try again.`);
                 }
             }),
             {
-                loading: "Uploading image...",
-                success: "Image uploaded successfully.",
+                loading: "Uploading file...",
+                success: "file uploaded successfully.",
                 error: (e) => e.message,
             },
         );

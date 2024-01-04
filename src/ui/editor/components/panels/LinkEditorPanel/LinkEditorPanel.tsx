@@ -1,7 +1,7 @@
-import { Button } from '@/app/dashboard/components/TipTap/components/ui/Button'
-import { Icon } from '@/app/dashboard/components/TipTap/components/ui/Icon'
-import { Surface } from '@/app/dashboard/components/TipTap/components/ui/Surface'
-import { Toggle } from '@/app/dashboard/components/TipTap/components/ui/Toggle'
+import { Button } from '@/ui/editor/components/ui/Button'
+import { Icon } from '@/ui/editor/components/ui/Icon'
+import { Surface } from '@/ui/editor/components/ui/Surface'
+import { Toggle } from '@/ui/editor/components/ui/Toggle'
 import { useState, useCallback, useMemo } from 'react'
 
 export type LinkEditorPanelProps = {

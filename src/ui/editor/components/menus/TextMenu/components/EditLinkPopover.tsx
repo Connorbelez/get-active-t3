@@ -1,6 +1,6 @@
-import { LinkEditorPanel } from '@/app/dashboard/components/TipTap/components/panels'
-import { Icon } from '@/app/dashboard/components/TipTap/components/ui/Icon'
-import { Toolbar } from '@/app/dashboard/components/TipTap/components/ui/Toolbar'
+import { LinkEditorPanel } from '@/ui/editor/components/panels'
+import { Icon } from '@/ui/editor/components/ui/Icon'
+import { Toolbar } from '@/ui/editor/components/ui/Toolbar'
 import * as Popover from '@radix-ui/react-popover'
 
 export type EditLinkPopoverProps = {

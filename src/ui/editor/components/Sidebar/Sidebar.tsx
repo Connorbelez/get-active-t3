@@ -1,4 +1,4 @@
-import { cn } from '@/app/dashboard/components/TipTap/lib/utils'
+import { cn } from '@/ui/editor/lib/utils'
 import { memo, useCallback } from 'react'
 import { Editor } from '@tiptap/react'
 import { TableOfContents } from '../TableOfContents'

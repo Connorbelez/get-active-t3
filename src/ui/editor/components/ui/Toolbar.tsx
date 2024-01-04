@@ -1,6 +1,6 @@
 import React, { ButtonHTMLAttributes, HTMLProps, forwardRef } from 'react'
 
-import { cn } from '@/app/dashboard/components/TipTap/lib/utils'
+import { cn } from '@/ui/editor/lib/utils'
 import { Surface } from './Surface'
 import { Button, ButtonProps } from './Button'
 import Tooltip from './Tooltip'
