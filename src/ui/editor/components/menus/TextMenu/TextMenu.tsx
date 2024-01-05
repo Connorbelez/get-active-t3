@@ -1,8 +1,9 @@
+"use client"
 import { Icon } from '@/ui/editor/components/ui/Icon'
 import { Toolbar } from '@/ui/editor/components/ui/Toolbar'
 import { useTextmenuCommands } from './hooks/useTextmenuCommands'
 import { useTextmenuStates } from './hooks/useTextmenuStates'
-import { BubbleMenu, Editor } from '@tiptap/react'
+import { BubbleMenu, BubbleMenuProps,Editor } from '@tiptap/react'
 import { memo } from 'react'
 import * as Popover from '@radix-ui/react-popover'
 import { Surface } from '@/ui/editor/components/ui/Surface'
@@ -13,7 +14,15 @@ import { useTextmenuContentTypes } from './hooks/useTextmenuContentTypes'
 import { ContentTypePicker } from './components/ContentTypePicker'
 import { AIDropdown } from './components/AIDropdown'
 import { EditLinkPopover } from './components/EditLinkPopover'
-
+import { FC, useState } from "react";
+import { NodeSelector } from "@/ui/editor/components/node-selector";
+import {
+  BoldIcon,
+  ItalicIcon,
+  UnderlineIcon,
+  StrikethroughIcon,
+  CodeIcon,
+} from "lucide-react";
 // We memorize the button so each button is not rerendered
 // on every editor state change
 const MemoButton = memo(Toolbar.Button)
@@ -26,21 +35,51 @@ export type TextMenuProps = {
   editor: Editor
 }
 
+export interface BubbleMenuItem {
+  name: string;
+  isActive: () => boolean;
+  command: () => void;
+  icon: typeof BoldIcon;
+}
+type EditorBubbleMenuProps = Omit<BubbleMenuProps, "children">;
+
+
 export const TextMenu = ({ editor }: TextMenuProps) => {
+  // const bubbleMenuProps: EditorBubbleMenuProps = {
+  //   ...props,
+  //   shouldShow: ({ editor }) => {
+  //     // don't show if image is selected
+  //     if (editor.isActive("image")) {
+  //       return false;
+  //     }
+  //     return editor.view.state.selection.content().size > 0;
+  //   },
+  //   tippyOptions: {
+  //     moveTransition: "transform 0.15s ease-out",
+  //     onHidden: () => {
+  //       setIsNodeSelectorOpen(false);
+  //       setIsColorSelectorOpen(false);
+  //       setIsLinkSelectorOpen(false);
+  //     },
+  //   },
+  // };
+  
   const commands = useTextmenuCommands(editor)
   const states = useTextmenuStates(editor)
   const blockOptions = useTextmenuContentTypes(editor)
-
+  const [isNodeSelectorOpen, setIsNodeSelectorOpen] = useState(false);
+  const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
+  const [isLinkSelectorOpen, setIsLinkSelectorOpen] = useState(false);
   return (
     <BubbleMenu
-      tippyOptions={{ popperOptions: { placement: 'top-start' } }}
+      tippyOptions={{ popperOptions: { placement: 'bottom-start' } }}
       editor={editor}
       pluginKey="textMenu"
       shouldShow={states.shouldShow}
       updateDelay={100}
     >
       <Toolbar.Wrapper>
-        <AIDropdown
+        {/* <AIDropdown
           onCompleteSentence={commands.onCompleteSentence}
           onEmojify={commands.onEmojify}
           onFixSpelling={commands.onFixSpelling}
@@ -50,8 +89,18 @@ export const TextMenu = ({ editor }: TextMenuProps) => {
           onTldr={commands.onTldr}
           onTone={commands.onTone}
           onTranslate={commands.onTranslate}
-        />
+        /> */}
         <Toolbar.Divider />
+        {/* <NodeSelector
+          //@ts-ignore
+        editor={editor}
+        isOpen={isNodeSelectorOpen}
+        setIsOpen={() => {
+          setIsNodeSelectorOpen(!isNodeSelectorOpen);
+          setIsColorSelectorOpen(false);
+          setIsLinkSelectorOpen(false);
+        }}
+      /> */}
         <MemoContentTypePicker options={blockOptions} />
         <MemoFontFamilyPicker onChange={commands.onSetFont} value={states.currentFont || ''} />
         <MemoFontSizePicker onChange={commands.onSetFontSize} value={states.currentSize || ''} />

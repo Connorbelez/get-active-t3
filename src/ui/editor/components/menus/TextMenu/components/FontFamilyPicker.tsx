@@ -2,7 +2,7 @@ import { DropdownButton, DropdownCategoryTitle } from '@/ui/editor/components/ui
 import { Icon } from '@/ui/editor/components/ui/Icon'
 import { Surface } from '@/ui/editor/components/ui/Surface'
 import { Toolbar } from '@/ui/editor/components/ui/Toolbar'
-import * as Dropdown from '@radix-ui/react-dropdown-menu'
+import * as Popover from '@radix-ui/react-popover'
 import { useCallback } from 'react'
 
 const FONT_FAMILY_GROUPS = [
@@ -45,14 +45,14 @@ export const FontFamilyPicker = ({ onChange, value }: FontFamilyPickerProps) => 
   const selectFont = useCallback((font: string) => () => onChange(font), [onChange])
 
   return (
-    <Dropdown.Root>
-      <Dropdown.Trigger asChild>
+    <Popover.Root>
+      <Popover.Trigger asChild>
         <Toolbar.Button active={!!currentValue?.value}>
           {currentFontLabel}
           <Icon name="ChevronDown" className="w-2 h-2" />
         </Toolbar.Button>
-      </Dropdown.Trigger>
-      <Dropdown.Content asChild>
+      </Popover.Trigger>
+      <Popover.Content asChild>
         <Surface className="flex flex-col gap-1 px-2 py-4">
           {FONT_FAMILY_GROUPS.map(group => (
             <div className="mt-2.5 first:mt-0 gap-0.5 flex flex-col" key={group.label}>
@@ -69,7 +69,7 @@ export const FontFamilyPicker = ({ onChange, value }: FontFamilyPickerProps) => 
             </div>
           ))}
         </Surface>
-      </Dropdown.Content>
-    </Dropdown.Root>
+      </Popover.Content>
+    </Popover.Root>
   )
 }

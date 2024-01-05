@@ -2,7 +2,7 @@ import { DropdownButton, DropdownCategoryTitle } from '@/ui/editor/components/ui
 import { Icon } from '@/ui/editor/components/ui/Icon'
 import { Surface } from '@/ui/editor/components/ui/Surface'
 import { Toolbar } from '@/ui/editor/components/ui/Toolbar'
-import * as Dropdown from '@radix-ui/react-dropdown-menu'
+import * as Dropdown from '@radix-ui/react-popover'
 import { useCallback } from 'react'
 
 const FONT_SIZES = [

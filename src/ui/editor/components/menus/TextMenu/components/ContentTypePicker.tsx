@@ -1,10 +1,11 @@
-import { Icon } from '@/ui/editor/components/ui/Icon'
+"use client"
+import { Icon } from '@/app/dashboard/components/TipTap/components/ui/Icon'
 import { icons } from 'lucide-react'
 import { useMemo } from 'react'
-import * as Dropdown from '@radix-ui/react-dropdown-menu'
-import { Toolbar } from '@/ui/editor/components/ui/Toolbar'
-import { Surface } from '@/ui/editor/components/ui/Surface'
-import { DropdownButton, DropdownCategoryTitle } from '@/ui/editor/components/ui/Dropdown'
+import * as Popover from '@radix-ui/react-popover'
+import { Toolbar } from '@/app/dashboard/components/TipTap/components/ui/Toolbar'
+import { Surface } from '@/app/dashboard/components/TipTap/components/ui/Surface'
+import { DropdownButton, DropdownCategoryTitle } from '@/app/dashboard/components/TipTap/components/ui/Dropdown'
 
 export type ContentTypePickerOption = {
   label: string
@@ -34,20 +35,26 @@ const isCategory = (option: ContentTypePickerOption | ContentTypePickerCategory)
   option.type === 'category'
 
 export const ContentTypePicker = ({ options }: ContentTypePickerProps) => {
+  console.log("CTPP OPTIONS:")
+  console.table(options)
   const activeItem = useMemo(() => options.find(option => option.type === 'option' && option.isActive()), [options])
 
   return (
-    <Dropdown.Root>
-      <Dropdown.Trigger asChild>
+    <Popover.Root>
+      <Popover.Trigger asChild>
         <Toolbar.Button active={activeItem?.id !== 'paragraph' && !!activeItem?.type}>
           <Icon name={(activeItem?.type === 'option' && activeItem.icon) || 'Pilcrow'} />
           <Icon name="ChevronDown" className="w-2 h-2" />
         </Toolbar.Button>
-      </Dropdown.Trigger>
-      <Dropdown.Content asChild>
+      </Popover.Trigger>
+      <Popover.Content asChild>
         <Surface className="flex flex-col gap-1 px-2 py-4">
           {options.map(option => {
             if (isOption(option)) {
+              console.log("CTPP OPTION:")
+
+              // console.table(option)
+              console.log(option.onClick.toString())
               return (
                 <DropdownButton key={option.id} onClick={option.onClick} isActive={option.isActive()}>
                   <Icon name={option.icon} className="w-4 h-4 mr-1" />
@@ -63,7 +70,7 @@ export const ContentTypePicker = ({ options }: ContentTypePickerProps) => {
             }
           })}
         </Surface>
-      </Dropdown.Content>
-    </Dropdown.Root>
+      </Popover.Content>
+    </Popover.Root>
   )
 }

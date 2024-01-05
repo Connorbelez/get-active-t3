@@ -163,8 +163,8 @@ export default function Editor({editorJson, setEditorJson}: pageprops) {
         {saveStatus}
       </div> */}
       {/* {editor && <EditorBubbleMenu editor={editor} />} */}
-      <div className="flex flex-col rounded-xl items-center border-stone-200 bg-white sm:border sm:shadow-lg dark:border-stone-600 dark:bg-stone-800" ref={menuContainerRef}>
-        <div className="h-full w-full rounded-xl  prose dark:prose-invert" >
+      <div className="flex flex-col rounded-xl items-center border-stone-200 bg-white sm:border sm:shadow-lg dark:border-stone-600 dark:bg-stone-800">
+        <div  ref={menuContainerRef} className="h-full w-full rounded-xl  prose dark:prose-invert" >
           {editor?.isActive("image") && <ImageResizer editor={editor} />}
           {editor && <EditorContent ref={editorRef} editor={editor} />}
           {editor && <ContentItemMenu editor={editor} />}

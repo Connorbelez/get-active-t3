@@ -59,10 +59,10 @@
   mark {
     @apply bg-red-500 rounded-sm decoration-clone text-inherit py-1 px-0 dark:bg-red-400;
   }
-
+/* 
   & img {
     @apply h-auto w-full max-w-full;
-  }
+  } */
 
   [data-type='horizontalRule'] {
     @apply my-8 py-4 transition-all duration-100 ease-in-out cursor-pointer;

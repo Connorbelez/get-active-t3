@@ -45,7 +45,7 @@ import React from 'react';
 import HTMLReactParser from "html-react-parser";
 import Editor from "@/ui/editor";
 import { generateHTML } from '@tiptap/html'
-// import {ExtensionKit} from "@/ui/editor/extensions/extension-kit"
+import {ExtensionKit} from "@/ui/editor/extensions/extension-kit"
 import { JSONContent } from "@tiptap/react";
 import {
     Popover,
@@ -217,7 +217,16 @@ export default function ProfileForm() {
         freeTicket: false,
         payAtDoorTicket: false,
     })
+      const output = useMemo(() => {
+    //@ts-expect-error
+      return generateHTML(editorJson, [
+          ...ExtensionKit({})
+        ])
+    }, [editorJson])
     return (
+      <div>
+
+
       <Form {...form}>
         
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full flex flex-col justify-center m-8 p-8">
@@ -461,16 +470,17 @@ export default function ProfileForm() {
             />
           </div> */}
           
-            <Editor editorJson={editorJson} setEditorJson={setEditorJson}  />
 
 
           <TicketForm tickets={tickets} selected={selectedTicket} setSelected={setSelectedTicket} ticketData={ticketData} setTicketData={setTicketData}/>
           <Button type="submit">Submit</Button>
-{/*                 
-          <div className="prose dark:prose-invert my-16 h-full w-full">
-          {HTMLReactParser(output)}
-        </div> */}
         </form>
       </Form>
+        <Editor editorJson={editorJson} setEditorJson={setEditorJson}  />
+                        
+          {/* <div className="prose dark:prose-invert my-16 h-full w-full">
+            {HTMLReactParser(output)}
+          </div> */}
+      </div>
     )
   }
