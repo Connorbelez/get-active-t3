@@ -2,7 +2,7 @@
 
 import { HocuspocusProvider } from '@hocuspocus/provider'
 
-// import { API } from '@/app/dashboard/components/TipTap/lib/api'
+// import { API } from '@/ui/editor/lib/api'
 
 import {
   // AiWriter,

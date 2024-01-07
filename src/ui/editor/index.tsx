@@ -27,7 +27,7 @@ import { ImageResizer } from "./components/image-resizer";
 // import useLocalStorage from "@/lib/hooks/use-local-storage";
 // import { getPrevText } from "@/lib/editor";
 // import { useBlockEditor } from "@/ui/editor/hooks/useBlockEditor";
-import {ExtensionKit} from "@/app/dashboard/components/TipTap/extensions/extension-kit"
+import {ExtensionKit} from "@/ui/editor/extensions/extension-kit"
 import { generateHTML } from '@tiptap/html'
 import { Extensions } from "@tiptap/core";
 import HTMLReactParser from "html-react-parser";
