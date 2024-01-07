@@ -24,7 +24,7 @@ export const getRenderContainer = (editor: Editor, nodeType: string) => {
   let container = node
 
   if (!container.tagName) {
-    //@ts-expect-error
+    //@ts-ignore
     container = node.parentElement
   }
 
@@ -33,7 +33,7 @@ export const getRenderContainer = (editor: Editor, nodeType: string) => {
     !(container.getAttribute('data-type') && container.getAttribute('data-type') === nodeType) &&
     !container.classList.contains(nodeType)
   ) {
-        //@ts-expect-error
+        //@ts-ignore
     container = container.parentElement
   }
 

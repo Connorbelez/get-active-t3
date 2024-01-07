@@ -85,7 +85,7 @@ const GROUPS: Group[] = [
         description: 'High priority section title',
         aliases: ['h1'],
         action: editor => {
-          //@ts-expect-error
+          //@ts-ignore
           editor.chain().focus().setHeading({ level: 1 }).run()
         },
       },
@@ -96,7 +96,7 @@ const GROUPS: Group[] = [
         description: 'Medium priority section title',
         aliases: ['h2'],
         action: editor => {
-          //@ts-expect-error
+          //@ts-ignore
           editor.chain().focus().setHeading({ level: 2 }).run()
         },
       },
@@ -107,7 +107,7 @@ const GROUPS: Group[] = [
         description: 'Low priority section title',
         aliases: ['h3'],
         action: editor => {
-          //@ts-expect-error
+          //@ts-ignore
           editor.chain().focus().setHeading({ level: 3 }).run()
         },
       },
@@ -118,7 +118,7 @@ const GROUPS: Group[] = [
         description: 'Unordered list of items',
         aliases: ['ul'],
         action: editor => {
-          //@ts-expect-error
+          //@ts-ignore
           editor.chain().focus().toggleBulletList().run()
         },
       },
@@ -129,7 +129,7 @@ const GROUPS: Group[] = [
         description: 'Ordered list of items',
         aliases: ['ol'],
         action: editor => {
-          //@ts-expect-error
+          //@ts-ignore
           editor.chain().focus().toggleOrderedList().run()
         },
       },
@@ -140,7 +140,7 @@ const GROUPS: Group[] = [
         description: 'Task list with todo items',
         aliases: ['todo'],
         action: editor => {
-          //@ts-expect-error
+          //@ts-ignore
           editor.chain().focus().toggleTaskList().run()
         },
       },
@@ -160,7 +160,7 @@ const GROUPS: Group[] = [
         description: 'Code block with syntax highlighting',
         shouldBeHidden: editor => editor.isActive('columns'),
         action: editor => {
-          //@ts-expect-error
+          //@ts-ignore
           editor.chain().focus().setCodeBlock().run()
         },
       },
@@ -177,7 +177,7 @@ const GROUPS: Group[] = [
         description: 'Insert a table',
         shouldBeHidden: editor => editor.isActive('columns'),
         action: editor => {
-          //@ts-expect-error
+          //@ts-ignore
           editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: false }).run()
         },
       },
@@ -248,7 +248,7 @@ const GROUPS: Group[] = [
         description: 'Insert a horizontal divider',
         aliases: ['hr'],
         action: editor => {
-          //@ts-expect-error
+          //@ts-ignore
           editor.chain().focus().setHorizontalRule().run()
         },
       },
@@ -304,7 +304,7 @@ const Command = Extension.create({
     return [
       
       Suggestion({
-        //@ts-expect-error
+        //@ts-ignore
         editor: this.editor,
         char: '/',
         allowSpaces: true,
@@ -597,7 +597,7 @@ const CommandList = ({
     (index: number) => {
       const item = items[index];
       va.track("Slash Command Used", {
-        //@ts-expect-error
+        //@ts-ignore
         command: item.title,
       });
       if (item) {
@@ -699,7 +699,7 @@ const renderItems = () => {
     onStart: (props: { editor: Editor; clientRect: DOMRect }) => {
       component = new ReactRenderer(CommandList, {
         props,
-        //@ts-expect-error
+        //@ts-ignore
         editor: props.editor,
       });
 

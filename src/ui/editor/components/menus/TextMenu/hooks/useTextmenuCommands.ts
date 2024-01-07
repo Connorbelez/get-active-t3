@@ -2,10 +2,17 @@ import { Editor } from '@tiptap/react'
 import { useCallback } from 'react'
 
 export const useTextmenuCommands = (editor: Editor) => {
+  //@ts-ignore
   const onBold = useCallback(() => editor.chain().focus().toggleBold().run(), [editor])
+    //@ts-ignore
+
   const onItalic = useCallback(() => editor.chain().focus().toggleItalic().run(), [editor])
+    //@ts-ignore
+
   const onStrike = useCallback(() => editor.chain().focus().toggleStrike().run(), [editor])
   const onUnderline = useCallback(() => editor.chain().focus().toggleUnderline().run(), [editor])
+    //@ts-ignore
+
   const onCode = useCallback(() => editor.chain().focus().toggleCode().run(), [editor])
   const onCodeBlock = useCallback(() => editor.chain().focus().toggleCodeBlock().run(), [editor])
 
@@ -54,10 +61,10 @@ export const useTextmenuCommands = (editor: Editor) => {
   const onSetFontSize = useCallback(
     (fontSize: string) => {
       if (!fontSize || fontSize.length === 0) {
-        //@ts-expect-error`
+        //@ts-ignore`
         return editor.chain().focus().unsetFontSize().run()
       }
-      //@ts-expect-error`
+      //@ts-ignore`
       return editor.chain().focus().setFontSize(fontSize).run()
     },
     [editor],

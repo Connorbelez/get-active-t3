@@ -75,7 +75,7 @@ export default function App({
       showDivider
       fullWidth
       selectedKeys={selectedKeys}
-      //@ts-expect-error
+      //@ts-ignore
       onSelectionChange={setSelectedKeys}
       className={
         " hidden h-[100px] w-full flex-col gap-1 border-none sm:flex "

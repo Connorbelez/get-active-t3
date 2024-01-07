@@ -74,7 +74,7 @@ export const TextMenu = ({ editor }: TextMenuProps) => {
       tippyOptions={{ popperOptions: { placement: 'bottom-start' } }}
       editor={editor}
       pluginKey="textMenu"
-      //@ts-expect-error
+      //@ts-ignore
       shouldShow={states.shouldShow}
       updateDelay={100}
       className='flex max-w-sm flex-wrap'

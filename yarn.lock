@@ -5691,6 +5691,11 @@
   resolved "https://registry.tiptap.dev/@tiptap-pro%2fextension-file-handler/-/extension-file-handler-2.5.1.tgz#20e1990fb5f532ff0c5996ab6fed91f31a4ed25b"
   integrity sha512-/H18i4oDTZ+Op0HG6dnNs9pWnjGaX5eXz7Gg+A/XmANGEZYqGtVeb8HGWW1JNcdTPR3fn2d6xWf+AUn0HxTYaw==
 
+"@tiptap-pro/extension-node-range@^2.5.1":
+  version "2.5.1"
+  resolved "https://registry.tiptap.dev/@tiptap-pro%2fextension-node-range/-/extension-node-range-2.5.1.tgz#5a51881016992684ab1390a89b59f3d155a069da"
+  integrity sha512-OdQ24xicH834o51P4GCP8ryBeItZIGVSG7QBq2cIfoTySQ0ewIfQ//gnPAdDjX4UqvxCkvlDUQgKVT4x+RmtVw==
+
 "@tiptap-pro/extension-table-of-content@^2.4.1":
   version "2.4.1"
   resolved "https://registry.tiptap.dev/@tiptap-pro%2fextension-table-of-content/-/extension-table-of-content-2.4.1.tgz#a7a857d79c4d33a860a1a1f8d2dbff2c197317f0"
@@ -5766,6 +5771,11 @@
   version "2.1.13"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-code/-/extension-code-2.1.13.tgz#27a5ca5705e59ca97390fad4d6631bf431690480"
   integrity sha512-f5fLYlSgliVVa44vd7lQGvo49+peC+Z2H0Fn84TKNCH7tkNZzouoJsHYn0/enLaQ9Sq+24YPfqulfiwlxyiT8w==
+
+"@tiptap/extension-collaboration@^2.1.13":
+  version "2.1.13"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-collaboration/-/extension-collaboration-2.1.13.tgz#f3b84c2e01db59e9a1183a7deaaa11dbf2f65777"
+  integrity sha512-EGzev7lONwOCaz7vWj/LkC9f86WLZIgRmqP7sD0xA7t8R+2qdEaRPeqwwy99EOataHxm9++BEd8hKAdBV8MVdw==
 
 "@tiptap/extension-color@2.0.4":
   version "2.0.4"
@@ -7015,6 +7025,7 @@ buffer-from@^1.0.0:
   integrity sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==
 
 "buffer-polyfill@npm:buffer@^6.0.3", buffer@^6.0.3:
+  name buffer-polyfill
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-6.0.3.tgz#2ace578459cc8fbe2a70aaa8f52ee63b6a74c6c6"
   integrity sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==
@@ -9815,7 +9826,7 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
-lib0@^0.2.86, lib0@^0.2.87:
+lib0@^0.2.42, lib0@^0.2.85, lib0@^0.2.86, lib0@^0.2.87:
   version "0.2.88"
   resolved "https://registry.yarnpkg.com/lib0/-/lib0-0.2.88.tgz#18618e0c3b63f6260255eb760f9247d9cc6c6a5b"
   integrity sha512-KyroiEvCeZcZEMx5Ys+b4u4eEBbA1ch7XUaBhYpwa/nPMrzTjUhI4RfcytmQfYoTBPcdyx+FX6WFNIoNuJzJfQ==
@@ -12966,6 +12977,7 @@ streamsearch@^1.1.0:
   integrity sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==
 
 "string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0, string-width@^4.2.0:
+  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -13004,6 +13016,7 @@ stringify-entities@^4.0.0:
     character-entities-legacy "^3.0.0"
 
 "strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+  name strip-ansi-cjs
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -13982,6 +13995,20 @@ xtend@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
+
+y-prosemirror@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/y-prosemirror/-/y-prosemirror-1.2.2.tgz#7b852ccd6847d79bf73236d9380e9a4d1b2d0650"
+  integrity sha512-hHdnIAhfa8mIoLWtTkMDb6RBzN3lye1QVkaZwVm58sledAA1zTl+yyEtgkrY/sdH6SaQL0rsLj61zHjgr5D0HQ==
+  dependencies:
+    lib0 "^0.2.42"
+
+y-protocols@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/y-protocols/-/y-protocols-1.0.6.tgz#66dad8a95752623443e8e28c0e923682d2c0d495"
+  integrity sha512-vHRF2L6iT3rwj1jub/K5tYcTT/mEYDUppgNPXwp8fmLpui9f7Yeq3OEtTLVF012j39QnV+KEQpNqoN7CWU7Y9Q==
+  dependencies:
+    lib0 "^0.2.85"
 
 y18n@^4.0.0:
   version "4.0.3"

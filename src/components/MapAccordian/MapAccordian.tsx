@@ -25,7 +25,7 @@ export default function App({ title, center }: MapAccordianProps) {
     showDivider
     fullWidth
     selectedKeys={selectedKeys}
-    //@ts-expect-error
+    //@ts-ignore
     onSelectionChange={setSelectedKeys}
     className="flex flex-col gap-1"
     defaultExpandedKeys={["theme"]} >

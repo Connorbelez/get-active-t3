@@ -114,7 +114,7 @@ export default function Editor({editorJson, setEditorJson}: pageprops) {
           setEditorJson(json)
           // send the content to an API here
         },
-        //@ts-expect-error
+        //@ts-ignore
         extensions: [
           ...ExtensionKit({}),
         ],
@@ -148,7 +148,7 @@ export default function Editor({editorJson, setEditorJson}: pageprops) {
 
 
   // const output = useMemo(() => {
-  //   //@ts-expect-error
+  //   //@ts-ignore
   //     return generateHTML(editorJson, [
   //         ...ExtensionKit({}) as Extensions
   //       ])

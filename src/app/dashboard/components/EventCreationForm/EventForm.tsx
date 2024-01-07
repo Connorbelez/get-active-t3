@@ -200,7 +200,7 @@ export default function ProfileForm() {
   }
 
     // const output = useMemo(() => {
-    //        //@ts-expect-error
+    //        //@ts-ignore
     //     return generateHTML(editorJson, [
     //         ...ExtensionKit({}) 
     //       ])
@@ -334,7 +334,7 @@ export default function ProfileForm() {
     const [timeValue,setTimeValue] = useState("10:00");
     const [selectedTicket, setSelectedTicket] = useState([]);
     const tickets : TicketType[] = [];
-    //@ts-expect-error
+    //@ts-ignore
     const [paymentTypes, setPaymentTypes] = React.useState<Selection>(new Set([]));
     
   
@@ -353,7 +353,7 @@ export default function ProfileForm() {
 
 
   // const output = useMemo(() => {
-  //   //@ts-expect-error
+  //   //@ts-ignore
   //     return generateHTML(editorJson, [
   //         ...ExtensionKit({})
   //       ])
