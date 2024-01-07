@@ -3,8 +3,10 @@ import { HexColorPicker } from 'react-colorful'
 import { ColorButton } from './ColorButton'
 import { Toolbar } from '../../ui/Toolbar'
 import { Icon } from '../../ui/Icon'
-import { themeColors } from '@/ui/editor/lib/constants'
+// import { themeColors } from '@/ui/editor/lib/constants'
+export const userColors = ['#fb7185', '#fdba74', '#d9f99d', '#a7f3d0', '#a5f3fc', '#a5b4fc', '#f0abfc']
 
+export const themeColors = ['#fb7185', '#fdba74', '#d9f99d', '#a7f3d0', '#a5f3fc', '#a5b4fc']
 export type ColorPickerProps = {
   color?: string
   onChange?: (color: string) => void

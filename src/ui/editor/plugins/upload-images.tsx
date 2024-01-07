@@ -1,4 +1,4 @@
-import { BlobResult } from "@vercel/blob";
+// import { BlobResult } from "@vercel/blob";
 import { toast } from "sonner";
 import { EditorState, Plugin, PluginKey } from "@tiptap/pm/state";
 import { Decoration, DecorationSet, EditorView } from "@tiptap/pm/view";
@@ -133,7 +133,7 @@ export const handleImageUpload = (file: File) => {
       }).then(async (res) => {
         // Successfully uploaded image
         if (res.status === 200) {
-          const { url } = (await res.json()) as BlobResult;
+          const { url } = (await res.json());
           // console.log("IMAGE URL FROM UPLOAD-IMAGES PLUGIN: ", url);
           // preload the image
           const image = new Image();

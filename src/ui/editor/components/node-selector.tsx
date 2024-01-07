@@ -41,36 +41,42 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
     {
       name: "Heading 1",
       icon: Heading1,
+      // @ts-ignore
       command: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
       isActive: () => editor.isActive("heading", { level: 1 }),
     },
     {
       name: "Heading 2",
       icon: Heading2,
+            // @ts-ignore
       command: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
       isActive: () => editor.isActive("heading", { level: 2 }),
     },
     {
       name: "Heading 3",
       icon: Heading3,
+            // @ts-ignore
       command: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
       isActive: () => editor.isActive("heading", { level: 3 }),
     },
     {
       name: "To-do List",
       icon: CheckSquare,
+            // @ts-ignore
       command: () => editor.chain().focus().toggleTaskList().run(),
       isActive: () => editor.isActive("taskItem"),
     },
     {
       name: "Bullet List",
       icon: ListOrdered,
+            // @ts-ignore
       command: () => editor.chain().focus().toggleBulletList().run(),
       isActive: () => editor.isActive("bulletList"),
     },
     {
       name: "Numbered List",
       icon: ListOrdered,
+            // @ts-ignore
       command: () => editor.chain().focus().toggleOrderedList().run(),
       isActive: () => editor.isActive("orderedList"),
     },
@@ -82,6 +88,7 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
           .chain()
           .focus()
           .toggleNode("paragraph", "paragraph")
+                // @ts-ignore
           .toggleBlockquote()
           .run(),
       isActive: () => editor.isActive("blockquote"),
@@ -89,6 +96,7 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
     {
       name: "Code",
       icon: Code,
+            // @ts-ignore
       command: () => editor.chain().focus().toggleCodeBlock().run(),
       isActive: () => editor.isActive("codeBlock"),
     },

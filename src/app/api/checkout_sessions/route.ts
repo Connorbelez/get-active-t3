@@ -4,11 +4,11 @@ import {env} from "@/env";
 import {api} from "@/trpc/server";
 import {TicketType} from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next";
-const stripe = require('stripe')(env.STRIPE_SECRET_KEY);
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from "next/server";
 
 
+const stripe = require('stripe')(env.STRIPE_SECRET_KEY);
 async function createTicketProduct(name,eventName, eventid, price,ticketData,userEmail){
     const product = await stripe.products.create({
         name: name,

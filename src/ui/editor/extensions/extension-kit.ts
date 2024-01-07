@@ -12,7 +12,7 @@ import {
   Color,
   // Document,
   Dropcursor,
-  Emoji,
+  // Emoji,
   Figcaption,
   FileHandler,
   Focus,

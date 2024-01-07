@@ -29,7 +29,7 @@ export interface EventTableData {
   startTime: string;
   headline: string;
 }
-export const Page = async () => {
+const app = async () => {
   const events: EventType[] = await api.event.getEvents.query();
 
   const eventInfo:EventTableData[] = events.map((event,index) => {
@@ -68,4 +68,4 @@ export const Page = async () => {
   )
 };
 
-export default Page;
+export default app;

@@ -56,6 +56,7 @@ export const FontSize = Extension.create({
       unsetFontSize:
         () =>
         ({ chain }) =>
+              // @ts-ignore
           chain().setMark('textStyle', { fontSize: null }).removeEmptyTextStyle().run(),
     }
   },

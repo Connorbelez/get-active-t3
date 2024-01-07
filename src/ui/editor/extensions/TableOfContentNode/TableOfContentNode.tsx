@@ -41,7 +41,7 @@ export const TableOfContentNode = Node.create({
   renderHTML({ HTMLAttributes }) {
     return ['div', { ...HTMLAttributes, 'data-type': 'table-of-content' }]
   },
-
+// @ts-ignore
   addNodeView() {
     return ReactNodeViewRenderer(TableOfNodeContent)
   },

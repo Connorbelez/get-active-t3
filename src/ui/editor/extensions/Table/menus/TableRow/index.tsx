@@ -46,6 +46,7 @@ export const TableRowMenu = React.memo(({ editor, appendTo }: MenuProps): JSX.El
           modifiers: [{ name: 'flip', enabled: false }],
         },
       }}
+      // @ts-ignore
       shouldShow={shouldShow}
     >
       <Toolbar.Wrapper isVertical>

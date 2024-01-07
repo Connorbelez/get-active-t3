@@ -254,7 +254,7 @@ export default function ProfileForm() {
       const reader = new FileReader();
       reader.readAsDataURL(file);
     
-      handleImageUpload(file).then(
+      void handleImageUpload(file).then(
           (urlVal) => {
               //console.log("HERO URL: ",urlVal);
               // setEventData((prevData) => ({ ...prevData, ["heroImage"]: urlVal }));

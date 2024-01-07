@@ -360,7 +360,6 @@ const Command = Extension.create({
 
                 return labelNormalized.includes(queryNormalized)
               })
-              //@ts-expect-error
               .filter(command => (command.shouldBeHidden ? !command.shouldBeHidden(this.editor) : true)),
           }))
 
@@ -598,6 +597,7 @@ const CommandList = ({
     (index: number) => {
       const item = items[index];
       va.track("Slash Command Used", {
+        //@ts-expect-error
         command: item.title,
       });
       if (item) {
@@ -699,6 +699,7 @@ const renderItems = () => {
     onStart: (props: { editor: Editor; clientRect: DOMRect }) => {
       component = new ReactRenderer(CommandList, {
         props,
+        //@ts-expect-error
         editor: props.editor,
       });
 

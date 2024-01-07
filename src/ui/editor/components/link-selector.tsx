@@ -45,6 +45,7 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
             e.preventDefault();
             const input = e.target[0] as HTMLInputElement;
             const url = getUrlFromString(input.value);
+            // @ts-ignore
             url && editor.chain().focus().setLink({ href: url }).run();
             setIsOpen(false);
           }}
@@ -62,6 +63,7 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
               type="button"
               className="flex items-center rounded-sm p-1 text-red-600 transition-all hover:bg-red-100 dark:hover:bg-red-800"
               onClick={() => {
+                // @ts-ignore
                 editor.chain().focus().unsetLink().run();
                 setIsOpen(false);
               }}

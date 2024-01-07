@@ -12,7 +12,6 @@ import { FontFamilyPicker } from './components/FontFamilyPicker'
 import { FontSizePicker } from './components/FontSizePicker'
 import { useTextmenuContentTypes } from './hooks/useTextmenuContentTypes'
 import { ContentTypePicker } from './components/ContentTypePicker'
-import { AIDropdown } from './components/AIDropdown'
 import { EditLinkPopover } from './components/EditLinkPopover'
 import { FC, useState } from "react";
 import { NodeSelector } from "@/ui/editor/components/node-selector";
@@ -75,6 +74,7 @@ export const TextMenu = ({ editor }: TextMenuProps) => {
       tippyOptions={{ popperOptions: { placement: 'bottom-start' } }}
       editor={editor}
       pluginKey="textMenu"
+      //@ts-expect-error
       shouldShow={states.shouldShow}
       updateDelay={100}
       className='flex max-w-sm flex-wrap'

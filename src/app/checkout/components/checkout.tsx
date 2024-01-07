@@ -27,7 +27,7 @@ export default function App() {
 
     console.log('TICKET FROM USE EFFECT: ', ticketId )
     if(!ticketId) throw new Error('NO TICKET ID IN URL');
-    fetch("/api/checkout_sessions", {
+    void fetch("/api/checkout_sessions", {
       method: "POST",
         body: JSON.stringify({ticketId: ticketId}),
     })
@@ -38,7 +38,7 @@ export default function App() {
         return res
       })
       .then((data) => {
-        data.json().then((dataJson) => {
+        return data.json().then((dataJson) => {
           console.log('client Secret: ')
           console.log(dataJson.clientSecret)
           setTempClientSecret(dataJson.clientSecret)

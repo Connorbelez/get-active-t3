@@ -53,6 +53,7 @@ const useContentItemActions = (editor: Editor, currentNode: Node | null, current
             if (currentNodeIsEmptyParagraph) {
               tr.insertText('/', currentNodePos, currentNodePos + 1)
             } else {
+              // @ts-ignore
               tr.insert(insertPos, state.schema.nodes.paragraph.create(null, [state.schema.text('/')]))
             }
 

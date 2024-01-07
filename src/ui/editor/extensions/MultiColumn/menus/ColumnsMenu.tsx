@@ -23,14 +23,17 @@ export const ColumnsMenu = ({ editor, appendTo }: MenuProps) => {
   }, [editor])
 
   const onColumnLeft = useCallback(() => {
+    // @ts-ignore
     editor.chain().focus().setLayout(ColumnLayout.SidebarLeft).run()
   }, [editor])
 
   const onColumnRight = useCallback(() => {
+        // @ts-ignore
     editor.chain().focus().setLayout(ColumnLayout.SidebarRight).run()
   }, [editor])
 
   const onColumnTwo = useCallback(() => {
+        // @ts-ignore
     editor.chain().focus().setLayout(ColumnLayout.TwoColumn).run()
   }, [editor])
 

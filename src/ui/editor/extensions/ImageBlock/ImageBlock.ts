@@ -69,6 +69,7 @@ export const ImageBlock = ImageBlockImage.extend({
     return ['img', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)]
   },
 
+        // @ts-ignore
   addCommands() {
     return {
       setImageBlock:

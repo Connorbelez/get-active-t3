@@ -136,6 +136,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
             <button
               key={index}
               onClick={() => {
+                //@ts-ignore
                 editor.commands.unsetColor();
                 //@ts-ignore
                 name !== "Default" && editor.chain().focus().setColor(color).run();
@@ -168,6 +169,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
             <button
               key={index}
               onClick={() => {
+                //@ts-ignore
                 editor.commands.unsetHighlight();
                 //@ts-ignore
                 name !== "Default" && editor.commands.setHighlight({ color });

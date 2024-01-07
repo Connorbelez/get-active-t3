@@ -2,7 +2,7 @@
 import React, { useState, useCallback } from "react";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip } from "@nextui-org/react";
 import { EditIcon, DeleteIcon, EyeIcon } from "./EventTableIcons";
-import { EventTableData } from "../home/content";
+// import { EventTableData } from "../home/content";
 import { toast } from "sonner";
 import { api } from "@/trpc/react";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
@@ -11,6 +11,19 @@ const statusColorMap = {
     paused: "danger",
     vacation: "warning",
 };
+
+export interface EventTableData {
+    id: number;
+    eventId: string;
+    category: string;
+    title: string;
+    status: string;
+    heroImage: string;
+    numberAttending: number;
+    startDate: string;
+    startTime: string;
+    headline: string;
+  }
 
 const columns = [
     { name: "TITLE", uid: "title" },

@@ -13,14 +13,14 @@ export default function Return() {
     const urlParams = new URLSearchParams(queryString);
     const sessionId = urlParams.get('session_id');
 
-    fetch(`/api/checkout_sessions?session_id=${sessionId}`, {
+    void fetch(`/api/checkout_sessions?session_id=${sessionId}`, {
       method: "GET",
     })
       .then((res) => {
         ////console.log('res from fetch')
         //console.log(res)
         // console.table(res)
-        res.json()
+        void res.json()
         .then((data) => {
           setStatus(data.status);
           setCustomerEmail(data.customer_email);

@@ -27,19 +27,23 @@ export const ImageBlockMenu = ({ editor, appendTo }: MenuProps): JSX.Element => 
   }, [editor])
 
   const onAlignImageLeft = useCallback(() => {
+          // @ts-ignore
     editor.chain().focus(undefined, { scrollIntoView: false }).setImageBlockAlign('left').run()
   }, [editor])
 
   const onAlignImageCenter = useCallback(() => {
+          // @ts-ignore
     editor.chain().focus(undefined, { scrollIntoView: false }).setImageBlockAlign('center').run()
   }, [editor])
 
   const onAlignImageRight = useCallback(() => {
+          // @ts-ignore
     editor.chain().focus(undefined, { scrollIntoView: false }).setImageBlockAlign('right').run()
   }, [editor])
 
   const onWidthChange = useCallback(
     (value: number) => {
+            // @ts-ignore
       editor.chain().focus(undefined, { scrollIntoView: false }).setImageBlockWidth(value).run()
     },
     [editor],

@@ -115,7 +115,7 @@ webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
                     //         expand: ['line_items'],
                     //     }
                     // );
-                    api.ticket.sendTicket.query({
+                    void api.ticket.sendTicket.query({
                         id:event.data.object.id
                     })
                     // const lineItems = sessionWithLineItems.line_items;

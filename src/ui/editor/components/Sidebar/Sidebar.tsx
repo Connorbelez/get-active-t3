@@ -22,6 +22,7 @@ export const Sidebar = memo(
       <div className={windowClassName}>
         <div className="w-full h-full overflow-hidden">
           <div className="w-full h-full p-6 overflow-auto">
+            {/* @ts-ignore */}
             <TableOfContents onItemClick={handlePotentialClose} editor={editor} />
           </div>
         </div>

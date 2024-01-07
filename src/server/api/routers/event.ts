@@ -84,7 +84,7 @@ export const eventRouter = createTRPCRouter({
       // const priceObj = await createTicketProduct(ticketData.name, ticketData.event.title, ticketData.eventId, ticketData.price, ticketData,user.email);
 
       return ctx.db.$transaction(async (prisma) => {
-        const token = await process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+        const token =  process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
         const val = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/1315%20Normandy%20Cres,Ottawa,On,Ca.json?access_token=${token}`)
         console.log(val);
         console.table(val);
