@@ -119,7 +119,7 @@ if (!session || !session.user) {
             userSession:JSON.stringify(sessionObj) as string,
             eventHeroImage: ticketData.event.heroImage,
           },
-          return_url: `https://localhost:3000/checkout/return?session_id={CHECKOUT_SESSION_ID}`,
+          return_url: `https://getaktive.vercel.app/checkout/return?session_id={CHECKOUT_SESSION_ID}`,
         });
         return NextResponse.json({clientSecret: session.client_secret})
 
