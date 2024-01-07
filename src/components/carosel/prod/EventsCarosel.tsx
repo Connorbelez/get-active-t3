@@ -22,7 +22,7 @@ export default function CarouselSize({CardArray}:{CardArray:Event[]}) {
       <CarouselContent>
         {CardArray.map((eventData, index) => (
           <CarouselItem key={index} className={className} >
-            <div className="flex aspect-square items-center justify-center ">
+            <div className="flex items-center justify-center ">
               <Card event={eventData} >
                 
               </Card>

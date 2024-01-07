@@ -1,8 +1,8 @@
 "use client"
 import { FC } from 'react'
-import {Card, CardBody, CardHeader} from "@nextui-org/card";
+import {Card, CardBody, CardHeader} from "@nextui-org/react";
 import ProfileAvatar from "@/app/profile/[...profile]/components/ProfileAvatar";
-import {Avatar} from "@nextui-org/avatar";
+import {Avatar} from "@nextui-org/react";
 import {useSession} from "next-auth/react";
 
 // interface pageProps {

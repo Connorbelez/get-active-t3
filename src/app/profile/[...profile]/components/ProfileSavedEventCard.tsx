@@ -10,11 +10,11 @@ import {
     PopoverTrigger,
     PopoverContent, Snippet
 } from "@nextui-org/react";
-import {Button} from "@nextui-org/button";
+import {Button} from "@nextui-org/react";
 // import HeartIcon from "@/components/icons/HeartIcond";
 import Link from "next/link";
 import {title} from "@/components/Primatives/Typography";
-import {Chip} from "@nextui-org/chip";
+import {Chip} from "@nextui-org/react";
 import * as React from "react";
 // import {CopyIcon} from "@/components/Icons/CopyIcon";
 // import {CheckIcon} from "@/components/Icons/CheckIcon";

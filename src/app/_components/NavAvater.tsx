@@ -8,7 +8,7 @@ import {
 
   Avatar,
 } from "@nextui-org/react";
-import { NavbarContent, NavbarItem } from "@nextui-org/navbar";
+import { NavbarContent, NavbarItem } from "@nextui-org/react";
 // import {useSession} from "next-auth/react";
 // import { Link } from "@nextui-org/link";
 // import { signIn } from "next-auth/react";
