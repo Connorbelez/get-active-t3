@@ -460,7 +460,7 @@ const Command = Extension.create({
                 return new DOMRect(rect.x, rect.y, rect.width, rect.height)
               }
 
-              let scrollHandler = () => {
+              const scrollHandler = () => {
                 popup?.[0].setProps({
                   getReferenceClientRect,
                 })
@@ -603,7 +603,7 @@ const CommandList = ({
       if (item) {
         if (item.title === "Continue writing") {
           if (isLoading) return;
-          complete(
+          void complete(
             getPrevText(editor, {
               chars: 5000,
               offset: 1,
@@ -693,7 +693,7 @@ const CommandList = ({
 
 const renderItems = () => {
   let component: ReactRenderer | null = null;
-  let popup: any | null = null;
+  let popup: any = null;
 
   return {
     onStart: (props: { editor: Editor; clientRect: DOMRect }) => {

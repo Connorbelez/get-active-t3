@@ -22,6 +22,7 @@ interface compProps {
         payAtDoorTicket:boolean,
         foodIncluded:boolean,
         drinksIncluded:boolean,
+        stripePriceId?:string,
       }[] | undefined;
     setTicketData: any;
 }

@@ -267,14 +267,7 @@ export default function ProfileForm() {
     
     const onSubmit = (values: z.infer<typeof formSchema>) => {
       try{
-        //console.log("SUBMITTTT!!!")
-        //console.log(editorJson)
-        //console.table(editorJson)
-        //console.log("SUBMIT")
-        //console.log(values)
-        //console.log("TICKET DATA: ")
-        //console.log(ticketData)
-        //console.table(ticketData)
+
         if(!ticketData){
             toast.error("You must add at least one ticket type")
             return;
@@ -336,10 +329,6 @@ export default function ProfileForm() {
         return
       }
       toast.success("Event Created")
-
-
-        // const insertTicket = api.ticket.create.useMutation();
-        //Now we need to check that we have sufficient Ticket and event data. 
     }
 
     const [timeValue,setTimeValue] = useState("10:00");
@@ -348,10 +337,6 @@ export default function ProfileForm() {
     //@ts-expect-error
     const [paymentTypes, setPaymentTypes] = React.useState<Selection>(new Set([]));
     
-    // const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    //   //@ts-expect-error
-    //   setPaymentTypes(new Set(e.target.value.split(",")));
-    // };
   
     const [ticketData, setTicketData] = useState<[{
       ticketTitle:string,
@@ -363,6 +348,7 @@ export default function ProfileForm() {
       payAtDoorTicket:boolean,
       foodIncluded:boolean,
       drinksIncluded:boolean,
+      stripePriceId?:string,
     }]>()
 
 
@@ -559,7 +545,7 @@ export default function ProfileForm() {
         
         {/* <TimePicker value={timeValue} setValue={setTimeValue} /> */}
 
-            {/* 
+            
             <div className="grid grid-cols-2 gap-4">
             <FormField
             disabled
@@ -634,7 +620,7 @@ export default function ProfileForm() {
               </FormItem>
             )}
             />
-          </div> */}
+          </div>
           
 
 

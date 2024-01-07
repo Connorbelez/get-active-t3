@@ -130,6 +130,55 @@ export const ticketRouter = createTRPCRouter({
       }
       console.log("TRPC CHECKOUT DATA: ",checkoutData)
 
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+            user: process.env.EMAIL_USERNAME,
+            pass: process.env.EMAIL_PASSWORD,
+        },
+    });
+
+    // console.log("EMAIL:",email);
+    const payload = JSON.stringify({
+      ticket: checkoutData.priceProduct.metadata,
+      email: checkoutData.customer.email,
+    })
+    const base64Payload = Buffer.from(payload).toString('base64');
+    // const dataURI = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${base64Payload}`;
+    const imageBuffer = await generateQRCodeWithLogo(base64Payload);
+
+    // console.log("EMAIL: ");
+    console.log("CHECKOUT DATA LOGO:", checkoutData.priceProduct.metadata.logo)
+    const logo = checkoutData.checkoutProduct.heroImage;
+    const html = await render(EventTicketEmail({customerName: checkoutData.customer.name, ticketId: "123", eventName: checkoutData.priceProduct.metadata.eventTitle, eventLocation: "HARDCODED", qrSrc:"cid:dynamic_image"}));
+
+    const email = checkoutData.customer.email ? checkoutData.customer.email : checkoutData.checkoutProduct.userSessionEmail;
+
+    const res = await transporter.sendMail({
+        from: 'getactive.ticketservice@gmail.com', // sender address
+        to: email, // list of receivers
+        subject: "Active Ticket ✔", // Subject line
+        text: "Hello world!", // plain text body
+        html:html,
+        attachments: [
+          {
+            filename: 'image.png',
+            content: imageBuffer,
+            cid: 'dynamic_image'
+          }
+        ]
+      });
+
+      // console.log("RESPONSE: ", res);
+      // console.table(res);
+      return res;
+
+
+
+
     }),
 
 
@@ -151,3 +200,6 @@ export const ticketRouter = createTRPCRouter({
   
     return qrCodeBuffer;
   }
+
+
+  

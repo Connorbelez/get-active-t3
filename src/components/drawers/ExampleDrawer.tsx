@@ -43,7 +43,7 @@ interface TicketProps {
 
 
 export default function DrawerDemo({tickets}:TicketProps) {
-  const [selectedTicket, setSelectedTicket] = useState(0)
+  const [selectedTicket, setSelectedTicket] = useState(-1)
   const [clientSecret, setClientSecret] = useState('');
   const router = useRouter();
 
@@ -53,7 +53,7 @@ export default function DrawerDemo({tickets}:TicketProps) {
   // console.log(typeof tickets)
   // console.log('Is tickets an array:', Array.isArray(tickets));
   // const [selectedTicketData, setSelectedTicketData] = useState<HTicketCardProps['ticket']>();
-  const [selectedTicketData, setSelectedTicketData] = useState<HTicketCardProps['ticket']>();
+  const [selectedTicketData, setSelectedTicketData] = useState<HTicketCardProps['ticket'] | undefined>();
   const ticketArr:Array<TicketType> = tickets as Array<TicketType>;
   // console.log('Is ticketArr an array:', Array.isArray(ticketArr));
   // const ticket:TicketType = tickets[0]!;
@@ -163,9 +163,14 @@ export default function DrawerDemo({tickets}:TicketProps) {
             }}>
 
             <div className="w-full grid grid-cols-2">
-              <div className="flex pl-2 space-x-2 items-center">
+              <div className="flex space-x-2 items-center">
                 <h1 className="text-2xl text-primary font-bold">Total: </h1>
-                <h1 className="text-2xl text-slate-200/70  font-bold">{selectedTicketData?.price ? ` $${selectedTicketData.price - 1 + 0.99}` : "FREE"}</h1>
+                {
+                 selectedTicket >=0 ? 
+                  <h1 className="text-2xl text-slate-200/70  font-bold">{selectedTicketData?.price ? ` $${selectedTicketData.price - 1 + 0.99}` : "FREE"}</h1>
+                  : 
+                  null
+                }
               </div>
               <NButton variant="faded" className=" prose prose-lg dark:prose-invert" startContent={<Ticket className="mr-4"/>} radius="sm" color="primary" type={"submit"}>
                 <p className="font-bold text-size-xl my-0">Checkout</p>

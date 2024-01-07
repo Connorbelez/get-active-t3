@@ -3,8 +3,8 @@ import { createContext } from 'react'
 interface IEditorContext {
   isAiLoading: boolean
   aiError?: string | null
-  setIsAiLoading: Function
-  setAiError: Function
+  setIsAiLoading: any
+  setAiError: any
 }
 
 export const EditorContext = createContext<IEditorContext>({

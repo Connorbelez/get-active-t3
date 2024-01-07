@@ -69,6 +69,7 @@ if (!session || !session.user) {
         // console.table(body)
         const ticketId = body.ticketId;
         // ////console.log("=================TICKET ID FROM ROUTE.JS: ", ticketId)
+        //ToDo: CHnage this and hte route to use the stripe price id instead of the ticket id
         const ticketData = await db.ticketType.findUniqueOrThrow({
           where: {
               id: ticketId,
@@ -96,10 +97,10 @@ if (!session || !session.user) {
         if(!ticketId || !ticketData.price || !ticketData.name || !ticketData.eventId || !ticketData.event.title){
           return NextResponse.json({ message: "Missing parameters: " + JSON.stringify(body) });
         }
-        const priceObj = await createTicketProduct(ticketData.name, ticketData.event.title, ticketData.eventId, ticketData.price, ticketData,user.email);
+        // const priceObj = await createTicketProduct(ticketData.name, ticketData.event.title, ticketData.eventId, ticketData.price, ticketData,user.email);
 
-        //console.log("PRICE OBJ: ", priceObj)
-        console.table(priceObj)
+        // //console.log("PRICE OBJ: ", priceObj)
+        // console.table(priceObj)
         //console.log("CREATING CHECKOUT SESSION WITH POST!")
         // Create Checkout Sessions from body params.
         const session = await stripe.checkout.sessions.create({
@@ -107,7 +108,7 @@ if (!session || !session.user) {
           line_items: [
             {
               // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-              price: priceObj.id,
+              price: ticketData.stripePriceId,
               quantity: 1,
             }
           ],
@@ -116,6 +117,7 @@ if (!session || !session.user) {
             metaDataTag: "CHECKOUT TICKET METADATA",    
             userSessionEmail: user.email,
             userSession:JSON.stringify(sessionObj) as string,
+            eventHeroImage: ticketData.event.heroImage,
           },
           return_url: `https://localhost:3000/checkout/return?session_id={CHECKOUT_SESSION_ID}`,
         });

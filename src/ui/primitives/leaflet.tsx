@@ -24,7 +24,7 @@ export default function Leaflet({
   }, []);
 
   useEffect(() => {
-    controls.start({
+    void controls.start({
       y: 20,
       transition: transitionProps,
     });
@@ -38,7 +38,7 @@ export default function Leaflet({
       await controls.start({ y: "100%", transition: transitionProps });
       setOpen(false);
     } else {
-      controls.start({ y: 0, transition: transitionProps });
+      void controls.start({ y: 0, transition: transitionProps });
     }
   }
 

@@ -1,12 +1,12 @@
 import { z } from "zod";
-
+import {env} from "@/env";
 import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
 import { create } from "domain";
-
+const stripe = require('stripe')(env.STRIPE_SECRET_KEY);
 
 import { eventSchema } from "@/types/schemas";
 
@@ -29,6 +29,44 @@ import { eventSchema } from "@/types/schemas";
 import { TicketType } from "@prisma/client";
 import { c } from "@vercel/blob/dist/put-FLtdezzu.cjs";
 
+
+
+
+async function createTicketProduct(name, price,ticketData, eventId,eventTitle){
+  const product = await stripe.products.create({
+      name: name,
+      images:["https://i.imgur.com/lJS8onS.png","https://i.imgur.com/HOcHl4h.png"],
+      metadata: { 
+        metaDataTag: "TICKET PRODUCT METADATA",        
+        eventId: eventId,
+        eventTitle: eventTitle,
+        // eventAddress: ticketData.event.address,
+        // eventStartTime: ticketData.event.startTime,
+        // eventStartDate: ticketData.event.startDate,
+        // eventHeroImage: ticketData.event.heroImage,
+        id: ticketData.id,
+        name: ticketData.name,
+        price: ticketData.price,
+        paymentOweing: ticketData.paymentOweing,
+        drinksIncluded: ticketData.drinksIncluded,
+        foodIncluded: ticketData.foodIncluded,
+        logo: ticketData.logo,
+        ticketDescription: JSON.stringify(ticketData.ticketDescription) as string,
+      },
+  });
+  const priceObject = await stripe.prices.create({
+      unit_amount: price * 100,
+      currency: 'CAD',
+      product: product.id,
+      metadata: product.metadata
+  });
+
+  return priceObject
+}
+
+
+
+
 export const eventRouter = createTRPCRouter({
 
     create: protectedProcedure
@@ -36,6 +74,15 @@ export const eventRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
         // console.log(input);
         // console.log("ATTEMPTING INSERT")
+        // const ticketDataArray = input.ticketTypes;
+        // for (let i = 0; i < ticketDataArray.length; i++) {
+        //   const ticketData = ticketDataArray[i];
+        //   if (ticketData) {
+        //     const priceObj = await createTicketProduct(ticketData.name, input.title, input., ticketData.price, ticketData, user.email);
+        //   }
+        // }
+      // const priceObj = await createTicketProduct(ticketData.name, ticketData.event.title, ticketData.eventId, ticketData.price, ticketData,user.email);
+
       return ctx.db.$transaction(async (prisma) => {
         const token = await process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
         const val = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/1315%20Normandy%20Cres,Ottawa,On,Ca.json?access_token=${token}`)
@@ -89,11 +136,23 @@ export const eventRouter = createTRPCRouter({
           }
         });
 
-        const ticketTypePromises = input.ticketTypes.map(ticketType => {
+        // const ticketDataArray = input.ticketTypes;
+        // for (let i = 0; i < ticketDataArray.length; i++) {
+        //   const ticketData = ticketDataArray[i];
+        //   if (ticketData) {
+        //     const priceObj = await createTicketProduct(ticketData.name, input.title, input., ticketData.price, ticketData, user.email);
+        //   }
+        // }
+
+        const ticketTypePromises = input.ticketTypes.map(async (ticketType) => {
+          const priceObj = await createTicketProduct(ticketType.name, ticketType.price, ticketType, newEvent.id, newEvent.title);
+          // console.log("PRICE OBJECT FROM EVENT TRPC: ", priceObj);
+
           return prisma.ticketType.create({
             data: {
               ...ticketType,
               eventId: newEvent.id,
+              stripePriceId: priceObj.id,
             }
           });
         });

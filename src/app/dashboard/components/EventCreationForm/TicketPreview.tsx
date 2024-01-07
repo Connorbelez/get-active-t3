@@ -93,7 +93,7 @@ export default function TicketCard({
             <div className="mt-6 w-full">
                 <div className=" flex justify-center">
 
-                    <h1 className="text-black bg-slate-200 font-bold text-center text-2xl">VIP TICKET</h1>
+                    <h1 className="text-black bg-slate-200 font-bold text-center text-2xl">{ticketTitle}</h1>
                 </div>
             </div>
             <div className="justify-center mt-4 flex flex-wrap items-center space-x-1 space-y-1">
@@ -129,7 +129,7 @@ export default function TicketCard({
 
 
             <div className=" absolute bottom-3 flex w-full justify-center text-center ">
-              <h1 className="mr-2 text-4xl">$18</h1>
+              <h1 className="mr-2 text-4xl">${parseInt(ticketPrice) - 1}</h1>
               <h1 className="mr-2">.99</h1>
             </div>
           </CardBody>

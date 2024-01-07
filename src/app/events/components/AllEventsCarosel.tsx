@@ -6,6 +6,7 @@ import EventCard from "@/components/cards/prod/EventCard";
 import EventsCarosel from "@/components/carosel/prod/EventsCarosel";
 import EventsSideScroll from "./EventsSideScroll";
 import SideScrollRoot from "@/components/SideScroll/SideScrollRoot";
+import SideScrollComponent from "@/components/SideScroll/SideScrollComponent";
 // import SideScrollComponent from "@/components/SideScroll/SideScrollComponent";
 // interface compProps {
 
@@ -48,14 +49,15 @@ export default async function comp() {
           <SideScrollRoot spacing="space-x-8" >
           <div className="SPACER ELEMENT col-span-5 w-full flex-shrink-0"> </div>
             {
-                events.map((event:Event) => {
+                events.map((event:Event,index:number) => {
                   return (
-                    <div className="snap-center touch-pan-x flex-shrink-0 col-span-5">
-                      <EventCard event={event} />
-                    </div>
+                    <SideScrollComponent key={index} className="">
+                      <EventCard key={index} event={event} />
+                    </SideScrollComponent>
                   )
                 })
               }
+              <div className="SPACER ELEMENT col-span-5 w-full flex-shrink-0"> </div>
           </SideScrollRoot>
         </div>
 

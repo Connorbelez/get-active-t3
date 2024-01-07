@@ -13,8 +13,8 @@ export default async function App() {
 
   const menuItems = [
     "Profile",
+    "Events",
     "Dashboard",
-    "Activity",
     "Log Out",
   ];
 
@@ -50,7 +50,7 @@ export default async function App() {
           </Link>
         </NavbarItem>
         <NavbarItem >
-          <Link href="/dashboard/eventcreation" >
+          <Link href="/dashboard/" >
             DashBoard
           </Link>
         </NavbarItem>
@@ -78,7 +78,7 @@ export default async function App() {
                 index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
               }
               className="w-full"
-              href="#"
+              href={`/${item.toLowerCase()}`}
               size="lg"
             >
               {item}

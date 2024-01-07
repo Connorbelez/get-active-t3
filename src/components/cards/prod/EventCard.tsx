@@ -83,7 +83,7 @@ export default function Comp({event}:compProps) {
             Org: event.orgId, creator: event.createdByEmail, creatorId: event.createdById
         }}}>
         
-        <Card className={"bg-background  h-[380px] max-w-[350px] w-full md:max-w-[400px] rounded-[40px]  dark:hover:shadow-lg dark:hover:shadow-violet-700/50"}>
+        <Card className={"bg-background my-4 h-[380px] max-w-[380px] w-full md:max-w-[400px] rounded-[40px]  dark:hover:shadow-lg dark:hover:shadow-violet-700/50"}>
             <CardHeader className="absolute z-10 top-1 grid grid-cols-3">
                     <Button
                         // onPress={()=> {
@@ -147,7 +147,7 @@ export default function Comp({event}:compProps) {
                         <div className={"flex flex-col items-center mx-auto "}>
                             <div className="flex flex-row align-middle mb-1">
                                 <Crosshair1Icon stroke={"#52525b"} className="w-4 mt-0.5 h-4 mr-2 fill-zinc-600" />
-                                <h4 className={"prose dark:prose-invert tex text-sm dark:text-zinc-400/60"}>{event.location}</h4>
+                                <h4 className={"prose dark:prose-invert tex text-sm dark:text-zinc-400/60"}>{event.address}</h4>
                             </div>
                             <h1 className={`-mb-2 dark:${title({size:"xsm",color:"pink"})}`}>{formattedDate.month.toUpperCase()}</h1>
                             <h1 className="prose prose-2xl font-bold  dark:text-zinc-400">{formattedDate.day}</h1>

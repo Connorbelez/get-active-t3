@@ -83,7 +83,6 @@ export const useTextmenuContentTypes = (editor: Editor) => {
         type: 'option',
       },
     ]
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editor, editor.state])
 
   return options

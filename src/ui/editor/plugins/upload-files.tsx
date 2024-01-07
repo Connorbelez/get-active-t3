@@ -183,7 +183,7 @@ const UploadFilesPlugin = () =>
 
 export default UploadFilesPlugin;
 
-function findPlaceholder(state: EditorState, id: {}) {
+function findPlaceholder(state: EditorState, id: any) {
     // console.log("STATEFILE: ",state)
     const decos = uploadKey.getState(state);
     // console.log("UPLOAD KEY: Decos ",decos)
@@ -224,10 +224,10 @@ export function startFileUpload(file: File, view: EditorView, pos: number) {
         view.dispatch(tr);
     };
 
-    handleFileUpload(file).then((url) => {
+    void handleFileUpload(file).then((url) => {
         const { schema } = view.state;
 
-        let pos = findPlaceholder(view.state, id);
+        const pos = findPlaceholder(view.state, id);
         // If the content around the placeholder has been deleted, drop
         // the file
         if (pos == null) return;
@@ -239,7 +239,8 @@ export function startFileUpload(file: File, view: EditorView, pos: number) {
         // the file locally
         // const fileSrc = typeof src === "object" ? reader.result : src;
         // console.log("HFU URL: ",url,'FILE NAMEL: ',file.name)
-        const node = schema.nodes.pdflink.create({ href: url, text: file.name });
+        const node = schema?.nodes?.pdflink?.create({ href: url, text: file.name });
+        if(node === undefined) throw new Error("Node is undefined");
         const transaction = view.state.tr
             .replaceWith(pos, pos, node)
             .setMeta(uploadKey, { remove: { id } });

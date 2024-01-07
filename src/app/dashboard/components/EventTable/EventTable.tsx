@@ -23,7 +23,7 @@ export default function App({ events: initialEvents }) {
     const [eventState, setEventState] = useState([...initialEvents]);
     const deleteEvent = api.event.deleteEvent.useMutation();
     const {isOpen, onOpen, onOpenChange,onClose} = useDisclosure();
-    const [selectedEvent, setSelectedEvent] = useState(-1);
+    const [selectedEvent, setSelectedEvent] = useState("");
 
 
     const handleDelete = async (event) => {
@@ -103,7 +103,7 @@ export default function App({ events: initialEvents }) {
                 <ModalFooter>
                     <Button onClick={onClose}>Cancel</Button>
                     <Button color="danger" onClick={()=>{
-                                    // // deleteEvent.mutate(event.eventId);
+                        deleteEvent.mutate({eventId: selectedEvent});
                         setEventState(currentEvents => currentEvents.filter(e => e.eventId !== selectedEvent));
                         toast(<div>EVENT DELETED: {selectedEvent}</div>);
                         onClose();

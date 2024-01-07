@@ -14,7 +14,7 @@ import {api} from "@/trpc/server"
 import {Event as EventType} from "@prisma/client"
 import { title } from "@/components/Primatives/Typography";
 // import TipTapEditor from "@/ui/editor/Editor";
-import Editor from "@/ui/editor/index";
+// import Editor from "@/ui/editor/index";
 import Form from "@/app/dashboard/components/EventCreationForm/EventForm";
 // import { JSONContent } from "@tiptap/react";
 export interface EventTableData {
@@ -29,7 +29,7 @@ export interface EventTableData {
   startTime: string;
   headline: string;
 }
-export const Page = async () => {
+ const app = async () => {
   const events: EventType[] = await api.event.getEvents.query();
 
   const eventInfo:EventTableData[] = events.map((event,index) => {
@@ -57,4 +57,4 @@ export const Page = async () => {
   )
 };
 
-export default Page;
+export default app;

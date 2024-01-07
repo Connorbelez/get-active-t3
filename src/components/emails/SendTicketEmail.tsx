@@ -103,6 +103,7 @@ interface EventTicketEmailProps {
   eventLocation?: string;
   ticketId?: string;
   qrSrc: string;
+  heroImage?: string;
 }
 
 
@@ -112,7 +113,9 @@ export const EventTicketEmail = ({
   eventDate,
   eventLocation,
   ticketId,
-  qrSrc
+  qrSrc,
+  heroImage
+
 }: EventTicketEmailProps) => {
   const formattedDate = new Intl.DateTimeFormat('en', {
     dateStyle: 'long',

@@ -56,7 +56,7 @@ const UploadImagesPlugin = () =>
 
 export default UploadImagesPlugin;
 
-function findPlaceholder(state: EditorState, id: {}) {
+function findPlaceholder(state: EditorState, id: any) {
   // console.log("STATEIMG: ",state)
   const decos = uploadKey.getState(state);
   const found = decos.find(null, null, (spec) => spec.id == id);
@@ -95,10 +95,10 @@ export function startImageUpload(file: File, view: EditorView, pos: number) {
     view.dispatch(tr);
   };
 
-  handleImageUpload(file).then((src) => {
+  void handleImageUpload(file).then((src) => {
     const { schema } = view.state;
 
-    let pos = findPlaceholder(view.state, id);
+    const pos = findPlaceholder(view.state, id);
     // If the content around the placeholder has been deleted, drop
     // the image
     if (pos == null) return;
@@ -110,7 +110,8 @@ export function startImageUpload(file: File, view: EditorView, pos: number) {
     // the image locally
     const imageSrc = typeof src === "object" ? reader.result : src;
 
-    const node = schema.nodes.image.create({ src: imageSrc });
+    const node = schema?.nodes?.image?.create({ src: imageSrc });
+    if(node === undefined) throw new Error("Node is undefined");
     const transaction = view.state.tr
       .replaceWith(pos, pos, node)
       .setMeta(uploadKey, { remove: { id } });
@@ -135,7 +136,7 @@ export const handleImageUpload = (file: File) => {
           const { url } = (await res.json()) as BlobResult;
           // console.log("IMAGE URL FROM UPLOAD-IMAGES PLUGIN: ", url);
           // preload the image
-          let image = new Image();
+          const image = new Image();
           image.src = url;
           image.onload = () => {
             resolve(url);

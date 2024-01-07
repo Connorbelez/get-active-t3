@@ -8,6 +8,9 @@ import TicketCard, {
 } from "@/components/cards/prod/HTicketCard";
 import { TicketType } from "@prisma/client";
 import clcx from "classnames";
+import {toast} from "sonner"
+import {api} from "@/trpc/react"
+import { useRouter } from "next/navigation";
 export interface MapAccordianProps {
   title: string;
   // children?: React.ReactNode;
@@ -20,11 +23,51 @@ export default function App({
   tickets,
   wrapperClassName,
 }: MapAccordianProps) {
-  const defaultContent =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+  const router = useRouter();
   const [selectedKeys, setSelectedKeys] = useState(new Set(["-1"]));
   const [selectedTicket, setSelectedTicket] = useState(-1);
   const [selectedTicketData, setSelectedTicketData] = useState<HTicketCardProps['ticket']>();
+  
+  const sendFreeTicket = api.ticket.sendFreeTicket.useMutation();
+
+  const handleSubmit = () => {
+    try{
+      if (typeof selectedTicket === 'undefined' || !tickets[selectedTicket]?.id) throw new Error('No ticket selected');
+      console.log("SENDING TICKET")
+      if(selectedTicketData?.price === 0){
+      sendFreeTicket.mutate({
+        ticket:{
+          name: tickets[selectedTicket]?.name as string,
+          ticketDescription: tickets[selectedTicket]?.ticketDescription as {description:string},
+          price: tickets[selectedTicket]?.price as number,
+          drinksIncluded: tickets[selectedTicket]?.drinksIncluded as boolean,
+          foodIncluded: tickets[selectedTicket]?.foodIncluded as boolean,
+          paymentTypes: tickets[selectedTicket]?.paymentTypes as string,
+          logo:"",
+        },
+        paymentOweing: false,
+        eventName: "CHANGE THIS HARDCODED VALUE",
+        recipientEmail: "connor.belez@gmail.com",
+        eventLocation: "CHANGE THIS HARDCODED VALUE",
+      })
+    }else{
+      //CHECKOUT
+      router.push(`/checkout?id=${tickets[selectedTicket]?.id}`)
+    }
+  }catch( error : any) {
+    console.log("CAUGHT ERROR: ")
+    if (error.message === 'No ticket selected'){
+      toast.error('No ticket selected')
+    }
+    else{
+      toast.error('Please Sign In to Continue')
+    }
+    console.log(error)
+  }
+  console.log("DONE")
+  }
+
+  
   return (
     <Accordion
       isCompact
@@ -69,7 +112,7 @@ export default function App({
             <h1 className="text-2xl text-primary font-bold">Total: </h1>
             <h1 className="text-2xl text-slate-200/70  font-bold">{selectedTicketData?.price ? ` $${selectedTicketData.price - 1 + 0.99}` : "FREE"}</h1>
           </div>
-          <Button color="primary" variant="faded" className="w-full">Checkout</Button>
+          <Button color="primary" variant="faded" onClick={handleSubmit} className="w-full">Checkout</Button>
         </div>
       </AccordionItem>
     </Accordion>

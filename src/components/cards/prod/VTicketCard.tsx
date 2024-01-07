@@ -9,7 +9,7 @@ export interface HTicketCardProps {
   _key: number;
   stateKey: number;
   setSelectedTicket: React.Dispatch<React.SetStateAction<number>>;
-  setSelectedTicketData: React.Dispatch<HTicketCardProps['ticketData']>;
+  setSelectedTicketData: React.Dispatch<HTicketCardProps['ticketData'] | undefined>;
   selectedTicketData: any;
 }
 
@@ -26,6 +26,7 @@ export default function TicketCard({
     drinksIncluded,
     foodIncluded,
     paymentTypes,
+    stripePriceId
   },
   _key,
   stateKey,
@@ -41,7 +42,7 @@ export default function TicketCard({
   const handlePress = () => {
     stateKey === _key ? setSelectedTicket(-1) : setSelectedTicket(_key);
     stateKey === _key
-      ? setSelectedTicket(-1)
+      ? setSelectedTicketData(undefined)
       : setSelectedTicketData({
           name: name,
           price: price,
@@ -53,6 +54,7 @@ export default function TicketCard({
           id: "HARDCODED",
           paymentOweing: false,
           logo: "HARDCODED",
+          stripePriceId: stripePriceId,
         });
         console.log("selectedTicket: ",stateKey);
         console.log("key: ",_key);

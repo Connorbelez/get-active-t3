@@ -139,13 +139,13 @@ model TicketType {
   paymentOweing Boolean @default(false)
   event         Event   @relation(fields: [eventId], references: [id])
   eventId       String
-
   ticketDescription Json
   paymentTypes    String
   drinksIncluded Boolean @default(false)
   foodIncluded   Boolean @default(false)
   logo           String
-  
+  stripePriceId  String?
+  @@index([stripePriceId])
   @@index([eventId])
   @@index([id])
 }

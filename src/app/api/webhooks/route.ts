@@ -108,13 +108,13 @@ webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
                     break;
                 case 'checkout.session.completed':
                     console.log("\n\n ==================CHECKOUT SESSION COMPLETED================\n\n")
-                    const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
-                        // @ts-ignore
-                        event.data.object.id,
-                        {
-                            expand: ['line_items'],
-                        }
-                    );
+                    // const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
+                    //     // @ts-ignore
+                    //     event.data.object.id,
+                    //     {
+                    //         expand: ['line_items'],
+                    //     }
+                    // );
                     api.ticket.sendTicket.query({
                         id:event.data.object.id
                     })

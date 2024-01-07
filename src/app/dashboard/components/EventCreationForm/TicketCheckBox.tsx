@@ -17,6 +17,7 @@ interface CustomCheckboxProps {
     payAtDoorTicket:boolean,
     foodIncluded:boolean,
     drinksIncluded:boolean,
+    stripePriceId?:string,
   }
 }
 
