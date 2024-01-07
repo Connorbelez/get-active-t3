@@ -77,6 +77,7 @@ export const TextMenu = ({ editor }: TextMenuProps) => {
       pluginKey="textMenu"
       shouldShow={states.shouldShow}
       updateDelay={100}
+      className='flex max-w-sm flex-wrap'
     >
       <Toolbar.Wrapper>
         {/* <AIDropdown

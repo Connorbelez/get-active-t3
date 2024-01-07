@@ -11,9 +11,39 @@ import { create } from "domain";
 import { EventTicketEmail } from "@/components/emails/SendTicketEmail";
 import { ticketTypeSchema } from "@/types/schemas"
 
+// import Stripe from 'stripe';
+const Stripe = require('stripe');
+const stripe = Stripe('sk_test_51NONQvAXXlLBfJHe5OlR5PAyjLXyKFBqpMtGp3btR51UwtBZ43UcLdAwWrwHingHXZQbsAY4JL0eMonFIRQRgCOM00RaPM81DV');
 
 
 export const ticketRouter = createTRPCRouter({
+    getTicketAndEventById: protectedProcedure
+    .input(z.object({
+        ticketId: z.string(),
+    }))
+    .query(async ({ ctx, input }) => {
+        const ticket = await ctx.db.ticketType.findUniqueOrThrow({
+            where: {
+                id: input.ticketId,
+            },
+            include: {
+                event: {
+                  select:{
+                    id: true,
+                    title: true,
+                    address: true,
+                    startTime: true,
+                    startDate: true,
+                    eventDescription: false,
+                    heroImage: false,
+                    
+
+                  }
+                },
+            },
+        });
+        return ticket;
+    }),
 
     sendFreeTicket: protectedProcedure
     .input(z.object({
@@ -70,7 +100,39 @@ export const ticketRouter = createTRPCRouter({
           // console.log("RESPONSE: ", res);
           // console.table(res);
           return res;
-    })
+    }),
+    sendTicket: publicProcedure
+      .input(z.object({
+        id:z.string()
+      }))
+      .query(async ({ ctx,input }) => {
+        const stripeCheckoutID = input.id;
+        const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
+          // @ts-ignore
+          stripeCheckoutID,
+          {
+              expand: ['line_items'],
+          }
+      );
+      //ToDo: Create Stripe products on event creation and link the product instead of creating it on the fly!!!!>
+      console.log("trpc x strip: ",sessionWithLineItems);
+      const lineItems = sessionWithLineItems.line_items;
+      const price = lineItems.data[0].price
+      const amount = price.unit_amount_decimal
+    
+      const charge = sessionWithLineItems.metadata
+      const customer = (sessionWithLineItems.customer_details)
+      
+      const checkoutData = {
+          checkoutProduct: charge,
+          priceProduct: price,
+          customer: customer,
+      }
+      console.log("TRPC CHECKOUT DATA: ",checkoutData)
+
+    }),
+
+
 
   });
   

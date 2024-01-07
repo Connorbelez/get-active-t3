@@ -56,7 +56,7 @@ async function streamToBuffer(readableStream: ReadableStream): Promise<Buffer> {
 
 //@ts-ignore
 export async function POST(req: Request) {
-    console.log("POST UPLOAD IMAGE!!!!")
+    //console.log("POST UPLOAD IMAGE!!!!")
 
 
     const file = req.body;
@@ -66,7 +66,7 @@ export async function POST(req: Request) {
     const contentType = (req.headers['content-type'] as string) || "application/pdf";
 
     const fileType = `.${contentType.split("/")[1]}`;
-    console.log("FILEasdf : ",file, typeof file);
+    //console.log("FILEasdf : ",file, typeof file);
     const id = uuidv4();
     // construct final filename based on content-type if not provided
     const finalName = filename.includes(fileType)
@@ -75,10 +75,10 @@ export async function POST(req: Request) {
 
     //@ts-ignore
     const buffer = await streamToBuffer(file);
-    console.log("FILE NAME : ",finalName);
-    console.log("FILE TYPE : ",fileType);
-    console.log("CONTENT TYPE : ",contentType);
-    console.log("FILE : ",buffer, typeof buffer);
+    //console.log("FILE NAME : ",finalName);
+    //console.log("FILE TYPE : ",fileType);
+    //console.log("CONTENT TYPE : ",contentType);
+    //console.log("FILE : ",buffer, typeof buffer);
 
     //read image from filesystem into buffer
     try{
@@ -94,7 +94,7 @@ export async function POST(req: Request) {
             };
             //@ts-ignore
             const data = await S3.send(new PutObjectCommand(params));
-            console.log("Data from s3: ",data);
+            //console.log("Data from s3: ",data);
         }catch(err){
             console.error("Error uploading to s3: ",err);
         }

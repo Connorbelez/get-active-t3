@@ -1,5 +1,5 @@
 "use client"
-import {useState }from "react"
+import {useState,useEffect}from "react"
 import { MinusIcon, PlusIcon } from "@radix-ui/react-icons"
 import { Bar, BarChart, ResponsiveContainer } from "recharts"
 import { FingerprintIcon } from "lucide-react"
@@ -7,6 +7,9 @@ import { button as Button} from "@/components/ui/button"
 import VTicketCard from "@/components/cards/prod/VTicketCard"
 import SideScrollRoot from "@/components/SideScroll/SideScrollRoot"
 import SideScrollComponent from "@/components/SideScroll/SideScrollComponent"
+import { Ticket } from "lucide-react"
+import {toast} from "sonner"
+import {env} from "@/env"
 import {
   Drawer,
   DrawerClose,
@@ -22,7 +25,17 @@ import { set } from "zod"
 import { c } from "@vercel/blob/dist/put-FLtdezzu.cjs"
 import { TicketType } from "@prisma/client"
 import {Button as NButton} from "@nextui-org/react"
+import { HTicketCardProps } from "../cards/prod/HTicketCard"
 
+import { loadStripe } from '@stripe/stripe-js';
+import {
+  EmbeddedCheckoutProvider,
+  EmbeddedCheckout
+} from '@stripe/react-stripe-js';
+import { useRouter } from "next/navigation"
+import { StripeEvent } from "@/app/checkout/page";
+
+const stripePromise = loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY);
 interface TicketProps {
   tickets : Array<TicketType>
 }
@@ -31,12 +44,16 @@ interface TicketProps {
 
 export default function DrawerDemo({tickets}:TicketProps) {
   const [selectedTicket, setSelectedTicket] = useState(0)
+  const [clientSecret, setClientSecret] = useState('');
+  const router = useRouter();
+
   // console.table(tickets)
   // console.log('tickets from drawer')
   // console.log(tickets)
   // console.log(typeof tickets)
   // console.log('Is tickets an array:', Array.isArray(tickets));
-  
+  // const [selectedTicketData, setSelectedTicketData] = useState<HTicketCardProps['ticket']>();
+  const [selectedTicketData, setSelectedTicketData] = useState<HTicketCardProps['ticket']>();
   const ticketArr:Array<TicketType> = tickets as Array<TicketType>;
   // console.log('Is ticketArr an array:', Array.isArray(ticketArr));
   // const ticket:TicketType = tickets[0]!;
@@ -44,16 +61,58 @@ export default function DrawerDemo({tickets}:TicketProps) {
     onError: (error:any) => {
       console.log("TICKET NOT SENT!");
       console.log(error)
-      alert("You must login first")
+      toast.error('TICKET NOT SENT PLEASE SIGN IN')
+      return 0;
     },
     onSuccess: () => {
       console.log('ticket sent')
+      toast.success('Ticket Sent')
+      return 1
     },
     onSettled: () => {
       console.log('ticket Settled')
+      return 1
     }
+
   });
   
+  const handleSubmit = () => {
+    try{
+      if (typeof selectedTicket === 'undefined' || !tickets[selectedTicket]?.id) throw new Error('No ticket selected');
+      console.log("SENDING TICKET")
+      if(selectedTicketData?.price === 0){
+      sendFreeTicket.mutate({
+        ticket:{
+          name: tickets[selectedTicket]?.name as string,
+          ticketDescription: tickets[selectedTicket]?.ticketDescription as {description:string},
+          price: tickets[selectedTicket]?.price as number,
+          drinksIncluded: tickets[selectedTicket]?.drinksIncluded as boolean,
+          foodIncluded: tickets[selectedTicket]?.foodIncluded as boolean,
+          paymentTypes: tickets[selectedTicket]?.paymentTypes as string,
+          logo:"",
+        },
+        paymentOweing: false,
+        eventName: "CHANGE THIS HARDCODED VALUE",
+        recipientEmail: "connor.belez@gmail.com",
+        eventLocation: "CHANGE THIS HARDCODED VALUE",
+      })
+    }else{
+      //CHECKOUT
+      router.push(`/checkout?id=${tickets[selectedTicket]?.id}`)
+    }
+  }catch( error : any) {
+    console.log("CAUGHT ERROR: ")
+    if (error.message === 'No ticket selected'){
+      toast.error('No ticket selected')
+    }
+    else{
+      toast.error('Please Sign In to Continue')
+    }
+    console.log(error)
+  }
+  console.log("DONE")
+  }
+
   return (
     <Drawer   
     >
@@ -88,10 +147,10 @@ export default function DrawerDemo({tickets}:TicketProps) {
             
           </div> */}
           <div className="w-full my-2">
-          <SideScrollRoot className="p-2">
+          <SideScrollRoot spacing="space-x-4" className="p-2">
             {ticketArr.map((ticket, index) => (
-              <SideScrollComponent>
-                <VTicketCard setSelectedTicket={setSelectedTicket} ticketData={ticket} _key={index} stateKey={selectedTicket} />
+              <SideScrollComponent key={index}>
+                <VTicketCard selectedTicketData={selectedTicketData} setSelectedTicketData={setSelectedTicketData} setSelectedTicket={setSelectedTicket} ticketData={ticket} _key={index} stateKey={selectedTicket} />
               </SideScrollComponent>
               ))}
           </SideScrollRoot>
@@ -99,39 +158,19 @@ export default function DrawerDemo({tickets}:TicketProps) {
           <DrawerFooter>
             <form onSubmit={(e)=>{
               e.preventDefault();
-              
-              if (typeof selectedTicket === 'undefined' || !tickets[selectedTicket]?.id) throw new Error('No ticket selected');
-              
-              try{
-                  console.log("SENDING TICKET")
-                  sendFreeTicket.mutate({
-                    ticket:{
-                      name: tickets[selectedTicket]?.name as string,
-                      ticketDescription: tickets[selectedTicket]?.ticketDescription as {description:string},
-                      price: tickets[selectedTicket]?.price as number,
-                      drinksIncluded: tickets[selectedTicket]?.drinksIncluded as boolean,
-                      foodIncluded: tickets[selectedTicket]?.foodIncluded as boolean,
-                      paymentTypes: tickets[selectedTicket]?.paymentTypes as string,
-                      logo:"",
-                    },
-                    paymentOweing: false,
-                    eventName: "CHANGE THIS HARDCODED VALUE",
-                    recipientEmail: "connor.belez@gmail.com",
-                    eventLocation: "CHANGE THIS HARDCODED VALUE",
-                  })
-              }catch( e : any) {
-                console.log("CAUGHT ERROR: ")
-                console.log(e)
-              }
-              console.log("DONE")
+              handleSubmit();
               
             }}>
 
-            <NButton variant="faded" radius="sm" color="warning" className="" type={"submit"}>Submit</NButton>
-              
-            <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DrawerClose>
+            <div className="w-full grid grid-cols-2">
+              <div className="flex pl-2 space-x-2 items-center">
+                <h1 className="text-2xl text-primary font-bold">Total: </h1>
+                <h1 className="text-2xl text-slate-200/70  font-bold">{selectedTicketData?.price ? ` $${selectedTicketData.price - 1 + 0.99}` : "FREE"}</h1>
+              </div>
+              <NButton variant="faded" className=" prose prose-lg dark:prose-invert" startContent={<Ticket className="mr-4"/>} radius="sm" color="primary" type={"submit"}>
+                <p className="font-bold text-size-xl my-0">Checkout</p>
+              </NButton>
+            </div>
            </form>
           </DrawerFooter>
         </div>

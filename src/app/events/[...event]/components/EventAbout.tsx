@@ -38,7 +38,8 @@ export default function comp({heading,length,start,end,ticketInfo}:  compProps) 
             <div className="flex items-center prose dark:prose-invert space-x-4 lg:pr-8">
                 <Card className={"h-[48px] w-[48px] flex-shrink-0"}>
                     <CardBody>
-                        <TicketIcon stroke={"#BEF264"} size={24} />
+                        {/* <TicketIcon stroke={"#BEF264"} size={24} /> */}
+                        <TicketIcon  size={24} />
                     </CardBody>
                 </Card>
                 <h2 className="my-0 py-0" >{ticketInfo}</h2>

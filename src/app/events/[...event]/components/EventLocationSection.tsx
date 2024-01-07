@@ -23,7 +23,8 @@ export default function comp({heading,address,city,province,postalCode}: compPro
         <div className="flex w-full flex-col items-center">
             <div className="flex w-full flex-row items-center px-2">
                 <i className="mr-1 h-[24px] w-[24px] self-start">
-                <MapPinned color={"#BEF264"} height={20} width={20} />
+                    {/* <MapPinned color={"#BEF264"} height={20} width={20} /> */}
+                    <MapPinned height={20} width={20} />
                 </i>
                 <div className="prose w-full max-w-6xl tracking-tighter antialiased dark:prose-invert ">
                 <p className=" mb-2 font-mono text-sm font-bold">
@@ -36,7 +37,7 @@ export default function comp({heading,address,city,province,postalCode}: compPro
             </div>
         </div>
         <div className="mt-2 w-full ">
-            <MapAccordian title="VIEW MAP" />
+            <MapAccordian title="VIEW MAP" center={city as string} />
             {/* <Map wrapperClassName="h-[300px] w[300px]"/> */}
         </div>
     </div>

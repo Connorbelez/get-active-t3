@@ -139,10 +139,10 @@ export const ExtensionKit = ({ provider, userId, userName = 'Maxi' }: ExtensionK
   //   clientId: provider?.document?.clientID,
   // }),
 
-  Emoji.configure({
-    enableEmoticons: true,
-    // suggestion: emojiSuggestion,
-  }),
+  // Emoji.configure({
+  //   enableEmoticons: true,
+  //   // suggestion: emojiSuggestion,
+  // }),
   TextAlign.extend({
     addKeyboardShortcuts() {
       return {}
@@ -157,11 +157,11 @@ export const ExtensionKit = ({ provider, userId, userName = 'Maxi' }: ExtensionK
   TableHeader,
   TableRow,
   Typography,
-  Placeholder.configure({
-    includeChildren: true,
-    showOnlyCurrent: false,
-    placeholder: () => '',
-  }),
+  // Placeholder.configure({
+  //   includeChildren: true,
+  //   showOnlyCurrent: false,
+  //   placeholder: () => '',
+  // }),
   SlashCommand,
   Focus,
   Figcaption,

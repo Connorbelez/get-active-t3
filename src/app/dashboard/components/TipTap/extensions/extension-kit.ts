@@ -12,7 +12,7 @@ import {
   Color,
   // Document,
   Dropcursor,
-  Emoji,
+  // Emoji,
   Figcaption,
   FileHandler,
   Focus,
@@ -39,7 +39,7 @@ import {
   TrailingNode,
   Typography,
   Underline,
-  emojiSuggestion,
+  // emojiSuggestion,
   Columns,
   Column,
   TaskItem,
@@ -181,10 +181,10 @@ export const ExtensionKit = ({ provider, userId, userName = 'Maxi' }: ExtensionK
   //     })
   //   },
   // }),
-  Emoji.configure({
-    enableEmoticons: true,
-    suggestion: emojiSuggestion,
-  }),
+  // Emoji.configure({
+  //   enableEmoticons: true,
+  //   suggestion: emojiSuggestion,
+  // }),
   TextAlign.extend({
     addKeyboardShortcuts() {
       return {}
@@ -199,11 +199,11 @@ export const ExtensionKit = ({ provider, userId, userName = 'Maxi' }: ExtensionK
   TableHeader,
   TableRow,
   Typography,
-  Placeholder.configure({
-    includeChildren: true,
-    showOnlyCurrent: false,
-    placeholder: () => '',
-  }),
+  // Placeholder.configure({
+  //   includeChildren: true,
+  //   showOnlyCurrent: false,
+  //   placeholder: () => '',
+  // }),
   SlashCommand,
   Focus,
   Figcaption,

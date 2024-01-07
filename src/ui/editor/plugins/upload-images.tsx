@@ -57,7 +57,7 @@ const UploadImagesPlugin = () =>
 export default UploadImagesPlugin;
 
 function findPlaceholder(state: EditorState, id: {}) {
-  console.log("STATEIMG: ",state)
+  // console.log("STATEIMG: ",state)
   const decos = uploadKey.getState(state);
   const found = decos.find(null, null, (spec) => spec.id == id);
   return found.length ? found[0].from : null;
@@ -133,7 +133,7 @@ export const handleImageUpload = (file: File) => {
         // Successfully uploaded image
         if (res.status === 200) {
           const { url } = (await res.json()) as BlobResult;
-          console.log("IMAGE URL FROM UPLOAD-IMAGES PLUGIN: ", url);
+          // console.log("IMAGE URL FROM UPLOAD-IMAGES PLUGIN: ", url);
           // preload the image
           let image = new Image();
           image.src = url;

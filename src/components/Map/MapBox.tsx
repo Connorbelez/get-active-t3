@@ -8,19 +8,20 @@ interface MapboxMapProps {
   initialOptions?: Omit<mapboxgl.MapboxOptions, "container">;
   onMapLoaded?(map: mapboxgl.Map): void;
   onMapRemoved?(): void;
+  latlng: number[];
 
 }
 
 function MapboxMap({
   initialOptions = {},
   onMapLoaded,
-
+  latlng,
   wrapperClassName,
   onMapRemoved,
 }: MapboxMapProps) {
   const [map, setMap] = React.useState<mapboxgl.Map>();
   const [isAtStart, setIsAtStart] = useState(true);
-
+  console.log("LATLNG ",latlng)
   const mapNode = React.useRef(null);
 
   React.useEffect(() => {
@@ -63,7 +64,7 @@ const flyToLocation = () => {
 
 
     const end = {
-        center: [-75.706471, 45.356071] as LngLatLike,
+        center: {lng:latlng[0],lat:latlng[1]} as LngLatLike,
         zoom: 16.5,
         bearing: 130,
         pitch: 45

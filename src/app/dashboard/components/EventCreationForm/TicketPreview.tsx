@@ -5,12 +5,20 @@ import { TicketType } from "@prisma/client";
 import { Martini, UtensilsCrossed } from "lucide-react";
 
 export interface HTicketCardProps {
-  ticketData: TicketType;
+  ticketData: {
+    ticketTitle:string,
+    ticketDescription:string,
+    ticketPrice:string,
+    itemsIncluded:string,
+    paymentTypes:string,
+    freeTicket:boolean,
+    payAtDoorTicket:boolean,
+    foodIncluded:boolean,
+    drinksIncluded:boolean,
+  };
   _key: number;
-  stateKey: number;
-  setSelectedTicket: React.Dispatch<React.SetStateAction<number>>;
-  setSelectedTicketData: React.Dispatch<HTicketCardProps['ticketData']>;
-  selectedTicketData: any;
+  stateKey?: number;
+  setSelectedTicket?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const handleCheckout = () => {
@@ -19,18 +27,19 @@ const handleCheckout = () => {
 
 export default function TicketCard({
  ticketData: {
-    id,
-    name,
-    price,
+    ticketTitle,
     ticketDescription,
-    drinksIncluded,
-    foodIncluded,
+    ticketPrice,
+    itemsIncluded,
     paymentTypes,
+    freeTicket,
+    payAtDoorTicket,
+    foodIncluded,
+    drinksIncluded,
   },
   _key,
   stateKey,
-  setSelectedTicket,
-  setSelectedTicketData
+  setSelectedTicket
 }: HTicketCardProps) {
   drinksIncluded = true;
   foodIncluded = true;
@@ -38,26 +47,7 @@ export default function TicketCard({
   const paymentTypesArr: string[] = paymentTypes.split(",");
   console.table({_key,stateKey});
 
-  const handlePress = () => {
-    stateKey === _key ? setSelectedTicket(-1) : setSelectedTicket(_key);
-    stateKey === _key
-      ? setSelectedTicket(-1)
-      : setSelectedTicketData({
-          name: name,
-          price: price,
-          paymentTypes: paymentTypes,
-          drinksIncluded: drinksIncluded,
-          foodIncluded: foodIncluded,
-          ticketDescription: ticketDescription,
-          eventId: "HARDCODED",
-          id: "HARDCODED",
-          paymentOweing: false,
-          logo: "HARDCODED",
-        });
-        console.log("selectedTicket: ",stateKey);
-        console.log("key: ",_key);
-        console.log(_key==stateKey )
-  };
+//   const handlePress = () => {setSelectedTicket(_key)};
   return (
     // <form key={_key} onSubmit={handleCheckout} className="z-0 ">
     //   <input type="hidden" name="ticketId" value={name} />
@@ -87,10 +77,9 @@ export default function TicketCard({
     //     name="ticketPaymentTypes"
     //     value={JSON.stringify(paymentTypes)}
     //   />
-    <Button isIconOnly onPress={()=>{handlePress()}} className={"p-0 rounded-b-md w-[150px] h-[306px] pb-2 bg-transparent box-border-none  data-[focus-visible=true]:z-0 data-[focus-visible=true]:outline-none shadow-none "}> 
 
         <Card 
-        style={stateKey === _key ?  { filter: 'drop-shadow(0px 3px 3px rgb(109 40 217))'} : {}}
+        style={{ filter: 'drop-shadow(0px 3px 3px rgb(109 40 217))'}}
         className={`h-[300px] w-[150px] bg-opacity-0 box-border-none outline-none data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-none shadow-none rounded-none border-none box-border-none p-0 `}>
           <Image
             src={"/TicketBackgroundV.png"}
@@ -104,7 +93,7 @@ export default function TicketCard({
             <div className="mt-6 w-full">
                 <div className=" flex justify-center">
 
-                    <h1 className="text-black bg-slate-200 font-bold text-center text-2xl">{name.toLocaleUpperCase()}</h1>
+                    <h1 className="text-black bg-slate-200 font-bold text-center text-2xl">VIP TICKET</h1>
                 </div>
             </div>
             <div className="justify-center mt-4 flex flex-wrap items-center space-x-1 space-y-1">
@@ -140,12 +129,11 @@ export default function TicketCard({
 
 
             <div className=" absolute bottom-3 flex w-full justify-center text-center ">
-              <h1 className="mr-2 text-4xl">${price-1}</h1>
+              <h1 className="mr-2 text-4xl">$18</h1>
               <h1 className="mr-2">.99</h1>
             </div>
           </CardBody>
         </Card>
-      </Button>
     // </form>
   );
 }

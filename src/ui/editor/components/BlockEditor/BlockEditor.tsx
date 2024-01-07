@@ -38,11 +38,11 @@ export const BlockEditor = () => {
   const debouncedUpdates = useDebouncedCallback(async ({ editor }) => {
 
     const json = editor.getJSON();
-    console.log("JSON contentff: ", json);
-    console.log("MYCONTENT: ", content);
+    // console.log("JSON contentff: ", json);
+    // console.log("MYCONTENT: ", content);
     sethtmlcontent(editor.getHTML());
   
-    console.log("HTML: ", editor.getHTML(), typeof editor.getHTML())
+    // console.log("HTML: ", editor.getHTML(), typeof editor.getHTML())
 
     setSaveStatus("Saving...");
     setContent(json);
@@ -112,7 +112,7 @@ export const BlockEditor = () => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" || (e.metaKey && e.key === "z")) {
         stop();
-        console.log(editor)
+        // console.log(editor)
         if (e.key === "Escape") {
           editor?.commands.deleteRange({
             from: editor.state.selection.from - completion.length,

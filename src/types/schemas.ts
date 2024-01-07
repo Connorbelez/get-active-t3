@@ -10,10 +10,10 @@ export const ticketTypeSchema = z.object({
     ticketDescription: z.object({
         description: z.string(),
     }),
-    drinksIncluded: z.boolean(),
-    foodIncluded: z.boolean(),
+    drinksIncluded: z.boolean().default(false),
+    foodIncluded: z.boolean().default(false),
     paymentTypes: z.string(),
-    logo: z.string(),
+    logo: z.string().default("https://res.cloudinary.com/dtqevfsxh/image/upload/v1627667959/placeholder-image_zqjz3c.png"),    
 })
 
 export const eventSchema = z.object({

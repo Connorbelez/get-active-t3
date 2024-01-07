@@ -145,6 +145,7 @@ model TicketType {
   drinksIncluded Boolean @default(false)
   foodIncluded   Boolean @default(false)
   logo           String
+  
   @@index([eventId])
   @@index([id])
 }

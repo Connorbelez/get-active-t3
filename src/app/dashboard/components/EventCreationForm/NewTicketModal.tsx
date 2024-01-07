@@ -34,7 +34,7 @@ interface compProps {
   onOpenChange: (open: boolean) => void;
   isOpen: boolean;
   ticketData: any;
-    setTicketData: any;
+  setTicketData: any
 }
 
 // export const ticketFormSchema = z.object({
@@ -65,14 +65,27 @@ export default function comp({
     defaultValues: {
       ticketTitle: "",
       ticketPrice: "0",
+      ticketDescription: "",
+      paymentTypes: "",
+      freeTicket: false,
+      payAtDoorTicket: false,
+      itemsIncluded: "",
     },
+    
   });
 
   const onSubmit = (data: z.infer<typeof ticketFormSchema>) => {
-    
-    console.log("TICKET SUBMIT!!!")
-    console.table(data);
-    console.log(data);
+    //console.log("TICKET SUBMIT!!!")
+    //console.table(data);
+    //console.log(data);
+    //console.log("STATE")
+    //console.table(ticketData);
+    //console.log(ticketData);
+    setTicketData(prev => prev ? [...prev, data] : [data]);
+  
+    //console.log("TICKET SUBMIT!!!")
+    //console.table(data);
+    //console.log(data);
 };
   return (
       <Modal
@@ -87,9 +100,15 @@ export default function comp({
             <Form {...form}>
             <form
             onSubmit={(e)=>{
+           
+                //console.log("SUBMITTING")
+
+                const res = form.handleSubmit(onSubmit)
+                //console.log(res)
                 e.preventDefault();
-                onSubmit(form.getValues());
-                onClose();
+                e.bubbles = false;
+                // onClose();
+                return res;
             }}
             className="flex w-full flex-col justify-center space-y-4 p-8"
             >
@@ -109,6 +128,24 @@ export default function comp({
                         </FormControl>
                         <FormDescription>
                           Displayed Ticket Title
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                    <FormField
+                    control={form.control}
+                    name="ticketDescription"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Ticket D</FormLabel>
+                        <FormControl>
+                          {/* <AddressAutofill accessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN as string}> */}
+                          <Input {...field} />
+                          {/* </AddressAutofill> */}
+                        </FormControl>
+                        <FormDescription>
+                          Displayed Ticket D
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -228,27 +265,9 @@ export default function comp({
                     />
                 </div>
 
-                <FormField
-                    control={form.control}
-                    name="ticketDescription"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Ticket Description</FormLabel>
-                        <FormControl>
-                          {/* <AddressAutofill accessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN as string}> */}
-                          <Input value={field.value} onChange={field.onChange} />
-                          {/* </AddressAutofill> */}
-                        </FormControl>
-                        <FormDescription>
-                          Displayed Ticket Information
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
+      
   
-              <div className="flex justify-between px-1 py-2">
+              {/* <div className="flex justify-between px-1 py-2">
                 <Checkbox
                   classNames={{
                     label: "text-small",
@@ -259,13 +278,16 @@ export default function comp({
                 <Link color="primary" href="#" size="sm">
                   Forgot password?
                 </Link>
-              </div>
+              </div> */}
+
             </ModalBody>
             <ModalFooter>
               <Button color="danger" variant="flat" onPress={onClose}>
                 Close
               </Button>
-              <Button color="primary" type="submit">
+              <Button color="primary" onPress={(e)=>{
+                  onSubmit(form.getValues())}
+                }>
                 Submit
               </Button>
             </ModalFooter>

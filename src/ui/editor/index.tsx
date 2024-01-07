@@ -82,11 +82,11 @@ export default function Editor({editorJson, setEditorJson}: pageprops) {
 
   const debouncedUpdates = useDebouncedCallback(async ({ editor }) => {
       const json = editor.getJSON();
-      console.log("JSON contentff: ", json);
+      //console.log("JSON contentff: ", json);
       // console.log("MYCONTENT: ", content);
       sethtmlcontent(editor.getHTML());
 
-      console.log("HTML: ", editor.getHTML(), typeof editor.getHTML())
+      //console.log("HTML: ", editor.getHTML(), typeof editor.getHTML())
 
       setSaveStatus("Saving...");
       // setContent(json);
@@ -110,7 +110,7 @@ export default function Editor({editorJson, setEditorJson}: pageprops) {
         // },
         onUpdate: ({ editor }) => {
           const json = editor.getJSON()
-          console.log("JSON content: from onUpdate ", json)
+          //console.log("JSON content: from onUpdate ", json)
           setEditorJson(json)
           // send the content to an API here
         },
@@ -123,7 +123,7 @@ export default function Editor({editorJson, setEditorJson}: pageprops) {
             autocomplete: 'off',
             autocorrect: 'off',
             autocapitalize: 'off',
-            class: 'min-h-[400px] border-radius-[30px] w-full ',
+            class: 'min-h-[400px] border-radius-[30px] w-full p-1 ',
           },
         },
       },
@@ -163,7 +163,7 @@ export default function Editor({editorJson, setEditorJson}: pageprops) {
         {saveStatus}
       </div> */}
       {/* {editor && <EditorBubbleMenu editor={editor} />} */}
-      <div className="flex flex-col rounded-xl items-center border-stone-200 bg-white sm:border sm:shadow-lg dark:border-stone-600 dark:bg-stone-800">
+      <div className=" w-full rounded-xl items-center border-stone-200 bg-white sm:border sm:shadow-lg dark:border-stone-600 dark:bg-stone-800">
         <div  ref={menuContainerRef} className="h-full w-full rounded-xl  prose dark:prose-invert" >
           {editor?.isActive("image") && <ImageResizer editor={editor} />}
           {editor && <EditorContent ref={editorRef} editor={editor} />}

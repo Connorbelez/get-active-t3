@@ -37,6 +37,32 @@ export const eventRouter = createTRPCRouter({
         // console.log(input);
         // console.log("ATTEMPTING INSERT")
       return ctx.db.$transaction(async (prisma) => {
+        const token = await process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+        const val = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/1315%20Normandy%20Cres,Ottawa,On,Ca.json?access_token=${token}`)
+        console.log(val);
+        console.table(val);
+        
+        const res = await val.json();
+        console.log(res);
+        console.table(res);
+        const geometry = res.features[0].geometry;
+        const placeName = res.features[0].place_name;
+        const center = res.features[0].center;
+        const placeType = res.features[0].place_type;
+        console.log("Geometry: ")
+        console.log(geometry);
+        
+        console.log("Place Name: ")
+        console.log(placeName);
+
+        console.log("Center: ")
+        console.log(center);
+
+        console.log("Place Type: ")
+        console.log(placeType);
+
+        const [lat,lng] = center; 
+
         const newEvent = await prisma.event.create({
           data: {
             // name: input.name,
@@ -47,8 +73,8 @@ export const eventRouter = createTRPCRouter({
             startDate: input.startDate,
             startTime: input.startTime,
             ticketStartingPrice: input.ticketStartingPrice,
-            location: input.location,
-            address: input.address,
+            location: center.toString() ? center.toString() : "0,0",
+            address: placeName.toString() ? placeName.toString() : "No Address Provided",
             eventDescription: input.eventDescription,
             length: input.length,
             capacity: input.capacity,
@@ -127,5 +153,25 @@ export const eventRouter = createTRPCRouter({
             console.log("TICKETS: ", typeof tickets);
             return tickets;
         }),
+
+        deleteEvent: protectedProcedure
+        .input(z.object({
+            eventId: z.string().min(1)
+        }))
+        .mutation(async ({ ctx, input }) => {
+          return ctx.db.$transaction(async (prisma) => {
+            const tickets = await prisma.ticketType.deleteMany({
+              where: {
+                eventId: input.eventId
+              }
+            });
+            const event = await prisma.event.delete({
+              where: {
+                id: input.eventId
+              }
+            });
+            return {event, tickets};
+          })
+        })
   });
   

@@ -35,8 +35,8 @@ const isCategory = (option: ContentTypePickerOption | ContentTypePickerCategory)
   option.type === 'category'
 
 export const ContentTypePicker = ({ options }: ContentTypePickerProps) => {
-  console.log("CTPP OPTIONS:")
-  console.table(options)
+  // console.log("CTPP OPTIONS:")
+  // console.table(options)
   const activeItem = useMemo(() => options.find(option => option.type === 'option' && option.isActive()), [options])
 
   return (
@@ -51,10 +51,10 @@ export const ContentTypePicker = ({ options }: ContentTypePickerProps) => {
         <Surface className="flex flex-col gap-1 px-2 py-4">
           {options.map(option => {
             if (isOption(option)) {
-              console.log("CTPP OPTION:")
+              // console.log("CTPP OPTION:")
 
-              // console.table(option)
-              console.log(option.onClick.toString())
+              // // console.table(option)
+              // console.log(option.onClick.toString())
               return (
                 <DropdownButton key={option.id} onClick={option.onClick} isActive={option.isActive()}>
                   <Icon name={option.icon} className="w-4 h-4 mr-1" />

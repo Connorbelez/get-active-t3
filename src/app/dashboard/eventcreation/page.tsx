@@ -117,18 +117,18 @@ export default function App() {
         }).then(async (res) => {
           if (res.status === 200) {
             const { url } = await res.json();
-            console.log("IMAGE URL FROM UPLOAD-IMAGES PLUGIN: ", url);
+            //console.log("IMAGE URL FROM UPLOAD-IMAGES PLUGIN: ", url);
             resolve(url); // Resolving with the URL
           } else if (res.status === 401) {
             // Handle unauthorized error
             const errorMessage =
               "`BLOB_READ_WRITE_TOKEN` environment variable not found, reading image locally instead.";
-            console.error(errorMessage);
+            //console.error(errorMessage);
             reject(new Error(errorMessage));
           } else {
             // Handle other errors
             const error = new Error(`Error uploading image. Please try again.`);
-            console.error(error.message);
+            //console.error(error.message);
             reject(error);
           }
         }),
@@ -165,9 +165,9 @@ export default function App() {
     reader.readAsDataURL(file);
 
     void handleImageUpload(file).then((urlVal) => {
-      console.log("HERO URL: ", urlVal);
+      //console.log("HERO URL: ", urlVal);
       setEventData((prevData) => ({ ...prevData, ["heroImage"]: urlVal }));
-      console.log("event data: ", eventData);
+      //console.log("event data: ", eventData);
     });
   };
 
@@ -183,25 +183,25 @@ export default function App() {
     const target = event.target as typeof event.target & {
       heroImage: { value: string };
     };
-    console.log("Target: target", target);
+    //console.log("Target: target", target);
 
     setFormData((prevFormData) => ({
       ...prevFormData, // Spread the previous formData object
       eventDataCompleted: true, // Update only the ticketData property
     }));
 
-    console.log("Form Data:", eventData);
-    console.log(formData);
+    //console.log("Form Data:", eventData);
+    //console.log(formData);
     // You can process the data or send it to an API here
   };
 
   const debouncedUpdates = useDebouncedCallback(async ({ editor }) => {
     const json = editor.getJSON();
-    console.log("JSON contentff: ", json);
-    console.log("MYCONTENT: ", content);
+    //console.log("JSON contentff: ", json);
+    //console.log("MYCONTENT: ", content);
     sethtmlcontent(editor.getHTML());
 
-    console.log("HTML: ", editor.getHTML(), typeof editor.getHTML());
+    //console.log("HTML: ", editor.getHTML(), typeof editor.getHTML());
 
     setSaveStatus("Saving...");
     setContent(json);
@@ -271,7 +271,7 @@ export default function App() {
   //   const onKeyDown = (e: KeyboardEvent) => {
   //     if (e.key === "Escape" || (e.metaKey && e.key === "z")) {
   //       stop();
-  //       console.log(editor);
+  //       //console.log(editor);
   //       if (e.key === "Escape") {
   //         editor?.commands.deleteRange({
   //           from: editor.state.selection.from - completion.length,
@@ -315,8 +315,8 @@ export default function App() {
 
 
   const handleEventCreation = () => {
-      console.log("FROM MODAL :", ticketTiers);
-      console.log("FROM MODAL :", eventData);
+      //console.log("FROM MODAL :", ticketTiers);
+      //console.log("FROM MODAL :", eventData);
       if (!formData.eventDataCompleted || !formData.ticketDataCompleted) {
         alert(
           `EVENT NOT CREATED! Missing data: eventdata: ${formData.eventDataCompleted} ticketdata: ${formData.ticketDataCompleted}`,
@@ -355,7 +355,7 @@ export default function App() {
       });
 
       const ticketTypesSchemas = td.map((ticket) => {
-        console.log("TICKET: ", ticket)
+        //console.log("TICKET: ", ticket)
         return ticketTypeSchema.parse({
           name: ticket.name,
           logo: ticket.logo,
@@ -399,8 +399,8 @@ export default function App() {
         creator: email,
       };
 
-      console.log("EVENT CREATION TICKET DATA :", payload);
-      console.log(JSON.stringify(payload));
+      //console.log("EVENT CREATION TICKET DATA :", payload);
+      //console.log(JSON.stringify(payload));
 
       const prodUrl = "/api/newevent";
 
@@ -428,12 +428,12 @@ export default function App() {
           createdById: "1234",
           createdByEmail: "connor.belez@gmail.com",
         })).then((res) => {
-          console.log("\n\n\n======================RES: ", res);
-          console.table(res);
+          //console.log("\n\n\n======================RES: ", res);
+          //console.table(res);
           alert("EVENT CREATED!");
         });
       } catch (e:any)  {
-        console.log("ERROR: ",e);
+        //console.log("ERROR: ",e);
         //throw alert
         alert("DB INSERTION ERROR!");
       }
@@ -452,8 +452,8 @@ export default function App() {
       ...prevFormData, // Spread the previous formData object
       ticketDataCompleted: true, // Update only the ticketData property
     }));
-    console.log("Ticket Form Data:", ticketTiers);
-    console.log(formData);
+    //console.log("Ticket Form Data:", ticketTiers);
+    //console.log(formData);
     // You can process the data or send it to an API here
   };
 

@@ -50,21 +50,10 @@ export const Page = async () => {
 
   return(
   <div className="h-full w-full flex flex-col items-center">
-      {/* <h1 className={`text-primary ${title()}`}>Existing Events</h1>
-      <Form /> */}
-    <div className="TableContainer flex w-full justify-center">
-      <EventTable events={eventInfo} />
-      {/* <TipTapEditor params={{room:"asdf"}} /> */}
+      <h1 className={`text-primary ${title()}`}>Existing Events</h1>
+      <Form />
 
-
-      {/* <Editor editorJson={editorJson} setEditorJson={setEditorJson} />   */}
-
-      <div className="prose min-h-[500px]">
-
-      </div>
     </div>
-
-  </div>
   )
 };
 

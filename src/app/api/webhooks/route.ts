@@ -2,7 +2,8 @@
 const Stripe = require('stripe');
 const stripe = Stripe('sk_test_51NONQvAXXlLBfJHe5OlR5PAyjLXyKFBqpMtGp3btR51UwtBZ43UcLdAwWrwHingHXZQbsAY4JL0eMonFIRQRgCOM00RaPM81DV');
 
-
+import {api} from "@/trpc/server";
+import { ApiError } from "next/dist/server/api-utils";
 
 // const stripe = new Stripe(
 //     process.env.STRIPE_SECRET_KEY_LIVE ?? process.env.STRIPE_SECRET_KEY ?? '',
@@ -14,10 +15,12 @@ const stripe = Stripe('sk_test_51NONQvAXXlLBfJHe5OlR5PAyjLXyKFBqpMtGp3btR51UwtBZ
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 import { headers } from 'next/headers';
+import { describe } from "node:test";
 
 const relevantEvents = new Set([
 
     'checkout.session.completed',
+    'payment_intent.succeeded',
     // 'checkout.session.async_payment_succeeded',
     // 'checkout.session.async_payment_failed',
     // 'checkout.session.failed',
@@ -63,7 +66,7 @@ webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
                 case 'charge.succeeded':
                     console.log("\n\n==========CHARGE SUCCEEDED=============\n\n")
-                    console.log("EVENT: ", event)
+
                     // console.log("EVENT DATA: ", event.data)
                     // console.log("EVENT DATA OBJECT: ", event as Stripe.Event)
                     // const charge = event.data.object as Stripe.Charge;
@@ -76,7 +79,33 @@ webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
                         // Retrieve the session. If you require line items in the response, you may include them by expanding line_items.
 
                     break
+                
+                case 'payment_intent.succeeded':
+                   
+                    
+                    // console.log("\n\n\n\n\n\n============PAYMENT INTENT SUCCEEDED=============== ")
+                    // console.log(event)
+                    // console.table(event)
+                    // const data = event.data
+                    // console.log("PAYMENT INTENT DATA: ", data)
+                    // console.table(data)
 
+                    // const sessionWithLineItems2 = await stripe.paymentIndents.retrieve(
+                    //     // @ts-ignore
+                    //     data.object.id,
+                    //     {
+                    //         expand: ['line_items'],
+                    //     }
+                    // );
+                    // const lineItems2 = sessionWithLineItems2.line_items;
+                    // // console.log("LINE ITEMS: ", lineItems)
+                    // console.table(lineItems2)
+                    // console.log("\n\n==========CHARGE Details=============\n\n")
+                    // console.log("EVENT: ", event)
+                    // console.log("EVENT DATA: ", event.data)
+                    // console.log("EVENT DATA OBJECT: ", event as Stripe.Event)
+                    // Then define and call a function to handle the event payment_intent.succeeded
+                    break;
                 case 'checkout.session.completed':
                     console.log("\n\n ==================CHECKOUT SESSION COMPLETED================\n\n")
                     const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
@@ -86,40 +115,49 @@ webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
                             expand: ['line_items'],
                         }
                     );
-                    const lineItems = sessionWithLineItems.line_items;
-                    // console.log("LINE ITEMS: ", lineItems)
-                    console.table(lineItems)
-
-
-                    console.log("\n\n==========CHARGE Details=============\n\n")
-
-                    console.log("EVENT: ", event)
-                    // console.log("EVENT DATA: ", event.data)
-                    // console.log("EVENT DATA OBJECT: ", event as Stripe.Event)
-
-                    const charge = event.data.object 
-                    console.log("CHARGE: ", charge.object)
-
-                    const product = (charge.metadata )
-                    console.log("\n\nPRODUCT: ", product)
-
-                    // @ts-ignore
-                    const customer = (event.data.object.customer_details)
-                    console.log("\n\nCUSTOMER: ", customer)
-                    console.log("\n\nFULFILLING TICKET!!!!\n\n")
-                    // const res = await ticketSend.POST({product: product, customer: customer});
-                    // console.log("\n\nRES: ", res)
-                    // if (res.status === 200) {
-                    //    console.log("Fulfilled ticket!")
+                    api.ticket.sendTicket.query({
+                        id:event.data.object.id
+                    })
+                    // const lineItems = sessionWithLineItems.line_items;
+                    // const price = lineItems.data[0].price
+                    // const amount = price.unit_amount_decimal
+                    // const charge = event.data.object 
+                    // const product = (charge.metadata )
+                    // const customer = (event.data.object.customer_details)
+                    // const customerEmail = customer.email
+                    // const name = customer.name
+                    
+                    // const checkoutData = {
+                    //     checkoutProduct: product,
+                    //     priceProduct: price,
+                    //     customer: customer,
                     // }
-                    // else {
-                    //     console.log("Ticket fulfillment failed!")
-                    //     //throw error
-                    //     throw new Error('Ticket fulfillment failed!');
-                    // }
-                    break
-                    // const paymentSession = event.data.object as Stripe.PaymentSession;
-                    // console.log("PAYMENT SESSION: ", paymentSession)
+
+                //     console.log("\n\nCHECKOUT DATA: ", checkoutData)
+
+                //     // ctx: {
+                //     //     // infers the `session` as non-nullable
+                //     //     session: { ...ctx.session, user: ctx.session?.user },
+                //     //   },
+                //     api.ticket.sendFreeTicket.mutate.bind("ctx",JSON.parse(checkoutData.checkoutProduct.session))
+                //     api.ticket.sendFreeTicket.mutate({
+                //         ticket:{
+                //         name: "sadf",
+                //         price:0,
+                //         ticketDescription: {description: "asdf"},
+                //         drinksIncluded: false,
+                //         foodIncluded: false,
+                //         logo: "asdf",
+                //         paymentTypes:"cash"
+                //     },
+                //     recipientEmail: "connor.belez@gmial.com",
+                //     paymentOweing: false,
+                //     eventName: "TEST",
+                //     eventLocation: "asdf"
+                // })
+                    //NOW WE SEND THE TICKET TO THE USER
+
+                    break;
 
                 default:
                     throw new Error('Unhandled relevant event!');

@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 import { Sidebar } from "./sidebar.styles";
-import { Avatar, Tooltip } from "@nextui-org/react";
+import { Avatar, Button, Tooltip } from "@nextui-org/react";
 import { CompaniesDropdown } from "./companies-dropdown";
 import { HomeIcon } from "../icons/sidebar/home-icon";
 import { PaymentsIcon } from "../icons/sidebar/payments-icon";
@@ -26,10 +26,10 @@ export const SidebarWrapper = () => {
   const { collapsed, setCollapsed } = useSidebarContext();
 
   return (
-    <aside className="h-screen sticky top-16 ">
-      {collapsed ? (
-        <div className={Sidebar.Overlay()} onClick={setCollapsed} />
-      ) : null}
+    <aside className="h-screen SIDEBAR ASIDE sticky top-16 min-w-10 ">
+      {/* {collapsed ? ( */}
+        {/* <div id="SIDEBAR OVERLAY" className={Sidebar.Overlay()} onClick={setCollapsed} /> */}
+        {/* ) : null}  */}
       <div
         className={Sidebar({
           collapsed: collapsed,
@@ -40,15 +40,30 @@ export const SidebarWrapper = () => {
         </div>
         <div className="flex flex-col justify-between h-full">
           <div className={Sidebar.Body()}>
-            <SidebarItem
+            {/* <SidebarItem
+              title="Home"
+              icon={<HomeIcon />}
+              isActive={usePathname() === "/"}
+              href="/"
+            /> */}
+            {
+              collapsed ?
+              <SidebarItem
+              title="Home"
+              icon={<HomeIcon />}
+              isActive={usePathname() === "/"}
+              href="/"
+            /> :
+              <SidebarItem
               title="Home"
               icon={<HomeIcon />}
               isActive={usePathname() === "/"}
               href="/"
             />
+            }
             <SidebarMenu title="Main Menu">
               <SidebarItem
-                isActive={usePathname() === "/accounts"}
+                isActive={usePathname() === "/dashboard/newevent"}
                 title="Accounts"
                 icon={<AccountsIcon />}
                 href="accounts"
@@ -80,22 +95,8 @@ export const SidebarWrapper = () => {
               />
             </SidebarMenu>
 
-            <SidebarMenu title="General">
-              <SidebarItem
-                isActive={usePathname() === "/developers"}
-                title="Developers"
-                icon={<DevIcon />}
-              />
-              <SidebarItem
-                isActive={usePathname() === "/view"}
-                title="View Test Data"
-                icon={<ViewIcon />}
-              />
-              <SidebarItem
-                isActive={usePathname() === "/settings"}
-                title="Settings"
-                icon={<SettingsIcon />}
-              />
+            <SidebarMenu title="Collapse">
+              <Button color="primary" onClick={setCollapsed}></Button>
             </SidebarMenu>
 
             <SidebarMenu title="Updates">

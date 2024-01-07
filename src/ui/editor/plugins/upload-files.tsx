@@ -184,10 +184,10 @@ const UploadFilesPlugin = () =>
 export default UploadFilesPlugin;
 
 function findPlaceholder(state: EditorState, id: {}) {
-    console.log("STATEFILE: ",state)
+    // console.log("STATEFILE: ",state)
     const decos = uploadKey.getState(state);
-    console.log("UPLOAD KEY: Decos ",decos)
-    console.log("ID: ",id)
+    // console.log("UPLOAD KEY: Decos ",decos)
+    // console.log("ID: ",id)
     const found = decos.find(null, null, (spec) => spec.id == id);
     return found.length ? found[0].from : null;
 }
@@ -238,7 +238,7 @@ export function startFileUpload(file: File, view: EditorView, pos: number) {
         // When BLOB_READ_WRITE_TOKEN is not valid or unavailable, read
         // the file locally
         // const fileSrc = typeof src === "object" ? reader.result : src;
-        console.log("HFU URL: ",url,'FILE NAMEL: ',file.name)
+        // console.log("HFU URL: ",url,'FILE NAMEL: ',file.name)
         const node = schema.nodes.pdflink.create({ href: url, text: file.name });
         const transaction = view.state.tr
             .replaceWith(pos, pos, node)
@@ -262,7 +262,7 @@ export const handleFileUpload = (file: File) => {
                 // Successfully uploaded file
                 if (res.status === 200) {
                     const { url } = (await res.json()) ;
-                    console.log("File URL FROM UPLOAD-fileS PLUGIN: ", url);
+                    // console.log("File URL FROM UPLOAD-fileS PLUGIN: ", url);
                     // preload the file
                     resolve(url)
                     // No blob store configured

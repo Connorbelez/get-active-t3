@@ -24,7 +24,7 @@ export const env = createEnv({
     NEXTAUTH_URL: z.preprocess(
       // This makes Vercel deployments not fail if you don't set NEXTAUTH_URL
       // Since NextAuth.js automatically uses the VERCEL_URL if present.
-      (str) => process.env.VERCEL_URL ?? str,
+      (str) => process.env.NEXTAUTH_URL ?? str,
       // VERCEL_URL doesn't include `https` so it cant be validated as a URL
       process.env.VERCEL ? z.string() : z.string().url()
     ),
@@ -32,6 +32,7 @@ export const env = createEnv({
     DISCORD_CLIENT_SECRET: z.string(),
     STRIPE_WEBHOOK_SECRET: z.string(),
     STRIPE_DEV_WEBHOOOK_SECRET: z.string(),
+    STRIPE_SECRET_KEY: z.string(),
   },
 
   /**
@@ -40,7 +41,13 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    // DISCORD_CLIENT_ID: z.string().refine(DISCORD_CLIENT_ID),
+    // DISCORD_CLIENT_SECRET: z.string(),
+    NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY:z.string(
+      {errorMap: (error) => {
+        console.error("STRIPE KEY ERROR: ",error)
+      }}
+    ),
   },
 
   /**
@@ -59,7 +66,8 @@ export const env = createEnv({
     CLOUD_FLARE_BUCKET_TOKEN: process.env.CLOUD_FLARE_BUCKET_TOKEN,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
     STRIPE_DEV_WEBHOOOK_SECRET: process.env.STRIPE_DEV_WEBHOOOK_SECRET,
-
+    NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY:process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY,
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

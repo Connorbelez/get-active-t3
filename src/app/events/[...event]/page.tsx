@@ -45,7 +45,6 @@ const BlurredEdgeHero = dynamic(
 
 const TicketAccordian = dynamic(() => import("@/components/TicketAccordian/TicketAccordian"));
 
-
 // const imageUrl = "/testHero.jpeg";
 
 // import { Event } from "@prisma/client";
