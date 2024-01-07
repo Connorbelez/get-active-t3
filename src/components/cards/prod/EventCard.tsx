@@ -160,7 +160,7 @@ export default function Comp({event}:compProps) {
                     <div className={" flex flex-col items-left my-auto "}>
                         <CardHeader className="grid grid-flow-row -mt-1">
                             
-                            <h1 className={`prose prose-xl prose-zinc dark:prose-invert font-bold ${title({size:"xxsm",color:"pink"})}`}>Canada Day</h1>
+                            <h1 className={`prose prose-xl prose-zinc dark:prose-invert font-bold ${title({size:"xxsm",color:"pink"})}`}>{event.title}</h1>
                             <p className={"prose text-xs dark:prose-invert"}>{event.headline}</p>
                         </CardHeader>
 
