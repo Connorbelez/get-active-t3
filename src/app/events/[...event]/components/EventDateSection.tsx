@@ -23,6 +23,7 @@ export default function comp({heading,date,time}:  compProps) {
 
     const formattedDate = formatDate(date as string)
     const formattedTime = formatTime(time as string)
+    
 
     // console.log("FORMATTED DATE:", formattedDate)
     // console.log("FORMATTED TIME:", formattedTime)

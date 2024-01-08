@@ -18,6 +18,10 @@ interface EventDetails {
   length: string;
   ticketStartingPrice: string;
   address: string;
+  city: string;
+  province: string;
+  postalCode: string;
+
   ageRestriction: string;
   drinksIncluded: string;
   foodIncluded: string;
@@ -25,6 +29,9 @@ interface EventDetails {
   Org: string;
   creator: string;
   creatorId: string;
+  lat: number;
+  lng: number;
+  latLng: string;
 }
 
 const EventHeading = dynamic(() => import("./components/EventHeadingSection"));
@@ -165,14 +172,17 @@ export default async function (
             <EventLocationSection
               heading="Place"
               address={searchParams.address}
-              city={searchParams.location}
-              province={""}
-              postalCode={""}
+              city={searchParams.city}
+              province={searchParams.province}
+              postalCode={searchParams.postalCode}
+              lat={searchParams.lat}
+              lng={searchParams.lng}
+              location={searchParams.location}
             />
             <EventAboutSection
               heading="About Event"
               length={searchParams.length}
-              ticketInfo="Pay at Door or Digital Ticket"
+              ticketInfo="Digital Ticket"
             />
           </div>
 

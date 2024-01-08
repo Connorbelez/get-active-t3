@@ -8,16 +8,21 @@ export interface MapAccordianProps {
   title: string;
   children?: React.ReactNode;
   center: string;
+  lat: number;
+  lng: number;
+  province: string;
+  city: string;
+  postalCode?: string | undefined;
 }
 
 
-export default function App({ title, center }: MapAccordianProps) {
+export default function App({ title, center,lat,lng }: MapAccordianProps) {
   const defaultContent =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
     const [selectedKeys, setSelectedKeys] = useState(new Set(["0"]));
-    console.log("center: ",center)
-    const latLng = center.split(",").map((str) => parseFloat(str));
-    console.log("latLng: FROM ACCORDIAN",latLng);
+    // console.log("center: ",center)
+    // const latLng = center.split(",").map((str) => parseFloat(str));
+    // console.log("latLng: FROM ACCORDIAN",latLng);
   return (
     <Accordion
     isCompact
@@ -47,7 +52,7 @@ export default function App({ title, center }: MapAccordianProps) {
         {/* <Map isAccordionOpen={selectedKeys.has("1")}/> */}
         <div className="h-[400px] mb-3">
 
-          {selectedKeys.has("1") ? <Map latlng={latLng} wrapperClassName="w-full rounded-lg h-full" /> : null}
+          {selectedKeys.has("1") ? <Map latlng={[lat,lng]} wrapperClassName="w-full rounded-lg h-full" /> : null}
         </div>
       </AccordionItem>
 

@@ -5,7 +5,7 @@ export default function Layout({
         children: React.ReactNode
       }) {
         return (
-          <section className="EVENTLAYOUT sm:px-6 max-w-7xl">
+          <section className="EVENTLAYOUT max-w-7xl w-full sm:px-6">
             {children}
             <footer className="h-[100px]"></footer>
           </section>

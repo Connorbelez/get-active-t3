@@ -1,3 +1,4 @@
+'use client'
 import { Input, Link, Navbar, NavbarContent } from "@nextui-org/react";
 import React from "react";
 import { FeedbackIcon } from "../icons/navbar/feedback-icon";
@@ -13,6 +14,8 @@ interface Props {
 }
 
 export const NavbarWrapper = ({ children }: Props) => {
+
+  
   return (
     <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
       <Navbar

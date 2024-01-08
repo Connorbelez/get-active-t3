@@ -11,11 +11,11 @@ import Card from "@/components/cards/prod/EventCard"
 import {Event} from "@prisma/client"
 
 export default function CarouselSize({CardArray}:{CardArray:Event[]}) {
-  const className = CardArray.length > 2 ? "lg:basis-1/2 xl:basis-1/3" : ""
+  const className = CardArray.length > 2 ? "lg:basis-1/2 xl:basis-1/3 mx-auto" : ""
   return (
     <Carousel
       opts={{
-        align: "center",
+        align: "start",
       }}
       className="lg:max-w-11/12 md:max-w-10/12"
     >

@@ -60,7 +60,7 @@ export default function comp({tickets,selected,setSelected, ticketData, setTicke
                         ticketData ? ticketData.map((ticket,index) => {
                             return <TicketCheckBox statusColor={"success"} ticket={ticket} key={index} value={ticket.ticketTitle} user={{name:"test",avatar:"https://avatars.githubusercontent.com/u/20658825?v=4",user:"adsf", username:"test",url:"sdf"}}/>
                         }
-                        ) : <div className="flex justify-center items-center h-[400px]"><h1 className="text-primary">No Tickets</h1></div>}
+                        ) : <div className="flex justify-center items-center h-[100px]"><h1 className="text-primary">No Tickets</h1></div>}
                     </CheckboxGroup>
                 </CardBody>
             </Card>

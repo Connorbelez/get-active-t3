@@ -7,9 +7,13 @@ interface compProps {
     city: string,
     province: string,
     postalCode?: string,
+    location?: string,
+    lat:number,
+    lng:number,
+
 }
 
-export default function comp({heading,address,city,province,postalCode}: compProps) {
+export default function comp({heading,address,city,province,postalCode,lat,lng,location}: compProps) {
 
     return (
         <div className="Place mb-16 flex w-full flex-col text-left font-bold">
@@ -28,7 +32,7 @@ export default function comp({heading,address,city,province,postalCode}: compPro
                 </i>
                 <div className="prose w-full max-w-6xl tracking-tighter antialiased dark:prose-invert ">
                 <p className=" mb-2 font-mono text-sm font-bold">
-                    {address}
+                    {`${location !== undefined ? location : city}`}
                 </p>
                 <p className=" my-2 font-mono text-sm text-zinc-900/40 dark:text-zinc-200/40">
                     {address} {city}, {province} {postalCode}
@@ -37,7 +41,7 @@ export default function comp({heading,address,city,province,postalCode}: compPro
             </div>
         </div>
         <div className="mt-2 w-full ">
-            <MapAccordian title="VIEW MAP" center={city as string} />
+            <MapAccordian title="VIEW MAP" province={province} city={city} center={city as string} lat={lat} lng={lng} postalCode={postalCode} />
             {/* <Map wrapperClassName="h-[300px] w[300px]"/> */}
         </div>
     </div>

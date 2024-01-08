@@ -5,7 +5,7 @@ export default function Layout({
         children: React.ReactNode
       }) {
         return (
-          <div className={""}>
+          <div className={"w-full h-full flex flex-col items-center"}>
             {children}
           </div>
         )

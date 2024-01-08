@@ -10,7 +10,9 @@ import Link from "next/link"
 import {Event} from "@prisma/client"
 
 interface compProps {
-    event: Event
+    event: Event;
+    wrapperClassNames?: string;
+    carosel?: boolean;
 
 }
 
@@ -50,7 +52,9 @@ function formatDate(dateString: string): {month: string, day: number, year: numb
     return {month: month, day: day, year: year, daySuffix: daySuffix};
 }
 
-export default function Comp({event}:compProps) {
+export default function Comp({event,carosel}:compProps) {
+    console.log("EVENT CARD PROPS: ", event);
+    console.table(event)
     const content = (
         <PopoverContent className="w-[240px]">
 
@@ -80,10 +84,11 @@ export default function Comp({event}:compProps) {
             ticketStartingPrice:event.ticketStartingPrice, address:event.address,
             ageRestriction:event.adultOnly, drinksIncluded:event.drinksIncluded,
             foodIncluded:event.foodIncluded, description:event.eventDescription,
-            Org: event.orgId, creator: event.createdByEmail, creatorId: event.createdById
+            Org: event.orgId, creator: event.createdByEmail, creatorId: event.createdById,
+            lat:event.lat, lng:event.lng, latlng:event.latlng
         }}}>
         
-        <Card className={"bg-background my-4 h-[380px] max-w-[380px] w-full md:max-w-[400px] rounded-[40px]  dark:hover:shadow-lg dark:hover:shadow-violet-700/50"}>
+        <Card className={`bg-background my-4 h-[380px] ${carosel? "mx-4" : "" } min-w-[350px] w-full md:min-w-[400px] rounded-[40px]  dark:hover:shadow-lg dark:hover:shadow-violet-700/50`}>
             <CardHeader className="absolute z-10 top-1 grid grid-cols-3">
                     <Button
                         // onPress={()=> {
@@ -138,16 +143,16 @@ export default function Comp({event}:compProps) {
             </div>
             {/* <CardHeader>
                 <Divider orientation="vertical" />
-                <CardTitle>Card Title</CardTitle>
+                <CardTitle>Card Title</CardTitle> Big House Party8 - 16
                 <CardDescription>Card Description</CardDescription>
             </CardHeader> */}
 
-            <CardBody className={"flex flex-row space-x-2 overflow-hidden"}>
-                    <div className={"flex flex-row space-x-4 items-center"}>
-                        <div className={"flex flex-col items-center mx-auto "}>
+            <CardBody className={"CARDBODY grid grid-cols-3 gap-2 content-center overflow-clip rounded-[40px]"}>
+                    <div className={"flex flex-row content-between items-center col-span-1"}>
+                        <div className={"flex flex-col w-full items-center"}>
                             <div className="flex flex-row align-middle mb-1">
                                 <Crosshair1Icon stroke={"#52525b"} className="w-4 mt-0.5 h-4 mr-2 fill-zinc-600" />
-                                <h4 className={"prose dark:prose-invert tex text-sm dark:text-zinc-400/60"}>{event.address}</h4>
+                                <h4 className={"prose dark:prose-invert tex text-sm dark:text-zinc-400/60"}>{event.location}</h4>
                             </div>
                             <h1 className={`-mb-2 dark:${title({size:"xsm",color:"pink"})}`}>{formattedDate.month.toUpperCase()}</h1>
                             <h1 className="prose prose-2xl font-bold  dark:text-zinc-400">{formattedDate.day}</h1>
@@ -157,10 +162,10 @@ export default function Comp({event}:compProps) {
 
                     </div>
                     
-                    <div className={" flex flex-col items-left my-auto "}>
+                    <div className={" flex flex-col items-left my-auto col-span-2"}>
                         <CardHeader className="grid grid-flow-row -mt-1">
                             
-                            <h1 className={`prose prose-xl prose-zinc dark:prose-invert font-bold ${title({size:"xxsm",color:"pink"})}`}>{event.title}</h1>
+                            <h1 className={`prose prose-xl prose-zinc dark:prose-invert font-bold ${title({size:"xsm",color:"pink"})}`}>{event.title}</h1>
                             <p className={"prose text-xs dark:prose-invert"}>{event.headline}</p>
                         </CardHeader>
 
@@ -173,7 +178,7 @@ export default function Comp({event}:compProps) {
                             <Chip className="p-2" variant={"faded"} color={"warning"} startContent={
                                     <TicketIcon height={"18"} width={"18"} fill={"currentColor"}/>
                                 }>                           
-                                 <p className=" prose text-sm text-warning text-nowrap">{event.ticketStartingPrice}</p>
+                                 <p className=" prose text-sm text-warning text-nowrap">${event.ticketStartingPrice}</p>
                             </Chip>
                             {/* <Image src={"/redbull.jpg"} alt="logo" className="rounded-[40px] z-0 h-[50px]"/> */}
 

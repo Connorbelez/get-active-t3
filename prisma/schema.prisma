@@ -110,6 +110,13 @@ model Event {
   ticketStartingPrice Int
   location            String
   address             String
+  postalCode          String?
+  province            String?
+  city                String?
+  country             String?
+  latlng            String?
+  lat              Float?
+  lng              Float?
   adultOnly           Boolean  @default(false)
   drinksIncluded      Boolean  @default(false)
   foodIncluded        Boolean  @default(false)

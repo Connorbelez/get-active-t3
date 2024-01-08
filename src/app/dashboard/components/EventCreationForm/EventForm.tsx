@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState, useMemo } from "react";
 import { cn } from "@/lib/utils"
-import { AddressAutofill } from '@mapbox/search-js-react';
+// import { AddressAutofill } from '@mapbox/search-js-react';
 import { CreditCard, Banknote } from "lucide-react";
-// import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom';
 import { toast } from "sonner"
 // import TimePicker from "@/components/TimePicker/TimePicker";
 import { UseFormReturn } from "react-hook-form";
@@ -31,7 +31,7 @@ import * as z from "zod"
 import { CalendarIcon } from "@radix-ui/react-icons"
 import { format } from "date-fns"
 import { button as Button } from "@/components/ui/button"
-import { Input as NextInput, Switch } from "@nextui-org/react"
+import { Input as NextInput, Switch, Divider } from "@nextui-org/react"
 // import { useToast } from "@/components/ui/use-toast"
 import { Input } from "@/components/ui/input"
 import { Calendar } from "@/components/ui/calendar"
@@ -54,6 +54,16 @@ import {
     PopoverTrigger,
   } from "@/components/ui/popover"
 import { ticketTypeSchema } from "@/types/schemas";
+import dynamic from "next/dynamic";
+
+//@ts-ignore
+const AddressAutofill = dynamic(() => import("./AutoFillComponent"), {
+  ssr: false,
+});
+
+
+
+
 // import { Edit } from "lucide-react";
 export type PaymentMethod = {
     id:number;
@@ -133,12 +143,24 @@ export const ticketFormSchema = z.object({
 
 export default function ProfileForm() {
     // ...
-  const insertEvent = api.event.create.useMutation();
+  const insertEvent = api.event.create.useMutation({
+    onSuccess: (data) => {
+      console.log("EVENT CREATED: ", data)
+      toast.success("Event Created")
+      return 1
+    },
+    onError: (error) => {
+      console.log("ERROR: ", error)
+      throw error
+    }
+  });
 
 
   const formSchema = z.object({
       eventTitle: z.string().min(2, {
           message: "Event Title must be at least 2 characters.",
+      }).max(16,{
+          message: "Event Title must be less than 16 characters.",
       }),
       eventHeadline: z.string().min(2, {
           message: "Event headline must be at least 2 characters.",
@@ -148,15 +170,15 @@ export default function ProfileForm() {
       }).optional(),
       private: z.boolean().optional(),
       startDate: z.date().optional(),
-      startTime: z.string().optional(),
+      startTime: z.string().min(2),
       address: z.string().min(2, {
           message: "Event address must be at least 2 characters.",
       }).optional(),
+      location: z.string(),
       postalCode: z.string().optional(),
       country: z.string().optional(),
       city: z.string().optional(),
       province: z.string().optional(),
-      time: z.string().optional(),
       freeTicket: z.boolean().optional(),
       payAtDoorTicket: z.boolean().optional(),
       heroImage: z.string().optional(),
@@ -215,13 +237,12 @@ export default function ProfileForm() {
           category: "",
           private: false,
           startDate: new Date(),
-          startTime: "",
+          // startTime: "",
           address: "",
           postalCode: "",
           country: "",
           city: "",
           province: "",
-          time: "",
       
           
       },
@@ -266,6 +287,7 @@ export default function ProfileForm() {
     }
     
     const onSubmit = (values: z.infer<typeof formSchema>) => {
+      console.log("SUMIT TIME: ", values.startTime)
       try{
 
         if(!ticketData){
@@ -289,7 +311,14 @@ export default function ProfileForm() {
             t
           }
         })
-        
+        let startingTicketPrice = Infinity;
+        ticketArray.forEach((ticket)=>{
+          if(startingTicketPrice > ticket.t.price){
+            console.log("TICKET PRICE: ", ticket.t.price)
+            console.table(ticket.t)
+            startingTicketPrice = ticket.t.price
+          }
+        })
         insertEvent.mutate({
           length: 4,
           title: values.eventTitle,
@@ -298,16 +327,21 @@ export default function ProfileForm() {
           private: values.private,
           startDate: values.startDate?.toDateString() ? values.startDate?.toDateString() : "",
           createdById: "1",
-          startTime: values.startTime as string,
+          startTime: values.startTime,
           address: values.address as string,
-          location: values.address as string,
+          location: values.location as string,
+          postalCode: values.postalCode as string,
+          country: values.country as string,
+          city: values.city as string,
+          province: values.province as string,
           eventDescription: generateHTML(editorJson,ExtensionKit({}) as Extensions),
           heroImage: values.heroImage as string,
           adultOnly: false,
           foodIncluded: false,
           drinksIncluded: false,
           createdByEmail: "connorb@gmail.com",
-          ticketStartingPrice: 0,
+        
+          ticketStartingPrice: startingTicketPrice,
           ticketTypes: 
             ticketData.map((ticket:typeof ticketData[0]) => {
               return{
@@ -323,12 +357,13 @@ export default function ProfileForm() {
             })
         })
         
+        
       }catch(e){
         //console.error(e)
         toast.error("Something went wrong: ",e)
         return
       }
-      toast.success("Event Created")
+      
     }
 
     const [timeValue,setTimeValue] = useState("10:00");
@@ -418,7 +453,7 @@ export default function ProfileForm() {
        </div>
         
 
-        <div className={"flex justify-start sm:justify-center flex-wrap space-x-4 my-8 space-y-8"}>
+        <div className={"flex justify-start sm:justify-center flex-wrap space-x-4 my-8"}>
             <FormField
             control={form.control}
             name="startDate"
@@ -457,27 +492,30 @@ export default function ProfileForm() {
                     </PopoverContent>
                 </Popover>
                 <FormDescription>
-                    Your date of birth is used to calculate your age.
+                    Date of the event
                 </FormDescription>
                 <FormMessage />
                 </FormItem>
             )}
             />
+
             <FormField
                 control={form.control}
-                name="time"
+                name="startTime"
+
             
                 render={({ field }) => (
                 <FormItem className="flex items-center">
                     <FormControl>
+                      {/* @ts-ignore */}
                         {/* <AddressAutofill accessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN as string}> */}
-                        <NextInput type="time" label="Time" placeholder="" defaultValue="" labelPlacement="outside-left" variant="bordered" {...field} />
+                          <NextInput type="time" label="startTime" labelPlacement="outside-left" variant="bordered" {...field} />
                         {/* </AddressAutofill> */}
                     </FormControl>
                     <FormMessage />
                 </FormItem>
                 )}
-        />
+            />
             <FormField
                 control={form.control}
                 name="private"
@@ -512,16 +550,35 @@ export default function ProfileForm() {
                 <FormLabel>Address</FormLabel>
                 <FormControl>
                     {/* <AddressAutofill accessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN as string}> */}
-                    <Input autoComplete="address-line1" placeholder="event address" {...field} />
+                    {/* <Input autoComplete="address-line1" placeholder="event address" {...field} /> */}
                   {/* </AddressAutofill> */}
+                  <AddressAutofill value={field.value} setValue={field.onChange} />
                 </FormControl>
                 <FormDescription>
-                  Where is your event?
+                  Address of event - autocomplete - will be shown if public, 
                 </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
         />
+          <FormField
+            
+            control={form.control}
+            name="location"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Public Location</FormLabel>
+                <FormControl>
+                    <Input  placeholder="location" {...field} />
+                </FormControl>
+                <FormDescription>
+                  Public Location of Event
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+            />
+
 
         {/* IMAGE UPLOAD */}
           <FormField
@@ -544,9 +601,26 @@ export default function ProfileForm() {
         />
         
         {/* <TimePicker value={timeValue} setValue={setTimeValue} /> */}
+              
 
-            
             <div className="grid grid-cols-2 gap-4">
+            <FormField
+            disabled
+            control={form.control}
+            name="city"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>City</FormLabel>
+                <FormControl>
+                    <Input autoComplete="address-level2" placeholder="city" {...field} />
+                </FormControl>
+                <FormDescription>
+                  City of Event
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+            />
             <FormField
             disabled
             control={form.control}
@@ -556,7 +630,7 @@ export default function ProfileForm() {
                 <FormLabel>postalCode</FormLabel>
                 <FormControl>
 
-                    <Input autoComplete="postal-code" placeholder="event address" {...field} />
+                    <Input autoComplete="Postal-code" placeholder="event address" {...field} />
 
                 </FormControl>
                 <FormDescription>
@@ -572,7 +646,7 @@ export default function ProfileForm() {
             name="country"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>country</FormLabel>
+                <FormLabel>Country</FormLabel>
                 <FormControl>
 
                     <Input autoComplete="country" placeholder="country" {...field} />
@@ -591,7 +665,7 @@ export default function ProfileForm() {
             name="province"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>province</FormLabel>
+                <FormLabel>Province</FormLabel>
                 <FormControl>
                     <Input autoComplete="address-level1" placeholder="province" {...field} />
                 </FormControl>
@@ -603,33 +677,30 @@ export default function ProfileForm() {
             )}
             />
 
-            <FormField
-            disabled
-            control={form.control}
-            name="city"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>City</FormLabel>
-                <FormControl>
-                    <Input autoComplete="address-level2" placeholder="city" {...field} />
-                </FormControl>
-                <FormDescription>
-                  City of Event
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-            />
+
           </div>
-          
-
-
-          <TicketForm tickets={tickets} selected={selectedTicket} setSelected={setSelectedTicket} ticketData={ticketData} setTicketData={setTicketData}/>
-          
+        
         </form>
       </Form>
+        
+        <div className="flex w-full my-8 overflow-hidden items-center justify-center space-x-4">
+          <Divider className="my-8" />
+          <h1 className="text-center font-bold text-primary w-full text-nowrap text-xl ">Event Description</h1>
+          <Divider className="my-8" />
+        </div>
+
         <Editor editorJson={editorJson} setEditorJson={setEditorJson}  />
-            <Button onClick={form.handleSubmit(onSubmit)} type="submit">Submit</Button>            
+        
+        <div className="flex w-full my-8 overflow-hidden items-center justify-center space-x-4">
+          <Divider className="my-8" />
+          <h1 className="my-8 text-center font-bold text-primary w-full text-nowrap text-xl ">Ticket Creation</h1>
+          <Divider className="my-8" />
+        </div>
+
+          <TicketForm tickets={tickets} selected={selectedTicket} setSelected={setSelectedTicket} ticketData={ticketData} setTicketData={setTicketData}/>
+          {/* <Divider className="my-8" /> */}
+          
+          <Button onClick={form.handleSubmit(onSubmit)} className={"my-16 h-[50px]"} type="submit">Submit</Button>            
           {/* <div className="prose dark:prose-invert my-16 h-full w-full">
             {HTMLReactParser(output)}
           </div> */}

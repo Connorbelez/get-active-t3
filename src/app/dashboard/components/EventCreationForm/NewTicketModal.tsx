@@ -82,6 +82,7 @@ export default function comp({
     //console.table(ticketData);
     //console.log(ticketData);
     setTicketData(prev => prev ? [...prev, data] : [data]);
+
   
     //console.log("TICKET SUBMIT!!!")
     //console.table(data);
@@ -286,7 +287,9 @@ export default function comp({
                 Close
               </Button>
               <Button color="primary" onPress={(e)=>{
-                  onSubmit(form.getValues())}
+                  onSubmit(form.getValues())
+                  onClose();
+                }
                 }>
                 Submit
               </Button>

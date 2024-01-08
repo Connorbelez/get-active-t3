@@ -85,7 +85,8 @@ export const eventRouter = createTRPCRouter({
 
       return ctx.db.$transaction(async (prisma) => {
         const token =  process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-        const val = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/1315%20Normandy%20Cres,Ottawa,On,Ca.json?access_token=${token}`)
+        const addr = input.address.replaceAll(" ", "%20");
+        const val = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${addr}.json?access_token=${token}`)
         console.log(val);
         console.table(val);
         
@@ -120,11 +121,19 @@ export const eventRouter = createTRPCRouter({
             startDate: input.startDate,
             startTime: input.startTime,
             ticketStartingPrice: input.ticketStartingPrice,
-            location: center.toString() ? center.toString() : "0,0",
+            location: input.location,
             address: placeName.toString() ? placeName.toString() : "No Address Provided",
             eventDescription: input.eventDescription,
             length: input.length,
             capacity: input.capacity,
+            postalCode: input.postalCode,
+            city: input.city,
+            province: input.province,
+            lat: lat,
+            lng: lng,
+          
+            country: input.country,
+            latlng: center.toString() ? center.toString() : "0,0",
             // Assuming you have a userId in the context for the creator
             createdById: input.createdById,
             createdByEmail: input.createdByEmail,
