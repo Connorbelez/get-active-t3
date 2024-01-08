@@ -701,10 +701,29 @@ export default function ProfileForm() {
           {/* <Divider className="my-8" /> */}
           
           <Button onClick={form.handleSubmit(onSubmit)} className={"my-16 h-[50px]"} type="submit">Submit</Button>            
-          <div className="prose dark:prose-invert my-16 h-full w-full">
+          
+        <div className="flex w-full my-8 overflow-hidden min-h-[50px] items-center justify-center space-x-4">
+          <Divider className="my-8" />
+          <h1 className="my-8 text-center font-bold text-primary w-full text-nowrap text-xl ">Live Preview</h1>
+          <Divider className="my-8" />
+        </div>
+          
+          <div className="prose dark:prose-invert h-full w-full">
             <PhoneMock>
+            <div className="EventWrapper flex w-full h-full flex-col items-center bg-background ">
 
-              {HTMLReactParser(output)}
+            <article className="prose w-full pt-10 px-4 h-full text-left overflow-y-scroll tracking-tighter antialiased dark:prose-invert sm:col-span-7">
+              <h2 className="text-primary">Event Description</h2>
+              <div className="w-full   sm:col-span-7 ">
+                <Divider className=" mt-4 mb-8" />
+              </div>
+              <div className="w-full h-full prose dark:prose-invert antialiased ">
+
+                {HTMLReactParser(output)}
+              </div>
+          </article>
+              
+            </div>
             </PhoneMock>
           </div>
       </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { CalendarSearch, CopyPlus, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import {useEffect, useState,useCallback} from "react";
 import { Sidebar } from "./sidebar.styles";
 import { Avatar, Button, Tooltip } from "@nextui-org/react";
@@ -22,6 +22,11 @@ import { FilterIcon } from "../icons/sidebar/filter-icon";
 import { useSidebarContext } from "../ly/layout-context";
 import { ChangeLogIcon } from "../icons/sidebar/changelog-icon";
 import { useRouter, usePathname } from "next/navigation";
+
+import {Home} from "lucide-react"
+import { EditDocumentIcon } from "@/components/icons/Edit";
+
+
 const useMediaQuery = (width) => {
   const [targetReached, setTargetReached] = useState(false);
 
@@ -51,7 +56,7 @@ export const SidebarWrapper = () => {
   // const [collapsed, setCollapsed] = useState(false);
   // const [width, setWidth] = React.useState(window.innerWidth);
   const breakPoint = useMediaQuery(770);
-  const [collapsed, setCollapsed] = useState(breakPoint);
+  const [collapsed, setCollapsed] = useState(true);
   useEffect(() => {
     console.log("breakpoint",breakPoint)
     setCollapsed(breakPoint)
@@ -73,7 +78,7 @@ export const SidebarWrapper = () => {
 
 
   return (
-    <aside className="h-screen z-[201] SIDEBAR ASIDE sticky top-16 min-w-5 ">
+    <div className="h-screen z-[201] SIDEBAR ASIDE sticky top-16 min-w-5 ">
       {collapsed ? 
       
         <Button
@@ -121,7 +126,7 @@ export const SidebarWrapper = () => {
   
 
               <SidebarItem
-              title="Home"
+              title="Dashboard Home"
               icon={<HomeIcon />}
               // isActive={usePathname() === "/"}
               href="/dashboard"
@@ -130,13 +135,19 @@ export const SidebarWrapper = () => {
               <SidebarItem
                 // isActive={usePathname() === "/dashboard/newevent"}
                 title="New Event"
-                icon={<AccountsIcon />}
+                icon={<EditDocumentIcon size={28} />}
                 href="/dashboard/newevent"
+              />
+              <SidebarItem
+                // isActive={usePathname() === "/dashboard/newevent"}
+                title="My Events"
+                icon={<CalendarSearch size={24} stroke="#969696"/>}
+                href="/dashboard/"
               />
               <SidebarItem
                 // isActive={usePathname() === "/payments"}
                 title="Users"
-                icon={<PaymentsIcon />}
+                icon={<CustomersIcon />}
                 href="/dashboard/users"
               />
               <CollapseItems
@@ -144,16 +155,16 @@ export const SidebarWrapper = () => {
                 items={["Banks Accounts", "Credit Cards", "Loans"]}
                 title="Balances"
               />
-              <SidebarItem
+              {/* <SidebarItem
                 // isActive={usePathname() === "/customers"}
                 title="Customers"
                 icon={<CustomersIcon />}
-              />
-              <SidebarItem
+              /> */}
+              {/* <SidebarItem
                 // isActive={usePathname() === "/products"}
                 title="Manage Events"
                 icon={<ProductsIcon />}
-              />
+              /> */}
               <SidebarItem
                 // isActive={usePathname() === "/reports"}
                 title="Reports"
@@ -191,6 +202,8 @@ export const SidebarWrapper = () => {
         </div>
         
       </div>
-    </aside>
+    </div>
   );
 };
+
+export default SidebarWrapper;

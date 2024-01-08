@@ -49,7 +49,7 @@ export interface EventTableData {
     
 
   return(
-  <div className="h-full w-full flex flex-col items-center">
+  <div className="h-full w-full pl-2 pr-0 sm:pr-2 flex  flex-col items-center">
       <h1 className={`text-primary mt-16 ${title()}`}>Create Event</h1>
       <Form />
 
