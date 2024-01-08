@@ -50,7 +50,7 @@ const useMediaQuery = (width) => {
 export const SidebarWrapper = () => {
   // const [collapsed, setCollapsed] = useState(false);
   // const [width, setWidth] = React.useState(window.innerWidth);
-  const collapsed = useMediaQuery(768);
+  const collapsed = useMediaQuery(770);
 
   // React.useEffect(() => {
   //   const handleResize = () => {
