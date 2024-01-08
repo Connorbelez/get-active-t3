@@ -1,22 +1,7 @@
-
-// import React from "react";
-// import dynamic from "next/dynamic";
-// import { TableWrapper } from "../table/table";
-// import { CardBalance1 } from "./card-balance1";
-// import { CardBalance2 } from "./card-balance2";
-// import { CardBalance3 } from "./card-balance3";
-// import { CardAgents } from "./card-agents";
-// import { CardTransactions } from "./card-transactions";
-// import { Link } from "@nextui-org/react";
-// import NextLink from "next/link";
 import EventTable from "@/app/dashboard/components/EventTable/EventTable"
 import {api} from "@/trpc/server"
 import {Event as EventType} from "@prisma/client"
 import { title } from "@/components/Primatives/Typography";
-// import TipTapEditor from "@/ui/editor/Editor";
-import Editor from "@/ui/editor/index";
-import Form from "@/app/dashboard/components/EventCreationForm/EventForm";
-// import { JSONContent } from "@tiptap/react";
 export interface EventTableData {
   id: number;
   eventId: string;
@@ -49,16 +34,13 @@ const app = async () => {
     
 
   return(
-  <div className="h-full w-full flex flex-col items-center">
+  <div className="h-full w-full flex flex-col my-8 items-center">
       {/* <h1 className={`text-primary ${title()}`}>Existing Events</h1>
       <Form /> */}
+    <h1 className={`text-primary my-8 ${title()}`}>Existing Events</h1>
     <div className="TableContainer flex w-full justify-center">
       <EventTable events={eventInfo} />
-      {/* <TipTapEditor params={{room:"asdf"}} /> */}
-
-
-      {/* <Editor editorJson={editorJson} setEditorJson={setEditorJson} />   */}
-
+      
       <div className="prose min-h-[500px]">
 
       </div>

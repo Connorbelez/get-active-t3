@@ -1,9 +1,12 @@
 "use client"
-import {Accordion, AccordionItem} from "@nextui-org/react";
+import {Accordion, AccordionItem, Button} from "@nextui-org/react";
 import { MapPin, MapPinnedIcon } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Map from "@/components/Map/MapBox";
+import dynamic from "next/dynamic";
+const Map = dynamic(() => import("@/components/Map/MapBox"), { ssr: false }) ;
+import OpenInMapButton from "@/components/OpenInMapButton";
+// import Map from "@/components/Map/MapBox";
 export interface MapAccordianProps {
   title: string;
   children?: React.ReactNode;
@@ -13,10 +16,14 @@ export interface MapAccordianProps {
   province: string;
   city: string;
   postalCode?: string | undefined;
+  address?: string | undefined;
 }
 
 
-export default function App({ title, center,lat,lng }: MapAccordianProps) {
+
+
+
+export default function App({ title, center,lat,lng,address}: MapAccordianProps) {
   const defaultContent =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
     const [selectedKeys, setSelectedKeys] = useState(new Set(["0"]));
@@ -53,6 +60,7 @@ export default function App({ title, center,lat,lng }: MapAccordianProps) {
         <div className="h-[400px] mb-3">
 
           {selectedKeys.has("1") ? <Map latlng={[lat,lng]} wrapperClassName="w-full rounded-lg h-full" /> : null}
+          
         </div>
       </AccordionItem>
 

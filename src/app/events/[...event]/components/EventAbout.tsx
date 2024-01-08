@@ -18,7 +18,7 @@ export default function comp({heading,length,start,end,ticketInfo}:  compProps) 
 
     return (
         <div
-        className={"About Event flex w-full max-w-6xl flex-col space-y-4"}
+        className={"About Event flex w-full mb-16 max-w-6xl flex-col space-y-4"}
     >
         <div className="prose w-full text-left tracking-tighter antialiased dark:prose-invert  ">
             <h2 className="text-primary">{heading}</h2>

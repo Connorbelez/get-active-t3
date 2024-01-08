@@ -1,6 +1,11 @@
 import { MapPinned } from "lucide-react";
-import MapAccordian from "@/components/MapAccordian/MapAccordian";
+// import MapAccordian from "@/components/MapAccordian/MapAccordian";
+import dynamic from "next/dynamic";
+import {Button} from "@nextui-org/react";
+const MapAccordian = dynamic(() => import("@/components/MapAccordian/MapAccordian"));
 import Map from "@/components/Map/MapBox";
+import { string } from "zod";
+import { OpenInMapButton } from "../../../../components/OpenInMapButton";
 interface compProps {
     heading: string,
     address?: string,
@@ -14,7 +19,16 @@ interface compProps {
 }
 
 export default function comp({heading,address,city,province,postalCode,lat,lng,location}: compProps) {
-
+    // function openInMap(){
+    //     // If it's an iPhone..
+    //     if( (navigator.platform.indexOf("iPhone") != -1) 
+    //         || (navigator.platform.indexOf("iPod") != -1)
+    //         || (navigator.platform.indexOf("iPad") != -1))
+    //          window.open(`maps://www.google.com/maps/dir/?api=1&travelmode=driving&layer=traffic&destination=[YOUR_LAT],[YOUR_LNG]`);
+    //     else
+    //          window.open(`http://maps.apple.com/?daddr=${address}`);
+    // }
+    
     return (
         <div className="Place mb-16 flex w-full flex-col text-left font-bold">
                   <link
@@ -41,8 +55,11 @@ export default function comp({heading,address,city,province,postalCode,lat,lng,l
             </div>
         </div>
         <div className="mt-2 w-full ">
-            <MapAccordian title="VIEW MAP" province={province} city={city} center={city as string} lat={lat} lng={lng} postalCode={postalCode} />
+            <MapAccordian title="VIEW MAP" province={province} address={address} city={city} center={city as string} lat={lat} lng={lng} postalCode={postalCode} />
             {/* <Map wrapperClassName="h-[300px] w[300px]"/> */}
+            <OpenInMapButton wrapperClassName="flex justify-center items-center px-4 my-4" className="w-full " variant="faded" address={address as string} lat={lng} lng={lat}/>
+
+
         </div>
     </div>
 

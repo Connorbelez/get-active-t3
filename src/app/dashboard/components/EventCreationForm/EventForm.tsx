@@ -9,7 +9,7 @@ import { toast } from "sonner"
 // import TimePicker from "@/components/TimePicker/TimePicker";
 import { UseFormReturn } from "react-hook-form";
 import {api} from "@/trpc/react"
-
+import PhoneMock from "./PhoneMock"
 //FORM IMPORTS
 import TicketForm  from "@/app/dashboard/components/EventCreationForm/TicketForm";
 import useLocalStorage from "@/lib/hooks/use-local-storage";
@@ -387,12 +387,12 @@ export default function ProfileForm() {
     }]>()
 
 
-  // const output = useMemo(() => {
-  //   //@ts-ignore
-  //     return generateHTML(editorJson, [
-  //         ...ExtensionKit({})
-  //       ])
-  //   }, [editorJson])
+  const output = useMemo(() => {
+    //@ts-ignore
+      return generateHTML(editorJson, [
+          ...ExtensionKit({})
+        ])
+    }, [editorJson])
     return (
       <div className="flex flex-col px-6 sm:p-0 my-16">
 
@@ -683,7 +683,7 @@ export default function ProfileForm() {
         </form>
       </Form>
         
-        <div className="flex w-full my-8 overflow-hidden items-center justify-center space-x-4">
+        <div className="flex w-full my-8 min-h-[50px] overflow-hidden items-center justify-center space-x-4">
           <Divider className="my-8" />
           <h1 className="text-center font-bold text-primary w-full text-nowrap text-xl ">Event Description</h1>
           <Divider className="my-8" />
@@ -691,7 +691,7 @@ export default function ProfileForm() {
 
         <Editor editorJson={editorJson} setEditorJson={setEditorJson}  />
         
-        <div className="flex w-full my-8 overflow-hidden items-center justify-center space-x-4">
+        <div className="flex w-full my-8 overflow-hidden min-h-[50px] items-center justify-center space-x-4">
           <Divider className="my-8" />
           <h1 className="my-8 text-center font-bold text-primary w-full text-nowrap text-xl ">Ticket Creation</h1>
           <Divider className="my-8" />
@@ -701,9 +701,12 @@ export default function ProfileForm() {
           {/* <Divider className="my-8" /> */}
           
           <Button onClick={form.handleSubmit(onSubmit)} className={"my-16 h-[50px]"} type="submit">Submit</Button>            
-          {/* <div className="prose dark:prose-invert my-16 h-full w-full">
-            {HTMLReactParser(output)}
-          </div> */}
+          <div className="prose dark:prose-invert my-16 h-full w-full">
+            <PhoneMock>
+
+              {HTMLReactParser(output)}
+            </PhoneMock>
+          </div>
       </div>
     )
   }

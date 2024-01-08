@@ -188,12 +188,19 @@ export default async function (
 
 
 
-          <div className="my-12 w-full   sm:col-span-7 ">
+          {/* <div className="my-12 w-full   sm:col-span-7 ">
             <Divider className="" />
-          </div>
+          </div> */}
 
-          <article className="prose prose-sm dark:prose-invert sm:col-span-7">
-            {parse(searchParams.description)}
+          <article className="prose w-full text-left tracking-tighter antialiased dark:prose-invert sm:col-span-7">
+            <h2 className="text-primary">Event Description</h2>
+            <div className="w-full   sm:col-span-7 ">
+              <Divider className=" mt-4 mb-8" />
+            </div>
+            <div className="w-full prose dark:prose-invert antialiased ">
+
+              {parse(searchParams.description)} 
+            </div>
           </article>
         </section>
       </div>

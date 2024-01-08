@@ -164,7 +164,13 @@ export default function DrawerDemo({tickets}:TicketProps) {
 
             <div className="w-full grid grid-cols-2">
               <div className="flex space-x-2 items-center">
-                <h1 className="text-2xl text-primary font-bold">Total: </h1>
+              {
+                 selectedTicket >=0 ? 
+                 <h1 className="text-2xl text-primary font-bold">Total: </h1>
+                 : 
+                  null
+                }
+                {/* <h1 className="text-2xl text-primary font-bold">Total: </h1> */}
                 {
                  selectedTicket >=0 ? 
                   <h1 className="text-2xl text-slate-200/70  font-bold">{selectedTicketData?.price ? ` $${selectedTicketData.price - 1 + 0.99}` : "FREE"}</h1>

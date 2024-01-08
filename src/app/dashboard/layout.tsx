@@ -31,7 +31,7 @@ export default function Layout({
           //   }}
           // >
             <section className="LAYOUT  flex w-full  relative ">
-              <div className=" w-64">
+              <div className=" [700px]:w-64">
 
               <SidebarWrapper />
               </div>

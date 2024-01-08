@@ -1,6 +1,6 @@
 "use client"
 
-
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import {useEffect, useState,useCallback} from "react";
 import { Sidebar } from "./sidebar.styles";
 import { Avatar, Button, Tooltip } from "@nextui-org/react";
@@ -50,8 +50,14 @@ const useMediaQuery = (width) => {
 export const SidebarWrapper = () => {
   // const [collapsed, setCollapsed] = useState(false);
   // const [width, setWidth] = React.useState(window.innerWidth);
-  const collapsed = useMediaQuery(770);
+  const breakPoint = useMediaQuery(770);
+  const [collapsed, setCollapsed] = useState(breakPoint);
+  useEffect(() => {
+    console.log("breakpoint",breakPoint)
+    setCollapsed(breakPoint)
+  },[breakPoint])
 
+  
   // React.useEffect(() => {
   //   const handleResize = () => {
   //     setWidth(window.innerWidth);
@@ -67,14 +73,50 @@ export const SidebarWrapper = () => {
 
 
   return (
-    <aside className="h-screen SIDEBAR ASIDE sticky top-16 min-w-10 ">
+    <aside className="h-screen z-[201] SIDEBAR ASIDE sticky top-16 min-w-5 ">
+      {collapsed ? 
+      
+        <Button
+        isIconOnly
+        variant="faded"
+        radius="none"
+        color="primary"
+        onPress={() => setCollapsed(!collapsed)}
+          className="width-[10px] height-screen fixed min-w-unit-10 min-h-full max-h-full border-y-0"
+        >
+          <PanelLeftOpen />
+        </Button> : null}
       <div
         className={Sidebar({
-          collapsed: collapsed,
+          collapsed: (collapsed),
         })}
       >
+        <Button
+        isIconOnly
+        className="w-full"
+        variant="faded"
+        color="primary"
+        onPress={()=>{setCollapsed(!collapsed)}}>
+          <PanelLeftClose />
+        </Button>
+
+          {/* <div className={""}>
+            <img
+              src="https://assets.maccarianagency.com/the-front/logos/logo.svg"
+              alt="TheFront"
+              width="100"
+            />
+          </div>
+          <Button
+            className={""}
+            isIconOnly
+            
+            onClick={() => setCollapsed(!collapsed)}
+          >
+            {collapsed ? <ViewIcon /> : <DevIcon />}
+          </Button> */}
         
-        <div className="flex flex-col justify-between h-full">
+        <div className="flex flex-col z-40 justify-between h-full">
           <div className={Sidebar.Body()}>
   
 
@@ -119,26 +161,22 @@ export const SidebarWrapper = () => {
               />
             </SidebarMenu>
 
-  
-
             <SidebarMenu title="Updates">
               <SidebarItem
                 // isActive={usePathname() === "/changelog"}
                 title="Changelog"
                 icon={<ChangeLogIcon />}
               />
+            {/* <Button onPress={()=>{setCollapsed(!collapsed)}}></Button> */}
             </SidebarMenu>
-          </div>
 
-          {/* <div className={Sidebar.Footer()}>
+
+          </div>
+{/* 
+          <div className={Sidebar.Footer()}>
             <Tooltip content={"Settings"} color="primary">
               <div className="max-w-fit">
                 <SettingsIcon />
-              </div>
-            </Tooltip>
-            <Tooltip content={"Adjustments"} color="primary">
-              <div className="max-w-fit">
-                <FilterIcon />
               </div>
             </Tooltip>
             <Tooltip content={"Profile"} color="primary">
@@ -147,6 +185,7 @@ export const SidebarWrapper = () => {
                 size="sm"
               />
             </Tooltip>
+            <Button onPress={()=>{setCollapsed(!collapsed)}}></Button>
           </div> */}
 
         </div>
