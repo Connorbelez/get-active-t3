@@ -32,11 +32,10 @@ export default function Layout({
           //   }}
           // >
             <section className="LAYOUT  flex w-full  relative ">
-              <div className=" [700px]:w-64">
-
-              <SideBarWrapper />
+              <div className="[700px]:w-64">
               </div>
-              <div className="w-full flex justify-center">
+              <SideBarWrapper />
+              <div className="w-full pl-10 sm:pl-0 flex justify-center">
                 {children}
               </div>
               <div className="h-[1000px]"></div>

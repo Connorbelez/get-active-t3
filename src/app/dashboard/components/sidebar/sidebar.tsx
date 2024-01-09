@@ -78,7 +78,7 @@ export const SidebarWrapper = () => {
 
 
   return (
-    <div className="h-screen z-[201] SIDEBAR ASIDE sticky top-16 min-w-5 ">
+    <div className={`h-full ${collapsed ? "" : "z-[201]"} SIDEBAR ASIDE fixed top-16 min-w-5 `}>
       {collapsed ? 
       
         <Button
@@ -87,7 +87,7 @@ export const SidebarWrapper = () => {
         radius="none"
         color="primary"
         onPress={() => setCollapsed(!collapsed)}
-          className="width-[10px] height-screen fixed min-w-unit-10 min-h-full max-h-full border-y-0"
+          className="width-[10px] h-full fixed min-w-unit-10 border-y-0"
         >
           <PanelLeftOpen />
         </Button> : null}
