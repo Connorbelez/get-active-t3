@@ -39,12 +39,13 @@ interface pageprops {
   saveStatus?: any;
   editorJson: JSONContent;
   setEditorJson: (content: JSONContent) => void;
+  existingData?: any;
 }
 
 
 //ToDo: change to use local storage
 
-export default function Editor({editorJson, setEditorJson}: pageprops) {
+export default function Editor({editorJson, setEditorJson,existingData}: pageprops) {
   // const [content, setContent] = useLocalStorage(
   //   "content",
   //   "DEFAULT_EDITOR_CONTENT",
@@ -136,7 +137,11 @@ export default function Editor({editorJson, setEditorJson}: pageprops) {
 
   useEffect(() => {
     if (editor && editorJson && !hydrated) {
-      editor.commands.setContent(editorJson);
+      if(existingData && !hydrated){
+        editor.commands.setContent(existingData)
+      }else{
+        editor.commands.setContent(editorJson);
+      }
       setHydrated(true);
     }
   }, [editor, editorJson, hydrated]);
@@ -153,7 +158,7 @@ export default function Editor({editorJson, setEditorJson}: pageprops) {
   //         ...ExtensionKit({}) as Extensions
   //       ])
   //   }, [editorJson])
-    
+  
   return (
     <div
     

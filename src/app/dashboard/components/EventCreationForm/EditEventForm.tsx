@@ -55,7 +55,6 @@ import {
   } from "@/components/ui/popover"
 import { ticketTypeSchema } from "@/types/schemas";
 import dynamic from "next/dynamic";
-import { on } from "events";
 
 //@ts-ignore
 const AddressAutofill = dynamic(() => import("./AutoFillComponent"), {
@@ -142,14 +141,16 @@ export const ticketFormSchema = z.object({
 })
 
 
-export default function ProfileForm() {
-    // ...
+interface ProfileFormProps{
+    eventData: Event | null;
+}
+
+export default function ProfileForm({eventData}:ProfileFormProps) {
+
   
-
-
+    // ...
   const insertEvent = api.event.create.useMutation({
     onSuccess: (data) => {
-
       console.log("EVENT CREATED: ", data)
       toast.success("Event Created")
       return 1
@@ -166,27 +167,27 @@ export default function ProfileForm() {
           message: "Event Title must be at least 2 characters.",
       }).max(16,{
           message: "Event Title must be less than 16 characters.",
-      }),
+      }).default(eventData?.title as string),
       eventHeadline: z.string().min(2, {
           message: "Event headline must be at least 2 characters.",
-      }).optional(),
+      }).optional().default(eventData?.headline as string),
       category: z.string().min(2, {
           message: "Event headline must be at least 2 characters.",
-      }).optional(),
-      private: z.boolean().optional(),
-      startDate: z.date().optional(),
-      startTime: z.string().min(2),
+      }).optional().default(eventData?.category as string),
+      private: z.boolean().optional().default(eventData?.private as boolean),
+    startDate: z.date().optional().default(eventData?.startDate ? new Date(eventData.startDate) : new Date()),
+      startTime: z.string().min(2).default(eventData?.startTime as string),
       address: z.string().min(2, {
           message: "Event address must be at least 2 characters.",
-      }).optional(),
-      location: z.string(),
-      postalCode: z.string().optional(),
-      country: z.string().optional(),
-      city: z.string().optional(),
-      province: z.string().optional(),
+      }).optional().default(eventData?.address as string),
+      location: z.string().default(eventData?.location as string),
+      postalCode: z.string().optional().default(eventData?.postalCode as string),
+      country: z.string().optional().default(eventData?.country as string),
+      city: z.string().optional().default(eventData?.city as string),
+      province: z.string().optional().default(eventData?.province as string),
       freeTicket: z.boolean().optional(),
       payAtDoorTicket: z.boolean().optional(),
-      heroImage: z.string().optional(),
+      heroImage: z.string().optional().default(eventData?.heroImage as string),
 
   })
     
@@ -414,7 +415,7 @@ export default function ProfileForm() {
               <FormItem>
                 <FormLabel>Event Title</FormLabel>
                 <FormControl>
-                  <Input placeholder="event title" {...field} />
+                  <Input placeholder={eventData?.title} {...field} />
                 </FormControl>
                 <FormDescription>
                   This will be your event's title
@@ -430,7 +431,7 @@ export default function ProfileForm() {
                 <FormItem>
                     <FormLabel>Event headline</FormLabel>
                     <FormControl>
-                      <Input placeholder="event headline" {...field} />
+                      <Input placeholder={eventData?.headline as string} {...field} />
                     </FormControl>
                     <FormDescription>
                       This will be your event's headline
@@ -446,7 +447,7 @@ export default function ProfileForm() {
               <FormItem>
                 <FormLabel>Category</FormLabel>
                 <FormControl>
-                  <Input placeholder="event category" {...field} />
+                  <Input placeholder={eventData?.category as string} {...field} />
                 </FormControl>
                 <FormDescription>
                   This will be your event's category
@@ -486,6 +487,7 @@ export default function ProfileForm() {
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
+                        
                         mode="single"
                         selected={field.value}
                         onSelect={field.onChange}
@@ -514,7 +516,7 @@ export default function ProfileForm() {
                     <FormControl>
                       {/* @ts-ignore */}
                         {/* <AddressAutofill accessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN as string}> */}
-                          <NextInput type="time" label="startTime" labelPlacement="outside-left" variant="bordered" {...field} />
+                          <NextInput placeholder={eventData?.startTime as string} type="time" label="startTime" labelPlacement="outside-left" variant="bordered" {...field} />
                         {/* </AddressAutofill> */}
                     </FormControl>
                     <FormMessage />
@@ -534,6 +536,7 @@ export default function ProfileForm() {
                         // onChange={field.onChange}
                         checked={field.value} 
                         onChange={field.onChange}
+                        defaultSelected={eventData?.private as boolean}
 
                     //   {...field} 
                     />
@@ -557,7 +560,7 @@ export default function ProfileForm() {
                     {/* <AddressAutofill accessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN as string}> */}
                     {/* <Input autoComplete="address-line1" placeholder="event address" {...field} /> */}
                   {/* </AddressAutofill> */}
-                  <AddressAutofill value={field.value} setValue={field.onChange} />
+                  <AddressAutofill placeholder={eventData?.address as string} value={field.value} setValue={field.onChange} />
                 </FormControl>
                 <FormDescription>
                   Address of event - autocomplete - will be shown if public, 
@@ -574,7 +577,7 @@ export default function ProfileForm() {
               <FormItem>
                 <FormLabel>Public Location</FormLabel>
                 <FormControl>
-                    <Input  placeholder="location" {...field} />
+                    <Input  placeholder={eventData?.location as string} {...field} />
                 </FormControl>
                 <FormDescription>
                   Public Location of Event
@@ -594,7 +597,7 @@ export default function ProfileForm() {
                 <FormLabel>Hero Image</FormLabel>
                 <FormControl>
                     {/* <AddressAutofill accessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN as string}> */}
-                    <Input type="file" onChange={handleHeroImage}/>
+                    <Input type="file" placeholder={eventData?.heroImage as string} onChange={handleHeroImage}/>
                   {/* </AddressAutofill> */}
                 </FormControl>
                 <FormDescription>
@@ -694,7 +697,7 @@ export default function ProfileForm() {
           <Divider className="my-8" />
         </div>
 
-        <Editor editorJson={editorJson} setEditorJson={setEditorJson}  />
+        <Editor editorJson={editorJson} setEditorJson={setEditorJson} existingData={eventData?.eventDescription} />
         
         <div className="flex w-full my-8 overflow-hidden min-h-[50px] items-center justify-center space-x-4">
           <Divider className="my-8" />

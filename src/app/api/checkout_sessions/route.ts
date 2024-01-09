@@ -8,7 +8,7 @@ import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from "next/server";
 
 
-const stripe = require('stripe')(env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(env.STRIPE_SECRET_KEY_DEV);
 async function createTicketProduct(name,eventName, eventid, price,ticketData,userEmail){
     const product = await stripe.products.create({
         name: name,
@@ -103,6 +103,7 @@ if (!session || !session.user) {
         // console.table(priceObj)
         //console.log("CREATING CHECKOUT SESSION WITH POST!")
         // Create Checkout Sessions from body params.
+        const retUrl = process.env.NODE_ENV === "production" ? `https://getaktive.vercel.app/checkout/return?session_id={CHECKOUT_SESSION_ID}` : `https://localhost:3000/checkout/return?session_id={CHECKOUT_SESSION_ID}`
         const session = await stripe.checkout.sessions.create({
           ui_mode: 'embedded',
           line_items: [
@@ -112,15 +113,24 @@ if (!session || !session.user) {
               quantity: 1,
             }
           ],
+          // invoice:'true',
+          // invoice_creation:{
+          //   enabled: true,
+          // },
+
           mode: 'payment',
+          
+          
           metadata: {        
             metaDataTag: "CHECKOUT TICKET METADATA",    
             userSessionEmail: user.email,
             userSession:JSON.stringify(sessionObj) as string,
             eventHeroImage: ticketData.event.heroImage,
+            eventId: ticketData.eventId,
           },
-          return_url: `https://getaktive.vercel.app/checkout/return?session_id={CHECKOUT_SESSION_ID}`,
+          return_url: retUrl,
         });
+        console.log("SESSION: FROM CREATE SESSION: ", session)
         return NextResponse.json({clientSecret: session.client_secret})
 
       } catch (err) {
@@ -129,14 +139,29 @@ if (!session || !session.user) {
         return NextResponse.json({ message: "Error: " + err.message, status: err.statusCode || 500 });
       }
     case "GET":
-
+      console.log("GETTING CHECKOUT SESSION")
       console.table(req)
 
       try {
 
-        const session = await stripe.checkout.sessions.retrieve(req.nextUrl.searchParams.get("session_id"));
+        // const session = await stripe.checkout.sessions.retrieve(req.nextUrl.searchParams.get("session_id"));
+        const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
+          // @ts-ignore
+          req.nextUrl.searchParams.get("session_id"),
+          {
+              expand: ['line_items'],
+          }
+      );
 
-        NextResponse.json({ status: session.status, customer_email: session.customer_details.email });
+      
+      const paymentIntentId = sessionWithLineItems.payment_intent;
+      const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+      const latestChargeId = paymentIntent.latest_charge;
+      const latestCharge = await stripe.charges.retrieve(latestChargeId);
+      const receiptUrl = latestCharge.receipt_url;
+
+
+        return NextResponse.json({ status: sessionWithLineItems.status, customer_email: sessionWithLineItems.customer_details.email, receiptUrl: receiptUrl });
       } catch (err) {
 
         NextResponse.json({ message: "Error: " + err.message, status: err.statusCode || 500 });
@@ -148,4 +173,5 @@ if (!session || !session.user) {
 }
 
 
-export {handler as POST, handler as GET}
+export {handler as POST}
+export {handler as GET}

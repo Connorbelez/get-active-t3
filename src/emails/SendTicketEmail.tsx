@@ -13,10 +13,11 @@ import {
   Text,
   Link
 } from '@jsx-email/all';
+import { Tailwind } from '@jsx-email/tailwind';
 
 // import { QrCode } from '../QR/QRCode';
-import React from 'react';
-import { Tailwind } from '@jsx-email/tailwind';
+import * as React from 'react';
+
 interface YelpRecentLoginEmailProps {
   userFirstName?: string;
   loginDate?: Date;
@@ -28,7 +29,7 @@ interface YelpRecentLoginEmailProps {
 const textStyle = {
   paddingTop: '30px', // Example size, adjust as needed
   marginLeft: '10px', // Space between logo and text
-  fontSize: '48px', // Example size, adjust as needed
+  fontSize: '32px', // Example size, adjust as needed
   fontWeight: 'bold', 
   // Add more styling as needed
 };
@@ -36,8 +37,8 @@ const textStyle = {
 const baseUrl = 'https://jsx.email/assets/demo/';
 
 const main = {
-  backgroundColor: '#000',
-  width: '105%',
+  backgroundColor: '#FFF',
+  width: '100%',
   fontFamily:
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif'
 };
@@ -71,7 +72,7 @@ const containerButton = {
 const button = {
   backgroundColor: '#e00707',
   borderRadius: 30,
-  width: '100%',
+  // width: '100%',
   color: '#FFF',
   fontWeight: 'bold',
   border: '1px solid rgb(0,0,0, 0.1)',
@@ -131,14 +132,16 @@ export const EventTicketEmail = ({
   }).format(eventDate);
 
   return (
+    <Tailwind>
     <Html
+      // className='bg-white mx-auto w-full'
       style={{
-        backgroundColor: '#000',
+        backgroundColor: '#FFF',
         // display: 'flex',
         // flexDirection: 'column', // TypeScript recognizes 'row' as a valid value for FlexDirection
         // alignItems: 'center',
-        marginLeft: 'auto',
-        marginRight: 'auto',
+        // marginLeft: 'auto',
+        // marginRight: 'auto',
 
         width: '100%',
         height: '100%',
@@ -151,18 +154,26 @@ export const EventTicketEmail = ({
         <Container
           width="105%"
         >
-          <Container style={
-            {              
-              display: 'flex',
-              flexDirection: 'row', // TypeScript recognizes 'row' as a valid value for FlexDirection
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '10px',
-              width: '100%'}
-          }>
-            <Img style={logo} src={`https://get-active.app/Logo.png`} />
-            <Text style={textStyle}>Get Active Ticket</Text>
-          </Container>
+          <Section 
+          style={content}
+            // style={
+            //   {              
+            //     display: 'flex',
+            //     flexDirection: 'column', // TypeScript recognizes 'row' as a valid value for FlexDirection
+            //     alignItems: 'center',
+            //     justifyContent: 'center',
+            //     padding: '10px',
+            //     width: '100%'}
+            // }
+            // className='flex justify-center w-full'
+          >
+            <div className='w-full flex justify-start align-middle'>
+
+              <Img className='w-[100px] h-[100px]' src={heroImage} />
+              <Heading className=' text-3xl text-center pt-[30px] pl-2 font-bold  '>Get Active Ticket</Heading>
+            </div>
+
+          </Section>
 
           <Section style={content}>
             <Row>
@@ -187,15 +198,23 @@ export const EventTicketEmail = ({
                     fontWeight: 'bold',
                     textAlign: 'center'
                   }}
+                  className=' text-wrap my-2 '
                 >
                   Your ticket for {eventName} is ready!
                 </Heading>
-                <Heading>
-                  <Link style={button} href={receiptUrl}>
-                    View Receipt
-                    {/* <Button style={button}>View Receipt</Button> */}
-                  </Link>
-                </Heading>
+                {/* <Heading
+                  className='my-4 w-full'
+                > */}
+
+                  <Container className='w-full my-8 flex justify-center'>
+
+                    <Link className='w-full' style={button} href={receiptUrl}>
+                      View Receipt
+                      {/* <Button style={button}>View Receipt</Button> */}
+                    </Link>
+                  </Container>
+
+                {/* </Heading> */}
                 <Text style={paragraph}>
                   <b>Date: </b>
                   {formattedDate}
@@ -209,10 +228,10 @@ export const EventTicketEmail = ({
                   {ticketId}
                 </Text>
 
-                <div style={qrCodeStyle}>
+                <Container style={qrCodeStyle}>
                   <Img
                    src={qrSrc} />
-                </div>
+                </Container>
 
                 <Text style={paragraph}>Please show this QR code at the event entrance.</Text>
               </Column>
@@ -235,6 +254,7 @@ export const EventTicketEmail = ({
         </Container>
       </Body>
     </Html>
+    </Tailwind>
   );
 };
 

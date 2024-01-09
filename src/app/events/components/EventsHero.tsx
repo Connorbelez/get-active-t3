@@ -17,10 +17,13 @@ import {
   DoubleArrowDownIcon,
 } from "@radix-ui/react-icons";
 // import EventHero from "../components/EventsHero";
+import {api} from "@/trpc/server"
 
 
+export default async function App() {
+  let featuredEvent = await api.event.getFeaturedEvent.query();
+  
 
-export default function App() {
   return (
     <div className="wrapper items-between justify-items-between grid grid-cols-1 gap-5 lg:grid-cols-12 2xl:gap-0">
       <div className="mx-auto max-w-4xl space-y-5 text-center sm:text-left">
@@ -41,10 +44,17 @@ export default function App() {
         <div></div>
         <HeadingButtonSection  />
       </div>
+      
+      {/* ToDo: PROVIDE SOME SORT OF FALLBACK */}
+      {
+        featuredEvent ? 
 
-      <div className="FEATURED CARD flex flex-col items-center lg:col-span-6 lg:col-start-7 lg:items-end">
-        <CardSponser href="events/featured"  />
-      </div>
+        <div className="FEATURED CARD flex flex-col items-center lg:col-span-6 lg:col-start-7 lg:items-end">
+          {/* @ts-ignore */}
+          <CardSponser event={featuredEvent} />
+        </div>
+        : null
+      }
       <Button
           size="lg"
           color={"primary"}

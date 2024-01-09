@@ -28,6 +28,7 @@ import { eventSchema } from "@/types/schemas";
 //   }
 import { TicketType } from "@prisma/client";
 import { c } from "@vercel/blob/dist/put-FLtdezzu.cjs";
+import { getFetch } from "@trpc/client";
 
 
 
@@ -68,6 +69,99 @@ async function createTicketProduct(name, price,ticketData, eventId,eventTitle){
 
 
 export const eventRouter = createTRPCRouter({
+
+    getFeaturedEvent: publicProcedure
+    .query(async ({ ctx }) => {
+      try{
+      const featuredEvent = await ctx.db.featuredEvent.findMany();
+      return featuredEvent[0];
+      }catch(err){
+        try{
+          const nearestEvent = await ctx.db.event.findFirst({
+            orderBy: {
+              startDate: "asc"
+            }
+          });
+          if (nearestEvent) {
+            return nearestEvent;
+          }
+
+        }catch(err){
+          return null;
+        }
+      }
+
+      // if (!featuredEvent) {
+      //   const nearestEvent = await ctx.db.event.findFirst({
+      //     orderBy: {
+      //       startDate: "asc"
+      //     }
+      //   });
+      //   if (nearestEvent) {
+      //     return nearestEvent;
+      //   }
+      // }
+
+    }),
+
+    setFeaturedEvent: protectedProcedure
+    .input(z.object({
+        eventId: z.string().min(1)
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const event = await ctx.db.event.findUnique({
+        where: {
+          id: input.eventId
+        },
+        select: {
+          id: true,
+          title: false,
+          headline: false,
+          category: true,
+          heroImage: false,
+          startDate: false,
+          startTime: false,
+          ticketStartingPrice: false,
+          location: false,
+          address: false,
+          eventDescription: false,
+          length: false,
+          capacity: false,
+          postalCode: false,
+          city: false,
+          province: false,
+          country: false,
+          latlng: false,
+          createdById: false,
+          createdByEmail: false,
+          private: false,
+          drinksIncluded: false,
+          foodIncluded: false,
+          adultOnly: false,
+          orgId: true,
+          lat: false,
+          lng: false,
+        }
+      });
+      if (!event) {
+        throw new Error("Event not found");
+      }
+      //delete old featured event
+      void await ctx.db.featuredEvent.deleteMany();
+      
+      const featuredEvent = await ctx.db.featuredEvent.create({
+        data: {
+          event: {
+            connect: {
+              id: event.id
+            }
+          }
+        }
+      });
+      return featuredEvent;
+    }),
+
+
 
     create: protectedProcedure
     .input(eventSchema)
@@ -172,11 +266,26 @@ export const eventRouter = createTRPCRouter({
       });
     }),
 
+    getAllEvents: protectedProcedure
+    .query(async ({ ctx }) => {
+        const events = await ctx.db.event.findMany();
+        return events;
+    }),
+
+    // CURRENTLY ONLY GETS EVENTS THAT HAVE YET TO START
       getEvents: publicProcedure
         .query(async ({ ctx }) => {
-            const events = await ctx.db.event.findMany();
+            const events = await ctx.db.event.findMany({
+              where : {
+                //start date is greater than today - 1 day
+                startDate: {
+                  gt: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString()
+                }
+              }
+            });
             return events;
-        }),
+        })
+        ,
 
 
         getEventsByCategory: publicProcedure
@@ -240,6 +349,137 @@ export const eventRouter = createTRPCRouter({
             });
             return {event, tickets};
           })
+        }),
+
+
+
+
+
+
+
+
+
+        getEventById: protectedProcedure
+        .input(z.object({
+            eventId: z.string().min(1)
+        }))
+        .query(async ({ ctx, input }) => {
+            const event = await ctx.db.event.findUnique({
+                where: {
+                    id: input.eventId
+                }
+            });
+            return event;
+        }),
+
+
+
+
+
+
+
+
+
+
+
+
+        updateEventById: protectedProcedure
+        .input(z.object({
+            eventId: z.string().min(1),
+            eventData: eventSchema
+        }))
+        .mutation(async ({ ctx, input }) => {
+          const token =  process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+          const addr = input.eventData.address.replaceAll(" ", "%20");
+          const val = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${addr}.json?access_token=${token}`)
+          console.log(val);
+          console.table(val);
+          
+          const res = await val.json();
+          console.log(res);
+          console.table(res);
+          const geometry = res.features[0].geometry;
+          const placeName = res.features[0].place_name;
+          const center = res.features[0].center;
+          const placeType = res.features[0].place_type;
+          console.log("Geometry: ")
+          console.log(geometry);
+          
+          console.log("Place Name: ")
+          console.log(placeName);
+  
+          console.log("Center: ")
+          console.log(center);
+  
+          console.log("Place Type: ")
+          console.log(placeType);
+  
+          const [lat,lng] = center; 
+          return ctx.db.$transaction(async (prisma) => {
+            const event = await prisma.event.update({
+              where: {
+                id: input.eventId
+              },
+              data: {
+                title: input.eventData.title,
+                headline: input.eventData.headline,
+                category: input.eventData.category,
+                heroImage: input.eventData.heroImage,
+                startDate: input.eventData.startDate,
+                startTime: input.eventData.startTime,
+                ticketStartingPrice: input.eventData.ticketStartingPrice,
+                location: input.eventData.location,
+                address: placeName.toString() ? placeName.toString() : "No Address Provided",
+                eventDescription: input.eventData.eventDescription,
+                length: input.eventData.length,
+                capacity: input.eventData.capacity,
+                postalCode: input.eventData.postalCode,
+                city: input.eventData.city,
+                province: input.eventData.province,
+                lat: lat,
+                lng: lng,
+              
+                country: input.eventData.country,
+                latlng: center.toString() ? center.toString() : "0,0",
+                // Assuming you have a userId in the context for the creator
+                createdById: input.eventData.createdById,
+                createdByEmail: input.eventData.createdByEmail,
+                private: input.eventData.private,
+                drinksIncluded: input.eventData.drinksIncluded,
+                foodIncluded: input.eventData.foodIncluded,
+                orgId: input.eventData.createdByOrg,
+                adultOnly: input.eventData.adultOnly,
+              }
+            });
+            
+            //ToDo: we can re-implement this when we add the "live event" feature, and only allow this to be done if the event is not live
+            // const oldTicketType = await prisma.ticketType.deleteMany({
+            //   where: {
+            //     eventId: event.id
+              
+            // }});
+
+            const ticketTypePromises = input.eventData.ticketTypes.map(async (ticketType) => {
+              const priceObj = await createTicketProduct(ticketType.name, ticketType.price, ticketType, event.id, event.title);
+              // console.log("PRICE OBJECT FROM EVENT TRPC: ", priceObj);
+              
+              //Delete old ticket types
+  
+
+              return prisma.ticketType.create({
+                data: {
+                  ...ticketType,
+                  eventId: event.id,
+                  stripePriceId: priceObj.id,
+                }
+              });
+            });
+
+            const ticketRes =  await Promise.all(ticketTypePromises);
+            
+            return 
+          })
+
         })
   });
   

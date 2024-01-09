@@ -5,6 +5,7 @@ import { ReactDOM } from "react";
 interface compProps {
     value: string | undefined;
     setValue: (value: string) => void;
+    placeholder?: string;
 }
 
 export default function comp({value,setValue}: compProps) {

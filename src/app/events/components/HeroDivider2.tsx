@@ -6,7 +6,7 @@
 export default function comp() {
 
     return (
-        <div className="relative">
+        <div className="relative bg-white">
         <div className="custom-shape-divider-bottom-2 absolute top-0 -rotate-180 ">
           <svg
             data-name="Layer 1"

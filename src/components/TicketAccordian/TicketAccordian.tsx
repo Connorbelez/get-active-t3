@@ -1,6 +1,8 @@
 "use client";
 import { Accordion, AccordionItem, Button} from "@nextui-org/react";
 import { MapPin, MapPinnedIcon } from "lucide-react";
+import { Ticket, Banknote, CreditCard } from "lucide-react"
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import TicketCard, {
@@ -16,12 +18,19 @@ export interface MapAccordianProps {
   // children?: React.ReactNode;
   tickets: TicketType[];
   wrapperClassName?: string;
+  eventName: string;
+  eventLocation: string;
+  eventHeroImage: string;
 }
 
 export default function App({
   title,
   tickets,
   wrapperClassName,
+  eventName,
+  eventLocation,
+  eventHeroImage,
+
 }: MapAccordianProps) {
   const router = useRouter();
   const [selectedKeys, setSelectedKeys] = useState(new Set(["-1"]));
@@ -30,30 +39,14 @@ export default function App({
   
   const sendFreeTicket = api.ticket.sendFreeTicket.useMutation();
 
-  const handleSubmit = () => {
+  const handleCashCheckout = () => {
+
     try{
       if (typeof selectedTicket === 'undefined' || !tickets[selectedTicket]?.id) throw new Error('No ticket selected');
-      console.log("SENDING TICKET")
-      if(selectedTicketData?.price === 0){
-      sendFreeTicket.mutate({
-        ticket:{
-          name: tickets[selectedTicket]?.name as string,
-          ticketDescription: tickets[selectedTicket]?.ticketDescription as {description:string},
-          price: tickets[selectedTicket]?.price as number,
-          drinksIncluded: tickets[selectedTicket]?.drinksIncluded as boolean,
-          foodIncluded: tickets[selectedTicket]?.foodIncluded as boolean,
-          paymentTypes: tickets[selectedTicket]?.paymentTypes as string,
-          logo:"",
-        },
-        paymentOweing: false,
-        eventName: "CHANGE THIS HARDCODED VALUE",
-        recipientEmail: "connor.belez@gmail.com",
-        eventLocation: "CHANGE THIS HARDCODED VALUE",
-      })
-    }else{
-      //CHECKOUT
-      router.push(`/checkout?id=${tickets[selectedTicket]?.id}`)
-    }
+        sendFreeTicket.mutate({
+          ticketId: tickets[selectedTicket]?.id as string,
+        })
+
   }catch( error : any) {
     console.log("CAUGHT ERROR: ")
     if (error.message === 'No ticket selected'){
@@ -65,7 +58,42 @@ export default function App({
     console.log(error)
   }
   console.log("DONE")
+  
+
+}
+
+const handleSubmit = () => {
+  try{
+    if (typeof selectedTicket === 'undefined' || !tickets[selectedTicket]?.id) throw new Error('No ticket selected');
+    console.log("SENDING TICKET")
+    console.log(selectedTicketData)
+    if(selectedTicketData?.price === 0){
+
+      sendFreeTicket.mutate({
+        ticketId: tickets[selectedTicket]?.id as string,
+      })
+    }else{
+      //CHECKOUT
+      router.push(`/checkout?id=${tickets[selectedTicket]?.id}`)
+    }
+
+}catch( error : any) {
+  console.log("CAUGHT ERROR: ")
+  if (error.message === 'No ticket selected'){
+    toast.error('No ticket selected')
   }
+  else{
+    toast.error('Please Sign In to Continue')
+  }
+  console.log(error)
+}
+console.log("DONE")
+}
+
+
+const handleCC = () => {
+  router.push(`/checkout?id=${tickets[selectedTicket]?.id}`)
+}
 
   
   return (
@@ -112,7 +140,26 @@ export default function App({
             <h1 className="text-2xl text-primary font-bold">Total: </h1>
             <h1 className="text-2xl text-slate-200/70  font-bold">{selectedTicketData?.price ? ` $${selectedTicketData.price - 1 + 0.99}` : "FREE"}</h1>
           </div>
-          <Button color="primary" variant="faded" onClick={handleSubmit} className="w-full">Checkout</Button>
+          {
+              selectedTicketData?.paymentTypes.includes("Cash") ?
+              <div className="grid grid-cols-2 gap-2">
+                <div className="flex flex-col w-full items-center">
+                  <Button variant="faded" size={"lg"} className={"w-full"} isIconOnly radius="sm" color="primary" onPress={handleCashCheckout}>
+                      <Banknote />
+                  </Button>
+                  <p>Cash</p>
+                </div>
+                <div className="flex flex-col w-full items-center"> 
+                  <Button variant="faded" size={"lg"} className={"w-full"} isIconOnly radius="sm" color="primary" onPress={handleCC}>
+                    <CreditCard />
+                  </Button>
+                  <p>Credit</p>
+                </div>
+              </div>
+             : <Button variant="faded" className=" prose prose-lg dark:prose-invert" startContent={<Ticket className="mr-4"/>} radius="sm" color="primary" type={"submit"}>
+                <p className="font-bold text-size-xl my-0">Checkout</p>
+              </Button>
+              }
         </div>
       </AccordionItem>
     </Accordion>

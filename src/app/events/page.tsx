@@ -37,11 +37,14 @@ export default async function Home() {
         <EventHero  />
       </section>
       
-      <HeroDivider1 />
+      <div className="flex flex-col justify-center w-screen ">
 
-      <LogoGrid />
+        <HeroDivider1 />
 
-      <HeroDivider2  />
+        <LogoGrid />
+
+        <HeroDivider2  />
+      </div>
 
       <AllEventsCarosel />
 

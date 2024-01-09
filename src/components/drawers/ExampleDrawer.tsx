@@ -7,9 +7,10 @@ import { button as Button} from "@/components/ui/button"
 import VTicketCard from "@/components/cards/prod/VTicketCard"
 import SideScrollRoot from "@/components/SideScroll/SideScrollRoot"
 import SideScrollComponent from "@/components/SideScroll/SideScrollComponent"
-import { Ticket } from "lucide-react"
+import { Ticket, Banknote, CreditCard } from "lucide-react"
 import {toast} from "sonner"
 import {env} from "@/env"
+import {Modal, ModalBody, ModalContent, ModalFooter, Popover, PopoverContent, useDisclosure} from "@nextui-org/react"
 import {
   Drawer,
   DrawerClose,
@@ -37,12 +38,16 @@ import { StripeEvent } from "@/app/checkout/page";
 
 const stripePromise = loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY);
 interface TicketProps {
-  tickets : Array<TicketType>
+  tickets : Array<TicketType>;
+  eventName: string;
+  eventLocation: string;
+  eventHeroImage: string;
 }
 
 
 
-export default function DrawerDemo({tickets}:TicketProps) {
+export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroImage}:TicketProps) {
+  const {isOpen, onOpen, onOpenChange,onClose} = useDisclosure();
   const [selectedTicket, setSelectedTicket] = useState(-1)
   const [clientSecret, setClientSecret] = useState('');
   const router = useRouter();
@@ -76,30 +81,47 @@ export default function DrawerDemo({tickets}:TicketProps) {
 
   });
   
+
+  const handleCashCheckout = () => {
+
+      try{
+        if (typeof selectedTicket === 'undefined' || !tickets[selectedTicket]?.id) throw new Error('No ticket selected');
+
+        console.log(selectedTicketData)
+          sendFreeTicket.mutate({
+            ticketId: tickets[selectedTicket]?.id as string,
+          })
+
+    }catch( error : any) {
+      console.log("CAUGHT ERROR: ")
+      if (error.message === 'No ticket selected'){
+        toast.error('No ticket selected')
+      }
+      else{
+        toast.error('Please Sign In to Continue')
+      }
+      console.log(error)
+    }
+    console.log("DONE")
+    
+  
+  }
+
   const handleSubmit = () => {
     try{
       if (typeof selectedTicket === 'undefined' || !tickets[selectedTicket]?.id) throw new Error('No ticket selected');
       console.log("SENDING TICKET")
+      console.log(selectedTicketData)
       if(selectedTicketData?.price === 0){
-      sendFreeTicket.mutate({
-        ticket:{
-          name: tickets[selectedTicket]?.name as string,
-          ticketDescription: tickets[selectedTicket]?.ticketDescription as {description:string},
-          price: tickets[selectedTicket]?.price as number,
-          drinksIncluded: tickets[selectedTicket]?.drinksIncluded as boolean,
-          foodIncluded: tickets[selectedTicket]?.foodIncluded as boolean,
-          paymentTypes: tickets[selectedTicket]?.paymentTypes as string,
-          logo:"",
-        },
-        paymentOweing: false,
-        eventName: "CHANGE THIS HARDCODED VALUE",
-        recipientEmail: "connor.belez@gmail.com",
-        eventLocation: "CHANGE THIS HARDCODED VALUE",
-      })
-    }else{
-      //CHECKOUT
-      router.push(`/checkout?id=${tickets[selectedTicket]?.id}`)
-    }
+
+        sendFreeTicket.mutate({
+          ticketId: tickets[selectedTicket]?.id as string,
+        })
+      }else{
+        //CHECKOUT
+        router.push(`/checkout?id=${tickets[selectedTicket]?.id}`)
+      }
+
   }catch( error : any) {
     console.log("CAUGHT ERROR: ")
     if (error.message === 'No ticket selected'){
@@ -111,6 +133,11 @@ export default function DrawerDemo({tickets}:TicketProps) {
     console.log(error)
   }
   console.log("DONE")
+  }
+
+
+  const handleCC = () => {
+    router.push(`/checkout?id=${tickets[selectedTicket]?.id}`)
   }
 
   return (
@@ -178,9 +205,26 @@ export default function DrawerDemo({tickets}:TicketProps) {
                   null
                 }
               </div>
-              <NButton variant="faded" className=" prose prose-lg dark:prose-invert" startContent={<Ticket className="mr-4"/>} radius="sm" color="primary" type={"submit"}>
+            {
+              selectedTicketData?.paymentTypes.includes("Cash") ?
+              <div className="grid grid-cols-2 gap-2">
+                <div className="flex flex-col w-full items-center">
+                  <NButton variant="faded" size={"lg"} className={"w-full"} isIconOnly radius="sm" color="primary" onPress={handleCashCheckout}>
+                      <Banknote />
+                  </NButton>
+                  <p>Cash</p>
+                </div>
+                <div className="flex flex-col w-full items-center"> 
+                  <NButton variant="faded" size={"lg"} className={"w-full"} isIconOnly radius="sm" color="primary" onPress={handleCC}>
+                    <CreditCard />
+                  </NButton>
+                  <p>Credit</p>
+                </div>
+              </div>
+             : <NButton variant="faded" className=" prose prose-lg dark:prose-invert" startContent={<Ticket className="mr-4"/>} radius="sm" color="primary" type={"submit"}>
                 <p className="font-bold text-size-xl my-0">Checkout</p>
               </NButton>
+              }
             </div>
            </form>
           </DrawerFooter>

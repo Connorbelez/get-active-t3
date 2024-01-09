@@ -6,8 +6,8 @@
 export default function comp() {
 
     return (
-    <div className="bg-zinc-200 pb-20">
-        <div className="mx-auto max-w-screen-xl px-4 md:px-8">
+    <div className="bg-zinc-200  pt-20 pb-10 w-screen flex justify-center">
+        {/* <div className="mx-auto max-w-screen-xl px-4 md:px-8">
           <div className="mx-auto max-w-xl text-center">
             <h3 className="text-3xl font-semibold text-gray-800 sm:text-4xl">
               Who's using Get Active?
@@ -199,6 +199,9 @@ export default function comp() {
               </li>
             </ul>
           </div>
+        </div> */}
+        <div className="prose prose-xl text-primary">
+          <h1 className="">Browse Active Events</h1>
         </div>
       </div>
     )

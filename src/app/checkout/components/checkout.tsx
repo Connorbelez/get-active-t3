@@ -7,7 +7,7 @@ import {
 } from '@stripe/react-stripe-js';
 // import { api} from "@/trpc/react"
 import {env} from "@/env"
-const stripePromise = loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY);
+const stripePromise = loadStripe("pk_test_51NONQvAXXlLBfJHexvf9ugcgekjtDMxhZcVjcq4k0XuJp8oKT4mjPhkaawCeP9YbmjZPyegw25JoLTbApTSWaG6s00wjhlDdBN");
 import { useSearchParams } from 'next/navigation'
 // import { get } from 'http';
 // import { StripeEvent } from '../page';
@@ -39,8 +39,8 @@ export default function App() {
       })
       .then((data) => {
         return data.json().then((dataJson) => {
-          console.log('client Secret: ')
-          console.log(dataJson.clientSecret)
+          // console.log('client Secret: ')
+          // console.log(dataJson.clientSecret)
           setTempClientSecret(dataJson.clientSecret)
         })
       })

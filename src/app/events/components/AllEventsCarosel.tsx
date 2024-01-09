@@ -9,7 +9,11 @@ import SideScrollRoot from "@/components/SideScroll/SideScrollRoot";
 import SideScrollComponent from "@/components/SideScroll/SideScrollComponent";
 
 import {api} from "@/trpc/server"
-export default async function comp() {
+interface Props {
+  isPreview?:boolean
+}
+
+export default async function comp({isPreview}:Props) {
     const events:Event[] = await api.event.getEvents.query();
 
 

@@ -67,6 +67,17 @@ model Session {
   @@index([id])
 }
 
+model FeaturedEvent {
+  id        String   @id @unique @default(cuid())
+  event     Event    @relation(fields: [eventId], references: [id])
+  eventId   String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([eventId])
+  @@index([id])
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -78,7 +89,7 @@ model User {
   sessions      Session[]
   posts         Post[]
   createdEvents Event[]
-  adminFor      Org?       @relation(fields: [adminForOrgId], references: [id])
+  adminFor      Org?      @relation(fields: [adminForOrgId], references: [id])
   adminForOrgId String?
 
   @@index([email])
@@ -96,15 +107,15 @@ model VerificationToken {
 }
 
 model Event {
-  id                  String      @id @default(cuid())
+  id                  String   @id @default(cuid())
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
   title               String
   headline            String?
   category            String?
   heroImage           String
-  startDate       String
-  startTime       String
+  startDate           String
+  startTime           String
   private             Boolean  @default(false)
   active              Boolean  @default(true)
   ticketStartingPrice Int
@@ -114,14 +125,14 @@ model Event {
   province            String?
   city                String?
   country             String?
-  latlng            String?
-  lat              Float?
-  lng              Float?
+  latlng              String?
+  lat                 Float?
+  lng                 Float?
   adultOnly           Boolean  @default(false)
   drinksIncluded      Boolean  @default(false)
   foodIncluded        Boolean  @default(false)
-  createdBy   User   @relation(fields: [createdById], references: [id])
-  createdById String
+  createdBy           User     @relation(fields: [createdById], references: [id])
+  createdById         String
 
   createdByEmail String
 
@@ -129,9 +140,11 @@ model Event {
   length           Int
   capacity         Int?
 
-  ticketTypes TicketType[]
-  Org         Org?         @relation(fields: [orgId], references: [id])
-  orgId       String?
+  ticketTypes   TicketType[]
+  Org           Org?            @relation(fields: [orgId], references: [id])
+  orgId         String?
+  
+  FeaturedEvent FeaturedEvent[]
 
   @@index([createdById])
   @@index([id])
@@ -140,25 +153,26 @@ model Event {
 }
 
 model TicketType {
-  id            String     @id @default(cuid())
-  name          String     @default("Ticket")
-  price         Int
-  paymentOweing Boolean @default(false)
-  event         Event   @relation(fields: [eventId], references: [id])
-  eventId       String
+  id                String  @id @default(cuid())
+  name              String  @default("Ticket")
+  price             Int
+  paymentOweing     Boolean @default(false)
+  event             Event   @relation(fields: [eventId], references: [id])
+  eventId           String
   ticketDescription Json
-  paymentTypes    String
-  drinksIncluded Boolean @default(false)
-  foodIncluded   Boolean @default(false)
-  logo           String
-  stripePriceId  String?
+  paymentTypes      String
+  drinksIncluded    Boolean @default(false)
+  foodIncluded      Boolean @default(false)
+  logo              String
+  stripePriceId     String? @unique
+
   @@index([stripePriceId])
   @@index([eventId])
   @@index([id])
 }
 
 model Org {
-  id          String     @id @unique @default(cuid())
+  id          String  @id @unique @default(cuid())
   name        String  @unique
   description String
   admins      User[]

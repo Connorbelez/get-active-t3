@@ -1,6 +1,8 @@
 // import Stripe from 'stripe';
+import {env} from "@/env";
+
 const Stripe = require('stripe');
-const stripe = Stripe('sk_test_51NONQvAXXlLBfJHe5OlR5PAyjLXyKFBqpMtGp3btR51UwtBZ43UcLdAwWrwHingHXZQbsAY4JL0eMonFIRQRgCOM00RaPM81DV');
+const stripe = Stripe("sk_test_51NONQvAXXlLBfJHe5OlR5PAyjLXyKFBqpMtGp3btR51UwtBZ43UcLdAwWrwHingHXZQbsAY4JL0eMonFIRQRgCOM00RaPM81DV");
 
 import {api} from "@/trpc/server";
 import { ApiError } from "next/dist/server/api-utils";
@@ -20,6 +22,7 @@ import { describe } from "node:test";
 const relevantEvents = new Set([
 
     'checkout.session.completed',
+    'payment_intent.succeeded',
     'payment_intent.succeeded',
     // 'checkout.session.async_payment_succeeded',
     // 'checkout.session.async_payment_failed',
@@ -61,17 +64,15 @@ webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
     if (relevantEvents.has(event.type)) {
         console.log("\n\nRELEVANT EVENT: \n\n", event.type)
+        
         try {
             switch (event.type) {
 
                 case 'charge.succeeded':
-                    console.log("\n\n==========CHARGE SUCCEEDED=============\n\n")
-
+                    // console.log("\n\n==========CHARGE SUCCEEDED=============\n\n")
+                    // console.log("EVENT: ", event)
                     // console.log("EVENT DATA: ", event.data)
-                    // console.log("EVENT DATA OBJECT: ", event as Stripe.Event)
-                    // const charge = event.data.object as Stripe.Charge;
-                    // console.log("CHARGE: ", charge.object)
-                    // const product = (charge.metadata )
+                    // // const product = (charge.metadata )
                     // console.log("\n\nPRODUCT: ", product)
                     // const customer = (charge.billing_details )
                     // console.log("\n\nCUSTOMER: ", customer)
@@ -103,37 +104,39 @@ webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
                     // console.log("\n\n==========CHARGE Details=============\n\n")
                     // console.log("EVENT: ", event)
                     // console.log("EVENT DATA: ", event.data)
-                    // console.log("EVENT DATA OBJECT: ", event as Stripe.Event)
-                    // Then define and call a function to handle the event payment_intent.succeeded
+
+
                     break;
                 case 'checkout.session.completed':
                     console.log("\n\n ==================CHECKOUT SESSION COMPLETED================\n\n")
-                    // const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
-                    //     // @ts-ignore
-                    //     event.data.object.id,
-                    //     {
-                    //         expand: ['line_items'],
-                    //     }
-                    // );
+                    const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
+                        // @ts-ignore
+                        event.data.object.id,
+                        {
+                            expand: ['line_items'],
+                        }
+                    );
+
+
                     void api.ticket.sendTicket.query({
                         id:event.data.object.id
                     })
-                    // const lineItems = sessionWithLineItems.line_items;
-                    // const price = lineItems.data[0].price
-                    // const amount = price.unit_amount_decimal
-                    // const charge = event.data.object 
-                    // const product = (charge.metadata )
-                    // const customer = (event.data.object.customer_details)
-                    // const customerEmail = customer.email
-                    // const name = customer.name
+                    const lineItems = sessionWithLineItems.line_items;
+                    const price = lineItems.data[0].price
+                    const amount = price.unit_amount_decimal
+                    const charge = event.data.object 
+                    const product = (charge.metadata )
+                    const customer = (event.data.object.customer_details)
+                    const customerEmail = customer.email
+                    const name = customer.name
                     
-                    // const checkoutData = {
-                    //     checkoutProduct: product,
-                    //     priceProduct: price,
-                    //     customer: customer,
-                    // }
+                    const checkoutData = {
+                        checkoutProduct: product,
+                        priceProduct: price,
+                        customer: customer,
+                    }
 
-                //     console.log("\n\nCHECKOUT DATA: ", checkoutData)
+                    console.log("\n\nCHECKOUT DATA FROM WEBHOOK: ", checkoutData)
 
                 //     // ctx: {
                 //     //     // infers the `session` as non-nullable

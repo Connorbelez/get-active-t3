@@ -6,6 +6,7 @@ import { EditIcon, DeleteIcon, EyeIcon } from "./EventTableIcons";
 import { toast } from "sonner";
 import { api } from "@/trpc/react";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 const statusColorMap = {
     active: "success",
     paused: "danger",
@@ -33,11 +34,35 @@ const columns = [
 ];
 
 export default function App({ events: initialEvents }) {
+    const router = useRouter();
     const [eventState, setEventState] = useState([...initialEvents]);
     const deleteEvent = api.event.deleteEvent.useMutation();
     const {isOpen, onOpen, onOpenChange,onClose} = useDisclosure();
     const [selectedEvent, setSelectedEvent] = useState("");
 
+    const setFeatured = api.event.setFeaturedEvent.useMutation({
+        onSuccess: (data)=>{
+            toast(<div>Featured Event Set</div>);
+            console.log(data);
+        },
+        onError: (error)=>{
+            toast(<div>Error setting featured event</div>);
+            console.log(error);
+        }
+    });
+
+    const handleSetFeatured = async (event) => {
+        try {
+            setFeatured.mutateAsync({eventId: event.eventId});
+        } catch (error) {
+            console.error('Error setting featured event', error);
+            // Handle error case
+        }
+    }
+
+    const handleEdit = async (event) => {
+        setSelectedEvent(event.eventId);
+    }
 
     const handleDelete = async (event) => {
         try {
@@ -81,13 +106,16 @@ export default function App({ events: initialEvents }) {
             case "actions":
                 return (
                     <div className="relative flex items-center gap-2">
-                        <Tooltip content="Details">
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                        <Tooltip content="Set as Featured">
+                            <span onClick={()=>{
+                                
+                                handleSetFeatured(event);
+                            }} className="text-lg text-default-400 cursor-pointer active:opacity-50">
                                 <EyeIcon />
                             </span>
                         </Tooltip>
                         <Tooltip content="Edit user">
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                            <span onClick={() => {router.push(`manageevents/event?id=${event.eventId}`)}} className="text-lg text-default-400 cursor-pointer active:opacity-50">
                                 <EditIcon />
                             </span>
                         </Tooltip>

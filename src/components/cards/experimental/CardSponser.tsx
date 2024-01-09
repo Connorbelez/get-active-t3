@@ -7,14 +7,48 @@ import TicketIcon from "@/components/icons/TicketIcon"
 import HeartIcon from "@/components/icons/HeartIcond"
 import CharityIcon from "@/components/icons/CharityIcon"
 import Link from "next/link"
-
+import {Event} from "@prisma/client"
 interface compProps {
-    href:string
+    event:Event;
 }
 
+function formatTime(timeString: string): string {
+    const time: Date = new Date(`2000-01-01T${timeString}`);
+    const hours: number = time.getHours();
+    const minutes: number = time.getMinutes();
 
+    const period: string = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours: number = hours % 12 || 12;
+    const formattedMinutes: string = minutes.toString().padStart(2, '0');
 
-export default function Comp({href}:compProps) {
+    return `${formattedHours}:${formattedMinutes} ${period}`;
+}
+
+function formatDate(dateString: string): {month: string, day: number, year: number, daySuffix: string} {
+    const date: Date = new Date(dateString);
+    const monthNames: string[] = [
+        'JAN', 'FEB', 'MAR', 'APR', 'May', 'JN', 'JL',
+        'AUG', 'SEPT', 'OCT', 'NOV', 'DEC'
+    ];
+
+    const day: number = date.getDate();
+    // Fix: Add null check to ensure the value is not undefined
+    const month: string = monthNames[date.getMonth()] ?? '';
+    const year: number = date.getFullYear();
+
+    let daySuffix = 'th';
+    if (day === 1 || day === 21 || day === 31) {
+        daySuffix = 'st';
+    } else if (day === 2 || day === 22) {
+        daySuffix = 'nd';
+    } else if (day === 3 || day === 23) {
+        daySuffix = 'rd';
+    }
+
+    return {month: month, day: day, year: year, daySuffix: daySuffix};
+}
+
+export default function Comp({event}:compProps) {
     const content = (
         <PopoverContent className="w-[240px]">
 
@@ -30,9 +64,11 @@ export default function Comp({href}:compProps) {
         </PopoverContent>
       )
     const liked=true;
+    const formattedDate = formatDate(event.startDate); 
+        const formattedStartTime = formatTime(event.startTime);
     return (
-        <Card className={"bg-background h-[400px] w-[380px] md:h-[450px] md:w-[512px]  rounded-[40px]  dark:hover:shadow-lg dark:hover:shadow-violet-700/50"}>
-            <CardHeader className="absolute z-10 top-1 grid grid-cols-3">
+        <Card className={"WRAPPERCARD bg-background h-[370px] w-[380px] md:h-[450px] md:w-[512px]  rounded-[40px]  dark:hover:shadow-lg dark:hover:shadow-violet-700/50"}>
+            <CardHeader className="WRAPPERCARDHeader absolute z-10 top-1 grid grid-cols-3">
                     <Button
                         // onPress={()=> {
                         //     if (Session) {
@@ -90,7 +126,16 @@ export default function Comp({href}:compProps) {
                 <CardDescription>Card Description</CardDescription>
             </CardHeader> */}
 
-            <Link className="" href={href}>
+            <Link href={{pathname:"events/event",query: {
+                        id: event.id.toString(), title:event.title, headline:event.headline, 
+                        category:event.category, heroImage:event.heroImage, location:event.location,
+                        startDate:event.startDate, startTime:event.startTime, length:event.length,
+                        ticketStartingPrice:event.ticketStartingPrice, address:event.address,
+                        ageRestriction:event.adultOnly, drinksIncluded:event.drinksIncluded,
+                        foodIncluded:event.foodIncluded, description:event.eventDescription,
+                        Org: event.orgId, creator: event.createdByEmail, creatorId: event.createdById,
+                        lat:event.lat, lng:event.lng, latlng:event.latlng
+                    }}}>
 
             
                 <CardBody className={"grid grid-cols-12 gap-0 overflow-hidden"}>
@@ -98,11 +143,11 @@ export default function Comp({href}:compProps) {
                             <div className={"flex flex-col items-center  "}>
                                 <div className="flex flex-row align-middle mb-1">
                                     <Crosshair1Icon stroke={"#52525b"} className="w-4 mt-0.5 h-4 mr-2 fill-zinc-600" />
-                                    <h4 className={"prose dark:prose-invert text-sm dark:text-zinc-400/60"}>Ottawa</h4>
+                                    <h4 className={"prose dark:prose-invert text-sm dark:text-zinc-400/60"}>{event.location}</h4>
                                 </div>
-                                <h1 className={`-mb-2 dark:${title({size:"xsm",color:"pink"})}`}>DEC</h1>
-                                <h1 className="prose prose-2xl font-bold  dark:text-zinc-400">18</h1>
-                                <h4 className={"prose dark:prose-invert text-sm dark:text-zinc-400/60"}>8:30pm</h4>
+                                <h1 className={`-mb-2 dark:${title({size:"xsm",color:"pink"})}`}>{formattedDate.month}</h1>
+                                <h1 className="prose prose-2xl font-bold  dark:text-zinc-400">{formattedDate.day}</h1>
+                                <h4 className={"prose dark:prose-invert text-sm dark:text-zinc-400/60"}>{formattedStartTime}</h4>
                             </div>
                             <Divider orientation="vertical" className=" bg-red h-5/6 slef w-[1px]  bg-zinc-700"/>
 
@@ -111,7 +156,7 @@ export default function Comp({href}:compProps) {
                         <div className={"col-start-5 col-span-4 flex flex-col items-left my-auto "}>
                             <CardHeader className="grid grid-flow-row -my-3">
                                 
-                                <h1 className={`prose prose-xl prose-zinc dark:prose-invert font-bold ${title({size:"xxsm",color:"pink"})}`}>Canada Day</h1>
+                                <h1 className={`prose prose-xl prose-zinc dark:prose-invert font-bold ${title({size:"xxsm",color:"pink"})}`}>{event.title}</h1>
                                 {/* <p className={"prose text-xs dark:prose-invert"}>Join us for a Canada Day Party!</p> */}
                             </CardHeader>
 
@@ -119,12 +164,12 @@ export default function Comp({href}:compProps) {
                                 <Chip className="" variant={"faded"} color={"warning"} startContent={
                                         <CharityIcon height={"18"} width={"18"} fill={"currentColor"}/>
                                     }>                           
-                                    <p className="text-warning text-nowrap">Philo</p>
+                                    <p className="text-warning text-nowrap">{event.category}</p>
                                 </Chip>
                                 <Chip className="" variant={"faded"} color={"warning"} startContent={
                                         <TicketIcon height={"18"} width={"18"} fill={"currentColor"}/>
                                     }>                           
-                                    <p className=" prose text-sm text-warning text-nowrap">From $0</p>
+                                    <p className=" prose text-sm text-warning text-nowrap">{event.ticketStartingPrice}</p>
                                 </Chip>
 
                             </CardFooter>        

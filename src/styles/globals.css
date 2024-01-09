@@ -90,15 +90,14 @@ body {
     @apply flex justify-between items-center;
   }
   .custom-shape-divider-bottom-1703558846 {
-    width: 100%;
-    overflow: hidden;
+    width: 100vw;
     line-height: 0;
 }
 
 .custom-shape-divider-bottom-1703558846 svg {
     position: relative;
     display: block;
-    width: calc(100% + 1.3px);
+    width: calc(100vw);
     height: 135px;
 }
 
@@ -108,7 +107,7 @@ body {
 
 
 .custom-shape-divider-bottom-2 {
-  width: 100%;
+  width: 100vw;
   overflow: hidden;
   line-height: 0;
 }
@@ -116,7 +115,7 @@ body {
 .custom-shape-divider-bottom-2 svg {
   position: relative;
   display: block;
-  width: calc(100% + 1.3px);
+  width: calc(100vw);
   height: 30px;
 }
 .custom-shape-divider-bottom-2 .shape-fill {
