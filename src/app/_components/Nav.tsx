@@ -28,7 +28,8 @@ export default async function App() {
 
   return (
     <Navbar 
-    maxWidth="xl" className="" position="sticky" >
+    maxWidth="xl" className="z-[202]" position="sticky" >
+
       <NavbarContent>
         <NavbarMenuToggle
 

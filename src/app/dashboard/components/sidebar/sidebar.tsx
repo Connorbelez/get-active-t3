@@ -80,7 +80,7 @@ export const SidebarWrapper = () => {
   return (
     <div>
 
-    <div className={collapsed? "w-8" : "w-64"}> </div>
+    <div className={collapsed? "w-10" : "w-64"}> </div>
     <div className={`h-full z-[201] SIDEBAR ASIDE fixed top-16 min-w-5 `}>
       {collapsed ? 
       
@@ -145,13 +145,13 @@ export const SidebarWrapper = () => {
                 // isActive={usePathname() === "/dashboard/newevent"}
                 title="My Events"
                 icon={<CalendarSearch size={24} stroke="#969696"/>}
-                href="/dashboard/"
+                href="/dashboard/manageevents"
               />
               <SidebarItem
                 // isActive={usePathname() === "/payments"}
                 title="Users"
                 icon={<CustomersIcon />}
-                href="/dashboard/users"
+                href="/dashboard/"
               />
               <CollapseItems
                 icon={<BalanceIcon />}

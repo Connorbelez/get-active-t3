@@ -7,10 +7,18 @@ import { getServerAuthSession } from "@/server/auth";
 // import {signIn, signOut, useSession} from 'next-auth/react'
 // import { redirect } from 'next/navigation'
 // import { getSession } from "next-auth/react";
+import { Redirect } from "next";
+import { redirect, RedirectType } from "next/navigation";
 
 export default async function Home() {
   // const hello = await api.post.hello.query({ text: "from tRPC" });
-  // const session = await getServerAuthSession();
+  const session = await getServerAuthSession();
+  if (!session) {
+    redirect("/events", RedirectType.replace)
+    //route to events
+
+
+  }
   // console.log("session From Page")
   // console.table(session)
   // const session = {

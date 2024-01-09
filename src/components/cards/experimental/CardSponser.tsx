@@ -157,7 +157,7 @@ export default function Comp({event}:compProps) {
                                 </div>
                                 <h1 className={`-mb-2 dark:${title({size:"xsm",color:"pink"})}`}>{formattedDate.month}</h1>
                                 <h1 className="prose prose-2xl font-bold  dark:text-zinc-400">{formattedDate.day}</h1>
-                                <h4 className={"prose dark:prose-invert text-sm dark:text-zinc-400/60"}>{formattedStartTime}</h4>
+                                <h4 className={"prose dark:prose-invert text-sm dark:text-zinc-400/60"}>{event.startTime}</h4>
                             </div>
                             <Divider orientation="vertical" className=" bg-red h-5/6 slef w-[1px]  bg-zinc-700"/>
 

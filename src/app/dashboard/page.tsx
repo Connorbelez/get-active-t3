@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 const AllEventsCarosel = dynamic(()=>import("@/app/events/components/AllEventsCarosel"));
 const EventHero = dynamic(() => import("@/app/events/components/EventsHero"));
 import { CalendarSearch, CopyPlus, PanelLeftClose, PanelLeftOpen } from "lucide-react";
-import {Card, CardBody, CardHeader,CardFooter} from "@nextui-org/react"
+import {Card, CardBody, CardHeader,CardFooter, Link} from "@nextui-org/react"
 
 export interface EventTableData {
   id: number;
@@ -43,9 +43,11 @@ const app = async () => {
     
 
   return(
-    <div className="w-full ml-10 flex flex-col items-center">
+    <div className="w-full flex flex-col p-16 space-y-16 items-center">
 
-      <Card className="prose prose-xl dark:prose-invert">
+      <Card 
+
+      className="prose prose-xl dark:prose-invert">
         <CardHeader>
 
          <h1 className="font-bold text-primary">Dashboard landing page under construction.</h1> 
@@ -57,19 +59,32 @@ const app = async () => {
         </CardBody>
       </Card>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 w-full p-16 gap-10 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 prose prose-xl dark:prose-invert w-full  gap-10 ">
         <Card
-        className="w-full m-8 flex justify-center items-center">
-          <EditDocumentIcon size={52} />
+                as={Link}
+                href={"/dashboard/newevent"}
 
+        className="w-full">
+          <CardBody>
+
+            <EditDocumentIcon size={52} />
+          </CardBody>
+          <CardFooter className="flex justify-center">
+            <h2>Create New Event</h2>
+          </CardFooter>
         </Card>
 
         <Card 
-        className="w-full m-8 flex justify-center items-center">
-          <CardHeader>
-            <h1>Manage Existing Events</h1>
-          </CardHeader> 
-        <CalendarSearch size={48} />
+          as={Link}
+          href={"/dashboard/manageevents"}
+        className="w-full ">
+          <CardBody>
+
+            <CalendarSearch size={48} />
+          </CardBody>
+          <CardFooter className="flex justify-center">
+            <h2>Manage Existing Events</h2>
+          </CardFooter>
 
         </Card>
 
