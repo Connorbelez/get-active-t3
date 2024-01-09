@@ -11,10 +11,10 @@ export const EditDocumentIcon = ({size,props} : EditDocumentIconProps ) => (
     aria-hidden="true"
     fill="none"
     focusable="false"
-    height={25}
+    height={size | 25}
     role="presentation"
     viewBox="0 0 24 24"
-    width={25}
+    width={size | 25}
     {...props}
   >
     <path

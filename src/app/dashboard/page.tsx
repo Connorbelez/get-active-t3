@@ -2,10 +2,15 @@ import EventTable from "@/app/dashboard/components/EventTable/EventTable"
 import {api} from "@/trpc/server"
 import {Event as EventType} from "@prisma/client"
 import { title } from "@/components/Primatives/Typography";
+import { EditDocumentIcon } from "@/components/icons/Edit";
+
 // import AllEventsCarosel from "@/app/events/components/AllEventsCarosel"
 import dynamic from "next/dynamic";
 const AllEventsCarosel = dynamic(()=>import("@/app/events/components/AllEventsCarosel"));
 const EventHero = dynamic(() => import("@/app/events/components/EventsHero"));
+import { CalendarSearch, CopyPlus, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import {Card, CardBody, CardHeader,CardFooter} from "@nextui-org/react"
+
 export interface EventTableData {
   id: number;
   eventId: string;
@@ -38,26 +43,39 @@ const app = async () => {
     
 
   return(
-  <div className="h-full w-full flex flex-col my-8 items-center">
-      {/* <h1 className={`text-primary ${title()}`}>Existing Events</h1>
-      <Form /> */}
-    <h1 className={`text-primary my-8 ${title()}`}>Existing Events</h1>
-    <div className="TableContainer flex w-full justify-center">
-      <EventTable events={eventInfo} />
-      
+    <div className="w-full ml-10 flex flex-col items-center">
+
+      <Card className="prose prose-xl dark:prose-invert">
+        <CardHeader>
+
+         <h1 className="font-bold text-primary">Dashboard landing page under construction.</h1> 
+        </CardHeader>
+        <CardBody>
+          <h2>
+            Event Creation, Existing Event Management/editing functional and can be accessed
+          </h2>
+        </CardBody>
+      </Card>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 w-full p-16 gap-10 ">
+        <Card
+        className="w-full m-8 flex justify-center items-center">
+          <EditDocumentIcon size={52} />
+
+        </Card>
+
+        <Card 
+        className="w-full m-8 flex justify-center items-center">
+          <CardHeader>
+            <h1>Manage Existing Events</h1>
+          </CardHeader> 
+        <CalendarSearch size={48} />
+
+        </Card>
+
+
+      </div>
     </div>
-        <h1 className={`text-primary mt-20 ${title()}`}>Landing Page Preview</h1>
-        <section className="flex flex-col justify-center px-2 sm:px-6 py-5">
-          <EventHero  />
-        </section>
-        <div className="EVENTCARDPREVIEW w-full h-full ">
-          <AllEventsCarosel />
-        </div>
-
-
-
-
-  </div>
   )
 };
 

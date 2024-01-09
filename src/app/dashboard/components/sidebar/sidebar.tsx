@@ -78,7 +78,10 @@ export const SidebarWrapper = () => {
 
 
   return (
-    <div className={`h-full ${collapsed ? "" : "z-[201]"} SIDEBAR ASIDE fixed top-16 min-w-5 `}>
+    <div>
+
+    <div className={collapsed? "w-8" : "w-64"}> </div>
+    <div className={`h-full z-[201] SIDEBAR ASIDE fixed top-16 min-w-5 `}>
       {collapsed ? 
       
         <Button
@@ -87,7 +90,7 @@ export const SidebarWrapper = () => {
         radius="none"
         color="primary"
         onPress={() => setCollapsed(!collapsed)}
-          className="width-[10px] h-full fixed min-w-unit-10 border-y-0"
+        className="width-[10px] h-full fixed min-w-unit-10 border-y-0"
         >
           <PanelLeftOpen />
         </Button> : null}
@@ -121,7 +124,7 @@ export const SidebarWrapper = () => {
             {collapsed ? <ViewIcon /> : <DevIcon />}
           </Button> */}
         
-        <div className="flex flex-col z-40 justify-between h-full">
+        <div className="flex flex-col z-[201] justify-between h-full">
           <div className={Sidebar.Body()}>
   
 
@@ -202,6 +205,7 @@ export const SidebarWrapper = () => {
         </div>
         
       </div>
+    </div>
     </div>
   );
 };
