@@ -21,7 +21,7 @@ export default function Return() {
         ////console.log('res from fetch')
         //console.log(res)
         // console.table(res)
-        res.json()
+        void res.json()
         .then((data) => {
           setStatus(data.status);
           setCustomerEmail(data.customer_email);

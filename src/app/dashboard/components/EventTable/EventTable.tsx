@@ -53,7 +53,7 @@ export default function App({ events: initialEvents }) {
 
     const handleSetFeatured = async (event) => {
         try {
-            setFeatured.mutateAsync({eventId: event.eventId});
+            void setFeatured.mutateAsync({eventId: event.eventId});
         } catch (error) {
             console.error('Error setting featured event', error);
             // Handle error case
@@ -109,7 +109,7 @@ export default function App({ events: initialEvents }) {
                         <Tooltip content="Set as Featured">
                             <span onClick={()=>{
                                 
-                                handleSetFeatured(event);
+                                void handleSetFeatured(event);
                             }} className="text-lg text-default-400 cursor-pointer active:opacity-50">
                                 <EyeIcon />
                             </span>

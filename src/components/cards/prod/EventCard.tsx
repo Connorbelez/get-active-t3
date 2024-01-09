@@ -1,7 +1,7 @@
 // import { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from "@/components/cards/ShadCard"
 import Image from "next/image"
 import { title, subtitle } from "@/components/Primatives/Typography"
-import {Divider,Chip, Card,CardBody,CardFooter,CardHeader,CardSlots,Input,Button,Popover, PopoverTrigger,PopoverContent} from "@nextui-org/react"
+import {Divider,Chip,Snippet, Card,CardBody,CardFooter,CardHeader,CardSlots,Input,Button,Popover, PopoverTrigger,PopoverContent} from "@nextui-org/react"
 import {LightningBoltIcon,SewingPinIcon, Crosshair1Icon} from '@radix-ui/react-icons'
 import TicketIcon from "@/components/icons/TicketIcon"
 import HeartIcon from "@/components/icons/HeartIcond"
@@ -58,14 +58,23 @@ export default function Comp({event,carosel}:compProps) {
     const content = (
         <PopoverContent className="w-[240px]">
 
-            <div className="px-1 py-2 w-full">
-              <div className="mt-2 flex flex-col gap-2 w-full">
-                <Input defaultValue="100%" label="Width" size="sm" variant="bordered" />
-                <Input defaultValue="300px" label="Max. width" size="sm" variant="bordered" />
-                <Input defaultValue="24px" label="Height" size="sm" variant="bordered" />
-                <Input defaultValue="30px" label="Max. height" size="sm" variant="bordered" />
-              </div>
-            </div>
+            <Snippet 
+            symbol="📋"
+            // codeString={
+            //     {pathname:"events/event",query: {
+            //         id: event.id.toString(), title:event.title, headline:event.headline, 
+            //         category:event.category, heroImage:event.heroImage, location:event.location,
+            //         startDate:event.startDate, startTime:event.startTime, length:event.length,
+            //         ticketStartingPrice:event.ticketStartingPrice, address:event.address,
+            //         ageRestriction:event.adultOnly, drinksIncluded:event.drinksIncluded,
+            //         foodIncluded:event.foodIncluded, description:event.eventDescription,
+            //         Org: event.orgId, creator: event.createdByEmail, creatorId: event.createdById,
+            //         lat:event.lat, lng:event.lng, latlng:event.latlng
+            //     }}.query.toString()
+            // } 
+            >
+                Copy Sharable Link
+            </Snippet>
 
         </PopoverContent>
       )

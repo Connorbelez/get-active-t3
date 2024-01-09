@@ -21,7 +21,7 @@ import {api} from "@/trpc/server"
 
 
 export default async function App() {
-  let featuredEvent = await api.event.getFeaturedEvent.query();
+  const featuredEvent = await api.event.getFeaturedEvent.query();
   
 
   return (

@@ -8,6 +8,7 @@ import HeartIcon from "@/components/icons/HeartIcond"
 import CharityIcon from "@/components/icons/CharityIcon"
 import Link from "next/link"
 import {Event} from "@prisma/client"
+import { Snippet } from "@nextui-org/react"
 interface compProps {
     event:Event;
 }
@@ -52,14 +53,23 @@ export default function Comp({event}:compProps) {
     const content = (
         <PopoverContent className="w-[240px]">
 
-            <div className="px-1 py-2 w-full">
-              <div className="mt-2 flex flex-col gap-2 w-full">
-                <Input defaultValue="100%" label="Width" size="sm" variant="bordered" />
-                <Input defaultValue="300px" label="Max. width" size="sm" variant="bordered" />
-                <Input defaultValue="24px" label="Height" size="sm" variant="bordered" />
-                <Input defaultValue="30px" label="Max. height" size="sm" variant="bordered" />
-              </div>
-            </div>
+            <Snippet 
+            symbol="📋"
+            // codeString={
+            //     {pathname:"events/event",query: {
+            //         id: event.id.toString(), title:event.title, headline:event.headline, 
+            //         category:event.category, heroImage:event.heroImage, location:event.location,
+            //         startDate:event.startDate, startTime:event.startTime, length:event.length,
+            //         ticketStartingPrice:event.ticketStartingPrice, address:event.address,
+            //         ageRestriction:event.adultOnly, drinksIncluded:event.drinksIncluded,
+            //         foodIncluded:event.foodIncluded, description:event.eventDescription,
+            //         Org: event.orgId, creator: event.createdByEmail, creatorId: event.createdById,
+            //         lat:event.lat, lng:event.lng, latlng:event.latlng
+            //     }}.query.toString()
+            //}
+             >
+                Copy Sharable Link
+            </Snippet>
 
         </PopoverContent>
       )
