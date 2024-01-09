@@ -113,7 +113,7 @@ export default function comp({
             }}
             className="flex w-full flex-col justify-center space-y-4 p-8"
             >
-            <ModalHeader className="flex flex-col gap-1">Log in</ModalHeader>
+            <ModalHeader className="flex flex-col gap-1">Ticket Creation</ModalHeader>
             <ModalBody>
 
                   <FormField
