@@ -8,6 +8,13 @@ import DiscordProvider from "next-auth/providers/discord";
 const scopes = ['identify'].join(' ')
 import { env } from "@/env";
 import { db } from "@/server/db";
+// import { AdapterUser } from "next-auth/adapters";
+
+export interface role {
+  ADMIN: 'admin',
+  CREATOR: 'creator',
+  USER: 'user'
+};
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -21,12 +28,25 @@ declare module "next-auth" {
       id: string;
       // ...other properties
       // role: UserRole;
+      // role: role;
+      // userRole: string
     } & DefaultSession["user"];
   }
 
   // interface User {
   //   // ...other properties
-  //   // role: UserRole;
+  //   // role: "admin" | "creator" | "user";
+  //   // id: string
+  //   // email: string
+  //   // emailVerified: Date | null
+  //   userRole: string
+  // }
+  // interface User {
+  //   id: string
+  //   name?: string | null
+  //   email?: string | null
+  //   image?: string | null
+  //   role: "ADMIN" | "CREATOR" | "USER"
   // }
 }
 
@@ -64,11 +84,16 @@ export const authOptions: NextAuthOptions = {
     //   return token
     // },
     session: ({ session, user }) => {
+      console.log("SESSION: ", session)
+      console.log("USER: ", user)
       return {
         ...session,
         user: {
           ...session.user,
           id: user.id,
+          // role: user.userRole,
+          // userRole: user.userRole,
+          // role: user.role,
           // accessToken: token.accessToken,
         },
       }

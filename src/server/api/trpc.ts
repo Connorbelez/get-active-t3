@@ -89,6 +89,10 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
     console.log("\n\nUNAUTHORIZED\n\n")
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
+  // console.log("CTX: ", ctx)
+  // console.log("SESSION: ", ctx.session)
+  // console.log("USER: ",ctx.session.user)
+  // ctx.session?.user.userRole = 
   return next({
     ctx: {
       // infers the `session` as non-nullable
