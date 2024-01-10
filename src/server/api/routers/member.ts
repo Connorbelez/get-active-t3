@@ -8,6 +8,25 @@ import {
 
 export const memberRouter = createTRPCRouter({
 
+    bactchChangeUserRole: protectedProcedure
+    .input(z.object({
+        userIds: z.array(z.string()),
+        role: z.enum(["USER","CREATOR","ADMIN"])
+    }))
+    .mutation(async ({ ctx, input }) => {
+        const users = await ctx.db.user.updateMany({
+            where: {
+                id: {
+                    in: input.userIds
+                }
+            },
+            data: {
+                role: input.role
+            }
+        })
+        return users
+    }),
+
     getAll: protectedProcedure
     .query(async ({ ctx }) => {
         const users = await ctx.db.user.findMany()

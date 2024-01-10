@@ -8,13 +8,19 @@ import DiscordProvider from "next-auth/providers/discord";
 const scopes = ['identify'].join(' ')
 import { env } from "@/env";
 import { db } from "@/server/db";
+import { User } from "lucide-react";
 // import { AdapterUser } from "next-auth/adapters";
 
-export interface role {
-  ADMIN: 'admin',
-  CREATOR: 'creator',
-  USER: 'user'
+export const roleType = {
+  ADMIN: "ADMIN",
+  CREATOR: "CREATOR",
+  USER: "USER",
 };
+export enum UserRole {
+  ADMIN = "ADMIN",
+  CREATOR = "CREATOR",
+  USER = "USER",
+}
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -26,8 +32,9 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      // role: string;
       // ...other properties
-      // role: UserRole;
+      role: UserRole;
       // role: role;
       // userRole: string
     } & DefaultSession["user"];
@@ -84,18 +91,27 @@ export const authOptions: NextAuthOptions = {
     //   return token
     // },
     session: ({ session, user }) => {
-      console.log("SESSION: ", session)
-      console.log("USER: ", user)
+
+
+      if(user['role']){
+        session.user.role = user['role']
+      }
+      else{
+        session.user.role = UserRole.USER
+     }
+
+     console.log("SESSION: ", session)
+     console.log("user: ", user)
+
+
       return {
         ...session,
         user: {
           ...session.user,
           id: user.id,
-          // role: user.userRole,
-          // userRole: user.userRole,
-          // role: user.role,
-          // accessToken: token.accessToken,
+
         },
+        // role: r
       }
     },
   },

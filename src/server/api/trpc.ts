@@ -11,8 +11,9 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
-import { getServerAuthSession } from "@/server/auth";
+import { getServerAuthSession, UserRole } from "@/server/auth";
 import { db } from "@/server/db";
+import { User } from "lucide-react";
 
 /**
  * 1. CONTEXT
@@ -90,8 +91,36 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
   // console.log("CTX: ", ctx)
-  // console.log("SESSION: ", ctx.session)
-  // console.log("USER: ",ctx.session.user)
+  console.log(" ============ AUTHED =============")
+  console.log("SESSION: ", ctx.session)
+  console.log("USER: ",ctx.session.user)
+  console.log("SESSION2: ", ctx.session)
+  console.log("USER2: ", UserRole.CREATOR, UserRole.ADMIN, UserRole.USER)
+  ctx.session.user.role = ctx.session.user.role || UserRole.USER ;
+
+  return next({
+    ctx: {
+      // infers the `session` as non-nullable
+      session: { ...ctx.session, user: ctx.session?.user },
+    },
+  });
+});
+
+
+const enforceUserIsAdmin = t.middleware(({ ctx, next }) => {
+  // console.log("\n\nENFORCE USER IS AUTHED\n\n")
+  if (!ctx.session || !ctx.session.user) {
+    console.log("\n\FORBIDDEN\n\n")
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+
+  // console.log("CTX: ", ctx)
+  console.log(" ============ AUTHED =============")
+
+  if(ctx.session.user.role !== UserRole.ADMIN ){
+    console.error("\n\ FORBIDDEN\n\n")
+    throw new TRPCError({ code: "FORBIDDEN" });
+  }
   // ctx.session?.user.userRole = 
   return next({
     ctx: {

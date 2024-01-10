@@ -16,16 +16,26 @@ import {
   Chip,
   User,
   Pagination,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Listbox,
+  ListboxItem,
+
 } from "@nextui-org/react";
+import { DeleteDocumentIcon } from "./DeleteDocument";
+
 import {api} from "@/trpc/react"
 import ActionButton from "./ActionButton";
 import {PlusIcon} from "./PlusIcon";
 import {VerticalDotsIcon} from "./VerticalDotsIcon";
 import {SearchIcon} from "./SearchIcon";
 import {ChevronDownIcon} from "./ChevronDownIcon";
-import {columns, users, statusOptions} from "./data";
+import {columns, statusOptions} from "./data";
 import {capitalize} from "./utils";
 import { User as UserType } from "@prisma/client";
+import { EditDocumentIcon } from "./EditDocument";
+import { Delete, FileEdit, UserCircle } from "lucide-react";
 
 const statusColorMap = {
   active: "success",
@@ -33,7 +43,13 @@ const statusColorMap = {
   vacation: "warning",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
+const roleChipColorMap = {
+  ADMIN: "danger",
+  USER: "default",
+  CREATOR: "warning",
+}
+
+const INITIAL_VISIBLE_COLUMNS = ["name", "role", "actions"];
 
 interface UserTableProps {
   users: UserType[];
@@ -45,7 +61,7 @@ export default function App({users}: UserTableProps) {
   const [visibleColumns, setVisibleColumns] = React.useState(new Set(INITIAL_VISIBLE_COLUMNS));
   const [statusFilter, setStatusFilter] = React.useState("all");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [selectedUsers, setSelectedUsers] = React.useState();
+  const [selectedUsers, setSelectedUsers] = React.useState<string[]>();
   const editUser = api.member.updateUserById.useMutation({
     onSuccess: (data) => {
       console.log('user updated')
@@ -53,11 +69,31 @@ export default function App({users}: UserTableProps) {
     }
   
   })
+
+  const handleSetRole = (user,role) => {
+    console.log("user",user)
+    const currentRole = user.role
+    editUser.mutate({id:user.id,data:{role:role}})
+
+  }
+
+
   const setAdmin = () =>{
     editUser.mutate({id:"clqija96o0000er50fh21p2hk",data:{role:"ADMIN"}})
   } 
 
-  const userList = []  
+  useEffect(() => {
+    console.log('selectedKeys', selectedKeys)
+
+    setSelectedUsers([...selectedKeys])
+    
+  }, [selectedKeys])
+
+
+  useEffect(() => {
+    console.log('selectedUsers', selectedUsers)
+  },[selectedUsers])  
+
 // useEffect(() => {
 //   console.log('selectedUser')
 
@@ -71,7 +107,7 @@ export default function App({users}: UserTableProps) {
 // },[selectedKeys])
 
   const [sortDescriptor, setSortDescriptor] = React.useState({
-    column: "age",
+    column: "name",
     direction: "ascending",
   });
   const [page, setPage] = React.useState(1);
@@ -89,13 +125,15 @@ export default function App({users}: UserTableProps) {
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase()),
+        { user.name && user.email ? (user.name.toLowerCase().includes(filterValue.toLowerCase()) || user.email.toLowerCase().includes(filterValue.toLowerCase())) : null},
       );
     }
     if (statusFilter !== "all" && Array.from(statusFilter).length !== statusOptions.length) {
-      filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status),
-      );
+      // filteredUsers = filteredUsers.filter((user) =>
+      //   Array.from(statusFilter).includes(user.status),
+      // );
+      //ToDo: find a different filter
+      console.log("FAKE FILTER!")
     }
 
     return filteredUsers;
@@ -130,7 +168,7 @@ export default function App({users}: UserTableProps) {
       case "name":
         return (
           <User
-            avatarProps={{radius: "lg", src: user.avatar}}
+            avatarProps={{radius: "lg", src: user.image}}
             description={user.email}
             name={cellValue}
           >
@@ -139,10 +177,13 @@ export default function App({users}: UserTableProps) {
         );
       case "role":
         return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{cellValue}</p>
-            <p className="text-bold text-tiny capitalize text-default-400">{user.team}</p>
-          </div>
+          // <div className="flex flex-col">
+          //   <p className="text-bold text-small capitalize">{cellValue}</p>
+          //   <p className="text-bold text-tiny capitalize text-default-400">{user.team}</p>
+          // </div>
+          <Chip className="capitalize" color={roleChipColorMap[user.role]} size="sm" variant="faded">
+            {cellValue}
+          </Chip>
         );
       case "status":
         return (
@@ -153,17 +194,81 @@ export default function App({users}: UserTableProps) {
       case "actions":
         return (
           <div className="relative flex justify-end items-center gap-2">
-            <Dropdown>
+            <Dropdown
+              
+            >
               <DropdownTrigger>
                 <Button isIconOnly size="sm" variant="light">
                   <VerticalDotsIcon className={"text-default-300"} />
                 </Button>
               </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem>Set Role</DropdownItem>
-                <DropdownItem>View</DropdownItem>
-                <DropdownItem>Edit</DropdownItem>
-                <DropdownItem>Delete</DropdownItem>
+              <DropdownMenu
+              variant="faded"
+                closeOnSelect={false}
+              >
+                <DropdownItem
+                startContent={<EditDocumentIcon size={24} />}
+                  onPress={() => {
+                    console.log("edit user")
+                  }}
+                >Edit user
+                </DropdownItem>
+                {/* <DropdownItem
+                
+                >View</DropdownItem> */}
+                <DropdownItem
+                startContent={<UserCircle size={24} />}
+                > 
+                  <Popover
+                    placement="top-start"
+                  >
+                    <PopoverTrigger
+                      
+                    >
+                      User Role
+                    </PopoverTrigger>
+                    <PopoverContent
+          
+                      style={{ width: "max-content" }}
+                    >
+                      <Listbox 
+
+                          variant="faded"
+                       
+                        >
+                        <ListboxItem
+                        onPress={() => {
+                          handleSetRole(user, "ADMIN")
+                        }}
+                        key={"admin"}>
+                          Admin
+                        </ListboxItem>
+                        <ListboxItem 
+                                        onPress={() => {
+                                          handleSetRole(user, "USER")
+                                        }}
+                        key="user">
+                          User
+                        </ListboxItem>
+                        <ListboxItem 
+                                        onPress={() => {
+                                          handleSetRole(user, "CREATOR")
+                                        }}
+                        key="creator">
+                          Creator
+                        </ListboxItem>
+
+                      </Listbox>
+                    </PopoverContent>
+                  </Popover>
+                </DropdownItem>
+                
+                <DropdownItem
+                  startContent={<DeleteDocumentIcon size={24} />}
+                  onPress={() => {
+                    // handleDelete(user)
+                  }}
+                >Delete</DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </div>
@@ -230,7 +335,7 @@ export default function App({users}: UserTableProps) {
                 closeOnSelect={false}
                 selectedKeys={statusFilter}
                 selectionMode="multiple"
-                onSelectionChange={setStatusFilter}
+                // onSelectionChange={setStatusFilter}
               >
                 {statusOptions.map((status) => (
                   <DropdownItem key={status.uid} className="capitalize">
@@ -251,6 +356,7 @@ export default function App({users}: UserTableProps) {
                 closeOnSelect={false}
                 selectedKeys={visibleColumns}
                 selectionMode="multiple"
+                //@ts-ignore
                 onSelectionChange={setVisibleColumns}
               >
                 {columns.map((column) => (
@@ -264,7 +370,8 @@ export default function App({users}: UserTableProps) {
               Add New
             </Button> */}
             <Button onPress={setAdmin}></Button>
-            <ActionButton selectedUsers={selectedKeys}/>
+            
+            <ActionButton selectedUsers={selectedUsers as string[]}/>
           </div>
         </div>
         <div className="flex justify-between items-center">
@@ -297,7 +404,7 @@ export default function App({users}: UserTableProps) {
     return (
       <div className="py-2 px-2 flex justify-between items-center">
         <span className="w-[30%] text-small text-default-400">
-          {selectedKeys === "all"
+          {selectedKeys.has("all")
             ? "All items selected"
             : `${selectedKeys.size} of ${filteredItems.length} selected`}
         </span>
@@ -333,10 +440,13 @@ export default function App({users}: UserTableProps) {
       }}
       selectedKeys={selectedKeys}
       selectionMode="multiple"
+      //@ts-ignore
       sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement="outside"
+      //@ts-ignore
       onSelectionChange={setSelectedKeys}
+      //@ts-ignore
       onSortChange={setSortDescriptor}
     >
       <TableHeader columns={headerColumns}>

@@ -81,7 +81,7 @@ export const SidebarWrapper = () => {
     <div>
 
     <div className={collapsed? "w-10" : "w-64"}> </div>
-    <div className={`h-full z-[201] SIDEBAR ASIDE fixed top-16 min-w-5 `}>
+    <div className={`h-full  SIDEBAR ASIDE fixed top-16 min-w-5 ${collapsed? "z-0" : "z-[201]"} `}>
       {collapsed ? 
       
         <Button
@@ -151,7 +151,7 @@ export const SidebarWrapper = () => {
                 // isActive={usePathname() === "/payments"}
                 title="Users"
                 icon={<CustomersIcon />}
-                href="/dashboard/"
+                href="/dashboard/userm"
               />
               <CollapseItems
                 icon={<BalanceIcon />}
