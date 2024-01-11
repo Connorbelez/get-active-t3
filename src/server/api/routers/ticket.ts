@@ -210,7 +210,7 @@ export const ticketRouter = createTRPCRouter({
       console.log("TRPC CHECKOUT DATA: ",checkoutData)
 
       let sessionObj:JSON | undefined;
-      let userObj = {
+      const userObj = {
         email: "",
         id: "",
         name: "",

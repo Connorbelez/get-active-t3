@@ -98,15 +98,22 @@ const handleCC = () => {
   
   return (
     <Accordion
-      isCompact
+      
       variant={"splitted"}
       showDivider
       fullWidth
       selectedKeys={selectedKeys}
       //@ts-ignore
       onSelectionChange={setSelectedKeys}
+
+      itemClasses={
+        {
+          base:" border-1  border-primary/50 shadow-lg shadow-primary ",
+
+        }
+      }
       className={
-        " hidden h-[100px] w-full flex-col gap-1 border-none sm:flex "
+        " hidden flex-col gap-1 border-none sm:flex shadow-md rounded-xl p-0 shadow-primary/50 max-h-[82px]"
         
       }
     >

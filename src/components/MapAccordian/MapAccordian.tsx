@@ -32,14 +32,19 @@ export default function App({ title, center,lat,lng,address}: MapAccordianProps)
     // console.log("latLng: FROM ACCORDIAN",latLng);
   return (
     <Accordion
-    isCompact
+    itemClasses={
+      {
+        base:" border-1 border-primary/50 shadow shadow-primary/40 ",
+      }
+    }
     variant={"splitted"}
     showDivider
     fullWidth
     selectedKeys={selectedKeys}
     //@ts-ignore
     onSelectionChange={setSelectedKeys}
-    className="flex flex-col gap-1"
+    className="flex flex-col gap-1 shadow-md rounded-xl p-0 shadow-primary/50 "
+    
     defaultExpandedKeys={["theme"]} >
       <AccordionItem
         key={"1"}

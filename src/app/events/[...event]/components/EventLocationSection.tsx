@@ -55,7 +55,9 @@ export default function comp({heading,address,city,province,postalCode,lat,lng,l
             </div>
         </div>
         <div className="mt-2 w-full ">
-            <MapAccordian title="VIEW MAP" province={province} address={address} city={city} center={city as string} lat={lat} lng={lng} postalCode={postalCode} />
+
+                <MapAccordian title="VIEW MAP" province={province} address={address} city={city} center={city as string} lat={lat} lng={lng} postalCode={postalCode} />
+            
             {/* <Map wrapperClassName="h-[300px] w[300px]"/> */}
             <OpenInMapButton wrapperClassName="flex justify-center items-center px-4 my-4" className="w-full " variant="faded" address={address as string} lat={lng} lng={lat}/>
 
