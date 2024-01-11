@@ -113,7 +113,7 @@ const handleCC = () => {
         }
       }
       className={
-        " hidden flex-col gap-1 border-none sm:flex shadow-md rounded-xl p-0 shadow-primary/50 max-h-[82px]"
+        " hidden flex-col gap-1 border-none sm:flex shadow-md rounded-xl p-0 shadow-primary/50 max-h"
         
       }
     >

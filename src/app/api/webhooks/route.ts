@@ -56,7 +56,7 @@ webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
     try {
         if (!sig || !webhookSecret) return;
-        event = stripe.webhooks.constructEvent(body, sig, "whsec_f9091769aa4af3b55279b6940bbf0bd4631a32f5ba6e3e4695c87a1534d2a332");
+        event = stripe.webhooks.constructEvent(body, sig, webhookSecret);
     } catch (err: any) {
         console.log(`❌ Error message: ${err.message}`);
         return new Response(`Webhook Error: ${err.message}`, { status: 400 });
