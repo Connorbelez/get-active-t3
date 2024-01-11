@@ -27,7 +27,7 @@ export default function Return() {
           setCustomerEmail(data.customer_email);
           setDoneLoading(true);
           setRecieptUrl(data.receiptUrl);
-          console.log("DATA: ", data);
+          // console.log("DATA: ", data);
           return data
         })
         // .then((data) => {

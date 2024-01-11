@@ -90,7 +90,7 @@ if (!session || !session.user) {
           },
       });
         ////console.log("TICKET DATA FROM PRISMA, ROUTE.JS :", ticketData)
-        console.log(ticketData)
+        // console.log(ticketData)
 
         
         ////console.log("\n\n\n\n ===============NAME: ", name,"\n\n\n\n")
@@ -130,7 +130,7 @@ if (!session || !session.user) {
           },
           return_url: retUrl,
         });
-        console.log("SESSION: FROM CREATE SESSION: ", session)
+        // console.log("SESSION: FROM CREATE SESSION: ", session)
         return NextResponse.json({clientSecret: session.client_secret})
 
       } catch (err) {
@@ -139,8 +139,8 @@ if (!session || !session.user) {
         return NextResponse.json({ message: "Error: " + err.message, status: err.statusCode || 500 });
       }
     case "GET":
-      console.log("GETTING CHECKOUT SESSION")
-      console.table(req)
+      // console.log("GETTING CHECKOUT SESSION")
+      // console.table(req)
 
       try {
 

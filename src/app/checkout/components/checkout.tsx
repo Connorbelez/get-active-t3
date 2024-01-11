@@ -32,9 +32,9 @@ export default function App() {
         body: JSON.stringify({ticketId: ticketId}),
     })
       .then((res) => {
-        console.log('res from fetch')
-        console.log(res)
-        console.table(res)
+        // console.log('res from fetch')
+        // console.log(res)
+        // console.table(res)
         return res
       })
       .then((data) => {
@@ -49,8 +49,8 @@ export default function App() {
   }, [ticketId]);
 
   useEffect(() => {
-    console.log('tempClientSecret')
-    console.log(tempClientSecret)
+    // console.log('tempClientSecret')
+    // console.log(tempClientSecret)
     if(tempClientSecret) setClientSecret(tempClientSecret)
   }, [tempClientSecret]);
 

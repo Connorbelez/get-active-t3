@@ -1,13 +1,13 @@
 import React from "react";
-export const ChevronDownIcon = ({strokeWidth = 1.5, className, width, height, ...props}: {strokeWidth?:number,size?:number, className:string,props?:any, width?:number,height?:number}) => (
+export const ChevronDownIcon = ({strokeWidth = 1.5, className, size, ...props}: {strokeWidth?:number,size?:number, className?:string,props?:any}) => (
   <svg
     aria-hidden="true"
     fill="none"
     focusable="false"
-    height="1em"
+    height={size || "1em"}
     role="presentation"
     viewBox="0 0 24 24"
-    width="1em"
+    width={size || "1em"}
     {...props}
   >
     <path

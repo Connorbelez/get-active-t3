@@ -21,10 +21,12 @@ import {
   PopoverTrigger,
   Listbox,
   ListboxItem,
+  DropdownSection,
+  cn,
 
 } from "@nextui-org/react";
 import { DeleteDocumentIcon } from "./DeleteDocument";
-
+import { ChevronDown, UserPlus } from "lucide-react";
 import {api} from "@/trpc/react"
 import ActionButton from "./ActionButton";
 import {PlusIcon} from "./PlusIcon";
@@ -55,6 +57,12 @@ interface UserTableProps {
   users: UserType[];
 }
 
+const iconClasses =
+"text-xl text-default-500 pointer-events-none flex-shrink-0";
+
+
+
+
 export default function App({users}: UserTableProps) {
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set<string>([]));
@@ -82,34 +90,15 @@ export default function App({users}: UserTableProps) {
     editUser.mutate({id:"clqija96o0000er50fh21p2hk",data:{role:"ADMIN"}})
   } 
 
-  useEffect(() => {
-    console.log('selectedKeys', selectedKeys)
-
-    setSelectedUsers([...selectedKeys])
-    
-  }, [selectedKeys])
 
 
-  useEffect(() => {
-    console.log('selectedUsers', selectedUsers)
-  },[selectedUsers])  
 
-// useEffect(() => {
-//   console.log('selectedUser')
-
-//   if(!selectedUsers){
-//     const selectedKeyList = Array.from(selectedKeys)  
-//     for
-
-//     })
-//     setSelectedUsers()
-//   }
-// },[selectedKeys])
 
   const [sortDescriptor, setSortDescriptor] = React.useState({
     column: "name",
     direction: "ascending",
   });
+
   const [page, setPage] = React.useState(1);
 
   const hasSearchFilter = Boolean(filterValue);
@@ -125,7 +114,8 @@ export default function App({users}: UserTableProps) {
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        { user.name && user.email ? (user.name.toLowerCase().includes(filterValue.toLowerCase()) || user.email.toLowerCase().includes(filterValue.toLowerCase())) : null},
+      //@ts-ignore
+        user.name.toLowerCase().includes(filterValue.toLowerCase()) || user.email.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
     if (statusFilter !== "all" && Array.from(statusFilter).length !== statusOptions.length) {
@@ -171,6 +161,7 @@ export default function App({users}: UserTableProps) {
             avatarProps={{radius: "lg", src: user.image}}
             description={user.email}
             name={cellValue}
+            key={user.is}
           >
             {user.email}
           </User>
@@ -308,14 +299,22 @@ export default function App({users}: UserTableProps) {
     setFilterValue("")
     setPage(1)
   },[])
-
+  const [isButtonOpen, setIsButtonOpen] = React.useState(false);
   const topContent = React.useMemo(() => {
     return (
-      <div className="flex flex-col gap-4">
+      <div className="flex w-full flex-col gap-4">
         <div className="flex justify-between gap-3 items-end">
           <Input
             isClearable
-            className="w-full sm:max-w-[44%]"
+            classNames={
+              {
+                mainWrapper:"py-0 h-[40px]",
+                inputWrapper:"py-0 h-[40px]",
+              }
+            }
+
+            variant="bordered"
+            className="w-full  sm:max-w-[44%]"
             placeholder="Search by name..."
             startContent={<SearchIcon />}
             value={filterValue}
@@ -324,8 +323,8 @@ export default function App({users}: UserTableProps) {
           />
           <div className="flex gap-3">
             <Dropdown>
-              <DropdownTrigger className="hidden sm:flex">
-                <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
+              <DropdownTrigger className="flex">
+                <Button className="w-full" endContent={<ChevronDownIcon size={8} />} variant="faded">
                   Status
                 </Button>
               </DropdownTrigger>
@@ -335,6 +334,7 @@ export default function App({users}: UserTableProps) {
                 closeOnSelect={false}
                 selectedKeys={statusFilter}
                 selectionMode="multiple"
+                
                 // onSelectionChange={setStatusFilter}
               >
                 {statusOptions.map((status) => (
@@ -345,8 +345,10 @@ export default function App({users}: UserTableProps) {
               </DropdownMenu>
             </Dropdown>
             <Dropdown>
-              <DropdownTrigger className="hidden sm:flex">
-                <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
+              <DropdownTrigger
+              
+              className="flex">
+                <Button className="w-full" endContent={<ChevronDownIcon size={24} />} variant="faded">
                   Columns
                 </Button>
               </DropdownTrigger>
@@ -369,9 +371,77 @@ export default function App({users}: UserTableProps) {
             {/* <Button color="primary" endContent={<PlusIcon />}>
               Add New
             </Button> */}
-            <Button onPress={setAdmin}></Button>
+
             
-            <ActionButton selectedUsers={selectedUsers as string[]}/>
+           
+
+    <div className="flex w-full justify-center">
+
+      <Dropdown 
+        
+      onOpenChange={(open) => setIsButtonOpen(open)}>
+        <DropdownTrigger>
+          <Button
+            color="primary"
+            startContent={
+              <ChevronDown
+                className={
+                  isButtonOpen
+                    ? "transition-transform "
+                    : "rotate-90 transition-transform"
+                }
+              />
+            }
+            variant="faded"
+          >
+            Action Menu
+          </Button>
+        </DropdownTrigger>
+        <DropdownMenu
+        closeOnSelect={false}
+        onAction={(key: string) => onAction(key, selectedKeys)}
+          // onAction={(key)=>{onAction(key, selectedKeys.values)}}
+          variant="faded"
+          aria-label="Dropdown menu with icons"
+        >
+          <DropdownSection showDivider>
+            <DropdownItem 
+              // onPress={() =>{handleNew(selectedKeys)}}
+              key="new"
+              shortcut="⌘N"
+              startContent={
+                <UserPlus
+                  fill="currentColor"
+                  size={20}
+                  className={iconClasses}
+                />
+              }
+            >
+              New user
+            </DropdownItem>
+          </DropdownSection>
+          <DropdownSection title="Danger zone">
+
+
+            <DropdownItem
+              key="delete"
+              className="text-danger"
+              color="danger"
+              shortcut="⌘⇧D"
+              startContent={
+                <DeleteDocumentIcon
+                  className={cn(iconClasses, "text-danger")}
+                />
+              }
+            >
+              Delete user
+            </DropdownItem>
+          </DropdownSection>
+
+        </DropdownMenu>
+      </Dropdown>
+    </div>
+  
           </div>
         </div>
         <div className="flex justify-between items-center">
@@ -398,9 +468,11 @@ export default function App({users}: UserTableProps) {
     users.length,
     onSearchChange,
     hasSearchFilter,
+    selectedKeys,
   ]);
 
   const bottomContent = React.useMemo(() => {
+
     return (
       <div className="py-2 px-2 flex justify-between items-center">
         <span className="w-[30%] text-small text-default-400">
@@ -408,6 +480,7 @@ export default function App({users}: UserTableProps) {
             ? "All items selected"
             : `${selectedKeys.size} of ${filteredItems.length} selected`}
         </span>
+
         <Pagination
           isCompact
           showControls
@@ -429,8 +502,45 @@ export default function App({users}: UserTableProps) {
     );
   }, [selectedKeys, items.length, page, pages, hasSearchFilter]);
 
+
+  
+  const onAction = (key: any, users:any) => {
+    console.log("key",key)
+    if(!users) return
+    const usersArray = Array.from(users)
+    switch (key) {
+      case "new":
+        console.log("new : ",usersArray )
+        break;
+      case "edit":
+        console.log("edit", usersArray)
+        break;
+      case "delete":
+        console.log("delete", usersArray)
+        break;
+      default:
+        break;
+    }
+  }
+
+  // const handleNew = ( users:any) => {
+  //   if(!users) return
+  //   const usersArray = Array.from(users)
+  //   console.log("users",usersArray)
+
+  // }
+
+  // const handleDelete = ( users:any) => {
+  //   if(!users) return
+  //   const usersArray = Array.from(users)
+  //   console.log("DELETE USERS: ",usersArray)
+    
+  // }
+  
+  
   return (
     <Table
+      className="TABLE w-full "
       aria-label="Example table with custom cells, pagination and sorting"
       isHeaderSticky
       bottomContent={bottomContent}

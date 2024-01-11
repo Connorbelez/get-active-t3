@@ -10,6 +10,7 @@ import {
 import { create } from "domain";
 import { EventTicketEmail } from "@/emails/SendTicketEmail";
 import { ticketTypeSchema } from "@/types/schemas"
+import { check } from "prettier";
 
 // import Stripe from 'stripe';
 const Stripe = require('stripe');
@@ -45,6 +46,7 @@ export const ticketRouter = createTRPCRouter({
         return ticket;
     }),
 
+    //Turn into transaction
     sendFreeTicket: protectedProcedure
     .input(z.object({
         ticketId: z.string(),
@@ -99,6 +101,20 @@ export const ticketRouter = createTRPCRouter({
           eventStartDate: ticketAndEventData.event.startDate,
 
         }
+
+        // Log ticket data in fullfilled Ticket 
+        const fullfilledTicketInsertRes = await ctx.db.fulfilledTicket.create({
+          data:{
+            userId: ctx.session.user.id,
+            eventId: ticketD.eventId,
+            ticketId: ticketD.id,
+            quantity: 1,
+            paid: !paymentOweing,
+            price: ticketD.price,
+          }
+        }
+        )
+
 
         // if(input.ticket.price > 0){
         //     throw new Error("Ticket is not free");
@@ -193,6 +209,63 @@ export const ticketRouter = createTRPCRouter({
       }
       console.log("TRPC CHECKOUT DATA: ",checkoutData)
 
+      let sessionObj:JSON | undefined;
+      let userObj = {
+        email: "",
+        id: "",
+        name: "",
+      };
+
+      try{
+
+        sessionObj = JSON.parse(checkoutData.checkoutProduct.userSession);
+        if(sessionObj && sessionObj['user']){
+          userObj.id= sessionObj['user']['id'];
+          userObj.name= sessionObj['user']['id'];
+          userObj.email= sessionObj['user']['email'];
+        }
+
+      }catch(err){
+        console.log("ERROR PARSING SESSION OBJ: ", err);
+        sessionObj = undefined
+      }
+      if(checkoutData.checkoutProduct.userSessionEmail){
+        userObj.email = checkoutData.checkoutProduct.userSessionEmail;
+      }
+
+      // LOG STRIPE TRANSACTION
+      try{
+
+        const stripeTransaction = await ctx.db.stripeTransaction.create({
+          data:{
+            customerEmail: latestCharge.billing_details.email,
+            customerName: latestCharge.billing_details.name,
+            
+            userEmail: userObj.email,
+            userId: userObj.id,
+            userName: userObj.name,
+            stripeChargeId: latestCharge.id,
+            stripePriceId: checkoutData.priceProduct.id,
+            stripeProductId: checkoutData.priceProduct.product,
+            checkoutSessionId: sessionWithLineItems.id, 
+            // stripeCustomerId: checkoutData.customer.id, //problem
+            receiptUrl: receiptUrl,
+            checkoutMetadata: checkoutData.checkoutProduct,
+            productMetadata: checkoutData.priceProduct.metadata,
+            customerMetadata: checkoutData.customer,
+            ticketId: checkoutData.priceProduct.metadata.ticketId,
+            price: checkoutData.priceProduct.unit_amount_decimal,
+            paid: true,
+          }
+        })
+  
+        console.log("\n\n\n STRIPE TRANSACTION: ", stripeTransaction);
+      }catch(err){
+        console.log("ERROR INSERTING STRIPE TRANSACTION", err);
+      }
+
+
+
       const transporter = nodemailer.createTransport({
         service: "gmail",
         host: "smtp.gmail.com",
@@ -206,6 +279,8 @@ export const ticketRouter = createTRPCRouter({
 
     // console.log("EMAIL:",email);
     const ticketId = checkoutData.priceProduct.metadata.ticketId;
+
+
 
     // const ticket = await ctx.db.ticketType.findUnique({
     //   where:{
@@ -289,6 +364,10 @@ export const ticketRouter = createTRPCRouter({
       eventStartTime: eventAndTicketData?.startTime,
       eventStartDate: eventAndTicketData?.startDate,
     }
+
+
+  
+
     const payload = JSON.stringify({
       stripeProduct: checkoutData.priceProduct.metadata,
       ticketData: ticketD,

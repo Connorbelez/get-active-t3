@@ -5,6 +5,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
+import { get } from "http";
 
 export const memberRouter = createTRPCRouter({
 
@@ -48,7 +49,7 @@ export const memberRouter = createTRPCRouter({
 
 
 
-    updateUserById: publicProcedure
+    updateUserById: protectedProcedure 
     .input(z.object({
         id: z.string(),
         data: z.object(
@@ -72,7 +73,7 @@ export const memberRouter = createTRPCRouter({
             }
         })
         return user
-    })
+    }),
 
 
     // getUsersByOrgId: protectedProcedure
@@ -87,6 +88,57 @@ export const memberRouter = createTRPCRouter({
     //     })
     //     return users
     // }),
+
+
+
+    getUsersSavedEvents: protectedProcedure
+    .query(async ({ ctx }) => {
+        const savedEvents = await ctx.db.savedEvent.findMany({
+            where: {
+                userId: ctx.session.user.id
+            }
+        })
+        return savedEvents
+    }),
+
+
+    getUsersFulfilledTickets: protectedProcedure
+    .query(async ({ ctx }) => {
+        const fulfilledTickets = await ctx.db.fulfilledTicket.findMany({
+            where: {
+                userId: ctx.session.user.id
+            }
+        })
+        return fulfilledTickets
+    }),
+
+    getUserReciepts: protectedProcedure
+    .query(async ({ ctx }) => {
+        const user = await ctx.db.user.findUnique({
+            where: {
+                id: ctx.session.user.id
+            }
+        })
+
+        const reciepts = await ctx.db.stripeTransaction.findMany({
+            where: {
+                OR:[
+                    {
+                        userEmail: user?.email
+                    },
+                    {
+                        customerEmail: user?.stripeEmail || ""
+                    }
+                ]
+            }
+        })
+
+
+        return reciepts
+    }),
+
+    
+
 
 
 

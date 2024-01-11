@@ -6,6 +6,9 @@ import parse from "html-react-parser";
 import { formatDate } from "@/lib/utils";
 import { api } from "@/trpc/server";
 // import TicketAccordian from "@/components/TicketAccordian/TicketAccordian";
+
+import AttendingGroup from "@/components/Hero/AttendingGroup";
+
 interface EventDetails {
   id: string;
   title: string;
@@ -137,6 +140,7 @@ export default async function (
           maxW={"6xl"}
         />
       </div>
+      <AttendingGroup maxDisplay={5} eventid={searchParams.id} />
 
       <div className="Event Detail Wrapper w-full px-4 sm:px-0 ">
         <section

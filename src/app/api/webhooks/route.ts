@@ -136,7 +136,7 @@ webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
                         customer: customer,
                     }
 
-                    console.log("\n\nCHECKOUT DATA FROM WEBHOOK: ", checkoutData)
+                    // console.log("\n\nCHECKOUT DATA FROM WEBHOOK: ", checkoutData)
 
                 //     // ctx: {
                 //     //     // infers the `session` as non-nullable
