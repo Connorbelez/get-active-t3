@@ -1,8 +1,10 @@
 // import Stripe from 'stripe';
-import {env} from "@/env";
+import {env as envVar} from "@/env";
 
 const Stripe = require('stripe');
-const stripe = Stripe("sk_test_51NONQvAXXlLBfJHe5OlR5PAyjLXyKFBqpMtGp3btR51UwtBZ43UcLdAwWrwHingHXZQbsAY4JL0eMonFIRQRgCOM00RaPM81DV");
+// const stripe = Stripe("whsec_f9091769aa4af3b55279b6940bbf0bd4631a32f5ba6e3e4695c87a1534d2a332");
+const key = process.env.NODE_ENV === "production" ? envVar.STRIPE_SECRET_KEY : envVar.STRIPE_SECRET_KEY_DEV
+const stripe = Stripe(key);
 
 import {api} from "@/trpc/server";
 import { ApiError } from "next/dist/server/api-utils";
@@ -15,7 +17,7 @@ import { ApiError } from "next/dist/server/api-utils";
 //     }
 // );
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+// const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 import { headers } from 'next/headers';
 import { describe } from "node:test";
 
@@ -41,12 +43,12 @@ export async function POST(req: Request) {
     const body = await req.text();
     const sig = headers().get('Stripe-Signature') as string;
 
-    const env = process.env.NODE_ENV
-if(env == "development"){
+    const ev = process.env.NODE_ENV
+if(ev == "development"){
   // do something
-  webhookSecret = "whsec_f9091769aa4af3b55279b6940bbf0bd4631a32f5ba6e3e4695c87a1534d2a332"
+  webhookSecret = envVar.STRIPE_DEV_WEBHOOOK_SECRET;
 }
-else if (env == "production"){
+else if (ev == "production"){
  // do something
 webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 }

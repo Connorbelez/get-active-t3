@@ -53,8 +53,7 @@ function formatDate(dateString: string): {month: string, day: number, year: numb
 }
 
 export default function Comp({event,carosel}:compProps) {
-    console.log("EVENT CARD PROPS: ", event);
-    console.table(event)
+
     const content = (
         <PopoverContent className="w-[240px]">
 

@@ -23,6 +23,8 @@ import {api} from "@/trpc/server"
 export default async function App() {
   const featuredEvent = await api.event.getFeaturedEvent.query();
   
+  console.log("FEATURED EVENT")
+  console.log(featuredEvent);
 
   return (
     <div className="wrapper items-between justify-items-between grid grid-cols-1 gap-5 lg:grid-cols-12 2xl:gap-0">

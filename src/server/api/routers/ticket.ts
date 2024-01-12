@@ -7,6 +7,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
+import {env as envVar} from "@/env";
 import { create } from "domain";
 import { EventTicketEmail } from "@/emails/SendTicketEmail";
 import { ticketTypeSchema } from "@/types/schemas"
@@ -14,8 +15,8 @@ import { check } from "prettier";
 
 // import Stripe from 'stripe';
 const Stripe = require('stripe');
-const stripe = Stripe('sk_test_51NONQvAXXlLBfJHe5OlR5PAyjLXyKFBqpMtGp3btR51UwtBZ43UcLdAwWrwHingHXZQbsAY4JL0eMonFIRQRgCOM00RaPM81DV');
-
+const key = process.env.NODE_ENV === "production" ? envVar.STRIPE_SECRET_KEY : envVar.STRIPE_SECRET_KEY_DEV
+const stripe = Stripe(key);
 
 export const ticketRouter = createTRPCRouter({
     getTicketAndEventById: protectedProcedure

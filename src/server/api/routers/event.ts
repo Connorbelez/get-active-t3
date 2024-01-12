@@ -74,7 +74,17 @@ export const eventRouter = createTRPCRouter({
     .query(async ({ ctx }) => {
       try{
       const featuredEvent = await ctx.db.featuredEvent.findMany();
-      return featuredEvent[0];
+      if(featuredEvent && featuredEvent[0]){
+        const eventData = await ctx.db.event.findUnique({
+          where: {
+            id: featuredEvent[0].eventId
+          }
+        })
+        return eventData;
+      }else{
+        throw new Error("No Featured Event Found");
+      }
+
       }catch(err){
         try{
           const nearestEvent = await ctx.db.event.findFirst({

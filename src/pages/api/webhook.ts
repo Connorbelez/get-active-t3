@@ -32,7 +32,7 @@ export default async function handler(
     let event: Stripe.Event;
 
     try {
-      event = stripe.webhooks.constructEvent(buf, sig as string, webhookSecret);
+      event = stripe.webhooks.constructEvent(buf, sig as string, "whsec_f9091769aa4af3b55279b6940bbf0bd4631a32f5ba6e3e4695c87a1534d2a332");
 
       // Handle the event
       switch (event.type) {

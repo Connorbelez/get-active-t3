@@ -1,7 +1,9 @@
 // import { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from "@/components/cards/ShadCard"
 import image from "canadaDay.jpg"
 import { title, subtitle } from "@/components/Primatives/Typography"
-import {Image, Divider,Chip, Card,CardBody,CardFooter,CardHeader,CardSlots,Input,Button,Popover, PopoverTrigger,PopoverContent} from "@nextui-org/react"
+import Image from "next/image"
+
+import { Divider,Chip, Card,CardBody,CardFooter,CardHeader,CardSlots,Input,Button,Popover, PopoverTrigger,PopoverContent} from "@nextui-org/react"
 import {LightningBoltIcon,SewingPinIcon, Crosshair1Icon} from '@radix-ui/react-icons'
 import TicketIcon from "@/components/icons/TicketIcon"
 import HeartIcon from "@/components/icons/HeartIcond"
@@ -76,8 +78,9 @@ export default function Comp({event}:compProps) {
     const liked=true;
     const formattedDate = formatDate(event.startDate); 
         const formattedStartTime = formatTime(event.startTime);
+    console.log(event)
     return (
-        <Card className={"WRAPPERCARD bg-background h-[370px] w-[380px] md:h-[450px] md:w-[512px]  rounded-[40px]  dark:hover:shadow-lg dark:hover:shadow-violet-700/50"}>
+        <Card className={"WRAPPERCARD bg-background h-[370px] w-full md:h-[450px] md:w-[512px]  rounded-[40px]  dark:hover:shadow-lg dark:hover:shadow-violet-700/50"}>
             <CardHeader className="WRAPPERCARDHeader absolute z-10 top-1 grid grid-cols-3">
                     <Button
                         // onPress={()=> {
@@ -126,9 +129,8 @@ export default function Comp({event}:compProps) {
 
 
 
-            <div className="rounded-[40px]   dark:shadow-lg dark:hover:shadow-lg shadow-lg shadow-black/60 dark:hover:shadow-violet-600/60 dark:shadow-violet-600/40">
-                <Image src={"/canadaDay.jpg"} alt="Canada Day"  className="rounded-[40px] z-0"/>
-
+            <div className="rounded-[40px] container relative overflow-hidden  h-[300px] w-full dark:shadow-lg dark:hover:shadow-lg shadow-lg shadow-black/60 dark:hover:shadow-violet-600/60 dark:shadow-violet-600/40">
+                <Image src={event.heroImage} layout="fill"  alt="Canada Day" />
             </div>
             {/* <CardHeader>
                 <Divider orientation="vertical" />
@@ -155,7 +157,7 @@ export default function Comp({event}:compProps) {
                                     <Crosshair1Icon stroke={"#52525b"} className="w-4 mt-0.5 h-4 mr-2 fill-zinc-600" />
                                     <h4 className={"prose dark:prose-invert text-sm dark:text-zinc-400/60"}>{event.location}</h4>
                                 </div>
-                                <h1 className={`-mb-2 dark:${title({size:"xsm",color:"pink"})}`}>{formattedDate.month}</h1>
+                                <h1 className={`-mb-2  dark:${title({size:"xsm",color:"pink"})}`}>{formattedDate.month}</h1>
                                 <h1 className="prose prose-2xl font-bold  dark:text-zinc-400">{formattedDate.day}</h1>
                                 <h4 className={"prose dark:prose-invert text-sm dark:text-zinc-400/60"}>{event.startTime}</h4>
                             </div>
@@ -164,9 +166,9 @@ export default function Comp({event}:compProps) {
                         </div>
                         
                         <div className={"col-start-5 col-span-4 flex flex-col items-left my-auto "}>
-                            <CardHeader className="grid grid-flow-row -my-3">
+                            <CardHeader className="grid grid-flow-row p-0 ">
                                 
-                                <h1 className={`prose prose-xl prose-zinc dark:prose-invert font-bold ${title({size:"xxsm",color:"pink"})}`}>{event.title}</h1>
+                                <h1 className={`prose prose-xl py-2 p-0 prose-zinc dark:prose-invert font-bold ${title({size:"xxsm",color:"pink"})}`}>{event.title}</h1>
                                 {/* <p className={"prose text-xs dark:prose-invert"}>Join us for a Canada Day Party!</p> */}
                             </CardHeader>
 
@@ -188,7 +190,7 @@ export default function Comp({event}:compProps) {
                         <div className={"col-start-9 col-span-4 flex items-center justify-around"}>
                             <Divider orientation="vertical" className=" bg-red h-5/6 slef w-[1px] bg-zinc-700"/>
 
-                            <Image src={"/redbull.jpg"} alt="logo" className="rounded-[10px] z-0 h-[70px]"/>
+                            <Image src={"/redbull.jpg"} alt="logo" width={100} height={80} className="rounded-[10px] z-0 h-[70px]"/>
                         </div>
 
 

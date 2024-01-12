@@ -7,7 +7,9 @@ import {
 } from '@stripe/react-stripe-js';
 // import { api} from "@/trpc/react"
 import {env} from "@/env"
-const stripePromise = loadStripe("pk_test_51NONQvAXXlLBfJHexvf9ugcgekjtDMxhZcVjcq4k0XuJp8oKT4mjPhkaawCeP9YbmjZPyegw25JoLTbApTSWaG6s00wjhlDdBN");
+const key = process.env.NODE_ENV === 'production' ? env.NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY : env.NEXT_PUBLIC_STRIPE_DEV_PUBLISHABLE_KEY
+const stripePromise = loadStripe(key);
+// const stripePromise = loadStripe("pk_live_51NONQvAXXlLBfJHeSSxxeZADggFT4BhcFPNNVm3Nd7plSu06MDxRORdrl01VZybFM67sECdUGQeLvj2sd1Lp2bdo00akrSA7zi");
 import { useSearchParams } from 'next/navigation'
 // import { get } from 'http';
 // import { StripeEvent } from '../page';
@@ -22,25 +24,28 @@ export default function App() {
   // const eventId = searchParams.get('eventid');
   // const eventName = searchParams.get('eventname');
   //ToDo Convert to use trpc
+
+  console.log('TICKET ID: ', ticketId)
   if(!ticketId) throw new Error('NO TICKET ID IN URL');
   useEffect(() => {
 
     console.log('TICKET FROM USE EFFECT: ', ticketId )
     if(!ticketId) throw new Error('NO TICKET ID IN URL');
+    console.log('fetching')
     void fetch("/api/checkout_sessions", {
       method: "POST",
         body: JSON.stringify({ticketId: ticketId}),
     })
       .then((res) => {
-        // console.log('res from fetch')
-        // console.log(res)
+        console.log('res from fetch')
+        console.log(res)
         // console.table(res)
         return res
       })
       .then((data) => {
         return data.json().then((dataJson) => {
-          // console.log('client Secret: ')
-          // console.log(dataJson.clientSecret)
+          console.log('client Secret: ')
+          console.log(dataJson.clientSecret)
           setTempClientSecret(dataJson.clientSecret)
         })
       })

@@ -34,8 +34,7 @@ export const env = createEnv({
     STRIPE_DEV_WEBHOOOK_SECRET: z.string(),
     STRIPE_SECRET_KEY: z.string(),
     STRIPE_SECRET_KEY_DEV: z.string(),
-    NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY_DEV: z.string(),
-    NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY: z.string(),
+      
   },
 
   /**
@@ -46,11 +45,9 @@ export const env = createEnv({
   client: {
     // DISCORD_CLIENT_ID: z.string().refine(DISCORD_CLIENT_ID),
     // DISCORD_CLIENT_SECRET: z.string(),
-    NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY:z.string(
-      {errorMap: (error) => {
-        console.error("STRIPE KEY ERROR: ",error)
-      }}
-    ),
+    NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY: z.string().min(1),
+    NEXT_PUBLIC_STRIPE_DEV_PUBLISHABLE_KEY: z.string().min(1),
+    
   },
 
   /**
@@ -67,10 +64,13 @@ export const env = createEnv({
     CLOUD_FLARE_BUCKET_ACCESS_ID: process.env.CLOUD_FLARE_BUCKET_ACCESS_ID,
     CLOUD_FLARE_BUCKET_SECRET_ID: process.env.CLOUD_FLARE_BUCKET_SECRET_ID,
     CLOUD_FLARE_BUCKET_TOKEN: process.env.CLOUD_FLARE_BUCKET_TOKEN,
+    
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
     STRIPE_DEV_WEBHOOOK_SECRET: process.env.STRIPE_DEV_WEBHOOOK_SECRET,
-    NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY_DEV:"pk_test_51NONQvAXXlLBfJHexvf9ugcgekjtDMxhZcVjcq4k0XuJp8oKT4mjPhkaawCeP9YbmjZPyegw25JoLTbApTSWaG6s00wjhlDdBN",
+    
+    NEXT_PUBLIC_STRIPE_DEV_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_DEV_PUBLISHABLE_KEY,
     NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY,
+    
     STRIPE_SECRET_KEY_DEV: process.env.STRIPE_SECRET_KEY_DEV,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
   },

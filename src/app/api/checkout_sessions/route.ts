@@ -8,7 +8,8 @@ import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from "next/server";
 
 
-const stripe = require('stripe')(env.STRIPE_SECRET_KEY_DEV);
+const id = process.env.NODE_ENV === "production" ? env.STRIPE_SECRET_KEY : env.STRIPE_SECRET_KEY_DEV
+const stripe = require('stripe')(id);
 async function createTicketProduct(name,eventName, eventid, price,ticketData,userEmail){
     const product = await stripe.products.create({
         name: name,
@@ -48,6 +49,7 @@ const session = await getServerAuthSession();
 const cookies = req.cookies.getAll();
 const res = NextResponse.next();
 const headers = new Headers(req.headers)
+console.log("CHECKOUT SESSION")
 if (!session || !session.user) {
     
     return NextResponse.json({ message: "Unauthorized",status: 401 });
@@ -60,12 +62,13 @@ if (!session || !session.user) {
     // const ticketName = body.ticketName;
  
 
-
+  console.log("USER: ", user)
   switch (req.method) {
     case "POST":
       try {
+        console.log("POST")
         const body = await req.json()
-        // ////console.log("BODY FROM ROUTE.JS POST: ", body)
+        console.log("BODY FROM ROUTE.JS POST: ", body)
         // console.table(body)
         const ticketId = body.ticketId;
         // ////console.log("=================TICKET ID FROM ROUTE.JS: ", ticketId)
@@ -89,13 +92,14 @@ if (!session || !session.user) {
               },   
           },
       });
-        ////console.log("TICKET DATA FROM PRISMA, ROUTE.JS :", ticketData)
-        // console.log(ticketData)
+        console.log("TICKET DATA FROM PRISMA, ROUTE.JS :", ticketData)
+        console.log(ticketData)
 
         
         ////console.log("\n\n\n\n ===============NAME: ", name,"\n\n\n\n")
         if(!ticketId || !ticketData.price || !ticketData.name || !ticketData.eventId || !ticketData.event.title){
-          return NextResponse.json({ message: "Missing parameters: " + JSON.stringify(body) });
+
+          return NextResponse.json({ message: "Missing parameters: " + JSON.stringify(body), status: 400 });
         }
         // const priceObj = await createTicketProduct(ticketData.name, ticketData.event.title, ticketData.eventId, ticketData.price, ticketData,user.email);
 
@@ -104,6 +108,8 @@ if (!session || !session.user) {
         //console.log("CREATING CHECKOUT SESSION WITH POST!")
         // Create Checkout Sessions from body params.
         const retUrl = process.env.NODE_ENV === "production" ? `https://getaktive.vercel.app/checkout/return?session_id={CHECKOUT_SESSION_ID}` : `https://localhost:3000/checkout/return?session_id={CHECKOUT_SESSION_ID}`
+        console.log("RETURN URL: ", retUrl)
+        console.log("CREATING SESSION")
         const session = await stripe.checkout.sessions.create({
           ui_mode: 'embedded',
           line_items: [
@@ -113,13 +119,8 @@ if (!session || !session.user) {
               quantity: 1,
             }
           ],
-          // invoice:'true',
-          // invoice_creation:{
-          //   enabled: true,
-          // },
 
           mode: 'payment',
-          
           
           metadata: {        
             metaDataTag: "CHECKOUT TICKET METADATA",    
@@ -130,7 +131,9 @@ if (!session || !session.user) {
           },
           return_url: retUrl,
         });
-        // console.log("SESSION: FROM CREATE SESSION: ", session)
+
+
+        console.log("SESSION: FROM CREATE SESSION: ", session)
         return NextResponse.json({clientSecret: session.client_secret})
 
       } catch (err) {
@@ -139,8 +142,8 @@ if (!session || !session.user) {
         return NextResponse.json({ message: "Error: " + err.message, status: err.statusCode || 500 });
       }
     case "GET":
-      // console.log("GETTING CHECKOUT SESSION")
-      // console.table(req)
+      console.log("GETTING CHECKOUT SESSION")
+      console.table(req)
 
       try {
 
