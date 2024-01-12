@@ -1,14 +1,15 @@
 import { getServerAuthSession } from "@/server/auth";
 import { db } from "@/server/db";
 import {env} from "@/env";
-import {api} from "@/trpc/server";
-import {TicketType} from "@prisma/client"
-import { NextApiRequest, NextApiResponse } from "next";
-import { cookies } from 'next/headers'
+// import {api} from "@/trpc/server";
+// import {TicketType} from "@prisma/client"
+// import { NextApiRequest, NextApiResponse } from "next";
+// import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from "next/server";
 
 
-const id = process.env.NODE_ENV === "production" ? env.STRIPE_SECRET_KEY : env.STRIPE_SECRET_KEY_DEV
+// const id = process.env.NODE_ENV === "production" ? env.STRIPE_SECRET_KEY : env.STRIPE_SECRET_KEY_DEV
+const id = env.STRIPE_SECRET_KEY_DEV
 const stripe = require('stripe')(id);
 async function createTicketProduct(name,eventName, eventid, price,ticketData,userEmail){
     const product = await stripe.products.create({
@@ -46,8 +47,8 @@ async function createTicketProduct(name,eventName, eventid, price,ticketData,use
 
 async function handler(req:NextRequest) {
 const session = await getServerAuthSession();
-const cookies = req.cookies.getAll();
-const res = NextResponse.next();
+// const cookies = req.cookies.getAll();
+// const res = NextResponse.next();
 const headers = new Headers(req.headers)
 console.log("CHECKOUT SESSION")
 if (!session || !session.user) {
@@ -59,8 +60,6 @@ if (!session || !session.user) {
 
   const sessionObj = session
 
-    // const ticketName = body.ticketName;
- 
 
   console.log("USER: ", user)
   switch (req.method) {

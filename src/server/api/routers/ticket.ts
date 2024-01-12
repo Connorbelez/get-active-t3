@@ -8,14 +8,15 @@ import {
   publicProcedure,
 } from "@/server/api/trpc";
 import {env as envVar} from "@/env";
-import { create } from "domain";
 import { EventTicketEmail } from "@/emails/SendTicketEmail";
-import { ticketTypeSchema } from "@/types/schemas"
-import { check } from "prettier";
 
-// import Stripe from 'stripe';
 const Stripe = require('stripe');
-const key = process.env.NODE_ENV === "production" ? envVar.STRIPE_SECRET_KEY : envVar.STRIPE_SECRET_KEY_DEV
+
+
+
+// const key = process.env.NODE_ENV === "production" ? envVar.STRIPE_SECRET_KEY : envVar.STRIPE_SECRET_KEY_DEV
+const key = envVar.STRIPE_SECRET_KEY_DEV
+
 const stripe = Stripe(key);
 
 export const ticketRouter = createTRPCRouter({
@@ -370,14 +371,14 @@ export const ticketRouter = createTRPCRouter({
   
 
     const payload = JSON.stringify({
-      stripeProduct: checkoutData.priceProduct.metadata,
+      // stripeProduct: checkoutData.priceProduct.metadata,
       ticketData: ticketD,
       
       customer: {
         name: checkoutData.customer.name,
         email: checkoutData.customer.email,
       },
-      ticketDescription: checkoutData.priceProduct.metadata.ticketDescription ? checkoutData.priceProduct.metadata.ticketDescription : eventAndTicketData?.ticketTypes[0]?.ticketDescription ,
+      // ticketDescription: checkoutData.priceProduct.metadata.ticketDescription ? checkoutData.priceProduct.metadata.ticketDescription : eventAndTicketData?.ticketTypes[0]?.ticketDescription ,
       paymentOweing:false
     })
     const base64Payload = Buffer.from(payload).toString('base64');
@@ -420,7 +421,7 @@ export const ticketRouter = createTRPCRouter({
   });
   
   async function generateQRCodeWithLogo(dataURI:string) {
-    const text = dataURI; // The content of the QR code
+ // The content of the QR code
     const qrCodeOptions = {
       errorCorrectionLevel: 'M',
       type: 'image/png',

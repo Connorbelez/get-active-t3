@@ -6,7 +6,10 @@ import {
   publicProcedure,
 } from "@/server/api/trpc";
 import { create } from "domain";
-const stripe = require('stripe')(env.STRIPE_SECRET_KEY);
+
+// const key = process.env.NODE_ENV === "production" ? env.STRIPE_SECRET_KEY : env.STRIPE_SECRET_KEY_DEV
+const key = env.STRIPE_SECRET_KEY
+const stripe = require('stripe')(key);
 
 import { eventSchema } from "@/types/schemas";
 
