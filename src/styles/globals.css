@@ -67,14 +67,8 @@
   scroll-behavior: smooth;
 } */
 
-body {
-  font-family: var(--font-poppins)
-}
 
-.filter-grey {
-  filter: brightness(0) saturate(100%) invert(47%) sepia(0%) saturate(217%)
-    hue-rotate(32deg) brightness(98%) contrast(92%);
-}
+
 
 /* ========================================== TAILWIND STYLES */
 @layer utilities {
@@ -92,35 +86,35 @@ body {
   .custom-shape-divider-bottom-1703558846 {
     width: 100vw;
     line-height: 0;
-}
+  }
 
-.custom-shape-divider-bottom-1703558846 svg {
+  .custom-shape-divider-bottom-1703558846 svg {
+      position: relative;
+      display: block;
+      width: calc(100vw);
+      height: 135px;
+    }
+
+  .custom-shape-divider-bottom-1703558846 .shape-fill {
+      fill:rgb(228 228 231 / var(--tw-bg-opacity));
+  }
+
+
+  .custom-shape-divider-bottom-2 {
+    width: 100vw;
+    overflow: hidden;
+    line-height: 0;
+  }
+
+  .custom-shape-divider-bottom-2 svg {
     position: relative;
     display: block;
     width: calc(100vw);
-    height: 135px;
-}
-
-.custom-shape-divider-bottom-1703558846 .shape-fill {
-    fill:rgb(228 228 231 / var(--tw-bg-opacity));
-}
-
-
-.custom-shape-divider-bottom-2 {
-  width: 100vw;
-  overflow: hidden;
-  line-height: 0;
-}
-
-.custom-shape-divider-bottom-2 svg {
-  position: relative;
-  display: block;
-  width: calc(100vw);
-  height: 30px;
-}
-.custom-shape-divider-bottom-2 .shape-fill {
-  fill: rgb(228 228 231 / var(--tw-bg-opacity));
-}
+    height: 30px;
+  }
+  .custom-shape-divider-bottom-2 .shape-fill {
+    fill: rgb(228 228 231 / var(--tw-bg-opacity));
+  }
 
 
 
@@ -258,27 +252,11 @@ body {
   }
 }
 
-/* ========================================== CLERK STYLES */
-.cl-logoImage {
-  height: 38px;
-}
 
-.cl-userButtonBox {
-  flex-direction: row-reverse;
-}
 
-.cl-userButtonOuterIdentifier {
-  font-size: 16px;
-}
-
-.cl-userButtonPopoverCard {
-  right: 4px !important;
-}
-
-.cl-formButtonPrimary:hover,
-.cl-formButtonPrimary:focus,
-.cl-formButtonPrimary:active {
-  background-color: #705CF7
+.filter-grey {
+  filter: brightness(0) saturate(100%) invert(47%) sepia(0%) saturate(217%)
+    hue-rotate(32deg) brightness(98%) contrast(92%);
 }
 
 /* ========================================== REACT-DATEPICKER STYLES */

@@ -7,7 +7,7 @@ import EventsCarosel from "@/components/carosel/prod/EventsCarosel";
 import EventsSideScroll from "./EventsSideScroll";
 import SideScrollRoot from "@/components/SideScroll/SideScrollRoot";
 import SideScrollComponent from "@/components/SideScroll/SideScrollComponent";
-
+import SideScrollButtons from "@/components/SideScroll/SideScrollButtons";
 import {api} from "@/trpc/server"
 interface Props {
   isPreview?:boolean
@@ -29,19 +29,7 @@ export default async function comp({isPreview}:Props) {
         </div>
 
         <div className="container col-span-12 sm:col-span-10 overflow-hidden sm:col-start-2 px-4 sm:px-0">
-          <SideScrollRoot spacing="space-x-8" >
-            <div className="SPACER ELEMENT col-span-5 w-full flex-shrink-0"> </div>
-              {
-                events.map((event:Event,index:number) => {
-                  return (
-                    <SideScrollComponent key={index} className="">
-                      <EventCard key={index} event={event} />
-                    </SideScrollComponent>
-                  )
-                })
-              }
-            <div className="SPACER ELEMENT col-span-5 w-full flex-shrink-0"> </div>
-          </SideScrollRoot>
+          <SideScrollButtons events={events} />
         </div>
 
         <div className="z-10 col-span-12  col-start-1 mt-8 flex flex-col ">
@@ -51,9 +39,8 @@ export default async function comp({isPreview}:Props) {
             </span>
           </h2>
         </div>
-        
-        <div className="container col-span-10 col-start-2 sm:px-0">
-          <EventsCarosel CardArray={events} />
+        <div className="container col-span-12 sm:col-span-10 overflow-hidden sm:col-start-2 px-4 sm:px-0">
+          <SideScrollButtons events={events} />
         </div>
 
         <div className="z-10 col-span-12 col-start-1 mt-8 flex flex-col ">
@@ -63,8 +50,8 @@ export default async function comp({isPreview}:Props) {
             </span>
           </h2>
         </div>
-        <div className="container col-span-10 col-start-2 sm:px-0">
-          <EventsCarosel CardArray={events} />
+        <div className="container col-span-12 sm:col-span-10 overflow-hidden sm:col-start-2 px-4 sm:px-0">
+          <SideScrollButtons events={events} />
         </div>
       </div>
     )

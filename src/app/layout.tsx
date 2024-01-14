@@ -43,7 +43,7 @@ export default async function RootLayout({
 				} >
           <TRPCReactProvider cookies={cookies().toString()}>
             <Providers  >
-            <div vaul-drawer-wrapper=""  className="bg-background items-center w-full">
+            <div  className="bg-background items-center w-full">
 
               <Nav />
               <main className=" w-full h-full flex flex-col items-center">
