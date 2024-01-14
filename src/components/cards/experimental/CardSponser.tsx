@@ -1,10 +1,11 @@
 // import { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from "@/components/cards/ShadCard"
-import image from "canadaDay.jpg"
-import { title, subtitle } from "@/components/Primatives/Typography"
+
+import { title } from "@/components/Primatives/Typography"
 import Image from "next/image"
 
-import { Divider,Chip, Card,CardBody,CardFooter,CardHeader,CardSlots,Input,Button,Popover, PopoverTrigger,PopoverContent} from "@nextui-org/react"
-import {LightningBoltIcon,SewingPinIcon, Crosshair1Icon} from '@radix-ui/react-icons'
+import { Divider,Chip, Card,CardBody,CardFooter,CardHeader,Button,Popover, PopoverTrigger,PopoverContent} from "@nextui-org/react"
+// import {LightningBoltIcon,SewingPinIcon, Crosshair1Icon} from '@radix-ui/react-icons'
+import { MapPin as Crosshair1Icon } from "lucide-react"
 import TicketIcon from "@/components/icons/TicketIcon"
 import HeartIcon from "@/components/icons/HeartIcond"
 import CharityIcon from "@/components/icons/CharityIcon"

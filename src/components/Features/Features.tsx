@@ -4,8 +4,8 @@ import {
   IconPennibLine,
 } from "@/components/icons";
 import { ReactNode } from "react";
-import featureCover from "public/feature-cover.svg";
-import Image from "next/image";
+// import featureCover from "public/feature-cover.svg";
+// import Image from "next/image";
 import Card from "./Card";
 
 type Feature = {

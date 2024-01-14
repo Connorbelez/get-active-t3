@@ -1,7 +1,7 @@
 // import { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from "@/components/cards/ShadCard"
 import Image from "next/image"
 import { title, subtitle } from "@/components/Primatives/Typography"
-import {Divider,Chip,Snippet, Card,CardBody,CardFooter,CardHeader,CardSlots,Input,Button,Popover, PopoverTrigger,PopoverContent} from "@nextui-org/react"
+import {Divider,Chip,Snippet, Card,CardBody,CardFooter,CardHeader,Button,Popover, PopoverTrigger,PopoverContent} from "@nextui-org/react"
 import {LightningBoltIcon,SewingPinIcon, Crosshair1Icon} from '@radix-ui/react-icons'
 import TicketIcon from "@/components/icons/TicketIcon"
 import HeartIcon from "@/components/icons/HeartIcond"

@@ -4,7 +4,8 @@ import { MapPin, MapPinnedIcon } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
-const Map = dynamic(() => import("@/components/Map/MapBox"), { ssr: false }) ;
+// const Map = dynamic(() => import("@/components/Map/MapBox"), { ssr: false }) ;
+import Map from "@/components/Map/MapBox";
 import OpenInMapButton from "@/components/OpenInMapButton";
 // import Map from "@/components/Map/MapBox";
 export interface MapAccordianProps {

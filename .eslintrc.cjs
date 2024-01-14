@@ -26,6 +26,7 @@ const config = {
     ],
     "@typescript-eslint/no-unsafe-call": "off",
 "@typescript-eslint/no-unsafe-assignment": "off",
+"@typescript-eslint/consistent-type-imports": "off",
 "@typescript-eslint/dot-notation": "off",
 "@typescript-eslint/non-nullable-type-assertion-style": "off",
 "@typescript-eslint/no-unsafe-member-access": "off",
@@ -51,17 +52,17 @@ const config = {
 "@typescript-eslint/no-explicit-any": "off",
 "@typescript-eslint/ban-ts-comment": "off",
 "@typescript-eslint/no-empty-function": "warn",
-"@typescript-eslint/consistent-type-imports":"off",
+
 "@typescript-eslint/prefer-ts-expect-error":"off",
 "@typescript-eslint/no-var-requires":"off",
 "@typescript-eslint/no-empty-interface": "warn",
-    "@typescript-eslint/consistent-type-imports": [
-      "warn",
-      {
-        prefer: "type-imports",
-        fixStyle: "inline-type-imports",
-      },
-    ],
+    // "@typescript-eslint/consistent-type-imports": [
+    //   "warn",
+    //   {
+    //     prefer: "type-imports",
+    //     fixStyle: "inline-type-imports",
+    //   },
+    // ],
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
     "@typescript-eslint/require-await": "off",
     "@typescript-eslint/no-misused-promises": [

@@ -3,23 +3,23 @@
 import "./styles/index.css";
 // import { useEffect, useRef, useState } from "react";
 import { EditorContent, useEditor, PureEditorContent, JSONContent, Extension } from "@tiptap/react";
-import { useRef,useMemo } from "react";
+import { useRef } from "react";
 // import { TiptapEditorProps } from "./props";
 // import { TiptapExtensions } from "./extensions";
 // import useLocalStorage from "@/lib/hooks/use-local-storage";
-import { useDebouncedCallback } from "use-debounce";
-import { useCompletion } from "ai/react";
-import { toast } from "sonner";
+// import { useDebouncedCallback } from "use-debounce";
+// import { useCompletion } from "ai/react";
+// import { toast } from "sonner";
 // import { toast } from "sonner";
 // import va from "@vercel/analytics";
 // import DEFAULT_EDITOR_CONTENT from "./default-content";
-import { EditorBubbleMenu } from "./components/bubble-menu";
+// import { EditorBubbleMenu } from "./components/bubble-menu";
 import { ContentItemMenu } from "./components/menus/ContentItemMenu";
 import { LinkMenu } from "./components/menus/LinkMenu";
 import { TextMenu } from "./components/menus/TextMenu";
 import { ColumnsMenu } from "./extensions/MultiColumn/menus";
 import { TableRowMenu } from "./extensions/Table/menus";
-import { TableColumnMenu } from "./extensions/Table/menus";
+// import { TableColumnMenu } from "./extensions/Table/menus";
 import { useEffect, useState } from "react";
 import { ImageResizer } from "./components/image-resizer";
 // import { TiptapEditorProps } from "@/ui/editor/props";
@@ -28,9 +28,9 @@ import { ImageResizer } from "./components/image-resizer";
 // import { getPrevText } from "@/lib/editor";
 // import { useBlockEditor } from "@/ui/editor/hooks/useBlockEditor";
 import {ExtensionKit} from "@/ui/editor/extensions/extension-kit"
-import { generateHTML } from '@tiptap/html'
-import { Extensions } from "@tiptap/core";
-import HTMLReactParser from "html-react-parser";
+// import { generateHTML } from '@tiptap/html'
+// import { Extensions } from "@tiptap/core";
+// import HTMLReactParser from "html-react-parser";
 
 // import { JSONContent } from "@tiptap/react";
 
@@ -50,9 +50,9 @@ export default function Editor({editorJson, setEditorJson,existingData}: pagepro
   //   "content",
   //   "DEFAULT_EDITOR_CONTENT",
   // );
-  const [saveStatus, setSaveStatus] = useState("Saved");
+  // const [saveStatus, setSaveStatus] = useState("Saved");
   const [hydrated, setHydrated] = useState(false);
-  const [htmlcontent, sethtmlcontent] = useState("");
+  // const [htmlcontent, sethtmlcontent] = useState("");
   
   // const [editorJson, setEditorJson] = useState<JSONContent>({ type: 'doc',
   // content: [
@@ -81,21 +81,21 @@ export default function Editor({editorJson, setEditorJson,existingData}: pagepro
 
   // },[editorJson]);
 
-  const debouncedUpdates = useDebouncedCallback(async ({ editor }) => {
-      const json = editor.getJSON();
-      //console.log("JSON contentff: ", json);
-      // console.log("MYCONTENT: ", content);
-      sethtmlcontent(editor.getHTML());
+  // const debouncedUpdates = useDebouncedCallback(async ({ editor }) => {
+  //     const json = editor.getJSON();
+  //     //console.log("JSON contentff: ", json);
+  //     // console.log("MYCONTENT: ", content);
+  //     sethtmlcontent(editor.getHTML());
 
-      //console.log("HTML: ", editor.getHTML(), typeof editor.getHTML())
+  //     //console.log("HTML: ", editor.getHTML(), typeof editor.getHTML())
 
-      setSaveStatus("Saving...");
-      // setContent(json);
-      // Simulate a delay in saving.
-      setTimeout(() => {
-        setSaveStatus("Saved");
-      }, 500);
-    }, 750);
+  //     setSaveStatus("Saving...");
+  //     // setContent(json);
+  //     // Simulate a delay in saving.
+  //     setTimeout(() => {
+  //       setSaveStatus("Saved");
+  //     }, 500);
+  //   }, 750);
 
   
     const editor = useEditor(

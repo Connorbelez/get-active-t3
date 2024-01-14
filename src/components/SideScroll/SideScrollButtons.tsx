@@ -4,6 +4,7 @@ import EventCard from "@/components/cards/prod/EventCard"
 import {Event} from "@prisma/client"
 import SideScrollRoot from "./SideScrollRoot";
 import {button as Button} from "@/components/ui/button";
+import {Button as NextButton} from "@nextui-org/react";
 import {ArrowLeftCircle, ArrowRightCircle} from "lucide-react"
 import {useRef, useState, useEffect} from 'react';
 interface compProps {
@@ -17,25 +18,25 @@ export default function Comp({
 }: compProps) {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const handleClickRight = () => {
-        console.log("clicked")
-        console.table(scrollContainerRef.current)
-        console.log(scrollContainerRef)
+        // console.log("clicked")
+        // console.table(scrollContainerRef.current)
+        // console.log(scrollContainerRef)
         if (scrollContainerRef.current) {
             console.log("scrolling")
             scrollContainerRef.current.scrollTo({
-                left: scrollContainerRef.current.scrollLeft + 200,
+                left: scrollContainerRef.current.scrollLeft + 400,
                 behavior: 'smooth'
             });
         }
     };
     const handleClickLeft = () => {
-        console.log("clicked")
-        console.table(scrollContainerRef.current)
-        console.log(scrollContainerRef)
+        // console.log("clicked")
+        // console.table(scrollContainerRef.current)
+        // console.log(scrollContainerRef)
         if (scrollContainerRef.current) {
             console.log("scrolling")
             scrollContainerRef.current.scrollTo({
-                left: scrollContainerRef.current.scrollLeft - 200,
+                left: scrollContainerRef.current.scrollLeft - 400,
                 behavior: 'smooth'
             });
         }
@@ -61,10 +62,13 @@ export default function Comp({
             variant={'outline'}
                 size='icon'
             onClick={handleClickLeft}><ArrowLeftCircle /></Button>
-            <Button 
-            variant={'outline'}
-                size='icon'
-            onClick={handleClickRight}><ArrowRightCircle/></Button>
+            <NextButton 
+            // variant={'outline'}
+            //     size='icon'
+            variant="bordered"
+            radius="sm"
+            isIconOnly
+            onPress={handleClickRight}><ArrowRightCircle/></NextButton>
           </div>
         </div>
     )

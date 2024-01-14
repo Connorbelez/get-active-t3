@@ -14,7 +14,7 @@ import {
   Dropcursor,
   // Emoji,
   Figcaption,
-  FileHandler,
+  // FileHandler,
   Focus,
   FontFamily,
   FontSize,

@@ -1,5 +1,5 @@
 import { Card, CardBody, CardHeader, Chip, Button } from "@nextui-org/react";
-import Accordian from "@/components/TicketAccordian/TicketAccordian";
+// import Accordian from "@/components/TicketAccordian/TicketAccordian";
 import Image from "next/image";
 import { TicketType } from "@prisma/client";
 import { Martini, UtensilsCrossed } from "lucide-react";

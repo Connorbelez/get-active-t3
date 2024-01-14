@@ -37,7 +37,8 @@ interface EventDetails {
   latLng: string;
 }
 
-const EventHeading = dynamic(() => import("./components/EventHeadingSection"));
+// const EventHeading = dynamic(() => import("./components/EventHeadingSection"));
+import EventHeading from "./components/EventHeadingSection";
 const EventAboutSection = dynamic(() => import("./components/EventAbout"));
 const EventLocationSection = dynamic(
   () => import("./components/EventLocationSection"),
@@ -49,10 +50,10 @@ const Accordian = dynamic(
   () => import("@/components/MapAccordian/MapAccordian"),
 );
 // const TempCard = dynamic(() => import("./components/TempCard"));
-const BlurredEdgeHero = dynamic(
-  () => import("@/components/Hero/BluredEdgeHero"),
-);
-
+// const BlurredEdgeHero = dynamic(
+//   () => import("@/components/Hero/BluredEdgeHero"),
+// );
+import BlurredEdgeHero from "@/components/Hero/BluredEdgeHero";
 const TicketAccordian = dynamic(() => import("@/components/TicketAccordian/TicketAccordian"));
 
 // const imageUrl = "/testHero.jpeg";

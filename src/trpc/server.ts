@@ -20,8 +20,10 @@ import { transformer } from "./shared";
  * handling a tRPC call from a React Server Component.
  */
 const createContext = cache(() => {
+  const ONE_DAY_IN_SECONDS = 60 * 60 * 24;
   return createTRPCContext({
     headers: new Headers({
+      'cache-control': `s-maxage=3600, stale-while-revalidate=${ONE_DAY_IN_SECONDS}`,
       cookie: cookies().toString(),
       "x-trpc-source": "rsc",
     }),

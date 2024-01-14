@@ -1,12 +1,12 @@
-import Carosel from "./CaroselSample";
-// import SideScrollRoot from "@/components/SideScroll/SideScrollRoot";
-import Card from "@/components/cards/experimental/Card";
+// import Carosel from "./CaroselSample";
+// // import SideScrollRoot from "@/components/SideScroll/SideScrollRoot";
+// import Card from "@/components/cards/experimental/Card";
 import {Event} from "@prisma/client"
-import EventCard from "@/components/cards/prod/EventCard";
-import EventsCarosel from "@/components/carosel/prod/EventsCarosel";
-import EventsSideScroll from "./EventsSideScroll";
-import SideScrollRoot from "@/components/SideScroll/SideScrollRoot";
-import SideScrollComponent from "@/components/SideScroll/SideScrollComponent";
+// import EventCard from "@/components/cards/prod/EventCard";
+// import EventsCarosel from "@/components/carosel/prod/EventsCarosel";
+// import EventsSideScroll from "./EventsSideScroll";
+// import SideScrollRoot from "@/components/SideScroll/SideScrollRoot";
+// import SideScrollComponent from "@/components/SideScroll/SideScrollComponent";
 import SideScrollButtons from "@/components/SideScroll/SideScrollButtons";
 import {api} from "@/trpc/server"
 interface Props {

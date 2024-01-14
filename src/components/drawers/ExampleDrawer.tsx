@@ -1,7 +1,7 @@
 "use client"
-import {useState,useEffect}from "react"
-import { MinusIcon, PlusIcon } from "@radix-ui/react-icons"
-import { Bar, BarChart, ResponsiveContainer } from "recharts"
+import {useState}from "react"
+// import { MinusIcon, PlusIcon } from "@radix-ui/react-icons"
+// import { Bar, BarChart, ResponsiveContainer } from "recharts"
 import { FingerprintIcon } from "lucide-react"
 import { button as Button} from "@/components/ui/button"
 import VTicketCard from "@/components/cards/prod/VTicketCard"
@@ -9,11 +9,11 @@ import SideScrollRoot from "@/components/SideScroll/SideScrollRoot"
 import SideScrollComponent from "@/components/SideScroll/SideScrollComponent"
 import { Ticket, Banknote, CreditCard } from "lucide-react"
 import {toast} from "sonner"
-import {env} from "@/env"
-import {Modal, ModalBody, ModalContent, ModalFooter, Popover, PopoverContent, useDisclosure} from "@nextui-org/react"
+// import {env} from "@/env"
+// import {Modal, ModalBody, ModalContent, ModalFooter, Popover, PopoverContent, useDisclosure} from "@nextui-org/react"
 import {
   Drawer,
-  DrawerClose,
+  // DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
@@ -22,21 +22,21 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import {api} from "@/trpc/react"
-import { set } from "zod"
-import { c } from "@vercel/blob/dist/put-FLtdezzu.cjs"
+// import { set } from "zod"
+// import { c } from "@vercel/blob/dist/put-FLtdezzu.cjs"
 import { TicketType } from "@prisma/client"
 import {Button as NButton} from "@nextui-org/react"
 import { HTicketCardProps } from "../cards/prod/HTicketCard"
 
-import { loadStripe } from '@stripe/stripe-js';
-import {
-  EmbeddedCheckoutProvider,
-  EmbeddedCheckout
-} from '@stripe/react-stripe-js';
+// import { loadStripe } from '@stripe/stripe-js';
+// import {
+//   EmbeddedCheckoutProvider,
+//   EmbeddedCheckout
+// } from '@stripe/react-stripe-js';
 import { useRouter } from "next/navigation"
-import { StripeEvent } from "@/app/checkout/page";
+// import { StripeEvent } from "@/app/checkout/page";
 
-const stripePromise = loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY);
+// const stripePromise = loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY);
 interface TicketProps {
   tickets : Array<TicketType>;
   eventName: string;
@@ -47,9 +47,9 @@ interface TicketProps {
 
 
 export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroImage}:TicketProps) {
-  const {isOpen, onOpen, onOpenChange,onClose} = useDisclosure();
+  // const {isOpen, onOpen, onOpenChange,onClose} = useDisclosure();
   const [selectedTicket, setSelectedTicket] = useState(-1)
-  const [clientSecret, setClientSecret] = useState('');
+  // const [clientSecret, setClientSecret] = useState('');
   const router = useRouter();
 
   // console.table(tickets)
