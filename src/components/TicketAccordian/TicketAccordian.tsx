@@ -38,12 +38,25 @@ export default function App({
   const [selectedTicket, setSelectedTicket] = useState(-1);
   const [selectedTicketData, setSelectedTicketData] = useState<HTicketCardProps['ticket']>();
   
-  const sendFreeTicket = api.ticket.sendFreeTicket.useMutation();
+  const sendFreeTicket = api.ticket.sendFreeTicket.useMutation({
+    async onSuccess(data){
+      console.log("SUCCESS")
+      console.log(data)
+      toast.success('Ticket Sent')
+    },
+    async onError(error){
+      console.log("ERROR")
+      console.log(error)
+      toast.error('Error Sending Ticket')
+    }
+  });
 
   const handleCashCheckout = () => {
 
     try{
       if (typeof selectedTicket === 'undefined' || !tickets[selectedTicket]?.id) throw new Error('No ticket selected');
+
+      console.log(selectedTicketData)
         sendFreeTicket.mutate({
           ticketId: tickets[selectedTicket]?.id as string,
         })
@@ -95,7 +108,6 @@ console.log("DONE")
 const handleCC = () => {
   router.push(`/checkout?id=${tickets[selectedTicket]?.id}`)
 }
-
   
   return (
     <Accordion
