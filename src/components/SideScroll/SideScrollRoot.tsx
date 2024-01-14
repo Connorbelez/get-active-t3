@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import React, { RefObject } from 'react'
 // import {ScrollShadow} from "@nextui-org/react";
 interface compProps {
     widthStyling?: string,
@@ -7,12 +6,12 @@ interface compProps {
     children: React.ReactNode,
     className?: string,
     vertical?: boolean,
-    ref: RefObject<HTMLDivElement>,
+    ref?: any,
 
 }
-const defaultStyling = "SIDESCROLL CONTAINER snap-mandatory snap-x overflow-x-scroll flex"
+const defaultStyling = "snap-mandatory snap-x overflow-x-scroll flex"
 
-export default function comp({spacing, children, className,vertical, ref}: compProps) {
+export default function comp({spacing, children, className,vertical}: compProps) {
     const direction = vertical ? "flex-col" : "flex-row";
 
     return (
@@ -20,7 +19,7 @@ export default function comp({spacing, children, className,vertical, ref}: compP
         //             size={40} offset={20}
         // >
 
-            <div ref={ref} className={clsx(defaultStyling,direction,spacing,className)}>
+            <div  className={clsx(defaultStyling,direction,spacing,className)}>
                 {children}
             </div>
 

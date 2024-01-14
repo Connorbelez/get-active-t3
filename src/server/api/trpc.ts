@@ -116,6 +116,12 @@ const enforceUserIsAdmin = t.middleware(({ ctx, next }) => {
 
   // console.log("CTX: ", ctx)
   console.log(" ============ AUTHED =============")
+  console.log("SESSION: ", ctx.session)
+  console.log("USER: ",ctx.session.user)
+  console.log("SESSION2: ", ctx.session)
+  console.log("USER2: ", UserRole.CREATOR, UserRole.ADMIN, UserRole.USER)
+  ctx.session.user.role = ctx.session.user.role || UserRole.USER ;
+
 
   if(ctx.session.user.role !== UserRole.ADMIN ){
     console.error("\n\ FORBIDDEN\n\n")
@@ -139,3 +145,5 @@ const enforceUserIsAdmin = t.middleware(({ ctx, next }) => {
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);
+
+export const adminProcedure = t.procedure.use(enforceUserIsAdmin);
