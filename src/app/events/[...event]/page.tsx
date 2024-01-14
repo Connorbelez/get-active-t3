@@ -46,9 +46,9 @@ const EventLocationSection = dynamic(
 const EventDateSecion = dynamic(() => import("./components/EventDateSection"));
 const EventCreatorCard = dynamic(() => import("./components/EventCreatorCard"));
 const Drawer = dynamic(() => import("@/components/drawers/ExampleDrawer"));
-const Accordian = dynamic(
-  () => import("@/components/MapAccordian/MapAccordian"),
-);
+// const Accordian = dynamic(
+//   () => import("@/components/MapAccordian/MapAccordian"),
+// );
 // const TempCard = dynamic(() => import("./components/TempCard"));
 // const BlurredEdgeHero = dynamic(
 //   () => import("@/components/Hero/BluredEdgeHero"),
@@ -152,7 +152,7 @@ export default async function (
         >
 
 
-          <div className="ACCORIDIAN WRAPPER sticky top-[100px]  w-full max-h-[150px] sm:col-start-8 sm:col-span-5 sm:flex">
+          <div className="ACCORIDIAN WRAPPER sticky top-[100px]  w-full max-h-[82px] sm:col-start-8 sm:col-span-5 sm:flex">
             <TicketAccordian eventHeroImage={searchParams.heroImage} eventName={searchParams.title} eventLocation={searchParams.address} title="SELECT YOUR TICKET" tickets={tickets} />
           </div>
 

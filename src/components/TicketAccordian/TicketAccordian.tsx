@@ -13,6 +13,7 @@ import clcx from "classnames";
 import {toast} from "sonner"
 import {api} from "@/trpc/react"
 import { useRouter } from "next/navigation";
+import Ticket2Icon from "../icons/TicketIcon";
 export interface MapAccordianProps {
   title: string;
   // children?: React.ReactNode;
@@ -108,19 +109,19 @@ const handleCC = () => {
 
       itemClasses={
         {
-          base:" border-1  border-primary/50 shadow-lg shadow-primary ",
+          base:"ACCORDIAN BASE border-1  border-primary/50 shadow-lg shadow-primary/50 ",
 
         }
       }
       className={
-        " hidden flex-col gap-1 border-none sm:flex shadow-md rounded-xl p-0 shadow-primary/50 max-h"
+        "ACCORDIAN CLASSNAME hidden flex-col gap-1  border-none sm:block shadow-md shadow-primary/50 rounded-xl p-0  max-h"
         
       }
     >
       <AccordionItem
         key={"1"}
         aria-label="Map Accordian 1"
-        className=" pb-5 w-full group-[.is-splitted]:px-3"
+        className="pb-0 group-[.is-splitted]:pb-5 w-full group-[.is-splitted]:px-3"
         classNames={
           {
             content: "flex flex-col w-full items-center"
@@ -130,11 +131,11 @@ const handleCC = () => {
           <motion.div
             animate={isOpen ? "open" : "closed"}
             variants={{
-              open: { rotate: 90 },
-              closed: { rotate: -360 },
+              open: { rotate: 0 },
+              close: { rotate: 90 },
             }}
           >
-            {isOpen ? <MapPinnedIcon /> : <MapPin />}
+            <Ticket />
           </motion.div>
         )}
         title={title}
@@ -163,7 +164,7 @@ const handleCC = () => {
                   <p>Credit</p>
                 </div>
               </div>
-             : <Button variant="faded" className=" prose prose-lg dark:prose-invert" startContent={<Ticket className="mr-4"/>} radius="sm" color="primary" type={"submit"}>
+             : <Button variant="faded" className=" prose prose-lg dark:prose-invert" startContent={<Ticket className="mr-4"/>} radius="sm" color="primary" onPress={handleSubmit}>
                 <p className="font-bold text-size-xl my-0">Checkout</p>
               </Button>
               }
