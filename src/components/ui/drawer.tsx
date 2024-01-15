@@ -12,7 +12,8 @@ const Drawer = ({
   ...props
 }: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
   <DrawerPrimitive.Root
-    
+  // open={props.open} 
+  // onOpenChange={props.onOpenChange}
     // shouldScaleBackground={shouldScaleBackground}
     {...props}
   />

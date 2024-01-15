@@ -26,7 +26,8 @@ export default function TicketCard({
     drinksIncluded,
     foodIncluded,
     paymentTypes,
-    stripePriceId
+    stripePriceId,
+    payAtDoorTicket
   },
   _key,
   stateKey,
@@ -49,6 +50,7 @@ export default function TicketCard({
           paymentTypes: paymentTypes,
           drinksIncluded: drinksIncluded,
           foodIncluded: foodIncluded,
+          payAtDoorTicket: payAtDoorTicket,
           ticketDescription: ticketDescription,
           eventId: "HARDCODED",
           id: "HARDCODED",
@@ -115,10 +117,11 @@ export default function TicketCard({
                   size="sm"
                   color="warning"
                   variant="faded"
+                  
                   startContent={<Martini size={15} />}
-                  className="flex "
+                  
                 >
-                  <p className=" text-tiny "> Included</p>
+                  <p className=" text-tiny prose dark:text-warning"> Included</p>
                 </Chip>
               ) : null}
               {foodIncluded ? (
@@ -126,15 +129,16 @@ export default function TicketCard({
                   size="sm"
                   color="warning"
                   variant="faded"
+                  
                   startContent={<UtensilsCrossed size={15} />}
                 >
-                  <p className="text-tiny"> Included</p>
+                  <p className="text-tiny prose dark:text-warning"> Included</p>
                 </Chip>
               ) : null}
               {paymentTypesArr.map((paymentType) => {
                 return (
-                  <Chip size="sm" color="warning" variant="faded">
-                    <p className="text-tiny">{paymentType.toString()}</p>
+                  <Chip size="sm" color="warning"  variant="faded">
+                    <p className="text-tiny prose dark:text-warning">{paymentType.toString()}</p>
                   </Chip>
                 );
               })}
@@ -142,8 +146,8 @@ export default function TicketCard({
 
 
             <div className=" absolute bottom-3 flex w-full justify-center text-center ">
-              <h1 className="mr-2 text-4xl">${price-1}</h1>
-              <h1 className="mr-2">.99</h1>
+              <h1 className="mr-2 text-slate-200/80 text-4xl">${price-1}</h1>
+              <h1 className="mr-2 text-slate-200/70">.99</h1>
             </div>
           </CardBody>
         </Card>

@@ -305,11 +305,12 @@ export default function ProfileForm() {
             ticketDescription: {
               description: ticket.ticketDescription,
             },
-            price: parseInt(ticket.ticketPrice),
+            price: ticket.freeTicket ?  parseInt(ticket.ticketPrice) : 0,
             foodIncluded: ticket.foodIncluded ,
             drinksIncluded: ticket.drinksIncluded,
+            payAtDoorTicket: ticket.payAtDoorTicket,
             paymentTypes: ticket.paymentTypes,
-            paymentOweing: false,
+            paymentOweing: ticket.freeTicket ? false : true,
             logo: "",
           })
           return{

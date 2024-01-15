@@ -9,6 +9,7 @@ import SideScrollRoot from "@/components/SideScroll/SideScrollRoot"
 import SideScrollComponent from "@/components/SideScroll/SideScrollComponent"
 import { Ticket, Banknote, CreditCard } from "lucide-react"
 import {toast} from "sonner"
+import { usePress } from "react-aria"
 // import {env} from "@/env"
 // import {Modal, ModalBody, ModalContent, ModalFooter, Popover, PopoverContent, useDisclosure} from "@nextui-org/react"
 import {
@@ -48,20 +49,24 @@ interface TicketProps {
 
 export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroImage}:TicketProps) {
   // const {isOpen, onOpen, onOpenChange,onClose} = useDisclosure();
-  const [selectedTicket, setSelectedTicket] = useState(-1)
+  const [open, setOpen] = useState(false);
   // const [clientSecret, setClientSecret] = useState('');
   const router = useRouter();
-
-  // console.table(tickets)
-  // console.log('tickets from drawer')
-  // console.log(tickets)
-  // console.log(typeof tickets)
-  // console.log('Is tickets an array:', Array.isArray(tickets));
-  // const [selectedTicketData, setSelectedTicketData] = useState<HTicketCardProps['ticket']>();
+  let { pressProps, isPressed } = usePress({
+    onPressStart: (e) => {
+      if(!open) {setOpen(true);}
+    },
+    
+    onPress: (e) => {
+      if(!open) {setOpen(true);}
+    }
+  });
+  
+  
+  const [selectedTicket, setSelectedTicket] = useState(-1)
   const [selectedTicketData, setSelectedTicketData] = useState<HTicketCardProps['ticket'] | undefined>();
   const ticketArr:Array<TicketType> = tickets as Array<TicketType>;
-  // console.log('Is ticketArr an array:', Array.isArray(ticketArr));
-  // const ticket:TicketType = tickets[0]!;
+
   const sendFreeTicket = api.ticket.sendFreeTicket.useMutation({
     onError: (error:any) => {
       console.log("TICKET NOT SENT!");
@@ -142,8 +147,12 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
 
   return (
     <Drawer   
+      open={open}
+      onOpenChange={setOpen}
+      
+      >
     
-    >
+    
       <DrawerTrigger asChild>
         <Button className="fixed prose-sm rounded-t-2xl bottom-0 w-full h-[75px] z-10" variant="outline">
             <span className="h-[8px] w-[100px] top-4 rounded-full bg-zinc-300 dark:bg-zinc-600 absolute  flex">
@@ -154,7 +163,7 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
                 <FingerprintIcon className=" mt-2 animate-bounce " stroke={"#e114e5"} size={32}/>
             </div> */}
             <h1 className="mt-3">
-                <span className="bg-gradient-to-r font-bold from-[#4F46E5] to-[#e114e5] bg-clip-text text-transparent">
+                <span className="bg-primary font-extrabold bg-clip-text text-transparent">
                     Get Tickets
                 </span>        
             </h1>
@@ -166,65 +175,55 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
             <DrawerTitle>Tickets</DrawerTitle>
             <DrawerDescription>Ticket Section </DrawerDescription>
           </DrawerHeader>
-          {/* <div className="flex py-4 mx-2 space-x-4 overflow-x-scroll">
-            {ticketArr.map((ticket, index) => (
-              <div className={'flex'}>
-                <VTicketCard setSelectedTicket={setSelectedTicket} ticketData={ticket} _key={index} stateKey={selectedTicket} />
-              </div>
-            ))}
-            
-          </div> */}
-          <div className="w-full my-2">
-          <SideScrollRoot spacing="space-y-4" vertical className="p-2">
-            {ticketArr.map((ticket, index) => (
-              <SideScrollComponent key={index}>
-                <VTicketCard selectedTicketData={selectedTicketData} setSelectedTicketData={setSelectedTicketData} setSelectedTicket={setSelectedTicket} ticketData={ticket} _key={index} stateKey={selectedTicket} />
-              </SideScrollComponent>
-              ))}
-          </SideScrollRoot>
+          <div className="w-full my-2 max-h-[400px]">
+            <SideScrollRoot spacing="space-y-4" vertical className="p-2 max-h-[350px]"
+              tickets={ticketArr} setSelectedTicket={setSelectedTicket} stateKey={selectedTicket} selectedTicketData={selectedTicketData} setSelectedTicketData={setSelectedTicketData}/>
           </div>
-          <DrawerFooter>
+          <DrawerFooter className="py-0">
             <form onSubmit={(e)=>{
               e.preventDefault();
               handleSubmit();
               
             }}>
 
-            <div className="w-full grid grid-cols-2">
+            <div className="w-full grid grid-cols-2 h-[105px] items-center" >
               <div className="flex space-x-2 items-center">
-              {
-                 selectedTicket >=0 ? 
-                 <h1 className="text-2xl text-primary font-bold">Total: </h1>
-                 : 
-                  null
-                }
-                {/* <h1 className="text-2xl text-primary font-bold">Total: </h1> */}
-                {
-                 selectedTicket >=0 ? 
-                  <h1 className="text-2xl text-slate-200/70  font-bold">{selectedTicketData?.price ? ` $${selectedTicketData.price - 1 + 0.99}` : "FREE"}</h1>
+                  {
+                  selectedTicket >=0 ? 
+                  <h1 className="text-2xl text-primary font-bold">Total: </h1>
                   : 
-                  null
-                }
-              </div>
-            {
-              selectedTicketData?.paymentTypes.includes("Cash") ?
-              <div className="grid grid-cols-2 gap-2">
-                <div className="flex flex-col w-full items-center">
-                  <NButton variant="faded" size={"lg"} className={"w-full"} isIconOnly radius="sm" color="primary" onPress={handleCashCheckout}>
-                      <Banknote />
-                  </NButton>
-                  <p>Cash</p>
+                  <h1 className="text-xl text-primary font-bold">None Selected</h1>
+                  }
+                  {/* <h1 className="text-2xl text-primary font-bold">Total: </h1> */}
+                  {
+                  selectedTicket >=0 ? 
+                    <h1 className="text-2xl dark:text-slate-200/70 text-slate-800/70 font-bold">{selectedTicketData?.price ? ` $${selectedTicketData.price - 1 + 0.99}` : "FREE"}</h1>
+                    : 
+                    null
+                  }
                 </div>
-                <div className="flex flex-col w-full items-center"> 
-                  <NButton variant="faded" size={"lg"} className={"w-full"} isIconOnly radius="sm" color="primary" onPress={handleCC}>
-                    <CreditCard />
-                  </NButton>
-                  <p>Credit</p>
-                </div>
-              </div>
-             : <NButton variant="faded" className=" prose prose-lg dark:prose-invert" startContent={<Ticket className="mr-4"/>} radius="sm" color="primary" type={"submit"}>
-                <p className="font-bold text-size-xl my-0">Checkout</p>
-              </NButton>
+              {
+                selectedTicketData?.paymentTypes.includes("Cash") ?
+                // <div className="grid grid-cols-2 gap-2">
+                //   <div className="flex flex-col w-full items-center">
+                //     <NButton variant="faded" size={"lg"} className={"w-full"} isIconOnly radius="sm" color="primary" onPress={handleCashCheckout}>
+                //         <Banknote />
+                //     </NButton>
+                //     <p>Cash</p>
+                //   </div>
+                //   <div className="flex flex-col w-full items-center"> 
+                //     <NButton variant="faded" size={"lg"} className={"w-full"} isIconOnly radius="sm" color="primary" onPress={handleCC}>
+                //       <CreditCard />
+                //     </NButton>
+                //     <p>Credit</p>
+                //   </div>
+                // </div>
+                <NButton variant="faded" className=" prose prose-lg dark:prose-invert" startContent={<Ticket className="mr-4"/>} radius="sm" color="primary" onPress={handleCashCheckout}>
+                  <p className="font-bold text-size-xl my-0">Get Ticket</p>
+                </NButton>
+              : <NButton variant="faded" className=" prose prose-lg dark:prose-invert" startContent={<Ticket className="mr-4"/>} radius="sm" color="primary" onPress={handleCC}>
+                  <p className="font-bold text-size-xl my-0">Get Ticket</p>
+                </NButton>
               }
             </div>
            </form>
