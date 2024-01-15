@@ -1,7 +1,7 @@
 import { MapPinned } from "lucide-react";
 // import MapAccordian from "@/components/MapAccordian/MapAccordian";
 import dynamic from "next/dynamic";
-import {Button} from "@nextui-org/react";
+import {Button, Divider} from "@nextui-org/react";
 // const MapAccordian = dynamic(() => import("@/components/MapAccordian/MapAccordian"));
 import MapAccordian from "@/components/MapAccordian/MapAccordian";
 import Map from "@/components/Map/MapBox";
@@ -60,7 +60,12 @@ export default function comp({heading,address,city,province,postalCode,lat,lng,l
                 <MapAccordian title="VIEW MAP" province={province} address={address} city={city} center={city as string} lat={lat} lng={lng} postalCode={postalCode} />
             
             {/* <Map wrapperClassName="h-[300px] w[300px]"/> */}
-            <OpenInMapButton wrapperClassName="flex justify-center items-center px-4 my-4" className="w-full " variant="faded" address={address as string} lat={lng} lng={lat}/>
+        <div className="flex w-full mt-4 mb-2 min-h-[50px] px-2 overflow-hidden items-center justify-center space-x-4">
+          <Divider className="" />
+          <h1 className="text-center font-bold text-primary w-full text-nowrap my-0 text-xl ">OR</h1>
+          <Divider className="" />
+        </div>
+            <OpenInMapButton wrapperClassName="flex justify-center items-center  my-4" className="w-full " variant="faded" address={address as string} lat={lng} lng={lat}/>
 
 
         </div>

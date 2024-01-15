@@ -155,32 +155,47 @@ const handleCC = () => {
         {tickets.map((ticket: TicketType, index: number) => {
           return <TicketCard key={index} _key={index} ticket={ticket} selectedTicket={selectedTicket} setSelectedTicket={setSelectedTicket} setSelectedTicketData={setSelectedTicketData} />
         })}
-        <div className="grid grid-cols-2 w-full align-middle">
-          <div className="flex pl-2 space-x-2 items-center">
-            <h1 className="text-2xl text-primary font-bold">Total: </h1>
-            <h1 className="text-2xl text-slate-200/70  font-bold">{selectedTicketData?.price ? ` $${selectedTicketData.price - 1 + 0.99}` : "FREE"}</h1>
-          </div>
-          {
-              selectedTicketData?.paymentTypes.includes("Cash") ?
-              <div className="grid grid-cols-2 gap-2">
-                <div className="flex flex-col w-full items-center">
-                  <Button variant="faded" size={"lg"} className={"w-full my-2"} isIconOnly radius="sm" color="primary" onPress={handleCashCheckout}>
-                      <Banknote />
-                  </Button>
-                  <p>Cash</p>
+            <div className="w-full grid grid-cols-2 h-[105px] items-center" >
+              <div className="flex space-x-2 items-center">
+                  {
+                  selectedTicket >=0 ? 
+                  <h1 className="text-2xl text-primary font-bold">Total: </h1>
+                  : 
+                  <h1 className="text-xl text-primary font-bold">None Selected</h1>
+                  }
+                  {/* <h1 className="text-2xl text-primary font-bold">Total: </h1> */}
+                  {
+                  selectedTicket >=0 ? 
+                    <h1 className="text-2xl dark:text-slate-200/70 text-slate-800/70 font-bold">{selectedTicketData?.price ? ` $${selectedTicketData.price - 1 + 0.99}` : "FREE"}</h1>
+                    : 
+                    null
+                  }
                 </div>
-                <div className="flex flex-col w-full items-center"> 
-                  <Button variant="faded" size={"lg"} className={"w-full my-2"} isIconOnly radius="sm" color="primary" onPress={handleCC}>
-                    <CreditCard />
-                  </Button>
-                  <p>Credit</p>
-                </div>
-              </div>
-             : <Button variant="faded" className=" prose prose-lg dark:prose-invert" startContent={<Ticket className="mr-4"/>} radius="sm" color="primary" onPress={handleSubmit}>
-                <p className="font-bold text-size-xl my-0">Checkout</p>
-              </Button>
+              {
+                selectedTicketData?.paymentTypes.includes("Cash") ?
+                // <div className="grid grid-cols-2 gap-2">
+                //   <div className="flex flex-col w-full items-center">
+                //     <NButton variant="faded" size={"lg"} className={"w-full"} isIconOnly radius="sm" color="primary" onPress={handleCashCheckout}>
+                //         <Banknote />
+                //     </NButton>
+                //     <p>Cash</p>
+                //   </div>
+                //   <div className="flex flex-col w-full items-center"> 
+                //     <NButton variant="faded" size={"lg"} className={"w-full"} isIconOnly radius="sm" color="primary" onPress={handleCC}>
+                //       <CreditCard />
+                //     </NButton>
+                //     <p>Credit</p>
+                //   </div>
+                // </div>
+                <Button variant="faded" className=" prose prose-lg dark:prose-invert" startContent={<Ticket className="mr-4"/>} radius="sm" color="primary" onPress={handleCashCheckout}>
+                  <p className="font-bold text-size-xl my-0">Get Ticket</p>
+                </Button>
+              : <Button variant="faded" className=" prose prose-lg dark:prose-invert" startContent={<Ticket className="mr-4"/>} radius="sm" color="primary" onPress={handleCC}>
+                  <p className="font-bold text-size-xl my-0">Get Ticket</p>
+                </Button>
               }
-        </div>
+            </div>
+
       </AccordionItem>
     </Accordion>
   );

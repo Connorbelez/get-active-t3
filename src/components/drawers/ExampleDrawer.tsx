@@ -156,7 +156,7 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
       <DrawerTrigger asChild>
         <Button 
           {...pressProps}
-        className="fixed prose-sm rounded-t-2xl bottom-0 w-full h-[75px] z-10" variant="outline">
+        className="fixed prose-sm rounded-t-2xl bottom-0 w-full h-[100px] z-10" variant="outline">
             <span className="h-[8px] w-[100px] top-4 rounded-full bg-zinc-300 dark:bg-zinc-600 absolute  flex">
                 <span className="absolute h-[30px] bg-black-700 top-5" ></span>
                 
@@ -228,6 +228,8 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
                 </NButton>
               }
             </div>
+
+            
            </form>
           </DrawerFooter>
         </div>
