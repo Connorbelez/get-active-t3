@@ -11,16 +11,15 @@ import {Avatar} from "@nextui-org/react";
 
 interface pageProps{
 
-        name: string | null | undefined;
-        email: string;
-        image: string | null | undefined;
-        role: any;
-        // tickets: tickets,
-        // savedEvents: savedEvents
+    userName:any;
+    email: string;
+    image: string | null | undefined;
+    role: any;
 
 }
-const App: FC = ({name,email,image,role}:pageProps) => {
+const App  = ({userName,email,image,role}:pageProps) => {
     // const {data:session} = useSession();
+    const name = userName
 
     console.log("ROLE : ", role)
     return (

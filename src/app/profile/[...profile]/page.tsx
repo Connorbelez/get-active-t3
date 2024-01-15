@@ -47,7 +47,7 @@ const App: FC = async () => {
 
             <div className={"flex justify-items-center sm:justify-items-start   row-start-1 row-span-1 sm:row-span-3 sm:col-span-1 sm:col-start-1"}>
 
-                <ProfileCard name={user.name} email={user.email} image={user.image} role={user.role}/>
+                <ProfileCard userName={user.name} email={user.email} image={user.image} role={user.role}/>
 
             </div>
 

@@ -7,7 +7,8 @@ import {
 } from '@stripe/react-stripe-js';
 // import { api} from "@/trpc/react"
 import {env} from "@/env"
-const key = process.env.NODE_ENV === 'production' ? env.NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY : env.NEXT_PUBLIC_STRIPE_DEV_PUBLISHABLE_KEY
+const key =  env.NEXT_PUBLIC_STRIPE_DEV_PUBLISHABLE_KEY
+// const key = process.env.NODE_ENV === 'production' ? env.NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY : env.NEXT_PUBLIC_STRIPE_DEV_PUBLISHABLE_KEY
 const stripePromise = loadStripe(key);
 // const stripePromise = loadStripe("pk_live_51NONQvAXXlLBfJHeSSxxeZADggFT4BhcFPNNVm3Nd7plSu06MDxRORdrl01VZybFM67sECdUGQeLvj2sd1Lp2bdo00akrSA7zi");
 import { useSearchParams } from 'next/navigation'

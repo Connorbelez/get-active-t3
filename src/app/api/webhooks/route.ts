@@ -3,7 +3,8 @@ import {env as envVar} from "@/env";
 
 const Stripe = require('stripe');
 // const stripe = Stripe("whsec_f9091769aa4af3b55279b6940bbf0bd4631a32f5ba6e3e4695c87a1534d2a332");
-const key = process.env.NODE_ENV === "production" ? envVar.STRIPE_SECRET_KEY : envVar.STRIPE_SECRET_KEY_DEV
+// const key = process.env.NODE_ENV === "production" ? envVar.STRIPE_SECRET_KEY : envVar.STRIPE_SECRET_KEY_DEV
+const key = envVar.STRIPE_SECRET_KEY_DEV
 const stripe = Stripe(key);
 
 import {api} from "@/trpc/server";

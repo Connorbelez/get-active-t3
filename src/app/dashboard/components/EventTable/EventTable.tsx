@@ -36,9 +36,32 @@ const columns = [
 export default function App({ events: initialEvents }) {
     const router = useRouter();
     const [eventState, setEventState] = useState([...initialEvents]);
-    const deleteEvent = api.event.deleteEvent.useMutation();
+    const archiveEvent = api.event.archiveEvent.useMutation({
+        onSuccess: (data)=>{
+            toast(<div>EVENT ARCHIVED: {data.event.title}</div>);
+            console.log(data);
+        },
+        onError: (error)=>{
+            toast(<div>Error archiving event</div>);
+            console.log(error);
+
+        }
+    });
+
+    const deleteEvent = api.event.deleteEvent.useMutation({
+        onSuccess: (data)=>{
+            toast(<div>EVENT DELETED: {data.event.title}</div>);
+            console.log(data);
+        },
+        onError: (error)=>{
+            toast(<div>Error deleting event Archiving instead</div>);
+            console.log(error);
+            archiveEvent.mutate({eventId: selectedEvent});
+        }
+    });
     const {isOpen, onOpen, onOpenChange,onClose} = useDisclosure();
     const [selectedEvent, setSelectedEvent] = useState("");
+
 
     const setFeatured = api.event.setFeaturedEvent.useMutation({
         onSuccess: (data)=>{
@@ -72,7 +95,9 @@ export default function App({ events: initialEvents }) {
             // setEventState(currentEvents => currentEvents.filter(e => e.eventId !== event.eventId));
             // toast(<div>EVENT DELETED: {event.title}</div>);
         } catch (error) {
-            console.error('Error deleting event', error);
+            console.error('Error deleting event Attempting to Archive instead ', error);
+            toast.error(<div>Error deleting event Attempting to Archive instead</div>);
+
             // Handle error case
         }
     }
@@ -143,11 +168,18 @@ export default function App({ events: initialEvents }) {
                 </ModalBody>
                 <ModalFooter>
                     <Button onClick={onClose}>Cancel</Button>
-                    <Button color="danger" onClick={()=>{
-                        deleteEvent.mutate({eventId: selectedEvent});
-                        setEventState(currentEvents => currentEvents.filter(e => e.eventId !== selectedEvent));
-                        toast(<div>EVENT DELETED: {selectedEvent}</div>);
-                        onClose();
+                    <Button color="danger" onClick={async ()=>{
+                        try{
+
+                            const res = deleteEvent.mutate({eventId: selectedEvent});
+                            setEventState(currentEvents => currentEvents.filter(e => e.eventId !== selectedEvent));
+                            toast(<div>EVENT DELETED: {selectedEvent}</div>);
+                            onClose();
+                        }catch(error){
+                            console.error('Error deleting event', error);
+                            toast.error(<div>Error deleting event, archiving instead</div>);
+                            
+                        }
                     }}>Delete</Button>
                 </ModalFooter>
             </ModalContent>

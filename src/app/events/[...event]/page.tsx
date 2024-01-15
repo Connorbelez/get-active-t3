@@ -137,7 +137,7 @@ export default async function (
         <BlurredEdgeHero
           src={searchParams.heroImage}
           alt={"test"}
-          maxH={450}
+          maxH={500}
           maxW={"6xl"}
         />
       </div>

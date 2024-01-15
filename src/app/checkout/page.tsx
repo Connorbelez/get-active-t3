@@ -1,5 +1,5 @@
 
-import { getServerAuthSession } from "@/server/auth";
+// import { getServerAuthSession } from "@/server/auth";
 import dynamic from "next/dynamic";
 // import Checkout from "@/app/checkout/components/checkout"
 const Checkout = dynamic(() => import('@/app/checkout/components/checkout'), { ssr: false });

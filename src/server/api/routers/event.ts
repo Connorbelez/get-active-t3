@@ -9,7 +9,7 @@ import {
 import { create } from "domain";
 
 // const key = process.env.NODE_ENV === "production" ? env.STRIPE_SECRET_KEY : env.STRIPE_SECRET_KEY_DEV
-const key = env.STRIPE_SECRET_KEY
+const key = env.STRIPE_SECRET_KEY_DEV
 const stripe = require('stripe')(key);
 
 import { eventSchema } from "@/types/schemas";
@@ -282,7 +282,12 @@ export const eventRouter = createTRPCRouter({
 
     getAllEvents: protectedProcedure
     .query(async ({ ctx }) => {
-        const events = await ctx.db.event.findMany();
+        const events = await ctx.db.event.findMany({
+          where : {
+            //start date is greater than today - 1 day
+            archived: false
+          }
+        });
         return events;
     }),
 
@@ -294,7 +299,8 @@ export const eventRouter = createTRPCRouter({
                 //start date is greater than today - 1 day
                 startDate: {
                   gt: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString()
-                }
+                },
+                archived: false
               }
             });
             return events;
@@ -309,8 +315,9 @@ export const eventRouter = createTRPCRouter({
         .query(async ({ ctx, input }) => {
             const events = await ctx.db.event.findMany({
                 where: {
-                    category: input.category
-                }
+                    category: input.category,
+                    archived: false
+                },
             });
             return events;
         }),
@@ -350,19 +357,106 @@ export const eventRouter = createTRPCRouter({
             eventId: z.string().min(1)
         }))
         .mutation(async ({ ctx, input }) => {
-          return ctx.db.$transaction(async (prisma) => {
-            const tickets = await prisma.ticketType.deleteMany({
-              where: {
-                eventId: input.eventId
-              }
-            });
-            const event = await prisma.event.delete({
+
+          const event = await ctx.db.event.findUnique({
+            where: {
+              id: input.eventId
+            }
+          });
+          if (!event) {
+            throw new Error("Event not found");
+          }
+          
+          try{
+            console.log("Attempting to delete evnt")
+            return ctx.db.$transaction(async (prisma) => {
+              const removedFeaturedEvent = await prisma.featuredEvent.deleteMany({
+                where: {
+                  eventId: input.eventId
+                }
+              });
+
+              // const tickets = await prisma.ticketType.deleteMany({
+              //   where: {
+              //     eventId: input.eventId
+              //   }
+              // });
+
+              //Delete Ticket Descriptions instead of tickets
+              //ToDo DB NEEDS SERIOUS REFACTORING
+              const tickets = await prisma.ticketType.updateMany({
+                where: {
+                  eventId: input.eventId
+                },
+                data: {
+                  ticketDescription: "a",
+                }
+              });
+
+              const event = await prisma.event.delete({
+                where: {
+                  id: input.eventId
+                }
+              });
+              return {event, tickets,deleted: true};
+            })
+          }
+          catch(err:any){
+            console.log("ERROR")
+            console.log("ERROR DELETING EVENT: ", err);
+
+            //If this fails due to foriegn key restraints, instead delete the description to save space and mark the event as archived
+            const event = await ctx.db.event.update({
               where: {
                 id: input.eventId
+              },
+              data: {
+                eventDescription: "a",
+                archived: true,
+                active: false
               }
             });
-            return {event, tickets};
-          })
+
+            //Now do the same for the tickets
+            const tickets = await ctx.db.ticketType.updateMany({
+              where: {
+                eventId: input.eventId
+              },
+              data: {
+                ticketDescription: "a",
+              }
+            });
+            return {event, tickets, deleted: false};
+          }
+        }),
+
+        archiveEvent: protectedProcedure
+        .input(z.object({
+            eventId: z.string().min(1)
+        }))
+        .mutation(async ({ ctx, input }) => {
+          const event = await ctx.db.event.update({
+            where: {
+              id: input.eventId
+            },
+            data: {
+              eventDescription: "a",
+              archived: true,
+              active: false
+            }
+          });
+
+          //Now do the same for the tickets
+          const tickets = await ctx.db.ticketType.updateMany({
+            where: {
+              eventId: input.eventId
+            },
+            data: {
+              ticketDescription: "a",
+            }
+          });
+          return {event, tickets, deleted: false};
+
         }),
 
 
