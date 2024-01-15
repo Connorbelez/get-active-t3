@@ -142,6 +142,7 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
 
   return (
     <Drawer   
+    
     >
       <DrawerTrigger asChild>
         <Button className="fixed prose-sm rounded-t-2xl bottom-0 w-full h-[75px] z-10" variant="outline">
@@ -149,9 +150,9 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
                 <span className="absolute h-[30px] bg-black-700 top-5" ></span>
                 
             </span>
-            <div className="-translate-x-4">
+            {/* <div className="-translate-x-4">
                 <FingerprintIcon className=" mt-2 animate-bounce " stroke={"#e114e5"} size={32}/>
-            </div>
+            </div> */}
             <h1 className="mt-3">
                 <span className="bg-gradient-to-r font-bold from-[#4F46E5] to-[#e114e5] bg-clip-text text-transparent">
                     Get Tickets
@@ -174,7 +175,7 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
             
           </div> */}
           <div className="w-full my-2">
-          <SideScrollRoot spacing="space-x-4" className="p-2">
+          <SideScrollRoot spacing="space-y-4" vertical className="p-2">
             {ticketArr.map((ticket, index) => (
               <SideScrollComponent key={index}>
                 <VTicketCard selectedTicketData={selectedTicketData} setSelectedTicketData={setSelectedTicketData} setSelectedTicket={setSelectedTicket} ticketData={ticket} _key={index} stateKey={selectedTicket} />

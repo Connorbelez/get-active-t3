@@ -216,7 +216,7 @@ export default async function (
         SEND EMAIL
       </button> */}
       
-      <div className="flex w-full justify-center ">
+      <div className="flex w-full justify-center md:hidden ">
         <Drawer eventHeroImage={searchParams.heroImage} eventName={searchParams.title} eventLocation={searchParams.address} tickets={tickets} />
       </div>
     </div>

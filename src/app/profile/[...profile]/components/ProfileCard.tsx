@@ -3,19 +3,24 @@ import { FC } from 'react'
 import {Card, CardBody, CardHeader} from "@nextui-org/react";
 import ProfileAvatar from "@/app/profile/[...profile]/components/ProfileAvatar";
 import {Avatar} from "@nextui-org/react";
-import {useSession} from "next-auth/react";
+// import {useSession} from "next-auth/react";
 
 // interface pageProps {
 
 // }
 
-const App: FC = () => {
-    const {data:session} = useSession();
-    const image = session?.user?.image
-    const name = session?.user?.name
-    const email = session?.user?.email
-    //@ts-ignore
-    const role = session?.user?.role;
+interface pageProps{
+
+        name: string | null | undefined;
+        email: string;
+        image: string | null | undefined;
+        role: any;
+        // tickets: tickets,
+        // savedEvents: savedEvents
+
+}
+const App: FC = ({name,email,image,role}:pageProps) => {
+    // const {data:session} = useSession();
 
     console.log("ROLE : ", role)
     return (

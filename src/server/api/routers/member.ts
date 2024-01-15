@@ -88,6 +88,8 @@ export const memberRouter = createTRPCRouter({
     //     })
     //     return users
     // }),
+    
+
 
 
 
@@ -111,6 +113,63 @@ export const memberRouter = createTRPCRouter({
         })
         return fulfilledTickets
     }),
+
+    getUsersFulfilledTicketsWithTicketType: protectedProcedure
+    .query(async ({ ctx }) => {
+        const fulfilledTickets = await ctx.db.fulfilledTicket.findMany({
+            where: {
+                userId: ctx.session.user.id
+            },
+            include: {
+                ticket: {
+                    include:{
+                        event: {
+                            select:{
+                                eventDescription:false,
+                                id: false,
+                                createdAt: false,
+                                updatedAt: false,
+                                title: true,
+                                headline: false,
+                                category: true,
+                                heroImage: true,
+                                startDate: true,
+                                startTime: true,
+                                private: true,
+                                active: true,
+                                ticketStartingPrice: false,
+                                location: true,
+                                address: true,
+                                postalCode: true,
+                                province: true,
+                                city: true,
+                                country: true,
+                                latlng: true,
+                                lat: true,
+                                lng: true,
+                                adultOnly: true,
+                                drinksIncluded: false,
+                                foodIncluded: false,
+                                createdById: false,
+                                createdByEmail: false,
+                                length: true,
+                                capacity: false,
+                                orgId: true,
+                                createdBy: false,
+                                ticketTypes: false,
+                                Org: true,
+                                ticketSales: false,
+                                FeaturedEvent: false,
+                                SavedEvent: false,
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        return fulfilledTickets
+    }),
+
 
     getUserReciepts: protectedProcedure
     .query(async ({ ctx }) => {

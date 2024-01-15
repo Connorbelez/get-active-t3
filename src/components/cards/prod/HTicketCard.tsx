@@ -37,11 +37,22 @@ export default function TicketCard({
   setSelectedTicket,
   setSelectedTicketData,
 }: HTicketCardProps) {
+  
+  if( !name ){
+    console.log("RETURNING NULL")
+    return null;
+  }
   drinksIncluded = true;
   foodIncluded = true;
   console.table(paymentTypes);
   console.log("TICKET KEY: ", _key);
-  const paymentTypesArr: string[] = paymentTypes.split(",");
+  let paymentTypesArr: string[] = [];
+  if( !paymentTypes ){
+    paymentTypesArr = ["Cash"]
+  }else{
+
+   paymentTypesArr = paymentTypes.split(",");
+  }
   const handlePress = () => {
     selectedTicket === _key ? setSelectedTicket(-1) : setSelectedTicket(_key);
     selectedTicket === _key
@@ -100,7 +111,7 @@ export default function TicketCard({
         <CardBody className={"w-full p-0 sm:grid sm:grid-cols-12"}>
           <div className="container prose-sm prose-invert relative col-span-8 col-start-2 flex flex-col items-center justify-around pr-2 text-right">
             <h1 className=" prose prose-invert -my-1 text-left text-2xl">
-              VIP Ticket
+              {name}
             </h1>
 
             <div className="flex w-full flex-col items-center space-y-2">

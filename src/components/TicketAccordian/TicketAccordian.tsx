@@ -164,13 +164,13 @@ const handleCC = () => {
               selectedTicketData?.paymentTypes.includes("Cash") ?
               <div className="grid grid-cols-2 gap-2">
                 <div className="flex flex-col w-full items-center">
-                  <Button variant="faded" size={"lg"} className={"w-full"} isIconOnly radius="sm" color="primary" onPress={handleCashCheckout}>
+                  <Button variant="faded" size={"lg"} className={"w-full my-2"} isIconOnly radius="sm" color="primary" onPress={handleCashCheckout}>
                       <Banknote />
                   </Button>
                   <p>Cash</p>
                 </div>
                 <div className="flex flex-col w-full items-center"> 
-                  <Button variant="faded" size={"lg"} className={"w-full"} isIconOnly radius="sm" color="primary" onPress={handleCC}>
+                  <Button variant="faded" size={"lg"} className={"w-full my-2"} isIconOnly radius="sm" color="primary" onPress={handleCC}>
                     <CreditCard />
                   </Button>
                   <p>Credit</p>
