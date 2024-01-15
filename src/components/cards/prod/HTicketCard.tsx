@@ -31,6 +31,8 @@ export default function TicketCard({
     foodIncluded,
     ticketDescription,
     stripePriceId,
+    payAtDoorTicket,
+    paymentOweing
   },
   _key,
   selectedTicket,
@@ -66,7 +68,8 @@ export default function TicketCard({
           ticketDescription: ticketDescription,
           eventId: "HARDCODED",
           id: "HARDCODED",
-          paymentOweing: false,
+          paymentOweing: paymentOweing,
+          payAtDoorTicket: payAtDoorTicket,
           logo: "HARDCODED",
           stripePriceId: stripePriceId,
         });

@@ -52,7 +52,7 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
   const [open, setOpen] = useState(false);
   // const [clientSecret, setClientSecret] = useState('');
   const router = useRouter();
-  let { pressProps, isPressed } = usePress({
+  const { pressProps } = usePress({
     onPressStart: (e) => {
       if(!open) {setOpen(true);}
     },
@@ -154,7 +154,9 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
     
     
       <DrawerTrigger asChild>
-        <Button className="fixed prose-sm rounded-t-2xl bottom-0 w-full h-[75px] z-10" variant="outline">
+        <Button 
+          {...pressProps}
+        className="fixed prose-sm rounded-t-2xl bottom-0 w-full h-[75px] z-10" variant="outline">
             <span className="h-[8px] w-[100px] top-4 rounded-full bg-zinc-300 dark:bg-zinc-600 absolute  flex">
                 <span className="absolute h-[30px] bg-black-700 top-5" ></span>
                 
@@ -173,7 +175,7 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
             <DrawerTitle>Tickets</DrawerTitle>
-            <DrawerDescription>Ticket Section </DrawerDescription>
+            <DrawerDescription> Click ticket to select </DrawerDescription>
           </DrawerHeader>
           <div className="w-full my-2 max-h-[400px]">
             <SideScrollRoot spacing="space-y-4" vertical className="p-2 max-h-[350px]"

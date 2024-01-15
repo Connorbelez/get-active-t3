@@ -84,7 +84,7 @@ export default function comp({spacing, stateKey, setSelectedTicket, setSelectedT
                                     }
 
                                     { ticket && ticket.ticketDescription && ticket.ticketDescription['description'] 
-                                     ? <div >
+                                     ? <div className='mt-4'>
                                         <p className='my-0 py-0 font-bold'>Ticket Description: </p>
                                         <Divider className='my-0.5' />
                                         <p className='my-0 py-0 '>{ticket.ticketDescription['description']}</p>
