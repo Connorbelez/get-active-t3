@@ -15,7 +15,7 @@ export const useTextmenuStates = (editor: Editor) => {
       const node = nodeDOM || domAtPos
 
       if (isCustomNodeSelected(editor, node)) {
-        return false
+        return true
       }
 
       return isTextSelected({ editor })

@@ -63,13 +63,10 @@ export default function Comp({
             variant={'outline'}
                 size='icon'
             onClick={handleClickLeft}><ArrowLeftCircle /></Button>
-            <NextButton 
-            // variant={'outline'}
-            //     size='icon'
-            variant="bordered"
-            radius="sm"
-            isIconOnly
-            onPress={handleClickRight}><ArrowRightCircle/></NextButton>
+            <Button 
+            variant={'outline'}
+                size='icon'
+            onClick={handleClickRight}><ArrowRightCircle/></Button>
           </div>
         </div>
     )

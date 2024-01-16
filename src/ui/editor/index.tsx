@@ -22,6 +22,7 @@ import { TableRowMenu } from "./extensions/Table/menus";
 // import { TableColumnMenu } from "./extensions/Table/menus";
 import { useEffect, useState } from "react";
 import { ImageResizer } from "./components/image-resizer";
+import { VideoResizer } from "./components/video-resizer";
 // import { TiptapEditorProps } from "@/ui/editor/props";
 // import { TiptapExtensions } from "@/ui/editor/extensions/exp";
 // import useLocalStorage from "@/lib/hooks/use-local-storage";
@@ -170,6 +171,7 @@ export default function Editor({editorJson, setEditorJson,existingData}: pagepro
       {/* {editor && <EditorBubbleMenu editor={editor} />} */}
       <div className=" w-full rounded-xl items-center border-stone-200 bg-white sm:border sm:shadow-lg dark:border-stone-600 dark:bg-stone-800">
         <div  ref={menuContainerRef} className="h-full w-full rounded-xl  prose dark:prose-invert" >
+          {editor?.isActive("div") || editor?.isActive("html5-video-player") || editor?.isActive("youtube") && <VideoResizer editor={editor} />}
           {editor?.isActive("image") && <ImageResizer editor={editor} />}
           {editor && <EditorContent ref={editorRef} editor={editor} />}
           {editor && <ContentItemMenu editor={editor} />}

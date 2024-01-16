@@ -204,6 +204,20 @@ const GROUPS: Group[] = [
         },
       },
       {
+        name:"Video",
+        description:"Embed a Video from YouTube",
+        label:"Video",
+        iconName:"Youtube",
+        command: ({ editor, range }: CommandProps) => {
+          editor.chain().focus().deleteRange(range).run();
+          editor.commands.setYoutubeVideo({
+            src: prompt("Enter a YouTube URL") as string,
+            width: 400,
+            height: 300,
+          })
+        }
+      },
+      {
         name: "File",
         description: "Upload a File from your computer.",
         label: "File",

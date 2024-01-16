@@ -92,7 +92,7 @@ export const TextMenu = ({ editor }: TextMenuProps) => {
           onTranslate={commands.onTranslate}
         /> */}
         <Toolbar.Divider />
-        {/* <NodeSelector
+        <NodeSelector
           //@ts-ignore
         editor={editor}
         isOpen={isNodeSelectorOpen}
@@ -101,7 +101,7 @@ export const TextMenu = ({ editor }: TextMenuProps) => {
           setIsColorSelectorOpen(false);
           setIsLinkSelectorOpen(false);
         }}
-      /> */}
+      />
         <MemoContentTypePicker options={blockOptions} />
         <MemoFontFamilyPicker onChange={commands.onSetFont} value={states.currentFont || ''} />
         <MemoFontSizePicker onChange={commands.onSetFontSize} value={states.currentSize || ''} />

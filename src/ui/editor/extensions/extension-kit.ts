@@ -15,6 +15,7 @@ import {
   // Emoji,
   Figcaption,
   // FileHandler,
+
   Focus,
   FontFamily,
   FontSize,
@@ -48,6 +49,7 @@ import {
   
 } from '.'
 
+import  { Youtube } from '@tiptap/extension-youtube'
 import { BlockquoteFigure} from '../extensions/BlockquoteFigure/BlockquoteFigure'
 import { Document } from '../extensions/Document'
 import { SlashCommand } from '../extensions/SlashCommand'
@@ -83,6 +85,16 @@ export const ExtensionKit = ({ provider, userId, userName = 'Maxi' }: ExtensionK
     allowBase64: true,
     HTMLAttributes: {
       class: "rounded-lg border border-stone-200",
+    },
+  }),
+  Youtube.configure({
+    autoplay: true,
+    modestBranding: true,
+    width: 400,
+    height: 300,
+    inline: true,
+    HTMLAttributes: {
+      class: "VIDEO-WRAPPER p-4 rounded-lg border max-w-full border-stone-200 ",
     },
   }),
   UpdatedImage.configure({
