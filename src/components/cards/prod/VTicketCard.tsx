@@ -146,8 +146,8 @@ export default function TicketCard({
 
 
             <div className=" absolute bottom-3 flex w-full justify-center text-center ">
-              <h1 className="mr-2 text-slate-200/80 text-4xl">${price-1}</h1>
-              <h1 className="mr-2 text-slate-200/70">.99</h1>
+              <h1 className="mr-2 text-slate-200/80 text-4xl">${price > 1 ? price-1 : 0}</h1>
+              <h1 className="mr-2 text-slate-200/70">{price > 1 ? ".99" : "00"}</h1>
             </div>
           </CardBody>
         </Card>

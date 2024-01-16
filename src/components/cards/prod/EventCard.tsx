@@ -96,7 +96,7 @@ export default function Comp({event,carosel}:compProps) {
             lat:event.lat, lng:event.lng, latlng:event.latlng
         }}}>
         
-        <Card className={`bg-background my-4 h-[380px] ${carosel? "mx-4" : "" } min-w-[350px] w-full md:min-w-[400px] rounded-[40px]  dark:hover:shadow-lg dark:hover:shadow-violet-700/50`}>
+        <Card className={`bg-background my-4 h-[380px] ${carosel? "mx-4" : "" } min-w-[350px] max-w-[350px] w-full md:min-w-[400px] rounded-[40px]  dark:hover:shadow-lg dark:hover:shadow-violet-700/50`}>
             <CardHeader className="absolute z-10 top-1 grid grid-cols-3">
                     <Button
                         // onPress={()=> {

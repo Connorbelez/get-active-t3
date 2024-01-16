@@ -48,8 +48,8 @@ export const env = createEnv({
     // DISCORD_CLIENT_SECRET: z.string(),
     NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY: z.string().min(1),
     NEXT_PUBLIC_STRIPE_DEV_PUBLISHABLE_KEY: z.string().min(1),
-    GOOGLE_ID: z.string(), 
-    GOOGLE_SECRET: z.string(),
+    // GOOGLE_ID: z.string(), 
+    // GOOGLE_SECRET: z.string(),
   },
 
   /**

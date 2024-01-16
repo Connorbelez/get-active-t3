@@ -73,7 +73,7 @@ export default function comp({spacing, stateKey, setSelectedTicket, setSelectedT
                                     {/* <GPayIcon  width={60}/> */}
                                     {
                                         // ticket.payAtDoorTicket 
-                                        ticket.payAtDoorTicket
+                                        ticket.payAtDoorTicket === true || ticket.paymentTypes.includes("Cash")
                                         ? <p>This is a "pay at the door" ticket, you will pay with cash when your ticket is scanned </p> 
                                         : <div className='flex w-full justify-start space-x-2'>
                                             <GPayIcon  width={60}/>
