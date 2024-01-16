@@ -177,7 +177,7 @@ export const EventTicketEmail = ({
 
           <Section style={content}>
             <Row>
-              <Img width="100%" src={`https://get-active.app/redbull.jpg`} />
+              <Img width="100%" src={qrSrc} />
             </Row>
 
             <Row style={{ ...boxInfos, paddingBottom: '0' }}>
@@ -227,11 +227,6 @@ export const EventTicketEmail = ({
                   <b>Ticket ID: </b>
                   {ticketId}
                 </Text>
-
-                <Container style={qrCodeStyle}>
-                  <Img
-                   src={qrSrc} />
-                </Container>
 
                 <Text style={paragraph}>Please show this QR code at the event entrance.</Text>
               </Column>
