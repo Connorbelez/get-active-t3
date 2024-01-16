@@ -29,7 +29,9 @@ export const env = createEnv({
     STRIPE_SECRET_KEY_DEV: z.string(),
     GOOGLE_ID: z.string(), 
     GOOGLE_SECRET: z.string(),
-    DATABASE_URL: z.string()
+    DATABASE_URL: z.string(),
+    NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY: z.string().min(1),
+    NEXT_PUBLIC_STRIPE_DEV_PUBLISHABLE_KEY: z.string().min(1),
   },
 
   /**
@@ -44,13 +46,13 @@ export const env = createEnv({
     NEXT_PUBLIC_STRIPE_DEV_PUBLISHABLE_KEY: z.string().min(1),
     // GOOGLE_ID: z.string(), 
     // GOOGLE_SECRET: z.string(),
-    NEXTAUTH_URL: z.preprocess(
-      // This makes Vercel deployments not fail if you don't set NEXTAUTH_URL
-      // Since NextAuth.js automatically uses the VERCEL_URL if present.
-      (str) => process.env.NEXTAUTH_URL ?? str,
-      // VERCEL_URL doesn't include `https` so it cant be validated as a URL
-      process.env.VERCEL ? z.string() : z.string().url()
-    ),
+    // NEXTAUTH_URL: z.preprocess(
+    //   // This makes Vercel deployments not fail if you don't set NEXTAUTH_URL
+    //   // Since NextAuth.js automatically uses the VERCEL_URL if present.
+    //   (str) => process.env.NEXTAUTH_URL ?? str,
+    //   // VERCEL_URL doesn't include `https` so it cant be validated as a URL
+    //   process.env.VERCEL ? z.string() : z.string().url()
+    // ),
   },
 
   /**

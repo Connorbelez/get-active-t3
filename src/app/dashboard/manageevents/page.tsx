@@ -6,6 +6,7 @@ import { title } from "@/components/Primatives/Typography";
 import dynamic from "next/dynamic";
 const AllEventsCarosel = dynamic(()=>import("@/app/events/components/AllEventsCarosel"));
 const EventHero = dynamic(() => import("@/app/events/components/EventsHero"));
+const AttendeeTable = dynamic(() => import("@/app/dashboard/components/AttendeeTable/TableWrapper"));
 export interface EventTableData {
   id: number;
   eventId: string;
@@ -38,21 +39,20 @@ const app = async () => {
     
 
   return(
-  <div className="h-full w-full flex flex-col my-8 items-center">
+  <div className="h-full w-full flex flex-col my-8 items-center px-0 sm:px-4">
       {/* <h1 className={`text-primary ${title()}`}>Existing Events</h1>
       <Form /> */}
-    <h1 className={`text-primary my-8 ${title()}`}>Existing Events</h1>
-    <div className="TableContainer flex w-full justify-center">
-      <EventTable events={eventInfo} />
+      <h1 className={`text-primary my-8 ${title()}`}>Existing Events</h1>
       
-    </div>
-        <h1 className={`text-primary mt-20 ${title()}`}>Landing Page Preview</h1>
-        <section className="flex flex-col justify-center px-2 sm:px-6 py-5">
-          <EventHero  />
-        </section>
-        <div className="EVENTCARDPREVIEW w-full h-full ">
-          <AllEventsCarosel />
-        </div>
+      <div className="TableContainer flex w-full justify-center">
+        <EventTable events={eventInfo} />
+      </div>
+
+      <h1 className={`text-primary my-8 ${title()}`}>Tickets Sold</h1>
+      <div className="TableContainer flex w-full justify-center">
+        <AttendeeTable />
+      </div>
+
 
 
 

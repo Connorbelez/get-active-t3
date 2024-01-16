@@ -26,6 +26,8 @@ export interface EventTableData {
 const app = async () => {
   const events: EventType[] = await api.event.getEvents.query();
 
+  
+
   const eventInfo:EventTableData[] = events.map((event,index) => {
     return {
       id: index,

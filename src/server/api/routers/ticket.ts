@@ -59,6 +59,18 @@ export const ticketRouter = createTRPCRouter({
         // eventHeroImage: z.string(),
     }))
     .mutation(async ({ ctx, input }) => {
+
+      //Check if user already has a ticket for this event
+      const existingTicket = await ctx.db.fulfilledTicket.findFirst({
+        where:{
+          userId: ctx.session.user.id,
+          ticketId: input.ticketId,
+        }
+      })
+      if(existingTicket){
+        throw new Error("You already have a ticket for this event")
+      }
+
       const ticketAndEventData = await ctx.db.ticketType.findUnique({
         where: {
             id: input.ticketId,
@@ -103,7 +115,7 @@ export const ticketRouter = createTRPCRouter({
           eventStartDate: ticketAndEventData.event.startDate,
 
         }
-
+        
         // Log ticket data in fullfilled Ticket 
         const fullfilledTicketInsertRes = await ctx.db.fulfilledTicket.create({
           data:{
@@ -111,13 +123,14 @@ export const ticketRouter = createTRPCRouter({
             eventId: ticketD.eventId,
             ticketId: ticketD.id,
             quantity: 1,
-            paid: !paymentOweing,
+            paid: false,
             price: ticketD.price,
           }
         }
         )
 
-
+        console.log("FULLFILLED TICKET DATA: ",fullfilledTicketInsertRes)
+        console.log("PAYMENT OWEING: ", paymentOweing)
         // if(input.ticket.price > 0){
         //     throw new Error("Ticket is not free");
         // }
@@ -135,6 +148,7 @@ export const ticketRouter = createTRPCRouter({
         const email = ctx.session.user.email;
         const name = ctx.session.user.name;
         // console.log("EMAIL:",email);
+
         const payload = JSON.stringify({
           ticketData: ticketD,
           ticketDescription: ticketAndEventData.ticketDescription,

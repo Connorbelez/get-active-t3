@@ -35,7 +35,7 @@ export default function comp({heading,length,start,end,ticketInfo}:  compProps) 
 
             </div>
             
-            <div className="flex items-center prose dark:prose-invert space-x-4 lg:pr-8">
+            <div className="flex items-center prose dark:prose-invert space-x-4 lg:pr-8 my-0">
                 <Card className={"h-[48px] w-[48px] flex-shrink-0"}>
                     <CardBody>
                         {/* <TicketIcon stroke={"#BEF264"} size={24} /> */}
@@ -44,7 +44,9 @@ export default function comp({heading,length,start,end,ticketInfo}:  compProps) 
                 </Card>
                 <h2 className="my-0 py-0" >{ticketInfo}</h2>
             </div>
+                <p className="opacity-60 sm:hidden -my-2 font-mono pl-[64px]">Click or Swipe "View Tickets" Drawer at bottom of screen</p>
         </div>
+
     </div>
     )
 }

@@ -1,9 +1,10 @@
-
+export const runtime = "edge";
 
 import {  Divider } from "@/components/ClientNextUI";
 import dynamic from "next/dynamic";
 
-import parse from "html-react-parser";
+//ToDo: find a way of rendering html without dangerouslySetInnerHTML, or find a way of sanitizing html
+// import parse from "html-react-parser";
 import { formatDate } from "@/lib/utils";
 
 import { getEvent } from "@/app/edgefunctions"
@@ -32,6 +33,7 @@ export default async function (
 ) {
 
   const id = params.event;
+  console.log("\n\n\nID:", id)
   const event = await getEvent(id);
   //ToDo: add a nice 404 page
   if(!event){
@@ -135,7 +137,9 @@ export default async function (
             </div>
             <div className="w-full prose dark:prose-invert antialiased ">
 
-              {parse(event.eventDescription)} 
+              {/* {parse(event.eventDescription)}  */}
+              
+              <div dangerouslySetInnerHTML={{__html: event.eventDescription}}></div>
             </div>
           </article>
         </section>

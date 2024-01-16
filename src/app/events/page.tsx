@@ -1,4 +1,4 @@
-
+export const runtime = 'edge'
 
 import EventHero from "./components/EventsHero";
 import HeroDivider1 from "./components/HeroDivider1";

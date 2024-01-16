@@ -3,7 +3,7 @@
 import { title } from "@/components/Primatives/Typography"
 import Image from "next/image"
 
-import { Divider,Chip, Card,CardBody,CardFooter,CardHeader,Button,Popover, PopoverTrigger,PopoverContent} from "@nextui-org/react"
+import { Divider, Snippet,Chip, Card,CardBody,CardFooter,CardHeader,Button,Popover, PopoverTrigger,PopoverContent} from "@/components/ClientNextUI"
 // import {LightningBoltIcon,SewingPinIcon, Crosshair1Icon} from '@radix-ui/react-icons'
 import { MapPin as Crosshair1Icon } from "lucide-react"
 import TicketIcon from "@/components/icons/TicketIcon"
@@ -11,7 +11,7 @@ import HeartIcon from "@/components/icons/HeartIcond"
 import CharityIcon from "@/components/icons/CharityIcon"
 import Link from "next/link"
 import {Event} from "@prisma/client"
-import { Snippet } from "@nextui-org/react"
+
 interface compProps {
     event:Event;
 }
@@ -58,18 +58,9 @@ export default function Comp({event}:compProps) {
 
             <Snippet 
             symbol="📋"
-            // codeString={
-            //     {pathname:"events/event",query: {
-            //         id: event.id.toString(), title:event.title, headline:event.headline, 
-            //         category:event.category, heroImage:event.heroImage, location:event.location,
-            //         startDate:event.startDate, startTime:event.startTime, length:event.length,
-            //         ticketStartingPrice:event.ticketStartingPrice, address:event.address,
-            //         ageRestriction:event.adultOnly, drinksIncluded:event.drinksIncluded,
-            //         foodIncluded:event.foodIncluded, description:event.eventDescription,
-            //         Org: event.orgId, creator: event.createdByEmail, creatorId: event.createdById,
-            //         lat:event.lat, lng:event.lng, latlng:event.latlng
-            //     }}.query.toString()
-            //}
+            codeString={
+                "https://getaktive.vercel.app/events/" + event.id.toString()
+            }
              >
                 Copy Sharable Link
             </Snippet>
@@ -139,16 +130,8 @@ export default function Comp({event}:compProps) {
                 <CardDescription>Card Description</CardDescription>
             </CardHeader> */}
 
-            <Link href={{pathname:"events/event",query: {
-                        id: event.id.toString(), title:event.title, headline:event.headline, 
-                        category:event.category, heroImage:event.heroImage, location:event.location,
-                        startDate:event.startDate, startTime:event.startTime, length:event.length,
-                        ticketStartingPrice:event.ticketStartingPrice, address:event.address,
-                        ageRestriction:event.adultOnly, drinksIncluded:event.drinksIncluded,
-                        foodIncluded:event.foodIncluded, description:event.eventDescription,
-                        Org: event.orgId, creator: event.createdByEmail, creatorId: event.createdById,
-                        lat:event.lat, lng:event.lng, latlng:event.latlng
-                    }}}>
+<Link href={{pathname:"events/" + event.id.toString()
+        }}>
 
             
                 <CardBody className={"grid grid-cols-12 gap-0 overflow-hidden"}>

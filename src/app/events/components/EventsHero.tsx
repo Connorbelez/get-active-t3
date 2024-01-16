@@ -12,16 +12,17 @@ import Link from "next/link";
 // import Card from "@/components/cards/experimental/Card";
 import CardSponser from "@/components/cards/experimental/CardSponser";
 import { Divider, Button } from "@/components/ClientNextUI";
-import {
-  DoubleArrowRightIcon,
-  DoubleArrowDownIcon,
-} from "@radix-ui/react-icons";
+// import {
+//   DoubleArrowRightIcon,
+//   // DoubleArrowDownIcon,
+// } from "@radix-ui/react-icons";
 // import EventHero from "../components/EventsHero";
-import {api} from "@/trpc/server"
-
+// import {api} from "@/trpc/server"
+import {ChevronsDown as DoubleArrowDown } from "lucide-react"
+import { getFeaturedEvent } from "@/app/dynamicEdgeFunctions";
 
 export default async function App() {
-  const featuredEvent = await api.event.getFeaturedEvent.query();
+  const featuredEvent = await getFeaturedEvent();
   
   console.log("FEATURED EVENT")
   console.log(featuredEvent);
@@ -62,7 +63,7 @@ export default async function App() {
           color={"primary"}
           as={Link}
           href={"#eventC"}
-          endContent={<DoubleArrowDownIcon />}
+          endContent={<DoubleArrowDown />}
           className="button w-full lg:hidden lg:w-fit"
         >
           See All Events

@@ -12,9 +12,9 @@ import Link from "next/link";
 // import CardSponser from "@/components/cards/experimental/CardSponser";
 import { Divider, Button } from "@/components/ClientNextUI";
 import {
-  DoubleArrowRightIcon,
-  DoubleArrowDownIcon,
-} from "@radix-ui/react-icons";
+  ChevronsDown as DoubleArrowRightIcon,
+  ChevronsUp as DoubleArrowDownIcon,
+} from "lucide-react";
 
 
 export default function comp() {

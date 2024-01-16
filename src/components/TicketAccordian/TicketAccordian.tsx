@@ -39,6 +39,7 @@ export default function App({
   const [selectedTicketData, setSelectedTicketData] = useState<HTicketCardProps['ticket']>();
   
   const sendFreeTicket = api.ticket.sendFreeTicket.useMutation({
+    
     async onSuccess(data){
       console.log("SUCCESS")
       console.log(data)
@@ -47,7 +48,8 @@ export default function App({
     async onError(error){
       console.log("ERROR")
       console.log(error)
-      toast.error('Error Sending Ticket')
+      
+      toast.error("ERROR: You may already have a ticket for this event or need to sign in")
     }
   });
 
@@ -55,7 +57,7 @@ export default function App({
 
     try{
       if (typeof selectedTicket === 'undefined' || !tickets[selectedTicket]?.id) throw new Error('No ticket selected');
-
+      toast.loading('Sending Ticket to your email, please wait...')
       console.log(selectedTicketData)
         sendFreeTicket.mutate({
           ticketId: tickets[selectedTicket]?.id as string,
@@ -106,6 +108,7 @@ console.log("DONE")
 
 
 const handleCC = () => {
+  toast.loading('Checking Out, please wait..')
   router.push(`/checkout?id=${tickets[selectedTicket]?.id}`)
 }
   

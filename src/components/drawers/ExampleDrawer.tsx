@@ -71,7 +71,7 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
     onError: (error:any) => {
       console.log("TICKET NOT SENT!");
       console.log(error)
-      toast.error('TICKET NOT SENT PLEASE SIGN IN')
+      toast.error('TICKET NOT SENT, you may already have this ticket or need to sign in as an email is required to fulfill the ticket')
       return 0;
     },
     onSuccess: () => {
@@ -91,7 +91,7 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
 
       try{
         if (typeof selectedTicket === 'undefined' || !tickets[selectedTicket]?.id) throw new Error('No ticket selected');
-
+        toast.loading('Sending Ticket to your email, please wait...')
         console.log(selectedTicketData)
           sendFreeTicket.mutate({
             ticketId: tickets[selectedTicket]?.id as string,
@@ -103,7 +103,7 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
         toast.error('No ticket selected')
       }
       else{
-        toast.error('Please Sign In to Continue')
+        toast.error('Something went wrong, you may not be signed in or already have this ticket')
       }
       console.log(error)
     }
@@ -142,6 +142,7 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
 
 
   const handleCC = () => {
+    toast.loading('Loading Secure Stripe checkout, please wait...')
     router.push(`/checkout?id=${tickets[selectedTicket]?.id}`)
   }
 

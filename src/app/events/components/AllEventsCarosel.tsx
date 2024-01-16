@@ -8,13 +8,14 @@ import {Event} from "@prisma/client"
 // import SideScrollRoot from "@/components/SideScroll/SideScrollRoot";
 // import SideScrollComponent from "@/components/SideScroll/SideScrollComponent";
 import SideScrollButtons from "@/components/SideScroll/SideScrollButtons";
-import {api} from "@/trpc/server"
+// import {api} from "@/trpc/server"
+import {getPublicEventsMinimal} from "@/app/dynamicEdgeFunctions"
 interface Props {
   isPreview?:boolean
 }
 
 export default async function comp({isPreview}:Props) {
-    const events = await api.event.getEventsMinimal.query();
+    const events = await getPublicEventsMinimal();
 
 
     return (
@@ -22,7 +23,7 @@ export default async function comp({isPreview}:Props) {
         
         <div className="z-10 col-span-12 col-start-1 row-start-1 mt-16 flex flex-col ">
           <h2 className="prose mx-auto mb-8 text-4xl font-extrabold dark:prose-invert md:text-5xl">
-            <span className="bg-gradient-to-r from-[#c7c4fc] to-[#E114E5] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#4F46E5] to-[#E114E5] bg-clip-text text-transparent">
               All Events
             </span>
           </h2>
