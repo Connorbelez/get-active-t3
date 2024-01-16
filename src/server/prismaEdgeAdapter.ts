@@ -1,8 +1,8 @@
 import { PrismaClient, Prisma } from '@prisma/client'
 import type { Adapter,AdapterAccount,AdapterSession, AdapterUser } from "@auth/core/adapters"
 import { withAccelerate } from '@prisma/extension-accelerate'
-
-export function PrismaAdapter(p: PrismaClient): Adapter {
+import { acceleratedDb, PrismaClientAccelerated } from '@/server/db'
+export function PrismaAdapter(p: PrismaClientAccelerated): Adapter {
     return {
       createUser: (data) => p.user.create({ data }),
       getUser: (id) => p.user.findUnique({ where: { id } }),

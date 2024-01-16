@@ -22,7 +22,7 @@ const createAcceleratedPrismaClient = () => {
 };
 
 // Define a type for the accelerated client.
-type PrismaClientAccelerated = ReturnType<typeof createAcceleratedPrismaClient>;
+export type PrismaClientAccelerated = ReturnType<typeof createAcceleratedPrismaClient>;
 
 const globalForPrisma = globalThis as unknown as {
 	standardPrisma: PrismaClient | undefined;
