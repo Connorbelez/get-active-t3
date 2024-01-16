@@ -6,7 +6,7 @@ interface compProps {
 }
 
 
-const ds = "snap-center touch-pan-x flex-shrink-0"
+const ds = "snap-center touch-pan-y flex-shrink-0"
 export default function ProductPage({children, className}: compProps) {
     // const mouseHandler = (event) => {
     //     var simulatedEvent = new TouchEvent({
