@@ -12,6 +12,7 @@ const NavAvatar = dynamic(() => import("./NavAvater") )
 export default async function App() {
 
   const menuItems = [
+    "Home",
     "Events",
     "Dashboard",
     "Log Out",
@@ -27,13 +28,16 @@ export default async function App() {
 
   return (
     <Navbar 
+    classNames={{
+      menu: "flex justify-right items-end text-right"
+    }}
     maxWidth="xl" className="z-[202]" position="sticky" >
 
       <NavbarContent>
-        <NavbarMenuToggle
+        {/* <NavbarMenuToggle
 
           className="sm:hidden"
-        />
+        /> */}
         <Link href="/" >
             <NavbarBrand >
               <Image src={"/Logo.ico"} width={40} height={40} alt="Get Active Logo" />
@@ -49,7 +53,7 @@ export default async function App() {
             Events
           </Link>
         </NavbarItem>
-        <NavbarItem >
+        <NavbarItem className="" >
           <Link href="/dashboard/" >
             DashBoard
           </Link>
@@ -67,18 +71,29 @@ export default async function App() {
 
             <NavAvatar />
 
+
         </NavbarItem>
+
+        <NavbarMenuToggle
+
+            className="sm:hidden"
+          />
+
       </NavbarContent>
       
-      <NavbarMenu>
+      <NavbarMenu
+
+      >
         {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
+          <NavbarMenuItem
+            
+          key={`${item}-${index}`}>
             <Link
               color={
                 index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
               }
               className="w-full"
-              href={`/${item.toLowerCase()}`}
+              href={`/${item.toLocaleLowerCase()==="home"? "" : item.toLowerCase()}`}
               size="lg"
             >
               {item}

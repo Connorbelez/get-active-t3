@@ -85,10 +85,11 @@ export default async function (
             <div className="IconBar text-left prose flex w-full flex-row font-bold dark:prose-invert ">
               <p>{date}</p>
             </div>
-
+            
             <EventHeading
               heading={event.title}
               content={event.headline as string}
+              featured
             />
             <EventCreatorCard
               creatorImageSrc={event_creator.image}

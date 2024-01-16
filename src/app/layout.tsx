@@ -6,7 +6,7 @@ import { TRPCReactProvider } from "@/trpc/react";
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 // import clsx from "clsx";
-
+import { Analytics } from '@vercel/analytics/react';
 import Providers from "@/app/_components/Providers";
 import dynamic from "next/dynamic";
 // import { getServerSession } from "next-auth";
@@ -49,6 +49,7 @@ export default async function RootLayout({
               <Nav />
               <main className=" w-full h-full flex flex-col items-center">
                   {children}
+                  <Analytics/>
               </main>
             </div>
 
