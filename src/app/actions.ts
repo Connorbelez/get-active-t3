@@ -2,7 +2,7 @@
  
 import { revalidatePath } from 'next/cache'
  
-export async function createPost() {
+export async function revalid() {
   try {
     // ...
   } catch (error) {

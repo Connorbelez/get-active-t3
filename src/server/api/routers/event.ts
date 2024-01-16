@@ -7,7 +7,7 @@ import {
   publicProcedure,
 } from "@/server/api/trpc";
 import { create } from "domain";
-
+import { revalidatePath } from 'next/cache'
 // const key = process.env.NODE_ENV === "production" ? env.STRIPE_SECRET_KEY : env.STRIPE_SECRET_KEY_DEV
 const key = env.STRIPE_SECRET_KEY_DEV
 const stripe = require('stripe')(key);
@@ -249,7 +249,10 @@ export const eventRouter = createTRPCRouter({
         //   }
         // }
       // const priceObj = await createTicketProduct(ticketData.name, ticketData.event.title, ticketData.eventId, ticketData.price, ticketData,user.email);
-
+      revalidatePath("/")
+      revalidatePath("/api/events/getEvents")
+      revalidatePath("/api/events/*")
+      revalidatePath("/api/events/getFeaturedEvent")
       return ctx.db.$transaction(async (prisma) => {
         const token =  process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
         const addr = input.address.replaceAll(" ", "%20");

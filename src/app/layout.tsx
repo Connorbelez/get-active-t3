@@ -8,7 +8,7 @@ import { GeistMono } from 'geist/font/mono';
 // import clsx from "clsx";
 
 import Providers from "@/app/_components/Providers";
-// import dynamic from "next/dynamic";
+import dynamic from "next/dynamic";
 // import { getServerSession } from "next-auth";
 // import { authOptions } from "@/server/auth";
 // import Nav from "@/app/_components/Nav";
@@ -19,7 +19,7 @@ import Providers from "@/app/_components/Providers";
 //   variable: "--font-sans",
 // });
 
-// const Nav = dynamic(() => import("@/app/_components/Nav"));
+const Nav = dynamic(() => import("@/app/_components/Nav"));
 // import { getServerAuthSession } from "@/server/auth";
 export const metadata = {
   title: "Get Active",
@@ -46,7 +46,7 @@ export default async function RootLayout({
             <Providers  >
             <div  className="bg-background items-center w-full">
 
-              {/* <Nav /> */}
+              <Nav />
               <main className=" w-full h-full flex flex-col items-center">
                   {children}
               </main>
