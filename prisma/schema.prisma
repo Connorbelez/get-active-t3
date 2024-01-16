@@ -22,18 +22,18 @@ datasource db {
   relationMode = "prisma"
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+// model Post {
+//   id        Int      @id @default(autoincrement())
+//   name      String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
 
-  createdBy   User   @relation(fields: [createdById], references: [id])
-  createdById String
+//   createdBy   User   @relation(fields: [createdById], references: [id])
+//   createdById String
 
-  @@index([name])
-  @@index([createdById])
-}
+//   @@index([name])
+//   @@index([createdById])
+// }
 
 // Necessary for Next auth
 model Account {
@@ -42,12 +42,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? // @db.Text
-  access_token      String? // @db.Text
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? // @db.Text
+  id_token          String? @db.Text
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -112,8 +112,8 @@ model Event {
   adultOnly           Boolean  @default(false)
   drinksIncluded      Boolean  @default(false)
   foodIncluded        Boolean  @default(false)
-  createdBy           User     @relation(fields: [createdById], references: [id])
-  createdById         String
+  createdBy           User?     @relation(fields: [createdById], references: [id])
+  createdById         String?
 
   createdByEmail String
 
@@ -138,17 +138,18 @@ model Event {
 model User {
   id            String    @id @default(cuid())
   name          String?
-  email         String?   @unique
+  username      String?
+  email         String   @unique
   emailVerified DateTime?
   image         String?
   role          Role      @default(USER)
-
+  picture       String?
   stripeEmail   String?
 
   tickets       FulfilledTicket[]
   accounts      Account[]
   sessions      Session[]
-  posts         Post[]
+  // posts         Post[]
   createdEvents Event[]
   adminFor      Org?              @relation(fields: [adminForOrgId], references: [id])
   adminForOrgId String?

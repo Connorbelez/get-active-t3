@@ -5,7 +5,8 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
-const scopes = ['identify'].join(' ')
+import GoogleProvider from "next-auth/providers/google";
+const scopes = ['identify','email'].join(',')
 import { env } from "@/env";
 import { db } from "@/server/db";
 import { User } from "lucide-react";
@@ -32,11 +33,13 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      email: string;
       // role: string;
       // ...other properties
       role: UserRole;
       // role: role;
       // userRole: string
+ 
     } & DefaultSession["user"];
   }
 
@@ -69,7 +72,24 @@ export const authOptions: NextAuthOptions = {
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,
-      authorization: {params: {scope: scopes}},
+      authorization: {params: {scope: 'identify email'}},
+      profile: (profile) => {
+        console.log("DISCORD ADAPTER: ", profile)
+        console.table(profile )
+        return {
+          id: profile.id,
+          name: profile.global_name,
+          email: profile.email,
+          image: profile.avatar,
+          username: profile.username,
+          role: UserRole.USER
+          // role: UserRole.USER,
+        };
+      }
+    }),
+    GoogleProvider({
+      clientId: env.GOOGLE_ID,
+      clientSecret: env.GOOGLE_SECRET,
     }),
     /**
      * ...add more providers here.
@@ -114,6 +134,39 @@ export const authOptions: NextAuthOptions = {
         // role: r
       }
     },
+
+    // async signIn({ profile }) {
+    //   console.log('\n\n\n SIGN IN ')
+    //   const UserEmail = profile?.email;
+      
+    //   let user = await db.user.findUnique({
+    //     where: {email: UserEmail}
+    //   })
+    
+    //   if (!user) {
+    //     console.log("CREATING USER");    
+    //     await db.user.create({
+    //       data: {
+    //         // discordId: profile.id,
+    //         name: profile?.name,
+    //         // discriminator: profile.discriminator,
+    //         email: profile?.email,
+    //         image: profile?.image? profile.image : profile?.picture,
+    //         role: UserRole.USER,
+    //         picture: profile?.picture,
+    //       }
+    //     });
+    //   }
+    //   return true;
+    // },
+    
+    // async redirect({ url, baseUrl }) {
+    //   // Allows relative callback URLs
+    //   if (url.startsWith("/")) return `${baseUrl}${url}`
+    //   // Allows callback URLs on the same origin
+    //   else if (new URL(url).origin === baseUrl) return url
+    //   return baseUrl
+    // },
   },
 };
 

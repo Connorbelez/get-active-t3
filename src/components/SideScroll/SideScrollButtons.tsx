@@ -40,7 +40,8 @@ export default function Comp({
                 behavior: 'smooth'
             });
         }
-    };
+    }
+
     return (
         <div className="container col-span-12 sm:col-span-10 overflow-hidden sm:col-start-2 px-4 sm:px-0">
         <div ref={scrollContainerRef} className={"SIDESCROLL CONTAINER snap-mandatory snap-x overflow-x-scroll flex space-x-8 flex-row"}>

@@ -38,6 +38,7 @@ import {capitalize} from "./utils";
 import { User as UserType } from "@prisma/client";
 import { EditDocumentIcon } from "./EditDocument";
 import { Delete, FileEdit, UserCircle } from "lucide-react";
+import { toast } from "sonner";
 
 const statusColorMap = {
   active: "success",
@@ -73,6 +74,7 @@ export default function App({users}: UserTableProps) {
   const editUser = api.member.updateUserById.useMutation({
     onSuccess: (data) => {
       console.log('user updated')
+      toast.success(<p>User: {data.name} updated with role: {data.role}</p>)
       console.log("DATA: ",data)
     }
   

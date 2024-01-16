@@ -25,7 +25,7 @@ export default function comp() {
           size="lg"
           color={"primary"}
           as={Link}
-          href={"#events"}
+          href={"#eventC"}
           endContent={<DoubleArrowDownIcon />}
           className="button w-full hidden lg:flex lg:w-fit"
         >

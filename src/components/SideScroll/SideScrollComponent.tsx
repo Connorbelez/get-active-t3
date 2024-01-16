@@ -7,7 +7,7 @@ interface compProps {
 
 
 const ds = "snap-center touch-pan-y flex-shrink-0"
-export default function ProductPage({children, className}: compProps) {
+export default function SideScroll({children, className}: compProps) {
     // const mouseHandler = (event) => {
     //     var simulatedEvent = new TouchEvent({
     //         mousedown: "touchstart",

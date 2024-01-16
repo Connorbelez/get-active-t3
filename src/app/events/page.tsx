@@ -45,8 +45,9 @@ export default async function Home() {
 
         <HeroDivider2  />
       </div>
-
+      <div id={"eventC"}></div>
       <AllEventsCarosel />
+      
 
     </>
   );

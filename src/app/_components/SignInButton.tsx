@@ -6,7 +6,7 @@ export default function comp() {
     return (
         <Button
         aria-label="profile"
-        onPress={()=>{void signIn("discord")}}
+        onPress={()=>{void signIn()}}
         variant="flat"
         color="primary"
       >

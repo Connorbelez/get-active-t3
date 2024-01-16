@@ -34,7 +34,8 @@ export const env = createEnv({
     STRIPE_DEV_WEBHOOOK_SECRET: z.string(),
     STRIPE_SECRET_KEY: z.string(),
     STRIPE_SECRET_KEY_DEV: z.string(),
-      
+    GOOGLE_ID: z.string(), 
+    GOOGLE_SECRET: z.string(),
   },
 
   /**
@@ -47,7 +48,8 @@ export const env = createEnv({
     // DISCORD_CLIENT_SECRET: z.string(),
     NEXT_PUBLIC_STRIPE_PUBLISHABLABLE_KEY: z.string().min(1),
     NEXT_PUBLIC_STRIPE_DEV_PUBLISHABLE_KEY: z.string().min(1),
-    
+    GOOGLE_ID: z.string(), 
+    GOOGLE_SECRET: z.string(),
   },
 
   /**
@@ -64,6 +66,8 @@ export const env = createEnv({
     CLOUD_FLARE_BUCKET_ACCESS_ID: process.env.CLOUD_FLARE_BUCKET_ACCESS_ID,
     CLOUD_FLARE_BUCKET_SECRET_ID: process.env.CLOUD_FLARE_BUCKET_SECRET_ID,
     CLOUD_FLARE_BUCKET_TOKEN: process.env.CLOUD_FLARE_BUCKET_TOKEN,
+    GOOGLE_ID: process.env.GOOGLE_ID,
+    GOOGLE_SECRET:process.env.GOOGLE_SECRET,
     
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
     STRIPE_DEV_WEBHOOOK_SECRET: process.env.STRIPE_DEV_WEBHOOOK_SECRET,

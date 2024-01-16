@@ -32,6 +32,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const cooks = cookies().toString();
 
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
@@ -41,7 +42,7 @@ export default async function RootLayout({
       <body className={
 					"bg-background font-sans antialiased "
 				} >
-          <TRPCReactProvider cookies={cookies().toString()}>
+          <TRPCReactProvider cookies={cooks}>
             <Providers  >
             <div  className="bg-background items-center w-full">
 

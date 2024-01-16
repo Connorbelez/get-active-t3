@@ -166,7 +166,7 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
             </div> */}
             <h1 className="mt-3">
                 <span className="bg-primary font-extrabold bg-clip-text text-transparent">
-                    Get Tickets
+                    View Tickets
                 </span>        
             </h1>
         </Button>

@@ -138,7 +138,7 @@ export const SidebarWrapper = () => {
               <SidebarItem
                 // isActive={usePathname() === "/dashboard/newevent"}
                 title="New Event"
-                icon={<EditDocumentIcon size={28} />}
+                icon={<EditDocumentIcon size={24} />}
                 href="/dashboard/newevent"
               />
               <SidebarItem
@@ -153,11 +153,11 @@ export const SidebarWrapper = () => {
                 icon={<CustomersIcon />}
                 href="/dashboard/userm"
               />
-              <CollapseItems
+              {/* <CollapseItems
                 icon={<BalanceIcon />}
                 items={["Banks Accounts", "Credit Cards", "Loans"]}
                 title="Balances"
-              />
+              /> */}
               {/* <SidebarItem
                 // isActive={usePathname() === "/customers"}
                 title="Customers"
@@ -168,11 +168,11 @@ export const SidebarWrapper = () => {
                 title="Manage Events"
                 icon={<ProductsIcon />}
               /> */}
-              <SidebarItem
+              {/* <SidebarItem
                 // isActive={usePathname() === "/reports"}
                 title="Reports"
                 icon={<ReportsIcon />}
-              />
+              /> */}
             </SidebarMenu>
 
             <SidebarMenu title="Updates">

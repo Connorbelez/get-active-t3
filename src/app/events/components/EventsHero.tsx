@@ -61,7 +61,7 @@ export default async function App() {
           size="lg"
           color={"primary"}
           as={Link}
-          href={"#events"}
+          href={"#eventC"}
           endContent={<DoubleArrowDownIcon />}
           className="button w-full lg:hidden lg:w-fit"
         >

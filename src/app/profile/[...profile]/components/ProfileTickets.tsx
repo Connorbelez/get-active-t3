@@ -97,7 +97,7 @@ export default function TicketCard({
     <div className={`w-full mx-1 p-1 h-full rounded-lg flex ${_key == selectedTicket ? "" : ""}`}>
 
     
-        <Button
+      <Button
         isIconOnly
         key={_key}
         onPress={handlePress}

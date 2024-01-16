@@ -12,7 +12,6 @@ const NavAvatar = dynamic(() => import("./NavAvater") )
 export default async function App() {
 
   const menuItems = [
-    "Profile",
     "Events",
     "Dashboard",
     "Log Out",
