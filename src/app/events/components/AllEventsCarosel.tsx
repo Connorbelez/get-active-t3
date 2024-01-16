@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default async function comp({isPreview}:Props) {
-    const events:Event[] = await api.event.getEvents.query();
+    const events = await api.event.getEventsMinimal.query();
 
 
     return (

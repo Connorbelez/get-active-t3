@@ -74,6 +74,65 @@ async function createTicketProduct(name, price,ticketData, eventId,eventTitle){
 
 export const eventRouter = createTRPCRouter({
 
+  getEventRemainingDetails: publicProcedure
+  .input(z.object({
+      eventId: z.string().min(1)
+  }))
+  .query(async ({ ctx,input }) => {
+      const events = await ctx.db.event.findUnique({
+        where : {
+          //start date is greater than today - 1 day
+          id: input.eventId
+        }
+      });
+      return events;
+  }
+  ),
+
+    getEventsMinimal: publicProcedure
+    .query(async ({ ctx }) => {
+        const events = await ctx.db.event.findMany({
+          where : {
+            //start date is greater than today - 1 day
+            startDate: {
+              gt: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString()
+            },
+            archived: false
+          },
+          select: {
+            id: true,
+            title: true,
+            headline: true,
+            category: true,
+            heroImage: true,
+            startDate: true,
+            startTime: true,
+            ticketStartingPrice: true,
+            location: true,
+            address: false,
+            eventDescription: false,
+            length: false,
+            capacity: false,
+            postalCode: false,
+            city: false,
+            province: false,
+            country: false,
+            latlng: false,
+            createdById: true,
+            createdByEmail: true,
+            private: false,
+            drinksIncluded: false,
+            foodIncluded: false,
+            adultOnly: false,
+            orgId: false,
+            lat: false,
+            lng: false,
+          }
+        });
+        return events;
+    }
+    ),
+
     getFeaturedEvent: publicProcedure
     .query(async ({ ctx }) => {
       try{

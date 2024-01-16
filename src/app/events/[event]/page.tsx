@@ -1,37 +1,42 @@
-// export const runtime = 'edge'
+
 
 import {  Divider } from "@nextui-org/react";
-// import dynamic from "next/dynamic";
-// import parse from "html-react-parser";
+import dynamic from "next/dynamic";
+
+import parse from "html-react-parser";
 import { formatDate } from "@/lib/utils";
-// import { getEvent } from "@/app/edgefunctions"
+
+import { getEvent } from "@/app/edgefunctions"
+
+
 import AttendingGroup from "@/components/Hero/AttendingGroup";
-import EventHeading from "@/components/EventHeadingSection";
-import EventAboutSection from "@/components/EventAbout";
-import EventLocationSection from "@/components/EventLocationSection";
-import EventDateSecion from "@/components/EventDateSection";
-import EventCreatorCard from "@/components/EventCreatorCard";
-import Drawer from "@/components/drawers/ExampleDrawer";
-import TicketAccordian from "@/components/TicketAccordian/TicketAccordian";
-import { redirect } from 'next/navigation'
+
+
+import EventHeading from "./components/EventHeadingSection";
+const EventAboutSection = dynamic(() => import("./components/EventAbout"));
+const EventLocationSection = dynamic(
+  () => import("./components/EventLocationSection"),
+);
+const EventDateSecion = dynamic(() => import("./components/EventDateSection"));
+const EventCreatorCard = dynamic(() => import("./components/EventCreatorCard"));
+const Drawer = dynamic(() => import("@/components/drawers/ExampleDrawer"));
+
 import BlurredEdgeHero from "@/components/Hero/BluredEdgeHero";
-import { getFeaturedEvent } from "./dynamicEdgeFunctions";
+const TicketAccordian = dynamic(() => import("@/components/TicketAccordian/TicketAccordian"));
+
 
 export default async function (
   
-
+    { params }: { params: { event: string }}
 
 ) {
 
-  
-  const event = await getFeaturedEvent();
-  if(event === null){
-    redirect("/events")
-  }
+  const id = params.event;
+  const event = await getEvent(id);
   const tickets = event.ticketTypes;
 
-  // console.log("TICEKTS FROM PAGE\n")
-  // console.log(tickets)
+  console.log("TICEKTS FROM PAGE\n")
+  console.log(tickets)
 
 
   const event_creator = {
@@ -65,7 +70,7 @@ export default async function (
       </div>
       <AttendingGroup maxDisplay={5} eventid={event.id} />
 
-      <div className="Event Detail Wrapper w-full px-4 ">
+      <div className="Event Detail Wrapper w-full px-4 sm:px-0 ">
         <section
           id="Event Details Wrapper"
           className={
@@ -125,7 +130,8 @@ export default async function (
               <Divider className=" mt-4 mb-8" />
             </div>
             <div className="w-full prose dark:prose-invert antialiased ">
-              {/* {parse(event.eventDescription)}  */}
+
+              {parse(event.eventDescription)} 
             </div>
           </article>
         </section>

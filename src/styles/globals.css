@@ -72,9 +72,11 @@
 }
 
 .html5-video-player {
+  max-width: 100% !important;
   border-radius: 20px;
 }
 .site-as-giant-card{
+
   border-radius: 20px;
 }
 

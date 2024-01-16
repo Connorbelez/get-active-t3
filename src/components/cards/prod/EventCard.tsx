@@ -10,7 +10,19 @@ import Link from "next/link"
 import {Event} from "@prisma/client"
 
 interface compProps {
-    event: Event;
+    event: {
+        id: string;
+        title: string;
+        headline: string | null;
+        category: string | null;
+        heroImage: string;
+        startDate: string;
+        startTime: string;
+        ticketStartingPrice: number;
+        location: string;
+        createdById: string | null;
+        createdByEmail: string;
+    };
     wrapperClassNames?: string;
     carosel?: boolean;
 
@@ -86,14 +98,7 @@ export default function Comp({event,carosel}:compProps) {
     const liked=true;
     return (
         <Link href={{pathname:"events/event",query: {
-            id: event.id.toString(), title:event.title, headline:event.headline, 
-            category:event.category, heroImage:event.heroImage, location:event.location,
-            startDate:event.startDate, startTime:event.startTime, length:event.length,
-            ticketStartingPrice:event.ticketStartingPrice, address:event.address,
-            ageRestriction:event.adultOnly, drinksIncluded:event.drinksIncluded,
-            foodIncluded:event.foodIncluded, description:event.eventDescription,
-            Org: event.orgId, creator: event.createdByEmail, creatorId: event.createdById,
-            lat:event.lat, lng:event.lng, latlng:event.latlng
+            id: event.id.toString()
         }}}>
         
         <Card className={`bg-background my-4 h-[380px] ${carosel? "mx-4" : "" } min-w-[350px] max-w-[350px] w-full md:min-w-[400px] rounded-[40px]  dark:hover:shadow-lg dark:hover:shadow-violet-700/50`}>

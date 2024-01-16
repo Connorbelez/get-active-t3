@@ -9,7 +9,19 @@ import {ArrowLeftCircle, ArrowRightCircle} from "lucide-react"
 import {useRef, useState, useEffect} from 'react';
 interface compProps {
     items?: React.ReactNode[],
-    events: Event[],
+    events: {
+      id: string;
+      title: string;
+      headline: string | null;
+      category: string | null;
+      heroImage: string;
+      startDate: string;
+      startTime: string;
+      ticketStartingPrice: number;
+      location: string;
+      createdById: string | null;
+      createdByEmail: string;
+  }[],
 }
 
 export default function Comp({
@@ -47,7 +59,7 @@ export default function Comp({
         <div ref={scrollContainerRef} className={"SIDESCROLL CONTAINER snap-mandatory snap-x overflow-x-scroll flex space-x-8 flex-row"}>
             <div className="SPACER ELEMENT col-span-5 w-full flex-shrink-0"> </div>
               {
-                events.map((event:Event,index:number) => {
+                events.map((event,index:number) => {
                   return (
                     <SideScrollComponent key={index}  className="">
                       <EventCard key={index} event={event} />

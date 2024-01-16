@@ -154,11 +154,6 @@ export const dataRouter = createTRPCRouter(({
         },
         take: 10,
     });
-
-
-
-
-    
     const firstTenRsvpd = await ctx.db.savedEvent.findMany({
         where: {
             eventId: input.eventId,
@@ -180,7 +175,6 @@ export const dataRouter = createTRPCRouter(({
         take: 10,
     });
 
-    
     return {
         countConfirmed: countConfirmed,
         countRsvpd: countRsvpd,

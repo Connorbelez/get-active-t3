@@ -1,7 +1,7 @@
 import React from "react";
 import {Avatar, AvatarGroup} from "@nextui-org/react";
-import {api} from "@/trpc/server";
-
+// import {api} from "@/trpc/server";
+import { getEventAttendeePreview } from "@/app/dynamicEdgeFunctions";
 interface AvatarGroupProps {
     maxDisplay: number;
     eventid: string;
@@ -10,7 +10,7 @@ export default async function App({maxDisplay, eventid}: AvatarGroupProps) {
 
 
 
-  const attending = await api.data.getEventAttendeePreview.query({eventId: eventid})
+  const attending = await getEventAttendeePreview(eventid)
   const attendingCount = attending.countConfirmed
   const rsvpCount = attending.countRsvpd
   const attendingUsers:{
