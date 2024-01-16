@@ -1,4 +1,4 @@
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input } from "@/components/ClientNextUI";
 import Link from "next/link";
 import React from "react";
 import { DotsIcon } from "../icons/accounts/dots-icon";

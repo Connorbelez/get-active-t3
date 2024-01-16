@@ -3,7 +3,7 @@ import {
     Card,
     CardBody,
 
-  } from "@nextui-org/react";
+  } from "@/components/ClientNextUI";
   import { Clock1, TicketIcon } from "lucide-react";
 
 interface compProps {

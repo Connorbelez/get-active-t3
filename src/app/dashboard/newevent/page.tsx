@@ -7,7 +7,7 @@
 // import { CardBalance3 } from "./card-balance3";
 // import { CardAgents } from "./card-agents";
 // import { CardTransactions } from "./card-transactions";
-// import { Link } from "@nextui-org/react";
+// import { Link } from "@/components/ClientNextUI";
 // import NextLink from "next/link";
 import EventTable from "@/app/dashboard/components/EventTable/EventTable"
 import {api} from "@/trpc/server"

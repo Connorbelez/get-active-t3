@@ -1,7 +1,7 @@
 "use client"
 
 import { SessionProvider } from "next-auth/react"
-import {NextUIProvider} from "@nextui-org/react";
+import {NextUIProvider} from "@/components/ClientNextUI";
 import {ThemeProvider as NextThemesProvider} from "next-themes";
 import { Toaster } from "@/components/ui/toast";
 

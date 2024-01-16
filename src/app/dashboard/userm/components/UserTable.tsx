@@ -24,7 +24,7 @@ import {
   DropdownSection,
   cn,
 
-} from "@nextui-org/react";
+} from "@/components/ClientNextUI";
 import { DeleteDocumentIcon } from "./DeleteDocument";
 import { ChevronDown, UserPlus } from "lucide-react";
 import {api} from "@/trpc/react"

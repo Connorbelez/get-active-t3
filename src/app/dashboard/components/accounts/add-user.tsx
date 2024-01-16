@@ -7,7 +7,7 @@ import {
   ModalFooter,
   ModalHeader,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@/components/ClientNextUI";
 import React from "react";
 
 export const AddUser = () => {

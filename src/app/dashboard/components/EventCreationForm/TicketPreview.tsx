@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader, Chip, Button } from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Chip, Button } from "@/components/ClientNextUI";
 import Accordian from "@/components/TicketAccordian/TicketAccordian";
 import Image from "next/image";
 import { TicketType } from "@prisma/client";

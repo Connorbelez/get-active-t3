@@ -1,11 +1,11 @@
 import { MapPinned } from "lucide-react";
 // import MapAccordian from "@/components/MapAccordian/MapAccordian";
 import dynamic from "next/dynamic";
-import {Button, Divider} from "@nextui-org/react";
+import {Button, Divider} from "@/components/ClientNextUI";
 // const MapAccordian = dynamic(() => import("@/components/MapAccordian/MapAccordian"));
 import MapAccordian from "@/components/MapAccordian/MapAccordian";
-import Map from "@/components/Map/MapBox";
-import { string } from "zod";
+// import Map from "@/components/Map/MapBox";
+// import { string } from "zod";
 import { OpenInMapButton } from "@/components/OpenInMapButton";
 interface compProps {
     heading: string,

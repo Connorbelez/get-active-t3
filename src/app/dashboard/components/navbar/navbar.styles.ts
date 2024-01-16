@@ -1,4 +1,4 @@
-import { tv } from "@nextui-org/react";
+import { tv } from "@/components/ClientNextUI";
 
 // NEEDS TO BE REFACTORED
 

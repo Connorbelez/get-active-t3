@@ -1,6 +1,6 @@
 
 
-import {  Divider } from "@nextui-org/react";
+import {  Divider } from "@/components/ClientNextUI";
 import dynamic from "next/dynamic";
 
 import parse from "html-react-parser";

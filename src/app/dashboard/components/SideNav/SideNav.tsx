@@ -2,7 +2,7 @@
 import { NavbarWrapper } from "@/app/dashboard/components/navbar/navbar";
 
 import {Home, CopyPlus, CalendarSearchIcon, Users, List} from "lucide-react";
-import { Listbox, ListboxItem, ListboxSection } from "@nextui-org/react";
+import { Listbox, ListboxItem, ListboxSection } from "@/components/ClientNextUI";
 interface compProps {
 
 }

@@ -1,5 +1,5 @@
 'use client'
-import { Input, Link, Navbar, NavbarContent } from "@nextui-org/react";
+import { Input, Link, Navbar, NavbarContent } from "@/components/ClientNextUI";
 import React from "react";
 import { FeedbackIcon } from "../icons/navbar/feedback-icon";
 import { GithubIcon } from "../icons/navbar/github-icon";

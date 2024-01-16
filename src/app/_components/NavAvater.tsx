@@ -7,8 +7,8 @@ import {
   Dropdown,
 
   Avatar,
-} from "@nextui-org/react";
-import { NavbarContent, NavbarItem } from "@nextui-org/react";
+} from "@/components/ClientNextUI";
+import { NavbarContent, NavbarItem } from "@/components/ClientNextUI";
 // import {useSession} from "next-auth/react";
 // import { Link } from "@nextui-org/link";
 // import { signIn } from "next-auth/react";

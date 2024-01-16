@@ -19,11 +19,11 @@ const BlurredEdgeHero: React.FC<heroProps> = ({src, alt, maxH = 450, maxW = "6xl
                 // className=""
                 classNames={{
                     wrapper: "overflow-hidden ",
-                    img: `z-10 max-h-[500px] min-h-[450]`,
+                    img: `z-10 max-h-[500px] min-h-[450] rounded-b-[50px] md:rounded-b-none `,
                 }}
             />
 
-            <div className={`absolute max-w-7xl w-full rounded-3xl h-[500px] min-h-[450] overflow-hidden`}>
+            <div className={`hidden md:block sm:absolute max-w-7xl w-full rounded-b-3xl sm:rounded-b-3xl sm:rounded-3xl h-[500px] min-h-[450] overflow-hidden`}>
                 <div className="w-full overflow-hidden blur-3xl">
                     <img 
                         className={""}

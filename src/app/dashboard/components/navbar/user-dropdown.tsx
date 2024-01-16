@@ -6,7 +6,7 @@ import {
   DropdownTrigger,
   Navbar,
   NavbarItem,
-} from "@nextui-org/react";
+} from "@/components/ClientNextUI";
 import React from "react";
 import { DarkModeSwitch } from "./darkmodeswitch";
 

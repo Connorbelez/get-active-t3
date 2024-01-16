@@ -1,11 +1,11 @@
 "use client"
 import React, { useState, useCallback } from "react";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip } from "@nextui-org/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip } from "@/components/ClientNextUI";
 import { EditIcon, DeleteIcon, EyeIcon } from "./EventTableIcons";
 // import { EventTableData } from "../home/content";
 import { toast } from "sonner";
 import { api } from "@/trpc/react";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@/components/ClientNextUI";
 import { useRouter } from "next/navigation";
 const statusColorMap = {
     active: "success",

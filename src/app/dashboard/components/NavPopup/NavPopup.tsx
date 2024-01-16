@@ -1,6 +1,6 @@
 "use client"
 import React from "react";
-import {Popover, PopoverTrigger, PopoverContent, Button, Input, Listbox, ListboxItem, Link, ListboxSection} from "@nextui-org/react";
+import {Popover, PopoverTrigger, PopoverContent, Button, Input, Listbox, ListboxItem, Link, ListboxSection} from "@/components/ClientNextUI";
 import {Compass,Home, CalendarSearch, Users,CalendarPlus, CopyPlus} from "lucide-react";
 import { EditIcon } from "../EventTable/EventTableIcons";
 interface NavPopupProps {

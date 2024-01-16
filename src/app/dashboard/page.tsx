@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 const AllEventsCarosel = dynamic(()=>import("@/app/events/components/AllEventsCarosel"));
 const EventHero = dynamic(() => import("@/app/events/components/EventsHero"));
 import { CalendarSearch, CopyPlus, PanelLeftClose, PanelLeftOpen } from "lucide-react";
-import {Card, CardBody, CardHeader,CardFooter, Link} from "@nextui-org/react"
+import {Card, CardBody, CardHeader,CardFooter, Link} from "@/components/ClientNextUI"
 
 export interface EventTableData {
   id: number;

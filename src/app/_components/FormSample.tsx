@@ -14,7 +14,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { Input } from "@nextui-org/react"
+import { Input } from "@/components/ClientNextUI"
 
 const formSchema = z.object({
   username: z.string().min(2, {

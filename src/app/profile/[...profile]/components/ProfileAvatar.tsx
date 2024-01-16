@@ -1,6 +1,6 @@
 "use client"
 import { FC } from 'react'
-import {Avatar} from "@nextui-org/react";
+import {Avatar} from "@/components/ClientNextUI";
 import {useSession} from "next-auth/react";
 
 // interface pageProps {

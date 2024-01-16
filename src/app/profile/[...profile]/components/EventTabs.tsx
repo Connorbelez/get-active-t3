@@ -1,6 +1,6 @@
 "use client"
 import React, {useState} from "react";
-import {Tabs, Tab, Input, Link, Button,Chip, Card, CardBody, CardHeader, CardFooter} from "@nextui-org/react";
+import {Tabs, Tab, Input, Link, Button,Chip, Card, CardBody, CardHeader, CardFooter} from "@/components/ClientNextUI";
 import HTicketCard, {HTicketCardProps} from "./ProfileTickets";
 import { Calendar, Clock, MapPinned } from "lucide-react";
 // import {NewTicket, SelectTicket} from "@/lib/planetscale";

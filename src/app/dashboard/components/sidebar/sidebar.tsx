@@ -3,7 +3,7 @@
 import { CalendarSearch, CopyPlus, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import {useEffect, useState,useCallback} from "react";
 import { Sidebar } from "./sidebar.styles";
-import { Avatar, Button, Tooltip } from "@nextui-org/react";
+import { Avatar, Button, Tooltip } from "@/components/ClientNextUI";
 import { CompaniesDropdown } from "./companies-dropdown";
 import { HomeIcon } from "../icons/sidebar/home-icon";
 import { PaymentsIcon } from "../icons/sidebar/payments-icon";

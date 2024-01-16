@@ -1,5 +1,5 @@
 "use client"
-import { DropdownItem, DropdownMenu, Link } from "@nextui-org/react"
+import { DropdownItem, DropdownMenu, Link } from "@/components/ClientNextUI"
 import { signOut } from "next-auth/react"
 export default function comp({userEmail, username}) {
 

@@ -1,8 +1,11 @@
 export const runtime = 'edge'
-
-// import {  Divider } from "@nextui-org/react";
+// import HTMLRender from "@/components/HTMLRender";
+import dynamic from "next/dynamic";
+// const HTMLRender = dynamic(() => import("@/components/HTMLRender"));
+import {  Divider } from "@/components/ClientNextUI";
 // import dynamic from "next/dynamic";
-import parse from "html-react-parser";
+// import parse from "html-react-parser";
+
 import { formatDate } from "@/lib/utils";
 import { getEvent } from "@/app/edgefunctions"
 import AttendingGroup from "@/components/Hero/AttendingGroup";
@@ -75,10 +78,10 @@ export default async function (
 
 
           <div className="ACCORIDIAN WRAPPER sticky top-[100px]  w-full max-h-[82px] sm:col-start-8 sm:col-span-5 sm:flex">
-            {/* <TicketAccordian eventHeroImage={event.heroImage} eventName={event.title} eventLocation={event.address} title="SELECT YOUR TICKET" tickets={tickets} /> */}
+            <TicketAccordian eventHeroImage={event.heroImage} eventName={event.title} eventLocation={event.address} title="SELECT YOUR TICKET" tickets={tickets} />
           </div>
 
-          {/* <div className="sm:col-span-7 row-start-1 sm:col-start-1 ">
+          <div className="sm:col-span-7 row-start-1 sm:col-start-1 ">
             <div className="IconBar text-left prose flex w-full flex-row font-bold dark:prose-invert ">
               <p>{date}</p>
             </div>
@@ -111,7 +114,7 @@ export default async function (
               length={event.length.toString()}
               ticketInfo="Digital Ticket"
             />
-          </div> */}
+          </div>
 
 
 
@@ -122,23 +125,20 @@ export default async function (
           <article className="prose w-full text-left tracking-tighter antialiased dark:prose-invert sm:col-span-7">
             <h2 className="text-primary">Event Description</h2>
             <div className="w-full   sm:col-span-7 ">
-              {/* <Divider className=" mt-4 mb-8" /> */}
+              <Divider className=" mt-4 mb-8" />
             </div>
             <div className="w-full prose dark:prose-invert antialiased ">
               {/* {parse(event.eventDescription)}  */}
-            </div>
+              <div dangerouslySetInnerHTML={{__html: event.eventDescription}}></div>
+            </div> 
+            {/* <HTMLRender content={event.eventDescription} /> */}
           </article>
         </section>
       </div>
-      {/* <button onClick={void api.ticket.sendTicket.mutate({
-        ticketId:"ckq8xv5x80000m3i8x4y2x8c5",
-        recipientEmail:"connor.belez@gmail.com"
-      })}>
-        SEND EMAIL
-      </button> */}
+
       
       <div className="flex w-full justify-center md:hidden ">
-        {/* <Drawer eventHeroImage={event.heroImage} eventName={event.title} eventLocation={event.address} tickets={tickets} /> */}
+        <Drawer eventHeroImage={event.heroImage} eventName={event.title} eventLocation={event.address} tickets={tickets} />
       </div>
     </div>
   );

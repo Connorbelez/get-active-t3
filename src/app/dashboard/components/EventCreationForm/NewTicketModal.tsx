@@ -10,7 +10,7 @@ import {
   Switch,
   Input,
   Link,
-} from "@nextui-org/react";
+} from "@/components/ClientNextUI";
 import {
   Form,
   FormControl,

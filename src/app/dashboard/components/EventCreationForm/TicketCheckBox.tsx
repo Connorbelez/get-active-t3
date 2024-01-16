@@ -1,5 +1,5 @@
 import React from "react";
-import {Checkbox, Link, User, Chip, cn} from "@nextui-org/react";
+import {Checkbox, Link, User, Chip, cn} from "@/components/ClientNextUI";
 import VTicketCard from "./TicketPreview";
 import { TicketType } from "@prisma/client";
 interface CustomCheckboxProps {

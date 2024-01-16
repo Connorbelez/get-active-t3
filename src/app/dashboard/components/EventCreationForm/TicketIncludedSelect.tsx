@@ -1,5 +1,5 @@
 import React from "react";
-import {Select, SelectItem, Avatar, Chip, SelectedItems} from "@nextui-org/react";
+import {Select, SelectItem, Avatar, Chip, SelectedItems} from "@/components/ClientNextUI";
 // import {users} from "./data";
 import { Martini, UtensilsCrossed } from "lucide-react";
 // type PaymentMethod = {

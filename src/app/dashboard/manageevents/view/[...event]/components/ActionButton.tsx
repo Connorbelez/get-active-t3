@@ -20,7 +20,7 @@ import {
   Select,
   SelectItem,
   PopoverTrigger,
-} from "@nextui-org/react";
+} from "@/components/ClientNextUI";
 import { AddNoteIcon } from "./AddNote";
 import { CopyDocumentIcon } from "./CopyDocument";
 import { EditDocumentIcon } from "./EditDocument";

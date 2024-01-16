@@ -1,6 +1,6 @@
 // "use client"
 
-import {Image, Navbar, NavbarBrand, NavbarContent,NavbarMenu,NavbarMenuItem, NavbarMenuToggle, NavbarItem, Link, } from "@nextui-org/react";
+import {Image, Navbar, NavbarBrand, NavbarContent,NavbarMenu,NavbarMenuItem, NavbarMenuToggle, NavbarItem, Link, } from "@/components/ClientNextUI";
 
 // import { NavAvatar } from "./NavAvater";
 import { ThemeSwitch } from "./ThemeSwitcher";

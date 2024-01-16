@@ -1,4 +1,4 @@
-import { tv } from "@nextui-org/react";
+import { tv } from "@/components/ClientNextUI";
 
 export const SidebarWrapper = tv({
   base: "bg-background transition-transform h-full w-64 shrink-0 z-[201] border-r border-divider flex-col py-6 px-3 ",

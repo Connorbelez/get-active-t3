@@ -1,4 +1,4 @@
-import {Card, CardBody, CardHeader,Chip} from "@nextui-org/react"
+import {Card, CardBody, CardHeader,Chip} from "@/components/ClientNextUI"
 import Accordian from "@/components/TicketAccordian/TicketAccordian";
 import Image from "next/image";
 

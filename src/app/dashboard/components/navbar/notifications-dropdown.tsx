@@ -5,7 +5,7 @@ import {
   DropdownSection,
   DropdownTrigger,
   NavbarItem,
-} from "@nextui-org/react";
+} from "@/components/ClientNextUI";
 import React from "react";
 import { NotificationIcon } from "../icons/navbar/notificationicon";
 

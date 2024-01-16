@@ -10,7 +10,7 @@ import Link from "next/link";
 // import { title } from "process";
 // import Card from "@/components/cards/experimental/Card";
 // import CardSponser from "@/components/cards/experimental/CardSponser";
-import { Divider, Button } from "@nextui-org/react";
+import { Divider, Button } from "@/components/ClientNextUI";
 import {
   DoubleArrowRightIcon,
   DoubleArrowDownIcon,

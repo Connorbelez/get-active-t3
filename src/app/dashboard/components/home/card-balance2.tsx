@@ -1,4 +1,4 @@
-import { Card, CardBody } from "@nextui-org/react";
+import { Card, CardBody } from "@/components/ClientNextUI";
 import React from "react";
 import { Community } from "../icons/community";
 

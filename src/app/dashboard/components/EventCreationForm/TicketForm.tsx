@@ -1,5 +1,5 @@
 "use client"
-import {Card, CardBody,CheckboxGroup, CardHeader, Button, User, Chip, cn,Divider, Input,Modal, ModalContent, ModalHeader, ModalBody, ModalFooter,Checkbox, Link} from "@nextui-org/react";
+import {Card, CardBody,CheckboxGroup, CardHeader, Button, User, Chip, cn,Divider, Input,Modal, ModalContent, ModalHeader, ModalBody, ModalFooter,Checkbox, Link} from "@/components/ClientNextUI";
 import { PlusCircle, PlusSquare, Plus,CopyPlus, FileEdit, Trash2, FileX2 } from "lucide-react";
 import { EditDocumentIcon } from "@/components/icons/Edit";
 import TicketCheckBox from "./TicketCheckBox";

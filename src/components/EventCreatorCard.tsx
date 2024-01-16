@@ -6,7 +6,7 @@ import {
     CardHeader,
     Button,
     Divider,
-  } from "@nextui-org/react";
+  } from "@/components/ClientNextUI";
   
 //   import Drawer from "@/components/drawers/ExampleDrawer";
 //   import { MapPin, MapPinned, Clock1, TicketIcon } from "lucide-react";
