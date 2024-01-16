@@ -179,7 +179,7 @@ export const EventTicketEmail = ({
             <Row>
               <Img width="100%" src={qrSrc} />
             </Row>
-
+            <Text style={paragraph}>Please show this QR code at the event entrance.</Text>
             <Row style={{ ...boxInfos, paddingBottom: '0' }}>
               <Column>
                 <Heading
@@ -228,7 +228,7 @@ export const EventTicketEmail = ({
                   {ticketId}
                 </Text>
 
-                <Text style={paragraph}>Please show this QR code at the event entrance.</Text>
+                
               </Column>
             </Row>
           </Section>
