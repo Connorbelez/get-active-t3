@@ -1,22 +1,22 @@
 export const runtime = 'edge'
 export const preferedRegion = 'us-east-1'
-export const fetchCache = 'force-cache'
-import {Event} from "@prisma/client"
-import { db } from "@/server/db";
-
+// export const fetchCache = 'force-cache'
+// import {Event} from "@prisma/client"
+import { acceleratedDb} from "@/server/db";
+// import { withAccelerate } from '@prisma/extension-accelerate';
 export async function getEventAttendeePreview(id:string) {
-        const countConfirmed = db.fulfilledTicket.count({
+        const countConfirmed = acceleratedDb.fulfilledTicket.count({
             where: {
                 eventId:id,
             },
         });
-        const countRsvpd = db.savedEvent.count({
+        const countRsvpd = acceleratedDb.savedEvent.count({
             where: {
                 eventId: id,
             },
         });
 
-    const firstTenConfirmed = db.fulfilledTicket.findMany({
+    const firstTenConfirmed = acceleratedDb.fulfilledTicket.findMany({
         where: {
             eventId: id,
         },
@@ -36,7 +36,7 @@ export async function getEventAttendeePreview(id:string) {
         },
         take: 10,
     });
-    const firstTenRsvpd = db.savedEvent.findMany({
+    const firstTenRsvpd = acceleratedDb.savedEvent.findMany({
         where: {
             eventId: id,
         },
@@ -57,7 +57,7 @@ export async function getEventAttendeePreview(id:string) {
         take: 10,
     });
 
-    const [countConfirmedResult, countRsvpdResult, firstTenConfirmedResult, firstTenRsvpdResult] = await db.$transaction([countConfirmed, countRsvpd, firstTenConfirmed, firstTenRsvpd]);
+    const [countConfirmedResult, countRsvpdResult, firstTenConfirmedResult, firstTenRsvpdResult] = await acceleratedDb.$transaction([countConfirmed, countRsvpd, firstTenConfirmed, firstTenRsvpd]);
 
     return {
         countConfirmed: countConfirmedResult,
@@ -69,28 +69,30 @@ export async function getEventAttendeePreview(id:string) {
 
 export async function getFeaturedEvent() {
 
-  const event = await db.featuredEvent.findFirst({
+
+  const event = await acceleratedDb.featuredEvent.findFirst({
     include:{
         event:{
             include:{
                 ticketTypes: true,
             }
         },
-        
     },
     where : {
         event :{
             active : true,
             archived : false
         }
-    }
+    },
+    cacheStrategy: { ttl: 60 },
   })
 
     if(!event){
-        return await db.event.findFirst({
+        return await acceleratedDb.event.findFirst({
             include:{
                 ticketTypes: true,
-            }
+            },
+            cacheStrategy: { ttl: 60 },
         })   
     }
 

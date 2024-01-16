@@ -32,7 +32,7 @@ export default function comp({spacing, stateKey, setSelectedTicket, setSelectedT
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const handleClickDown = () => {
         // console.log("clicked")
-        // console.table(scrollContainerRef.current)
+        // console.log(scrollContainerRef.current)
         // console.log(scrollContainerRef)
         if (scrollContainerRef.current) {
             console.log("scrolling")
@@ -44,7 +44,7 @@ export default function comp({spacing, stateKey, setSelectedTicket, setSelectedT
     };
     const handleClickUp = () => {
         // console.log("clicked")
-        // console.table(scrollContainerRef.current)
+        // console.log(scrollContainerRef.current)
         // console.log(scrollContainerRef)
         if (scrollContainerRef.current) {
             console.log("scrolling")

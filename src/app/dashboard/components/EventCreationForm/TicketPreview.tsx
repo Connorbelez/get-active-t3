@@ -43,9 +43,9 @@ export default function TicketCard({
 }: HTicketCardProps) {
   drinksIncluded = true;
   foodIncluded = true;
-  console.table(paymentTypes);
+  console.log(paymentTypes);
   const paymentTypesArr: string[] = paymentTypes.split(",");
-  console.table({_key,stateKey});
+  console.log({_key,stateKey});
 
 //   const handlePress = () => {setSelectedTicket(_key)};
   return (

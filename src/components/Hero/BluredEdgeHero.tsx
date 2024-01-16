@@ -1,4 +1,4 @@
-import {Image} from "@nextui-org/react";
+import Image from "@/components/ClientImage"
 import PropTypes from 'prop-types';
 
 export interface heroProps {
@@ -9,7 +9,6 @@ export interface heroProps {
 }
 
 const BlurredEdgeHero: React.FC<heroProps> = ({src, alt, maxH = 450, maxW = "6xl"}) => {
-    const imageUrl = "/testHero.jpeg"
 
     return (
         <div className="flex flex-col w-full relative items-center overflow-hidden">

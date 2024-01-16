@@ -1,5 +1,5 @@
-import React from "react";
-import {Avatar, AvatarGroup} from "@nextui-org/react";
+// import React from "react";
+import {Avatar, AvatarGroup} from "@/components/ClientNextUI"
 // import {api} from "@/trpc/server";
 import { getEventAttendeePreview } from "@/app/dynamicEdgeFunctions";
 interface AvatarGroupProps {

@@ -9,7 +9,7 @@ import EventTabs from "./components/EventTabs"
 //     getTicketsAndMatchingEventForUserByEmail,
 //     getTicketsForUserByEmail, NewTicket
 // } from "@/lib/planetscale";
-import { getServerSession } from "next-auth/next"
+
 // import {authOptions} from "@/config/authOptions";
 import { redirect } from "next/navigation";
 import { getServerAuthSession } from '@/server/auth';

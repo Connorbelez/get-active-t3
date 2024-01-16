@@ -20,7 +20,7 @@ export default function Return() {
       .then((res) => {
         ////console.log('res from fetch')
         //console.log(res)
-        // console.table(res)
+        // console.log(res)
         void res.json()
         .then((data) => {
           setStatus(data.status);
@@ -37,7 +37,7 @@ export default function Return() {
         //     .then((res) => {
         //       ////console.log('res from fetch')
         //       //console.log(res)
-        //       // console.table(res)
+        //       // console.log(res)
         //       void res.text()
         //       .then((data) => {
         //         setRecieptHTML(data);

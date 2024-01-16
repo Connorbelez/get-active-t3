@@ -71,7 +71,7 @@ const App = (event:any) => {
     // const event_location = eventDetails.event_location;
     // //@ts-ignore
     const image = event_card_interface.hero_image;
-    console.table(event_card_interface.hero_image)
+    console.log(event_card_interface.hero_image)
     const fallbackSrc = "/canadaDay.jpg";
     const [imgSrc, setImgSrc] = useState(image);
     return (

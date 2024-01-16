@@ -89,10 +89,10 @@ webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
                     
                     // console.log("\n\n\n\n\n\n============PAYMENT INTENT SUCCEEDED=============== ")
                     // console.log(event)
-                    // console.table(event)
+                    // console.log(event)
                     // const data = event.data
                     // console.log("PAYMENT INTENT DATA: ", data)
-                    // console.table(data)
+                    // console.log(data)
 
                     // const sessionWithLineItems2 = await stripe.paymentIndents.retrieve(
                     //     // @ts-ignore
@@ -103,7 +103,7 @@ webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
                     // );
                     // const lineItems2 = sessionWithLineItems2.line_items;
                     // // console.log("LINE ITEMS: ", lineItems)
-                    // console.table(lineItems2)
+                    // console.log(lineItems2)
                     // console.log("\n\n==========CHARGE Details=============\n\n")
                     // console.log("EVENT: ", event)
                     // console.log("EVENT DATA: ", event.data)

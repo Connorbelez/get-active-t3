@@ -48,7 +48,7 @@ export default function TicketCard({
   }
   drinksIncluded = true;
   foodIncluded = true;
-  console.table(paymentTypes);
+  console.log(paymentTypes);
   console.log("TICKET KEY: ", _key);
   let paymentTypesArr: string[] = [];
   if( !paymentTypes ){

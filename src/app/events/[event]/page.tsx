@@ -33,6 +33,10 @@ export default async function (
 
   const id = params.event;
   const event = await getEvent(id);
+  //ToDo: add a nice 404 page
+  if(!event){
+    return <div>Event Not Found</div>
+  }
   const tickets = event.ticketTypes;
 
   console.log("TICEKTS FROM PAGE\n")

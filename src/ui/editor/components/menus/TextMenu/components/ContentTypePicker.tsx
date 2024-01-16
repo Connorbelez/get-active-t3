@@ -36,7 +36,7 @@ const isCategory = (option: ContentTypePickerOption | ContentTypePickerCategory)
 
 export const ContentTypePicker = ({ options }: ContentTypePickerProps) => {
   // console.log("CTPP OPTIONS:")
-  // console.table(options)
+  // console.log(options)
   const activeItem = useMemo(() => options.find(option => option.type === 'option' && option.isActive()), [options])
 
   return (
@@ -53,7 +53,7 @@ export const ContentTypePicker = ({ options }: ContentTypePickerProps) => {
             if (isOption(option)) {
               // console.log("CTPP OPTION:")
 
-              // // console.table(option)
+              // // console.log(option)
               // console.log(option.onClick.toString())
               return (
                 <DropdownButton key={option.id} onClick={option.onClick} isActive={option.isActive()}>

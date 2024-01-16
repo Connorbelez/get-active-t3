@@ -31,7 +31,7 @@ export default function Comp({
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const handleClickRight = () => {
         // console.log("clicked")
-        // console.table(scrollContainerRef.current)
+        // console.log(scrollContainerRef.current)
         // console.log(scrollContainerRef)
         if (scrollContainerRef.current) {
             console.log("scrolling")
@@ -43,7 +43,7 @@ export default function Comp({
     };
     const handleClickLeft = () => {
         // console.log("clicked")
-        // console.table(scrollContainerRef.current)
+        // console.log(scrollContainerRef.current)
         // console.log(scrollContainerRef)
         if (scrollContainerRef.current) {
             console.log("scrolling")

@@ -255,11 +255,11 @@ export const eventRouter = createTRPCRouter({
         const addr = input.address.replaceAll(" ", "%20");
         const val = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${addr}.json?access_token=${token}`)
         console.log(val);
-        console.table(val);
+        console.log(val);
         
         const res = await val.json();
         console.log(res);
-        console.table(res);
+        console.log(res);
         const geometry = res.features[0].geometry;
         const placeName = res.features[0].place_name;
         const center = res.features[0].center;
@@ -406,7 +406,7 @@ export const eventRouter = createTRPCRouter({
                 }
             });
             console.log(tickets);
-            console.table(tickets);
+            console.log(tickets);
             console.log("TICKETS: ", typeof tickets);
             return tickets;
         }),
@@ -560,11 +560,11 @@ export const eventRouter = createTRPCRouter({
           const addr = input.eventData.address.replaceAll(" ", "%20");
           const val = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${addr}.json?access_token=${token}`)
           console.log(val);
-          console.table(val);
+          console.log(val);
           
           const res = await val.json();
           console.log(res);
-          console.table(res);
+          console.log(res);
           const geometry = res.features[0].geometry;
           const placeName = res.features[0].place_name;
           const center = res.features[0].center;

@@ -168,7 +168,7 @@ export const ticketRouter = createTRPCRouter({
           });
 
           // console.log("RESPONSE: ", res);
-          // console.table(res);
+          // console.log(res);
           return res;
     }),
 
@@ -408,7 +408,7 @@ export const ticketRouter = createTRPCRouter({
       });
 
       // console.log("RESPONSE: ", res);
-      // console.table(res);
+      // console.log(res);
       return res;
 
 

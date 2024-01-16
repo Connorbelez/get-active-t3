@@ -1,4 +1,4 @@
-import { PrismaAdapter } from "./prismaEdgeAdapter"
+import { PrismaAdapter } from "@auth/prisma-adapter"
 import NextAuth from "next-auth"
 import {
 
@@ -9,8 +9,8 @@ import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
 const scopes = ['identify','email'].join(',')
 import { env } from "@/env";
-import { db, acceleratedDb } from "@/server/db";
-// import { User } from "lucide-react";
+import { db } from "@/server/db";
+import { User } from "lucide-react";
 // import { AdapterUser } from "next-auth/adapters";
 
 export const roleType = {
@@ -32,11 +32,15 @@ export enum UserRole {
  */
 declare module "next-auth" {
   interface Session extends DefaultSession {
-    //@ts-ignore
     user: {
       id: string;
       email: string;
+      // role: string;
+      // ...other properties
       role: UserRole;
+      // role: role;
+      // userRole: string
+ 
     } & DefaultSession["user"];
   }
 

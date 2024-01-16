@@ -12,8 +12,8 @@ import superjson from "superjson";
 import { ZodError } from "zod";
 
 import { getServerAuthSession, UserRole } from "@/server/auth";
-import { db } from "@/server/db";
-import { User } from "lucide-react";
+import { db,acceleratedDb } from "@/server/db";
+
 
 /**
  * 1. CONTEXT
@@ -30,9 +30,10 @@ import { User } from "lucide-react";
 export const createTRPCContext = async (opts: { headers: Headers }) => {
   const session = await getServerAuthSession();
   console.log("\n\nCREATE TRPC CONTEXT\n\n")
-  console.table({session})
+  console.log({session})
   return {
     db,
+    acceleratedDb,
     session,
     ...opts,
   };
@@ -115,15 +116,15 @@ const enforceUserIsAdmin = t.middleware(({ ctx, next }) => {
   }
 
   // console.log("CTX: ", ctx)
-  console.log(" ============ AUTHED =============")
-  console.log("SESSION: ", ctx.session)
-  console.log("USER: ",ctx.session.user)
-  console.log("SESSION2: ", ctx.session)
-  console.log("USER2: ", UserRole.CREATOR, UserRole.ADMIN, UserRole.USER)
+  // console.log(" ============ AUTHED =============")
+  // console.log("SESSION: ", ctx.session)
+  // console.log("USER: ",ctx.session.user)
+  // console.log("SESSION2: ", ctx.session)
+  // console.log("USER2: ", UserRole.CREATOR, UserRole.ADMIN, UserRole.USER)
   ctx.session.user.role = ctx.session.user.role || UserRole.USER ;
 
 
-  if(ctx.session.user.role !== UserRole.ADMIN ){
+  if(ctx.session.user.role as UserRole !== UserRole.ADMIN ){
     console.error("\n\ FORBIDDEN\n\n")
     throw new TRPCError({ code: "FORBIDDEN" });
   }

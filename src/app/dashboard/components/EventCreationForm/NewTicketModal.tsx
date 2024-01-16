@@ -76,16 +76,16 @@ export default function comp({
 
   const onSubmit = (data: z.infer<typeof ticketFormSchema>) => {
     //console.log("TICKET SUBMIT!!!")
-    //console.table(data);
+    //console.log(data);
     //console.log(data);
     //console.log("STATE")
-    //console.table(ticketData);
+    //console.log(ticketData);
     //console.log(ticketData);
     setTicketData(prev => prev ? [...prev, data] : [data]);
 
   
     //console.log("TICKET SUBMIT!!!")
-    //console.table(data);
+    //console.log(data);
     //console.log(data);
 };
   return (

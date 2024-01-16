@@ -40,7 +40,7 @@ export default function App() {
       .then((res) => {
         console.log('res from fetch')
         console.log(res)
-        // console.table(res)
+        // console.log(res)
         return res
       })
       .then((data) => {

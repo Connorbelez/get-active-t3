@@ -223,7 +223,7 @@ export default function ProfileForm() {
 
       console.log("SUBMIT")
       //console.log(vs)
-      //console.table(vs)
+      //console.log(vs)
   }
 
     // const output = useMemo(() => {
@@ -321,7 +321,7 @@ export default function ProfileForm() {
         ticketArray.forEach((ticket)=>{
           if(startingTicketPrice > ticket.t.price){
             console.log("TICKET PRICE: ", ticket.t.price)
-            console.table(ticket.t)
+            console.log(ticket.t)
             startingTicketPrice = ticket.t.price
           }
         })

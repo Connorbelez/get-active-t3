@@ -68,7 +68,7 @@ if (!session || !session.user) {
         console.log("POST")
         const body = await req.json()
         console.log("BODY FROM ROUTE.JS POST: ", body)
-        // console.table(body)
+        // console.log(body)
         const ticketId = body.ticketId;
         // ////console.log("=================TICKET ID FROM ROUTE.JS: ", ticketId)
         //ToDo: CHnage this and hte route to use the stripe price id instead of the ticket id
@@ -103,7 +103,7 @@ if (!session || !session.user) {
         // const priceObj = await createTicketProduct(ticketData.name, ticketData.event.title, ticketData.eventId, ticketData.price, ticketData,user.email);
 
         // //console.log("PRICE OBJ: ", priceObj)
-        // console.table(priceObj)
+        // console.log(priceObj)
         //console.log("CREATING CHECKOUT SESSION WITH POST!")
         // Create Checkout Sessions from body params.
         const retUrl = process.env.NODE_ENV === "production" ? `https://getaktive.vercel.app/checkout/return?session_id={CHECKOUT_SESSION_ID}` : `https://localhost:3000/checkout/return?session_id={CHECKOUT_SESSION_ID}`
@@ -142,7 +142,7 @@ if (!session || !session.user) {
       }
     case "GET":
       console.log("GETTING CHECKOUT SESSION")
-      console.table(req)
+      console.log(req)
 
       try {
 

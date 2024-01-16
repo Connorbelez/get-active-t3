@@ -1,3 +1,4 @@
+export const runtime = 'edge'
 import { z } from "zod";
 import {env} from "@/env";
 import {
@@ -15,12 +16,12 @@ export const dataRouter = createTRPCRouter(({
     }))
     .query(async ({ctx,input})=>{
             if(input.eventId){
-                const fullfilledTickets = await ctx.db.fulfilledTicket.findMany({
+                const fullfilledTickets = await ctx.acceleratedDb.fulfilledTicket.findMany({
                     where:{
                         eventId: input.eventId
                     }
                 })
-                const rsvpd = await ctx.db.savedEvent.findMany({
+                const rsvpd = await ctx.acceleratedDb.savedEvent.findMany({
                     where:{
                         eventId: input.eventId
                     }
@@ -31,8 +32,8 @@ export const dataRouter = createTRPCRouter(({
                 }
             }
 
-            const fullfilledTickets = await ctx.db.fulfilledTicket.findMany()
-            const rsvpd = await ctx.db.savedEvent.findMany()
+            const fullfilledTickets = await ctx.acceleratedDb.fulfilledTicket.findMany()
+            const rsvpd = await ctx.acceleratedDb.savedEvent.findMany()
 
             return {
                 sentTickets: fullfilledTickets,
@@ -48,7 +49,7 @@ export const dataRouter = createTRPCRouter(({
     .query(async ({ctx,input})=>{
 
             if(input.eventId){
-                const rsvpd = await ctx.db.savedEvent.findMany({
+                const rsvpd = await ctx.acceleratedDb.savedEvent.findMany({
                     where:{
                         eventId: input.eventId
                     }
@@ -58,7 +59,7 @@ export const dataRouter = createTRPCRouter(({
                 }
             }   
 
-            const rsvpd = await ctx.db.savedEvent.findMany()
+            const rsvpd = await ctx.acceleratedDb.savedEvent.findMany()
             return {
                 rsvp: rsvpd
             }
@@ -72,7 +73,7 @@ export const dataRouter = createTRPCRouter(({
     }))
     .query(async ({ctx,input})=>{
         if(input.eventId){
-            const fullfilledTickets = await ctx.db.fulfilledTicket.findMany({
+            const fullfilledTickets = await ctx.acceleratedDb.fulfilledTicket.findMany({
                 where:{
                     eventId: input.eventId
                 }
@@ -82,7 +83,7 @@ export const dataRouter = createTRPCRouter(({
             }
         }
 
-        const fullfilledTickets = await ctx.db.fulfilledTicket.findMany()
+        const fullfilledTickets = await ctx.acceleratedDb.fulfilledTicket.findMany()
         return {
             sentTickets: fullfilledTickets,
         }
@@ -94,7 +95,7 @@ export const dataRouter = createTRPCRouter(({
         eventId: z.string().optional(),
     }))
     .query(async ({ctx})=>{
-        const stripePurchases = await ctx.db.stripeTransaction.findMany()
+        const stripePurchases = await ctx.acceleratedDb.stripeTransaction.findMany()
         return {
             stripePurchases: stripePurchases
         }
@@ -105,7 +106,7 @@ export const dataRouter = createTRPCRouter(({
         userIds: z.array(z.string()),
     }))
     .query(async ({ctx,input})=>{
-        const stripePurchases = await ctx.db.stripeTransaction.findMany({
+        const stripePurchases = await ctx.acceleratedDb.stripeTransaction.findMany({
             where:{
                 userId:{
                     in: input.userIds
@@ -123,18 +124,18 @@ export const dataRouter = createTRPCRouter(({
         eventId: z.string(),
     }))
     .query(async ({ctx,input})=>{
-        const countConfirmed = await ctx.db.fulfilledTicket.count({
+        const countConfirmed = await ctx.acceleratedDb.fulfilledTicket.count({
             where: {
                 eventId: input.eventId,
             },
         });
-        const countRsvpd = await ctx.db.savedEvent.count({
+        const countRsvpd = await ctx.acceleratedDb.savedEvent.count({
             where: {
                 eventId: input.eventId,
             },
         });
 
-    const firstTenConfirmed = await ctx.db.fulfilledTicket.findMany({
+    const firstTenConfirmed = await ctx.acceleratedDb.fulfilledTicket.findMany({
         where: {
             eventId: input.eventId,
         },
@@ -154,7 +155,7 @@ export const dataRouter = createTRPCRouter(({
         },
         take: 10,
     });
-    const firstTenRsvpd = await ctx.db.savedEvent.findMany({
+    const firstTenRsvpd = await ctx.acceleratedDb.savedEvent.findMany({
         where: {
             eventId: input.eventId,
         },
