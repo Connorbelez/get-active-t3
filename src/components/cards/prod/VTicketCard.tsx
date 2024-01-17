@@ -39,7 +39,7 @@ export default function TicketCard({
   console.log(paymentTypes);
   const paymentTypesArr: string[] = paymentTypes.split(",");
   console.log({_key,stateKey});
-
+  console.log("VTICKET DATA: ", {id,name,price,ticketDescription,drinksIncluded,foodIncluded,paymentTypes,stripePriceId,payAtDoorTicket})
   const handlePress = () => {
     stateKey === _key ? setSelectedTicket(-1) : setSelectedTicket(_key);
     stateKey === _key
@@ -135,13 +135,14 @@ export default function TicketCard({
                   <p className="text-tiny prose dark:text-warning"> Included</p>
                 </Chip>
               ) : null}
-              {paymentTypesArr.map((paymentType) => {
+
+              {/* {paymentTypesArr.map((paymentType) => {
                 return (
                   <Chip size="sm" color="warning"  variant="faded">
                     <p className="text-tiny prose dark:text-warning">{paymentType.toString()}</p>
                   </Chip>
                 );
-              })}
+              })} */}
             </div>
 
 

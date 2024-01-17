@@ -1,9 +1,10 @@
 "use client"
-import {useState}from "react"
+import {useEffect, useState}from "react"
 // import { MinusIcon, PlusIcon } from "@radix-ui/react-icons"
 // import { Bar, BarChart, ResponsiveContainer } from "recharts"
 import { FingerprintIcon } from "lucide-react"
-import { button as Button} from "@/components/ui/button"
+// import { button as Button} from "@/components/ui/button"
+import {Button} from "@/components/ClientNextUI"
 import VTicketCard from "@/components/cards/prod/VTicketCard"
 import SideScrollRoot from "@/components/SideScroll/SideScrollRoot"
 import SideScrollComponent from "@/components/SideScroll/SideScrollComponent"
@@ -51,6 +52,17 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
   // const {isOpen, onOpen, onOpenChange,onClose} = useDisclosure();
   const [open, setOpen] = useState(false);
   // const [clientSecret, setClientSecret] = useState('');
+
+  useEffect(() => {
+
+    toast.info("Tap on the bottom drawer to view tickets",{
+      position:"top-right"
+
+      
+
+    })
+  },[])
+
   const router = useRouter();
   const { pressProps } = usePress({
     onPressStart: (e) => {
@@ -63,7 +75,7 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
   });
   
   
-  const [selectedTicket, setSelectedTicket] = useState(-1)
+  const [selectedTicket, setSelectedTicket] = useState(0)
   const [selectedTicketData, setSelectedTicketData] = useState<HTicketCardProps['ticket'] | undefined>();
   const ticketArr:Array<TicketType> = tickets as Array<TicketType>;
 
@@ -142,6 +154,10 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
 
 
   const handleCC = () => {
+    if(selectedTicket < 0 || !selectedTicketData?.id){
+      toast.error('No ticket selected')
+      return;
+    }
     toast.loading('Loading Secure Stripe checkout, please wait...')
     router.push(`/checkout?id=${tickets[selectedTicket]?.id}`)
   }
@@ -155,9 +171,11 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
     
     
       <DrawerTrigger asChild>
-        <Button 
+      <Button 
+        variant="faded"
+        color='primary'
           {...pressProps}
-          className="fixed prose-sm rounded-t-2xl bottom-0 dark:outline-zinc-600 dark:outline-2 dark:border-2 w-full h-[75px] shadow-lg z-10" variant="outline">
+          className="fixed prose-sm rounded-t-2xl rounded-b-none flex items-center justify-evenly  bottom-0 border-x-0  w-full border-b-0  h-[75px] shadow-lg dark:shadow shadow-black/50 sm:shadow  z-10">
             <span className="h-[8px] w-[100px] top-4 rounded-full bg-zinc-300 dark:bg-zinc-600 absolute  flex">
                 <span className="absolute h-[30px] bg-black-700 top-5" ></span>
                 
@@ -165,18 +183,21 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
             {/* <div className="-translate-x-4">
                 <FingerprintIcon className=" mt-2 animate-bounce " stroke={"#e114e5"} size={32}/>
             </div> */}
-            <h1 className="mt-3">
-                <span className="bg-primary font-extrabold bg-clip-text text-transparent">
+            {/* <Ticket className="text-primary" size={34}/> */}
+            {/* <h1>View Tickets</h1> */}
+            <h1 className=" text-center text-lg -mb-2">
+                <span className="bg-slate-700  flex align-middle items-center justify-center  dark:bg-primary text-md font-extrabold bg-clip-text text-transparent">
                     View Tickets
                 </span>        
             </h1>
+            {/* <Ticket className="text-primary" size={16}/> */}
         </Button>
       </DrawerTrigger>
       <DrawerContent >
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
             <DrawerTitle>Tickets</DrawerTitle>
-            <DrawerDescription> Click ticket to select </DrawerDescription>
+            <DrawerDescription> Tap on ticket to select </DrawerDescription>
           </DrawerHeader>
           <div className="w-full my-2 max-h-[400px]">
             <SideScrollRoot spacing="space-y-4" vertical className="p-2 max-h-[350px]"

@@ -1,6 +1,6 @@
 "use client"
 import clsx from 'clsx'
-import {useRef} from "react";
+import {useRef,useState,useEffect} from "react";
 import SideScrollComponent from "./SideScrollComponent";
 import VTicketCard, {HTicketCardProps} from "@/components/cards/prod/VTicketCard";
 import {button as Button} from "@/components/ui/button";
@@ -30,10 +30,14 @@ export default function comp({spacing, stateKey, setSelectedTicket, setSelectedT
     const direction = vertical ? "flex-col" : "flex-row";
     const overFlow = vertical ? "overflow-y-scroll snap-y" : "overflow-x-scroll snap-x";
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const [index, setSelectedIndex] = useState(0);
     const handleClickDown = () => {
         // console.log("clicked")
         // console.log(scrollContainerRef.current)
         // console.log(scrollContainerRef)
+        if(index < tickets.length-1){
+            setSelectedIndex(index+1)
+        }
         if (scrollContainerRef.current) {
             console.log("scrolling")
             scrollContainerRef.current.scrollTo({
@@ -46,6 +50,9 @@ export default function comp({spacing, stateKey, setSelectedTicket, setSelectedT
         // console.log("clicked")
         // console.log(scrollContainerRef.current)
         // console.log(scrollContainerRef)
+        if(index > 0){
+            setSelectedIndex(index-1)
+        }
         if (scrollContainerRef.current) {
             console.log("scrolling")
             scrollContainerRef.current.scrollTo({
@@ -54,7 +61,15 @@ export default function comp({spacing, stateKey, setSelectedTicket, setSelectedT
                 behavior: 'smooth'
             });
         }
+        
     };
+
+    useEffect(()=>{
+        setSelectedTicket(index)
+        setSelectedTicketData(tickets[index])
+    },[index])
+
+
     return (
 
             <div className='w-full px-4'>
@@ -100,16 +115,18 @@ export default function comp({spacing, stateKey, setSelectedTicket, setSelectedT
                         })
                     }
                     </div>
-                    <div className='flex justify-between space-x-2 w-full '>
+                    <div className='flex justify-between space-x-2 mt-1 w-full '>
                         <Button 
                             variant={'outline'}
                             // size='icon'
-                            className='w-full'
+                            className='w-full  shadow dark:shadow'
+                            color='primary'
                             onClick={handleClickUp}
                         ><ArrowUpCircle /></Button>
                         <Button 
                             variant={'outline'}
-                            className='w-full'
+                            className='w-full shadow dark:shadow '
+                            color='primary'
                             onClick={handleClickDown}
                         ><ArrowDownCircle /></Button>
 

@@ -19,6 +19,7 @@ import TicketAccordian from "@/components/TicketAccordian/TicketAccordian";
 import { redirect } from 'next/navigation'
 import BlurredEdgeHero from "@/components/Hero/BluredEdgeHero";
 import { getFeaturedEvent } from "./dynamicEdgeFunctions";
+import {toast} from "sonner"
 
 export default async function (
   
@@ -36,7 +37,7 @@ export default async function (
   // console.log("TICEKTS FROM PAGE\n")
   // console.log(tickets)
 
-
+  
   const event_creator = {
     image:
       "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
@@ -53,6 +54,9 @@ export default async function (
 
 
   return (
+
+
+
     <div className="EventWrapper flex w-full  flex-col items-center bg-background ">
       <link
         href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css"
@@ -110,6 +114,7 @@ export default async function (
               lng={event.lng as number}
               location={event.location}
             />
+
             <EventAboutSection
               heading="About Event"
               length={event.length.toString()}

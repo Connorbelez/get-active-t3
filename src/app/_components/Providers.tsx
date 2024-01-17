@@ -16,7 +16,7 @@ function Wrapper({children}: {children: React.ReactNode}) {
         // <SessionProvider session={session}>
             <NextUIProvider>
                 <NextThemesProvider attribute="class" >
-                    <Toaster />
+                    <Toaster closeButton/>
                     {/* <SpeedInsights/> */}
                     {children}
                 </NextThemesProvider>

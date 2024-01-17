@@ -142,13 +142,25 @@ export default function TicketCard({
                 ) : null}
               </div>
               <div className="flex space-x-2">
-                {paymentTypesArr.map((paymentType, index) => {
-                  return (
-                    <Chip key={index} size="sm" color="warning" variant="faded">
-                      <p className="text-tiny">{paymentType.toString()}</p>
-                    </Chip>
-                  );
-                })}
+              {paymentTypesArr.includes("Cash") || payAtDoorTicket ?             
+                  <Chip size="sm" color="warning"  variant="faded">
+                    <p className="text-tiny prose dark:text-warning">Cash</p>
+                  </Chip>
+                  :              
+                  <div className={'flex flex-col'}>
+
+                    <Chip size="sm" color="warning"  variant="faded">
+                    <p className="text-tiny prose dark:text-warning">ApplePay</p>
+                  </Chip>
+                    <Chip size="sm" color="warning"  variant="faded">
+                      <p className="text-tiny prose dark:text-warning">GooglePay</p>
+                  </Chip>
+                    <Chip size="sm" color="warning"  variant="faded">
+                      <p className="text-tiny prose dark:text-warning">CC</p>
+                  </Chip>
+                  </div>
+
+                }
               </div>
             </div>
           </div>

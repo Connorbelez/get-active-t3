@@ -2,7 +2,7 @@ import {
 
     Card,
     CardBody,
-
+    Button,
   } from "@/components/ClientNextUI";
   import { Clock1, TicketIcon } from "lucide-react";
 
@@ -44,9 +44,9 @@ export default function comp({heading,length,start,end,ticketInfo}:  compProps) 
                 </Card>
                 <h2 className="my-0 py-0" >{ticketInfo}</h2>
             </div>
-            <p className="opacity-60 sm:hidden  -my-2 font-mono pl-[64px]">Click or Swipe "View Tickets" Drawer at bottom of screen</p>
-
         </div>
+        <p className="opacity-60 sm:hidden  -my-2 font-mono pl-[64px]">Click or Swipe "View Tickets" Drawer at bottom of screen</p>
+
     </div>
     )
 }
