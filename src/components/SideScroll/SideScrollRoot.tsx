@@ -41,7 +41,7 @@ export default function comp({spacing, stateKey, setSelectedTicket, setSelectedT
         if (scrollContainerRef.current) {
             console.log("scrolling")
             scrollContainerRef.current.scrollTo({
-                top: scrollContainerRef.current.scrollTop + 600,
+                top: scrollContainerRef.current.scrollTop + 400,
                 behavior: 'smooth'
             });
         }
@@ -57,7 +57,7 @@ export default function comp({spacing, stateKey, setSelectedTicket, setSelectedT
             console.log("scrolling")
             scrollContainerRef.current.scrollTo({
                 //scroll down
-                top: scrollContainerRef.current.scrollTop - 600,
+                top: scrollContainerRef.current.scrollTop - 400,
                 behavior: 'smooth'
             });
         }
