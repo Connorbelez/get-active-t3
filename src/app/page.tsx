@@ -1,25 +1,31 @@
-export const runtime = 'edge'
-// import HTMLRender from "@/components/HTMLRender";
-import dynamic from "next/dynamic";
-// const HTMLRender = dynamic(() => import("@/components/HTMLRender"));
-import {  Divider } from "@/components/ClientNextUI";
-// import dynamic from "next/dynamic";
-// import parse from "html-react-parser";
+export const runtime = "edge";
 
+import {  Divider } from "@/components/ClientNextUI";
+import dynamic from "next/dynamic";
+
+//ToDo: find a way of rendering html without dangerouslySetInnerHTML, or find a way of sanitizing html
+// import parse from "html-react-parser";
 import { formatDate } from "@/lib/utils";
+
 import { getEvent } from "@/app/edgefunctions"
+
+
 import AttendingGroup from "@/components/Hero/AttendingGroup";
+
+
 import EventHeading from "@/components/EventHeadingSection";
-import EventAboutSection from "@/components/EventAbout";
-import EventLocationSection from "@/components/EventLocationSection";
-import EventDateSecion from "@/components/EventDateSection";
-import EventCreatorCard from "@/components/EventCreatorCard";
-import Drawer from "@/components/drawers/ExampleDrawer";
-import TicketAccordian from "@/components/TicketAccordian/TicketAccordian";
-import { redirect } from 'next/navigation'
+const EventAboutSection = dynamic(() => import("@/components/EventAbout"));
+const EventLocationSection = dynamic(
+  () => import("@/components/EventLocationSection"),
+);
+const EventDateSecion = dynamic(() => import("@/components/EventDateSection"));
+const EventCreatorCard = dynamic(() => import("@/components/EventCreatorCard"));
+const Drawer = dynamic(() => import("@/components/drawers/ExampleDrawer"));
+
 import BlurredEdgeHero from "@/components/Hero/BluredEdgeHero";
-import { getFeaturedEvent } from "./dynamicEdgeFunctions";
-import {toast} from "sonner"
+import { getFeaturedEvent } from "@/app/dynamicEdgeFunctions";
+const TicketAccordian = dynamic(() => import("@/components/TicketAccordian/TicketAccordian"));
+
 
 export default async function (
   
@@ -27,17 +33,18 @@ export default async function (
 
 ) {
 
-  
+
   const event = await getFeaturedEvent();
-  if(event === null){
-    redirect("/events")
+  //ToDo: add a nice 404 page
+  if(!event){
+    return <div>Event Not Found</div>
   }
   const tickets = event.ticketTypes;
 
-  // console.log("TICEKTS FROM PAGE\n")
-  // console.log(tickets)
+  console.log("TICEKTS FROM PAGE\n")
+  console.log(tickets)
 
-  
+
   const event_creator = {
     image:
       "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
@@ -54,9 +61,6 @@ export default async function (
 
 
   return (
-
-
-
     <div className="EventWrapper flex w-full  flex-col items-center bg-background ">
       <link
         href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css"
@@ -72,7 +76,7 @@ export default async function (
       </div>
       <AttendingGroup maxDisplay={5} eventid={event.id} />
 
-      <div className="Event Detail Wrapper w-full px-4 ">
+      <div className="Event Detail Wrapper w-full px-4 sm:px-0 ">
         <section
           id="Event Details Wrapper"
           className={
@@ -89,7 +93,7 @@ export default async function (
             <div className="IconBar text-left prose flex w-full flex-row font-bold dark:prose-invert ">
               <p>{date}</p>
             </div>
-            
+
             <EventHeading
               heading={event.title}
               content={event.headline as string}
@@ -114,7 +118,6 @@ export default async function (
               lng={event.lng as number}
               location={event.location}
             />
-
             <EventAboutSection
               heading="About Event"
               length={event.length.toString()}
@@ -134,14 +137,20 @@ export default async function (
               <Divider className=" mt-4 mb-8" />
             </div>
             <div className="w-full prose dark:prose-invert antialiased ">
+
               {/* {parse(event.eventDescription)}  */}
+              
               <div dangerouslySetInnerHTML={{__html: event.eventDescription}}></div>
-            </div> 
-            {/* <HTMLRender content={event.eventDescription} /> */}
+            </div>
           </article>
         </section>
       </div>
-
+      {/* <button onClick={void api.ticket.sendTicket.mutate({
+        ticketId:"ckq8xv5x80000m3i8x4y2x8c5",
+        recipientEmail:"connor.belez@gmail.com"
+      })}>
+        SEND EMAIL
+      </button> */}
       
       <div className="flex w-full justify-center md:hidden ">
         <Drawer eventHeroImage={event.heroImage} eventName={event.title} eventLocation={event.address} tickets={tickets} />

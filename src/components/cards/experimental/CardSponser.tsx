@@ -120,10 +120,13 @@ export default function Comp({event}:compProps) {
                 </CardHeader>
 
 
+            
 
-            <div className="rounded-[40px] container relative overflow-hidden  h-[300px] w-full dark:shadow-lg dark:hover:shadow-lg shadow-lg shadow-black/60 dark:hover:shadow-violet-600/60 dark:shadow-violet-600/40">
+
+            <Link href={{pathname:"events/" + event.id.toString()}} className="rounded-[40px] container relative overflow-hidden  h-[300px] w-full dark:shadow-lg dark:hover:shadow-lg shadow-lg shadow-black/60 dark:hover:shadow-violet-600/60 dark:shadow-violet-600/40">
                 <Image src={event.heroImage} layout="fill"  alt="Canada Day" />
-            </div>
+            </Link>
+
             {/* <CardHeader>
                 <Divider orientation="vertical" />
                 <CardTitle>Card Title</CardTitle>
