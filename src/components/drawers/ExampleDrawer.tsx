@@ -79,7 +79,7 @@ export default function DrawerDemo({tickets,eventName,eventLocation, eventHeroIm
   const [selectedTicketData, setSelectedTicketData] = useState<HTicketCardProps['ticket'] | undefined>();
   const ticketArr:Array<TicketType> = tickets as Array<TicketType>;
 
-  const sendFreeTicket = api.ticket.sendFreeTicket.useMutation({
+  const sendFreeTicket = api.ticket.sendFreeTicketWithLogo.useMutation({
     onError: (error:any) => {
       console.log("TICKET NOT SENT!");
       console.log(error)
