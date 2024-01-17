@@ -51,9 +51,9 @@ export default async function comp({isPreview}:Props) {
             </span>
           </h2>
         </div>
-        <div className="container col-span-12 sm:col-span-10 overflow-hidden sm:col-start-2 px-4 sm:px-0">
+
           <SideScrollButtons events={events} />
-        </div>
+
       </div>
     )
 }

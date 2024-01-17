@@ -55,13 +55,13 @@ export default function Comp({
     }
 
     return (
-        <div className="container col-span-12 sm:col-span-10 overflow-hidden sm:col-start-2 px-4 sm:px-0">
-        <div ref={scrollContainerRef} className={"SIDESCROLL CONTAINER snap-mandatory snap-x overflow-x-scroll flex space-x-8 flex-row"}>
+        <div className="container col-span-12 sm:col-span-10 z-0 overflow-hidden sm:col-start-2 touch-pan-y sm:px-0">
+        <div ref={scrollContainerRef} className={"SIDESCROLL CONTAINER snap-mandatory z-[201] touch-manipulation snap-x overflow-x-scroll flex space-x-4 "}>
             <div className="SPACER ELEMENT col-span-5 w-full flex-shrink-0"> </div>
               {
                 events.map((event,index:number) => {
                   return (
-                    <SideScrollComponent key={index}  className="">
+                    <SideScrollComponent key={index} horizontal className="">
                       <EventCard key={index} event={event} />
                     </SideScrollComponent>
                   )
@@ -69,7 +69,7 @@ export default function Comp({
               }
             <div className="SPACER ELEMENT col-span-5 w-full flex-shrink-0"> </div>
           </div>
-          <div className="flex justify-between my-2">
+          <div className="flex justify-between my-2 px-6">
 
             <Button 
             variant={'outline'}

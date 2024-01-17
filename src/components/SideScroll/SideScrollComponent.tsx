@@ -3,11 +3,12 @@ import cslx from "clsx";
 interface compProps {
     children: React.ReactNode,
     className?: string,
+    horizontal?: boolean,
 }
 
 
-const ds = "snap-center touch-pan-y flex-shrink-0"
-export default function SideScroll({children, className}: compProps) {
+const ds = "snap-center flex-shrink-0"
+export default function SideScroll({children, className,horizontal}: compProps) {
     // const mouseHandler = (event) => {
     //     var simulatedEvent = new TouchEvent({
     //         mousedown: "touchstart",
@@ -25,12 +26,13 @@ export default function SideScroll({children, className}: compProps) {
     //     });
     //     event.target.dispatchEvent(simulatedEvent);
     // }
+    const snap = horizontal ? "snap-x touch-pan-x" : "snap-y touch-pan-y";
     return (
         <div 
             // onMouseDown={mouseHandler}
             // onMouseMove={mouseHandler}
             // onMouseUp={mouseHandler}
-            className={cslx(ds,className)}>
+            className={cslx(ds,className,)}>
                 {children}
         </div>
     )
