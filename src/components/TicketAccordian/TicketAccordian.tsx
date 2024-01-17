@@ -37,6 +37,7 @@ export default function App({
   const [selectedKeys, setSelectedKeys] = useState(new Set(["-1"]));
   const [selectedTicket, setSelectedTicket] = useState(-1);
   const [selectedTicketData, setSelectedTicketData] = useState<HTicketCardProps['ticket']>();
+
   
   const sendFreeTicket = api.ticket.sendFreeTicket.useMutation({
     
@@ -108,6 +109,7 @@ console.log("DONE")
 
 
 const handleCC = () => {
+  // api.ticket.loadImage.useQuery()
   toast.loading('Checking Out, please wait..')
   router.push(`/checkout?id=${tickets[selectedTicket]?.id}`)
 }
