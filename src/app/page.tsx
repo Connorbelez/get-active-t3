@@ -76,20 +76,20 @@ export default async function (
       </div>
       <AttendingGroup maxDisplay={5} eventid={event.id} />
 
-      <div className="Event Detail Wrapper w-full px-4 sm:px-0 ">
+      <div className="Event Detail Wrapper w-full px-4 md:px-0 max-w-7xl">
         <section
           id="Event Details Wrapper"
           className={
-            "my-12 flex flex-col leading-none sm:grid sm:grid-cols-12 sm:gap-4"
+            "my-12 flex flex-col leading-none lg:grid lg:grid-cols-12 lg:gap-4"
           }
         >
 
 
-          <div className="ACCORIDIAN WRAPPER sticky top-[100px]  w-full max-h-[82px] sm:col-start-8 sm:col-span-5 sm:flex">
+          <div className="ACCORIDIAN WRAPPER sticky top-[100px] hidden  w-full max-h-[82px] lg:col-start-8 lg:col-span-5 lg:flex">
             <TicketAccordian eventHeroImage={event.heroImage} eventName={event.title} eventLocation={event.address} title="SELECT YOUR TICKET" tickets={tickets} />
           </div>
 
-          <div className="sm:col-span-7 row-start-1 sm:col-start-1 ">
+          <div className="lg:col-span-7 row-start-1 lg:col-start-1 ">
             <div className="IconBar text-left prose flex w-full flex-row font-bold dark:prose-invert ">
               <p>{date}</p>
             </div>
@@ -131,9 +131,9 @@ export default async function (
             <Divider className="" />
           </div> */}
 
-          <article className="prose w-full text-left tracking-tighter antialiased dark:prose-invert sm:col-span-7">
+          <article className="prose w-full text-left tracking-tighter antialiased dark:prose-invert lg:col-span-7">
             <h2 className="text-primary">Event Description</h2>
-            <div className="w-full   sm:col-span-7 ">
+            <div className="w-full   lg:col-span-7 ">
               <Divider className=" mt-4 mb-8" />
             </div>
             <div className="w-full prose dark:prose-invert antialiased ">
@@ -152,7 +152,7 @@ export default async function (
         SEND EMAIL
       </button> */}
       
-      <div className="flex w-full justify-center md:hidden ">
+      <div className="flex w-full justify-center lg:hidden ">
         <Drawer eventHeroImage={event.heroImage} eventName={event.title} eventLocation={event.address} tickets={tickets} />
       </div>
     </div>

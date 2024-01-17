@@ -32,7 +32,7 @@ const App: FC = async () => {
 
     const tickets = await api.member.getUsersFulfilledTicketsWithTicketType.query()
     const savedEvents = await api.member.getUsersSavedEvents.query()
-    console.log("\n\n\n\n ================ TICKETS :================= \n", tickets[0])
+
     // console.log("\n\n\n\n ================ EVENTS :================= \n", savedEvents)
     const user = {
         name: session?.user?.name,

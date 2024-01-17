@@ -2,7 +2,7 @@
 import { Accordion, AccordionItem, Button} from "@nextui-org/react";
 import { MapPin, MapPinnedIcon } from "lucide-react";
 import { Ticket, Banknote, CreditCard } from "lucide-react"
-
+import SideScrollRoot from "@/components/SideScroll/SideScrollTIckets";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import TicketCard, {
@@ -155,9 +155,8 @@ const handleCC = () => {
         )}
         title={title}
       >
-        {tickets.map((ticket: TicketType, index: number) => {
-          return <TicketCard key={index} _key={index} ticket={ticket} selectedTicket={selectedTicket} setSelectedTicket={setSelectedTicket} setSelectedTicketData={setSelectedTicketData} />
-        })}
+          <SideScrollRoot selectedTicketData={selectedTicketData} setSelectedTicketData={setSelectedTicketData} tickets={tickets} setSelectedTicket={setSelectedTicket} stateKey={selectedTicket}/>
+
             <div className="w-full grid grid-cols-2 h-[105px] items-center" >
               <div className="flex space-x-2 items-center">
                   {
