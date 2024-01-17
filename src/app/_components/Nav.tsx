@@ -15,7 +15,7 @@ export default async function App() {
     "Home",
     "Events",
     "Dashboard",
-    "Log Out",
+    // "Log Out",
   ];
 
   // const session = await getServerAuthSession();
