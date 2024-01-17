@@ -40,7 +40,7 @@ export default async function App() {
         /> */}
         <Link href="/" >
             <NavbarBrand >
-              <Image src={"/Logo.ico"} width={40} height={40} alt="Get Active Logo" />
+              <Image src={"/favicon.ico"} width={40} height={40} alt="Get Active Logo" />
               <p className=" ml-2 font-bold text-inherit">GET ACTIVE</p>
             </NavbarBrand>
         </Link>
