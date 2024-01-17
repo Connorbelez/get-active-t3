@@ -160,7 +160,7 @@ export const EventTicketEmail = ({
               padding: '10px',
               width: '100%'}
           }>
-            <Img style={logo} src={`https://get-active.app/Logo.png`} />
+            <Img style={logo} src={`https://get-active.app/favicon.ico`} />
             <Text style={textStyle}>Get Active Ticket</Text>
           </Container>
 

@@ -163,7 +163,8 @@ export const ticketRouter = createTRPCRouter({
         const imageBuffer = await generateQRCodeWithLogo(dataURI);
 
         // console.log("EMAIL: ");
-        const html = await render(EventTicketEmail({customerName: email as string, ticketId: "123", eventName: ticketAndEventData.event.title, eventLocation: ticketAndEventData.event.address, heroImage:ticketAndEventData.event.heroImage, qrSrc:"cid:dynamic_image"}));
+        console.log("TICKET DATA: ", ticketD)
+        const html = await render(EventTicketEmail({customerName: email as string, ticketId: "123", eventName: ticketAndEventData.event.title, eventLocation: ticketD.eventLocation, heroImage:ticketAndEventData.event.heroImage, qrSrc:"cid:dynamic_image"}));
         // console.log(html);
 
         const res = await transporter.sendMail({
@@ -402,7 +403,7 @@ export const ticketRouter = createTRPCRouter({
     // console.log("EMAIL: ");
     console.log("CHECKOUT DATA LOGO:", checkoutData.priceProduct.metadata.logo)
     const logo = checkoutData.checkoutProduct.heroImage;
-    const html = await render(EventTicketEmail({customerName: checkoutData.customer.name, ticketId: "123", eventName: checkoutData.priceProduct.metadata.eventTitle, heroImage:checkoutData.priceProduct.metadata.eventHeroImage,eventLocation: "HARDCODED", qrSrc:"cid:dynamic_image",receiptUrl: receiptUrl}));
+    const html = await render(EventTicketEmail({customerName: checkoutData.customer.name, ticketId: ticketD.id, eventName: checkoutData.priceProduct.metadata.eventTitle, heroImage:checkoutData.priceProduct.metadata.eventHeroImage,eventLocation: ticketD.eventLocation, qrSrc:"cid:dynamic_image",receiptUrl: receiptUrl}));
 
     const email = checkoutData.customer.email ? checkoutData.customer.email : checkoutData.checkoutProduct.userSessionEmail;
 

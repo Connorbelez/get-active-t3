@@ -24,7 +24,7 @@ const Nav = dynamic(() => import("@/app/_components/Nav"));
 export const metadata = {
   title: "Get Active",
   description: "Get Active V3 T3",
-  icons: [{ rel: "icon", url: "/Logo.ico" }],
+  icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
 export default async function RootLayout({

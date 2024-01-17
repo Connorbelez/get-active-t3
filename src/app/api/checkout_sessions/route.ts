@@ -6,69 +6,73 @@ import {env} from "@/env";
 // import { NextApiRequest, NextApiResponse } from "next";
 // import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/server/auth";
+import { set } from "zod";
 
 
 // const id = process.env.NODE_ENV === "production" ? env.STRIPE_SECRET_KEY : env.STRIPE_SECRET_KEY_DEV
 const id = env.STRIPE_SECRET_KEY_DEV
 const stripe = require('stripe')(id);
-async function createTicketProduct(name,eventName, eventid, price,ticketData,userEmail){
-    const product = await stripe.products.create({
-        name: name,
-        images:["https://i.imgur.com/lJS8onS.png","https://i.imgur.com/HOcHl4h.png"],
-        metadata: { 
-          metaDataTag: "TICKET PRODUCT METADATA",        
-          eventId: ticketData.eventId,
-          eventTitle: ticketData.event.title,
-          eventAddress: ticketData.event.address,
-          eventStartTime: ticketData.event.startTime,
-          eventStartDate: ticketData.event.startDate,
-          eventHeroImage: ticketData.event.heroImage,
-          id: ticketData.id,
-          name: ticketData.name,
-          price: ticketData.price,
-          paymentOweing: ticketData.paymentOweing,
-          drinksIncluded: ticketData.drinksIncluded,
-          foodIncluded: ticketData.foodIncluded,
-          logo: ticketData.logo,
-          ticketDescription: JSON.stringify(ticketData.ticketDescription) as string,
-          userSessionEmail: userEmail,
-        },
-    });
-    const priceObject = await stripe.prices.create({
-        unit_amount: price * 100,
-        currency: 'CAD',
-        product: product.id,
-        metadata: product.metadata
-    });
+// async function createTicketProduct(name,eventName, eventid, price,ticketData,userEmail){
+//     const product = await stripe.products.create({
+//         name: name,
+//         images:["https://i.imgur.com/lJS8onS.png","https://i.imgur.com/HOcHl4h.png"],
+//         metadata: { 
+//           metaDataTag: "TICKET PRODUCT METADATA",        
+//           eventId: ticketData.eventId,
+//           eventTitle: ticketData.event.title,
+//           eventAddress: ticketData.event.address,
+//           eventStartTime: ticketData.event.startTime,
+//           eventStartDate: ticketData.event.startDate,
+//           eventHeroImage: ticketData.event.heroImage,
+//           id: ticketData.id,
+//           name: ticketData.name,
+//           price: ticketData.price,
+//           paymentOweing: ticketData.paymentOweing,
+//           drinksIncluded: ticketData.drinksIncluded,
+//           foodIncluded: ticketData.foodIncluded,
+//           logo: ticketData.logo,
+//           ticketDescription: JSON.stringify(ticketData.ticketDescription) as string,
+//           userSessionEmail: userEmail,
+//         },
+//     });
+//     const priceObject = await stripe.prices.create({
+//         unit_amount: price * 100,
+//         currency: 'CAD',
+//         product: product.id,
+//         metadata: product.metadata
+//     });
 
-    return priceObject
-}
+//     return priceObject
+// }
 
 
 async function handler(req:NextRequest) {
-const session = await getServerAuthSession();
+  console.log("CHECKOUT SESSION HANDLER")
+//   const session = await new Promise(resolve => setTimeout(async () => {
+//     console.log("Attempting to resolve session")
+//     const result = await getServerAuthSession();
+//     resolve(result);
+// }, 1000));
 // const cookies = req.cookies.getAll();
 // const res = NextResponse.next();
-const headers = new Headers(req.headers)
-console.log("CHECKOUT SESSION")
-if (!session || !session.user) {
-    
-    return NextResponse.json({ message: "Unauthorized",status: 401 });
-    
-}
-  const user = session.user;
+  const headers = new Headers(req.headers)
+  console.log("CHECKOUT SESSION")
 
-  const sessionObj = session
+  //@ts-ignore
+  // const user = session? session.user : null;
+
+  // const sessionObj = session
 
 
-  console.log("USER: ", user)
+  // console.log("USER: ", user)
   switch (req.method) {
     case "POST":
       try {
         console.log("POST")
         const body = await req.json()
         console.log("BODY FROM ROUTE.JS POST: ", body)
-        // console.log(body)
+        // console.table(body)
         const ticketId = body.ticketId;
         // ////console.log("=================TICKET ID FROM ROUTE.JS: ", ticketId)
         //ToDo: CHnage this and hte route to use the stripe price id instead of the ticket id
@@ -103,7 +107,7 @@ if (!session || !session.user) {
         // const priceObj = await createTicketProduct(ticketData.name, ticketData.event.title, ticketData.eventId, ticketData.price, ticketData,user.email);
 
         // //console.log("PRICE OBJ: ", priceObj)
-        // console.log(priceObj)
+        // console.table(priceObj)
         //console.log("CREATING CHECKOUT SESSION WITH POST!")
         // Create Checkout Sessions from body params.
         const retUrl = process.env.NODE_ENV === "production" ? `https://getaktive.vercel.app/checkout/return?session_id={CHECKOUT_SESSION_ID}` : `https://localhost:3000/checkout/return?session_id={CHECKOUT_SESSION_ID}`
@@ -123,8 +127,8 @@ if (!session || !session.user) {
           
           metadata: {        
             metaDataTag: "CHECKOUT TICKET METADATA",    
-            userSessionEmail: user.email,
-            userSession:JSON.stringify(sessionObj) as string,
+            userSessionEmail: "NA",
+            userSession: "NA",
             eventHeroImage: ticketData.event.heroImage,
             eventId: ticketData.eventId,
           },
@@ -142,7 +146,7 @@ if (!session || !session.user) {
       }
     case "GET":
       console.log("GETTING CHECKOUT SESSION")
-      console.log(req)
+      console.table(req)
 
       try {
 

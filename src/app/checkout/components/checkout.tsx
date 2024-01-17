@@ -45,8 +45,8 @@ export default function App() {
       })
       .then((data) => {
         return data.json().then((dataJson) => {
-          console.log('client Secret: ')
-          console.log(dataJson.clientSecret)
+          // console.log('client Secret: ')
+          // console.log(dataJson.clientSecret)
           setTempClientSecret(dataJson.clientSecret)
         })
       })
