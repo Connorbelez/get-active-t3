@@ -47,11 +47,11 @@ export async function POST(req: Request) {
     const ev = process.env.NODE_ENV
 if(ev == "development"){
   // do something
-  webhookSecret = envVar.STRIPE_DEV_WEBHOOOK_SECRET;
+  webhookSecret = "whsec_f9091769aa4af3b55279b6940bbf0bd4631a32f5ba6e3e4695c87a1534d2a332";
 }
 else if (ev == "production"){
  // do something
-webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+webhookSecret = envVar.STRIPE_DEV_WEBHOOOK_SECRET;
 }
    
     let event;
@@ -119,11 +119,19 @@ webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
                             expand: ['line_items'],
                         }
                     );
+                
+                    console.log("ATTEMPTING TO SEND TICKET: ", event.data.object.id)
+                    try{
+
+                        const res = await api.ticket.sendTicket.mutate({
+                            id:event.data.object.id
+                        })
+                        console.log("RES FROM WEBHOOK: ", res)
+                    }catch(err){
+                        console.error("ERROR FROM WEBHOOK after sending ticket: ", err)
+                    }
 
 
-                    void api.ticket.sendTicket.query({
-                        id:event.data.object.id
-                    })
                     const lineItems = sessionWithLineItems.line_items;
                     const price = lineItems.data[0].price
                     const amount = price.unit_amount_decimal
@@ -133,11 +141,11 @@ webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
                     const customerEmail = customer.email
                     const name = customer.name
                     
-                    const checkoutData = {
-                        checkoutProduct: product,
-                        priceProduct: price,
-                        customer: customer,
-                    }
+                    // const checkoutData = {
+                    //     checkoutProduct: product,
+                    //     priceProduct: price,
+                    //     customer: customer,
+                    // }
 
                     // console.log("\n\nCHECKOUT DATA FROM WEBHOOK: ", checkoutData)
 

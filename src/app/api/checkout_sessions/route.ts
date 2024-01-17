@@ -146,7 +146,8 @@ async function handler(req:NextRequest) {
       }
     case "GET":
       console.log("GETTING CHECKOUT SESSION")
-      console.table(req)
+      console.log("REQ: ", req)
+      // console.table(req)
 
       try {
 

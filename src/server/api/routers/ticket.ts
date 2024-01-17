@@ -65,15 +65,15 @@ export const ticketRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
 
       //Check if user already has a ticket for this event
-      const existingTicket = await ctx.db.fulfilledTicket.findFirst({
-        where:{
-          userId: ctx.session.user.id,
-          ticketId: input.ticketId,
-        }
-      })
-      if(existingTicket){
-        throw new Error("You already have a ticket for this event")
-      }
+      // const existingTicket = await ctx.db.fulfilledTicket.findFirst({
+      //   where:{
+      //     userId: ctx.session.user.id,
+      //     ticketId: input.ticketId,
+      //   }
+      // })
+      // if(existingTicket){
+      //   throw new Error("You already have a ticket for this event")
+      // }
 
       const ticketAndEventData = await ctx.db.ticketType.findUnique({
         where: {
@@ -196,7 +196,7 @@ export const ticketRouter = createTRPCRouter({
       .input(z.object({
         id:z.string()
       }))
-      .query(async ({ ctx,input }) => {
+      .mutation(async ({ ctx,input }) => {
         const stripeCheckoutID = input.id;
         const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
           // @ts-ignore
@@ -237,25 +237,48 @@ export const ticketRouter = createTRPCRouter({
         name: "",
       };
 
-      try{
+      // try{
 
-        sessionObj = JSON.parse(checkoutData.checkoutProduct.userSession);
-        if(sessionObj && sessionObj['user']){
-          userObj.id= sessionObj['user']['id'];
-          userObj.name= sessionObj['user']['id'];
-          userObj.email= sessionObj['user']['email'];
-        }
+      //   sessionObj = JSON.parse(checkoutData.checkoutProduct.userSession);
+      //   if(sessionObj && sessionObj['user']){
+      //     userObj.id= sessionObj['user']['id'];
+      //     userObj.name= sessionObj['user']['id'];
+      //     userObj.email= sessionObj['user']['email'];
+      //   }
 
-      }catch(err){
-        console.log("ERROR PARSING SESSION OBJ: ", err);
-        sessionObj = undefined
-      }
-      if(checkoutData.checkoutProduct.userSessionEmail){
-        userObj.email = checkoutData.checkoutProduct.userSessionEmail;
-      }
+      // }catch(err){
+      //   console.log("ERROR PARSING SESSION OBJ: ", err);
+      //   sessionObj = undefined
+      // }
+      // if(checkoutData.checkoutProduct.userSessionEmail){
+      //   userObj.email = checkoutData.checkoutProduct.userSessionEmail;
+      // }
 
       // LOG STRIPE TRANSACTION
+      console.log("LOGGING STRIPE TRANSACTION FROM SEND TICKET TRPC")
+      
+      console.log("FROM SEND TICKET: SENDING EMAIL: " )
+      
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+          user: process.env.EMAIL_USERNAME,
+          pass: process.env.EMAIL_PASSWORD,
+        },
+      });
+      
       try{
+
+        const price = checkoutData.priceProduct.unit_amount_decimal
+        //check if string 
+        console.log("PARSING PRICE: ", price )
+        const priceInt = parseInt(price);
+        console.log("PARSED PRICE: ", priceInt )
+
+        console.log("CREATING TRANSACTION")
 
         const stripeTransaction = await ctx.db.stripeTransaction.create({
           data:{
@@ -275,29 +298,16 @@ export const ticketRouter = createTRPCRouter({
             productMetadata: checkoutData.priceProduct.metadata,
             customerMetadata: checkoutData.customer,
             ticketId: checkoutData.priceProduct.metadata.ticketId,
-            price: checkoutData.priceProduct.unit_amount_decimal,
+            price: priceInt,
             paid: true,
           }
         })
   
         console.log("\n\n\n STRIPE TRANSACTION: ", stripeTransaction);
+
       }catch(err){
         console.log("ERROR INSERTING STRIPE TRANSACTION", err);
       }
-
-
-
-      const transporter = nodemailer.createTransport({
-        service: "gmail",
-        host: "smtp.gmail.com",
-        port: 587,
-        secure: false,
-        auth: {
-            user: process.env.EMAIL_USERNAME,
-            pass: process.env.EMAIL_PASSWORD,
-        },
-    });
-
     // console.log("EMAIL:",email);
     const ticketId = checkoutData.priceProduct.metadata.ticketId;
 
@@ -352,7 +362,7 @@ export const ticketRouter = createTRPCRouter({
     //   eventStartTime: ticketAndEventData?.event.startTime,
     //   eventStartDate: ticketAndEventData?.event.startDate,
     // }
-
+    console.log("TRYING TO FIND EVENT AND TICKET DATA")
     const eventAndTicketData = await ctx.db.event.findUnique({
       
       where:{
@@ -369,6 +379,7 @@ export const ticketRouter = createTRPCRouter({
       }
     })
    
+
     const ticketD = {
       id: eventAndTicketData?.ticketTypes[0]?.id as string,
       name: eventAndTicketData?.ticketTypes[0]?.name,
@@ -401,15 +412,15 @@ export const ticketRouter = createTRPCRouter({
       paymentOweing:false
     })
     const base64Payload = Buffer.from(payload).toString('base64');
-    // const dataURI = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${base64Payload}`;
-    const imageBuffer = await generateQRCodeWithLogo(base64Payload);
+    const dataURI = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${base64Payload}`;
+    const imageBuffer = await generateQRCodeWithLogo(dataURI);
 
     // console.log("EMAIL: ");
     console.log("CHECKOUT DATA LOGO:", checkoutData.priceProduct.metadata.logo)
     const logo = checkoutData.checkoutProduct.heroImage;
     const html = await render(EventTicketEmail({customerName: checkoutData.customer.name, ticketId: ticketD.id, eventName: checkoutData.priceProduct.metadata.eventTitle, heroImage:checkoutData.priceProduct.metadata.eventHeroImage,eventLocation: ticketD.eventLocation, qrSrc:"cid:dynamic_image",receiptUrl: receiptUrl}));
 
-    const email = checkoutData.customer.email ? checkoutData.customer.email : checkoutData.checkoutProduct.userSessionEmail;
+    const email = checkoutData.customer.email as string;
 
     const res = await transporter.sendMail({
         from: 'getactive.ticketservice@gmail.com', // sender address
@@ -426,8 +437,8 @@ export const ticketRouter = createTRPCRouter({
         ]
       });
 
-      // console.log("RESPONSE: ", res);
-      // console.log(res);
+      console.log("RESPONSE: ", res);
+      console.log(res);
       return res;
 
 
