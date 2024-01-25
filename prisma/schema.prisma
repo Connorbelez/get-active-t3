@@ -227,7 +227,7 @@ model StripeTransaction {
 
   ticketId String?
 
-  stripePriceId String @unique
+  stripePriceId String 
 
   customerMetadata Json?
 

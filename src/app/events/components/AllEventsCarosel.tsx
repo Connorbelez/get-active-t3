@@ -17,7 +17,7 @@ interface Props {
 export default async function comp({isPreview}:Props) {
     const events = await getPublicEventsMinimal();
 
-
+    console.log("events",events)
     return (
         <div className="my-16 grid grid-flow-row grid-cols-12 justify-items-center gap-y-5">
         

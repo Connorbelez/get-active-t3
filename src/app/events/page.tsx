@@ -21,6 +21,7 @@ export default async function Home() {
       
       <div className="flex flex-col justify-center w-screen ">
 
+
         <HeroDivider1 />
 
         <LogoGrid />

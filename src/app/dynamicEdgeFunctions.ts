@@ -68,7 +68,8 @@ export async function getPublicEventsMinimal(){
           orgId: false,
           lat: false,
           lng: false,
-        }
+        },
+        cacheStrategy: { ttl: 60 },
       });
       return events;
 }

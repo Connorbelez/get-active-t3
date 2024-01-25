@@ -253,6 +253,9 @@ export const eventRouter = createTRPCRouter({
       revalidatePath("/api/events/getEvents")
       revalidatePath("/api/events/*")
       revalidatePath("/api/events/getFeaturedEvent")
+      revalidatePath("/events")
+      revalidatePath("/dashboard")
+      revalidatePath("/dashboard/manageevents")
       return ctx.db.$transaction(async (prisma) => {
         const token =  process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
         const addr = input.address.replaceAll(" ", "%20");
@@ -479,6 +482,11 @@ export const eventRouter = createTRPCRouter({
               }
             });
 
+
+            revalidatePath("/events")
+            revalidatePath("/dashboard")
+            revalidatePath("/dashboard/manageevents")
+            revalidatePath("/")
             //Now do the same for the tickets
             const tickets = await ctx.db.ticketType.updateMany({
               where: {
@@ -490,6 +498,8 @@ export const eventRouter = createTRPCRouter({
             });
             return {event, tickets, deleted: false};
           }
+         
+
         }),
 
         archiveEvent: protectedProcedure
@@ -507,6 +517,8 @@ export const eventRouter = createTRPCRouter({
               active: false
             }
           });
+
+
 
           //Now do the same for the tickets
           const tickets = await ctx.db.ticketType.updateMany({

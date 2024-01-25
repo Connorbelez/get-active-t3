@@ -26,7 +26,6 @@ const relevantEvents = new Set([
 
     'checkout.session.completed',
     'payment_intent.succeeded',
-    'payment_intent.succeeded',
     // 'checkout.session.async_payment_succeeded',
     // 'checkout.session.async_payment_failed',
     // 'checkout.session.failed',

@@ -11,4 +11,7 @@ export async function revalid() {
  
   
   revalidatePath('/')
+  revalidatePath("/events")
+  revalidatePath("/dashboard")
+  revalidatePath("/dashboard/manageevents")
 }

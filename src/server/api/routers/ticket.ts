@@ -9,6 +9,7 @@ import {
 } from "@/server/api/trpc";
 import {env as envVar} from "@/env";
 import { EventTicketEmail } from "@/emails/SendTicketEmail";
+import { NextResponse } from "next/server";
 
 const Stripe = require('stripe');
 
@@ -313,55 +314,6 @@ export const ticketRouter = createTRPCRouter({
 
 
 
-    // const ticket = await ctx.db.ticketType.findUnique({
-    //   where:{
-    //     id:ticketId
-    //   }
-    // })
-    // const payload = JSON.stringify({
-    //   ticketData: ticketD,
-    //   ticketDescription: ticketAndEventData.ticketDescription,
-    //   customer: {
-    //     name: name,
-    //     email: email,
-    //   },
-    //   paymentOweing: paymentOweing
-    // })
-    // const ticketAndEventData = await ctx.db.ticketType.findUnique({
-    //   where: {
-    //       id: ticketId,
-    //   },
-    //   include: {
-    //       event: {
-    //         select:{
-    //           id: true,
-    //           title: true,
-    //           address: true,
-    //           startTime: true,
-    //           startDate: true,
-    //           eventDescription: false,
-    //           heroImage: true,
-    //         },
-    //       },
-    //   },
-    // })
-
-    // const ticketD = {
-    //   id: ticketAndEventData?.id,
-    //   name: ticketAndEventData?.name,
-    //   price: ticketAndEventData?.price,
-    //   paymentOweing: false,
-    //   eventId: ticketAndEventData?.eventId,
-    //   // ticketDescription: ticketAndEventData.ticketDescription,
-    //   drinksIncluded: ticketAndEventData?.drinksIncluded,
-    //   foodIncluded: ticketAndEventData?.foodIncluded,
-    //   logo: ticketAndEventData?.logo,
-    //   eventTitle: ticketAndEventData?.event.title,
-    //   eventLocation: ticketAndEventData?.event.address,
-    //   eventHeroImage: ticketAndEventData?.event.heroImage,
-    //   eventStartTime: ticketAndEventData?.event.startTime,
-    //   eventStartDate: ticketAndEventData?.event.startDate,
-    // }
     console.log("TRYING TO FIND EVENT AND TICKET DATA")
     const eventAndTicketData = await ctx.db.event.findUnique({
       
@@ -439,7 +391,7 @@ export const ticketRouter = createTRPCRouter({
 
       console.log("RESPONSE: ", res);
       console.log(res);
-      return res;
+      return NextResponse.json({"Response:": res, status: 200})
 
 
 
